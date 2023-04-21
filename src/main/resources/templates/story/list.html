@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="krg">
+<head>
+    <!-- Favicon and Touch Icons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <link rel="mask-icon" color="#6366f1" href="../assets/favicon/safari-pinned-tab.svg">
+    <meta name="msapplication-TileColor" content="#080032">
+    <meta name="msapplication-config" content="../assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="white">
+
+    <style>
+        .page-loading {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: all .4s .2s ease-in-out;
+            transition: all .4s .2s ease-in-out;
+            background-color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 9999;
+        }
+        .dark-mode .page-loading {
+            background-color: #121519;
+        }
+        .page-loading.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .page-loading-inner {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: opacity .2s ease-in-out;
+            transition: opacity .2s ease-in-out;
+            opacity: 0;
+        }
+        .page-loading.active > .page-loading-inner {
+            opacity: 1;
+        }
+        .page-loading-inner > span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            color: #6f788b;
+        }
+        .dark-mode .page-loading-inner > span {
+            color: #fff;
+            opacity: .6;
+        }
+        .page-spinner {
+            display: inline-block;
+            width: 2.75rem;
+            height: 2.75rem;
+            margin-bottom: .75rem;
+            vertical-align: text-bottom;
+            background-color: #d7dde2;
+            border-radius: 50%;
+            opacity: 0;
+            -webkit-animation: spinner .75s linear infinite;
+            animation: spinner .75s linear infinite;
+        }
+        .dark-mode .page-spinner {
+            background-color: rgba(255,255,255,.25);
+        }
+        @-webkit-keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+        @keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+    </style>
+
+    <!-- Page loading scripts-->
+    <script>
+        (function () {
+            window.onload = function () {
+                const preloader = document.querySelector('.page-loading');
+                preloader.classList.remove('active');
+                setTimeout(function () {
+                    preloader.remove();
+                }, 1500);
+            };
+        })();
+
+    </script>
+    <!-- Import Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font">
+    <!-- Vendor styles-->
+    <link rel="stylesheet" media="screen" href="../assets/vendor/aos/dist/aos.css"/>
+    <link rel="stylesheet" media="screen" href="../assets/vendor/img-comparison-slider/dist/styles.css"/>
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css">
+</head>
+<body>
+<!-- Change to .container-fluid for full width navbar -->
+
+<!-- Menu with dropdown + Button -->
+<header class="navbar navbar-expand-lg bg-light">
+    <div class="container">
+        <a href="#" class="navbar-brand">
+      <span class="text-primary flex-shrink-0 me-2">
+        <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+          <path fill= "#57B0E2" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+        </svg>
+      </span>
+            S-With
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <nav class="collapse navbar-collapse" id="navbarCollapse1">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item active">
+                    <a href="#" class="nav-link">매칭라운지</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">서포터팀</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">플레이윗미</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">스토리</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item">매칭라운지 글 쓰기</a></li>
+                        <li><a href="#" class="dropdown-item">서포터팀원 구하기</a></li>
+                        <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
+                        <li class="dropdown-divider"> </li>
+                        <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
+                        <li href="#"><a class="dropdown-item">스토리 생성</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                <i class="ai-user me-2 ms-n1"></i>
+                로그인
+            </a>
+        </nav>
+    </div>
+</header>
+    <div style="margin: 0 auto;">
+    <h2 class="mb-lg-2 mt-lg-5" style="color:#003986;"><img src="../assets/img/swith/free-icon-popularity-1685418.png" width="4%"> 인기스토리</h2>
+    <!-- Simple post preview card -->
+    <div class="row row-cols-1 row-cols-sm-2 gy-3 mb-4">
+        <!-- Image on top -->
+        <div class="card mx-3 p-0" style="max-height: 400px; max-width: 310px">
+            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
+            <div class="card-body px-lg-5 py-lg-4">
+                <h5 href="#" class="card-title">Card title</h5>
+                <p class="card-text">내용......</p>
+            </div>
+        </div>
+
+        <!-- Image on top -->
+        <div class="card mx-3 p-0" style="max-height: 400px; max-width: 310px">
+            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
+            <div class="card-body px-lg-5 py-lg-4">
+                <h5 href="#" class="card-title">Card title</h5>
+                <p class="card-text">내용......</p>
+            </div>
+        </div>
+
+        <!-- Image on top -->
+        <div class="card mx-3 p-0" style="max-height: 400px; max-width: 310px">
+            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
+            <div class="card-body px-lg-5 py-lg-4">
+                <h5 href="#" class="card-title">Card title</h5>
+                <p class="card-text">내용......</p>
+            </div>
+        </div>
+
+        <!-- Image on top -->
+        <div class="card mx-3 p-0" style="max-height: 400px; max-width: 310px">
+            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
+            <div class="card-body px-lg-5 py-lg-4">
+                <h5 href="#" class="card-title">Card title</h5>
+                <p class="card-text">내용......</p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Page title + filters-->
+    <div class="row align-items-center gy-2 mb-2 pb-1 pb-sm-2 pb-lg-3">
+        <div class="col-lg-5">
+            <h2 class="mb-lg-0" style="color:#003986"> 스토리</h2>
+            <a> 스윗!에 다양한 이야기</a>
+        </div>
+        <div class="col-xl-2 offset-xl-0 col-lg-3 col-sm-5 ms-xl-auto">
+            <select class="form-select">
+                <option>모든 작성자</option>
+                <option>개인</option>
+                <option>서포터팀</option>
+            </select>
+        </div>
+        <div class="col-xl-2 offset-xl-0 col-lg-3 col-sm-5">
+            <select class="form-select">
+                <option>모든 유형</option>
+                <option>근황</option>
+                <option>정보</option>
+                <option>후기</option>
+                <option>홍보</option>
+            </select>
+        </div>
+        <div class="col-lg-3 col-sm-7">
+            <div class="position-relative"><i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                <input class="form-control ps-5" type="search" placeholder="Enter keyword">
+            </div>
+        </div>
+    </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4">
+            <div class="d-flex align-items-start py-2">
+                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+                <div class="d-md-flex w-75 ps-4">
+                    <div style="max-width: 50rem;">
+                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                        <h3 class="h5 mb-0">Darlene Robertson</h3>
+                        <p class="fs-xs mb-2"> 작성자</p>
+                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                    </div>
+
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                        <div class="d-flex">
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                                <i class="ai-show"> 20</i>
+                            </a>
+                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                                <i class="ai-message"> 20</i>
+                            </a>
+                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                                <i class="ai-heart"> 20</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!-- 마진 설정 -->
+
+<br><br><br>
+<footer class="footer bg-light py-5" style="position: relative; bottom ">
+    <div class="container" style="background: #F8FAFF">
+        <ul class="nav justify-content- py-1 pb-sm-1">
+            <li class="nav-item"><a class="nav-link py-1 pt-2 px-3 mx-1" href="#" style="font-size: 1.6rem; font-family: Arial; ">S-With</a></li>
+        </ul>
+        <ul class="nav">
+            <li class="nav-item" style="margin-right: auto; padding-left:10px ; color: gray;">contact wnduq@gmail.com</li>
+            <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">이용약관</a>
+            <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">개인정보처리방침</a>
+            <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">서비스소개</a>
+        </ul>
+        <ul class="nav">
+            <li class="nav justify-content" style="margin-right: auto; padding-left:10px; color: gray;">Copyright S-With. All rights reserved
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>
