@@ -1,296 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Around | Marketing Agency</title>
-    <!-- SEO Meta Tags-->
-    <meta
-      name="description"
-      content="Around - Multipurpose Bootstrap HTML Template"
-    />
-    <meta
-      name="keywords"
-      content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative"
-    />
-    <meta name="author" content="Createx Studio" />
-    <!-- Viewport-->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Favicon and Touch Icons-->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="../assets/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="../assets/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="../assets/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
-    <link
-      rel="mask-icon"
-      color="#6366f1"
-      href="../assets/favicon/safari-pinned-tab.svg"
-    />
-    <meta name="msapplication-TileColor" content="#080032" />
-    <meta
-      name="msapplication-config"
-      content="../assets/favicon/browserconfig.xml"
-    />
-    <meta name="theme-color" content="white" />
-    <!-- Theme mode-->
-    <script>
-      let mode = window.localStorage.getItem("mode"),
-        root = document.getElementsByTagName("html")[0];
-      if (mode !== undefined && mode === "dark") {
-        root.classList.add("dark-mode");
-      } else {
-        root.classList.remove("dark-mode");
+<head>
+  <meta charset="utf-8" />
+  <title>Around | Marketing Agency</title>
+  <!-- SEO Meta Tags-->
+  <meta
+          name="description"
+          content="Around - Multipurpose Bootstrap HTML Template"
+  />
+  <meta
+          name="keywords"
+          content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative"
+  />
+  <meta name="author" content="Createx Studio" />
+  <!-- Viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Favicon and Touch Icons-->
+  <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="../assets/favicon/apple-touch-icon.png"
+  />
+  <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="../assets/favicon/favicon-32x32.png"
+  />
+  <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="../assets/favicon/favicon-16x16.png"
+  />
+  <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+  <link
+          rel="mask-icon"
+          color="#6366f1"
+          href="../assets/favicon/safari-pinned-tab.svg"
+  />
+  <meta name="msapplication-TileColor" content="#080032" />
+  <meta
+          name="msapplication-config"
+          content="../assets/favicon/browserconfig.xml"
+  />
+  <meta name="theme-color" content="white" />
+  <!-- Theme mode-->
+  <script>
+    let mode = window.localStorage.getItem("mode"),
+            root = document.getElementsByTagName("html")[0];
+    if (mode !== undefined && mode === "dark") {
+      root.classList.add("dark-mode");
+    } else {
+      root.classList.remove("dark-mode");
+    }
+  </script>
+  <!-- Page loading styles-->
+  <style>
+    .page-loading {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: all 0.4s 0.2s ease-in-out;
+      transition: all 0.4s 0.2s ease-in-out;
+      background-color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 9999;
+    }
+    .dark-mode .page-loading {
+      background-color: #121519;
+    }
+    .page-loading.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .page-loading-inner {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-transition: opacity 0.2s ease-in-out;
+      transition: opacity 0.2s ease-in-out;
+      opacity: 0;
+    }
+    .page-loading.active > .page-loading-inner {
+      opacity: 1;
+    }
+    .page-loading-inner > span {
+      display: block;
+      font-family: "Inter", sans-serif;
+      font-size: 1rem;
+      font-weight: normal;
+      color: #6f788b;
+    }
+    .dark-mode .page-loading-inner > span {
+      color: #fff;
+      opacity: 0.6;
+    }
+    .page-spinner {
+      display: inline-block;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: 0.75rem;
+      vertical-align: text-bottom;
+      background-color: #d7dde2;
+      border-radius: 50%;
+      opacity: 0;
+      -webkit-animation: spinner 0.75s linear infinite;
+      animation: spinner 0.75s linear infinite;
+    }
+    .dark-mode .page-spinner {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+    @-webkit-keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
       }
-    </script>
-    <!-- Page loading styles-->
-    <style>
-      .page-loading {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        -webkit-transition: all 0.4s 0.2s ease-in-out;
-        transition: all 0.4s 0.2s ease-in-out;
-        background-color: #fff;
-        opacity: 0;
-        visibility: hidden;
-        z-index: 9999;
-      }
-      .dark-mode .page-loading {
-        background-color: #121519;
-      }
-      .page-loading.active {
+      50% {
         opacity: 1;
-        visibility: visible;
+        -webkit-transform: none;
+        transform: none;
       }
-      .page-loading-inner {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-transition: opacity 0.2s ease-in-out;
-        transition: opacity 0.2s ease-in-out;
-        opacity: 0;
+    }
+    @keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
       }
-      .page-loading.active > .page-loading-inner {
+      50% {
         opacity: 1;
+        -webkit-transform: none;
+        transform: none;
       }
-      .page-loading-inner > span {
-        display: block;
-        font-family: "Inter", sans-serif;
-        font-size: 1rem;
-        font-weight: normal;
-        color: #6f788b;
-      }
-      .dark-mode .page-loading-inner > span {
-        color: #fff;
-        opacity: 0.6;
-      }
-      .page-spinner {
-        display: inline-block;
-        width: 2.75rem;
-        height: 2.75rem;
-        margin-bottom: 0.75rem;
-        vertical-align: text-bottom;
-        background-color: #d7dde2;
-        border-radius: 50%;
-        opacity: 0;
-        -webkit-animation: spinner 0.75s linear infinite;
-        animation: spinner 0.75s linear infinite;
-      }
-      .dark-mode .page-spinner {
-        background-color: rgba(255, 255, 255, 0.25);
-      }
-      @-webkit-keyframes spinner {
-        0% {
-          -webkit-transform: scale(0);
-          transform: scale(0);
-        }
-        50% {
-          opacity: 1;
-          -webkit-transform: none;
-          transform: none;
-        }
-      }
-      @keyframes spinner {
-        0% {
-          -webkit-transform: scale(0);
-          transform: scale(0);
-        }
-        50% {
-          opacity: 1;
-          -webkit-transform: none;
-          transform: none;
-        }
-      }
-    </style>
-    <!-- Page loading scripts-->
-    <script>
-      (function () {
-        window.onload = function () {
-          const preloader = document.querySelector(".page-loading");
-          preloader.classList.remove("active");
-          setTimeout(function () {
-            preloader.remove();
-          }, 1500);
-        };
-      })();
-    </script>
-    <!-- Import Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
-      rel="stylesheet"
-      id="google-font"
-    />
-    <!-- Vendor styles-->
-    <link
-      rel="stylesheet"
-      media="screen"
-      href="../assets/vendor/swiper/swiper-bundle.min.css"
-    />
-    <link
-      rel="stylesheet"
-      media="screen"
-      href="../assets/vendor/aos/dist/aos.css"
-    />
-    <!-- Main Theme Styles + Bootstrap-->
-    <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css" />
-  </head>
-  <!-- Body-->
-  <body>
-    <!-- Page loading spinner-->
-    <div class="page-loading active">
-      <div class="page-loading-inner">
-        <div class="page-spinner"></div>
-        <span>Loading...</span>
-      </div>
-    </div>
-    <!-- Page wrapper-->
-    <main class="page-wrapper">
-      <!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page-->
-      <header class="navbar navbar-expand-lg fixed-top bg-light">
-        <div class="container">
-          <a href="../../../../../../../../OneDrive/바탕%20화면/Around/index.html" class="navbar-brand">
+    }
+  </style>
+  <!-- Page loading scripts-->
+  <script>
+    (function () {
+      window.onload = function () {
+        const preloader = document.querySelector(".page-loading");
+        preloader.classList.remove("active");
+        setTimeout(function () {
+          preloader.remove();
+        }, 1500);
+      };
+    })();
+  </script>
+  <!-- Import Google Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+          rel="stylesheet"
+          id="google-font"
+  />
+  <!-- Vendor styles-->
+  <link
+          rel="stylesheet"
+          media="screen"
+          href="../assets/vendor/swiper/swiper-bundle.min.css"
+  />
+  <link
+          rel="stylesheet"
+          media="screen"
+          href="../assets/vendor/aos/dist/aos.css"
+  />
+  <!-- Main Theme Styles + Bootstrap-->
+  <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css" />
+</head>
+<!-- Body-->
+<body>
+<!-- Page loading spinner-->
+<div class="page-loading active">
+  <div class="page-loading-inner">
+    <div class="page-spinner"></div>
+    <span>Loading...</span>
+  </div>
+</div>
+<!-- Page wrapper-->
+<main class="page-wrapper">
+  <!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page-->
+  <header class="navbar navbar-expand-lg fixed-top bg-light">
+    <div class="container">
+      <a href="../../../../../../../../OneDrive/바탕%20화면/Around/index.html" class="navbar-brand">
             <span class="text-primary flex-shrink-0 me-2">
               <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
                 <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
               </svg>
             </span>
-            S-with
-          </a>
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <nav class="collapse navbar-collapse" id="navbarCollapse1">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item active">
-                <a href="#" class="nav-link">매칭라운지</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">서포터팀</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">플레이윗미</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">스토리</a>
-              </li>
+        S-with
+      </a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <nav class="collapse navbar-collapse" id="navbarCollapse1">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item active">
+            <a href="#" class="nav-link">매칭라운지</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">서포터팀</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">플레이윗미</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">스토리</a>
+          </li>
 
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
+            <ul class="dropdown-menu">
+              <li><a href="#" class="dropdown-item">서포터 구하기</a></li>
+              <li><a href="#" class="dropdown-item">활동지원 해드림</a></li>
+              <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
+              <li class="dropdown-divider"> </li>
+              <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
+              <li href="#"><a class="dropdown-item">스토리 생성</a></li>
             </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" class="dropdown-item">서포터 구하기</a></li>
-                  <li><a href="#" class="dropdown-item">활동지원 해드림</a></li>
-                  <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
-                  <li class="dropdown-divider"> </li>
-                  <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                  <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-                </ul>
-              </li>
-            </ul>
+          </li>
+        </ul>
 
-            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-              <i class="ai-user me-2 ms-n1"></i>
-              로그인
-            </a>
-          </nav>
-        </div>
-      </header>
-      <!-- Page content-->
-      <!-- Services-->
-      <!-- Benefits-->
-      <!-- About-->
-      <!-- Testimonials (Slider)-->
-      <!-- Case studies-->
-      <section class="container pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
-        <div class="row align-items-center pt-md-4 mt-2 mt-sm-3">
-          <div
-            class="col-md-6 position-relative pb-3 pb-md-0 mb-2 mb-sm-3 mb-md-0"
+        <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+          <i class="ai-user me-2 ms-n1"></i>
+          로그인
+        </a>
+      </nav>
+    </div>
+  </header>
+  <!-- Page content-->
+  <!-- Services-->
+  <!-- Benefits-->
+  <!-- About-->
+  <!-- Testimonials (Slider)-->
+  <!-- Case studies-->
+  <section class="container pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
+    <div class="row align-items-center pt-md-4 mt-2 mt-sm-3">
+      <div
+              class="col-md-6 position-relative pb-3 pb-md-0 mb-2 mb-sm-3 mb-md-0"
+      >
+        <div
+                class="d-none d-xxl-block position-absolute"
+                style="width: 861px; height: 719px; top: 50px; left: -260px"
+                data-aos="zoom-in"
+                data-aos-duration="700"
+                data-aos-offset="400"
+        >
+          <svg
+                  class="text-primary opacity-10"
+                  width="861"
+                  height="719"
+                  viewBox="0 0 861 719"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              class="d-none d-xxl-block position-absolute"
-              style="width: 861px; height: 719px; top: 50px; left: -260px"
-              data-aos="zoom-in"
-              data-aos-duration="700"
-              data-aos-offset="400"
-            >
-              <svg
-                class="text-primary opacity-10"
-                width="861"
-                height="719"
-                viewBox="0 0 861 719"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M25.1985 361.161C26.6142 363.592 28.4042 365.854 30.3902 367.846L115.89 453.613C117.366 455.093 119.008 456.457 120.69 457.697C220.882 531.542 166.267 694.09 321.314 716.256C481 739.09 730.799 588.084 806.496 453.151C844.188 385.962 885.87 273.92 840.453 199.651C808.854 147.97 742.627 142.437 686.285 142.442C616.832 142.453 556.116 167.459 491.294 135.468C449.5 114.831 426.769 82.5406 392.702 51.7928C206.459 -116.148 -88.0611 166.69 25.1985 361.161Z"
-                ></path>
-              </svg>
-            </div>
-            <!-- Binded items-->
-            <div class="binded-content zindex-2">
-              <!-- Item-->
-              <div class="binded-item active" id="image1">
-                <img
-                  class="d-block rounded-5"
-                  src="../assets/img/landing/marketing-agency/case-studies/01.jpg"
-                  alt="Image"
-                />
-              </div>
-            </div>
+            <path
+                    d="M25.1985 361.161C26.6142 363.592 28.4042 365.854 30.3902 367.846L115.89 453.613C117.366 455.093 119.008 456.457 120.69 457.697C220.882 531.542 166.267 694.09 321.314 716.256C481 739.09 730.799 588.084 806.496 453.151C844.188 385.962 885.87 273.92 840.453 199.651C808.854 147.97 742.627 142.437 686.285 142.442C616.832 142.453 556.116 167.459 491.294 135.468C449.5 114.831 426.769 82.5406 392.702 51.7928C206.459 -116.148 -88.0611 166.69 25.1985 361.161Z"
+            ></path>
+          </svg>
+        </div>
+        <!-- Binded items-->
+        <div class="binded-content zindex-2">
+          <!-- Item-->
+          <div class="binded-item active" id="image1">
+            <img
+                    class="d-block rounded-5"
+                    src="../assets/img/landing/marketing-agency/case-studies/01.jpg"
+                    alt="Image"
+            />
           </div>
-          <div class="col-md-6 col-xl-5 offset-xl-1">
-            <div class="ps-md-4 ps-xl-0">
-              <div class="d-flex align-items-center ms-n3 pb-3 mb-sm-2 mb-xl-4">
-                
-              </div>
-              <!-- Swiper slider-->
-              <div
-                class="swiper"
-                data-swiper-options='{
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-5 offset-xl-1">
+        <div class="ps-md-4 ps-xl-0">
+          <div class="d-flex align-items-center ms-n3 pb-3 mb-sm-2 mb-xl-4">
+
+          </div>
+          <!-- Swiper slider-->
+          <div
+                  class="swiper"
+                  data-swiper-options='{
               "spaceBetween": 40,
               "autoHeight": true,
               "bindedContent": true,
@@ -303,201 +303,221 @@
                 "nextEl": "#next-case-study"
               }
             }'
-              >
-                <div class="swiper-wrapper">
-                  <!-- Item-->
-                  <div class="swiper-slide pb-1" data-swiper-binded="#image1">
-                    <div class="d-sm-flex">
-                      <div
-                        class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
-                        href="#"
-                        ><h4>ㅇㅇ ㅇㅇ 팀 정보</h4>
-                        </div>
-                        
-                    </div>
-                    <div class="d-sm-flex">
-                      <div
-                        class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
-                        href="#"
-                        >활동지역
-                        </div>
-                        <div
-                        class="w-100 w-sm-auto d-md-none d-lg-inline-flex "
-                        href="#"
-                        >서울시
-                        </div>
-                    </div>
-                    <div class="d-sm-flex">
-                      <div
-                        class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
-                        href="#"
-                        >소속유형</div
-                      ><div
-                        class="w-100 w-sm-auto d-md-none d-lg-inline-flex"
-                        href="#"
-                        >개인</div
-                      >
-                    </div>
-                    <div class="d-sm-flex">
-                      <div
-                        class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
-                        href="#"
-                        >모집현황</div
-                      ><div
-                        class="w-100 w-sm-auto d-md-none d-lg-inline-flex"
-                        href="#"
-                        >1/5</div
-                      >
-                    </div>
-                    <div class="d-sm-flex">
-                      <div
-                        class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
-                        href="#"
-                        >문의방법</div
-                      ><div
-                        class="w-100 w-sm-auto d-md-none d-lg-inline-flex"
-                        href="#"
-                        >woerjoiwe@naver.com</div
-                      >
-                    </div>
+          >
+            <div class="swiper-wrapper">
+              <!-- Item-->
+              <div class="swiper-slide pb-1" data-swiper-binded="#image1">
+                <div class="d-sm-flex">
+                  <div
+                          class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
+                          href="#"
+                  ><h4>ㅇㅇ ㅇㅇ 팀 정보</h4>
                   </div>
-                  <!-- Item-->
-                  
+
                 </div>
+                <div class="d-sm-flex">
+                  <div
+                          class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
+                          href="#"
+                  >활동지역
+                  </div>
+                  <div
+                          class="w-100 w-sm-auto d-md-none d-lg-inline-flex "
+                          href="#"
+                  >서울시
+                  </div>
+                </div>
+                <div class="d-sm-flex">
+                  <div
+                          class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
+                          href="#"
+                  >소속유형</div
+                  ><div
+                        class="w-100 w-sm-auto d-md-none d-lg-inline-flex"
+                        href="#"
+                >개인</div
+                >
+                </div>
+                <div class="d-sm-flex">
+                  <div
+                          class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
+                          href="#"
+                  >모집현황</div
+                  ><div
+                        class="w-100 w-sm-auto d-md-none d-lg-inline-flex"
+                        href="#"
+                >1/5</div
+                >
+                </div>
+                <div class="d-sm-flex">
+                  <div
+                          class="w-100 w-sm-auto mb-3 mb-sm-0 me-sm-3 me-xl-4"
+                          href="#"
+                  >문의방법</div
+                  ><div
+                        class="w-100 w-sm-auto d-md-none d-lg-inline-flex"
+                        href="#"
+                >woerjoiwe@naver.com</div
+                >
+                </div>
+              </div>
+              <!-- Item-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="container pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
+    <div class="container d-flex justify-content-center">
+      <button type="button" class="btn btn-primary active" id="option1">팀 정보</button>
+      <button type="button" class="btn btn-primary active ms-2" id="option2">스토리</button>
+      <button type="button" class="btn btn-primary active ms-2" id="option3">관리</button>
+    </div>
+    <div id="option1-input-form" style="display: block;">
+      <div class="float-end " >생성일 regdate
+      </div>
+      <div class="border-top border-bottom py-2 mb-4 mt-5">
+        <h2 >팀 소개</h2>
+        팀 소개
+        어쩌고 저쩌고~~
+        <br>
+        팀 규칙
+        어쩌고 저쩌고~~
+      </div>
+    </div>
+    <!--팀 스토리 리스트-->
+    <div id="option2-input-form" style="display: none;">
+      <a type="button " class="btn btn-success mt-5" href="#">스토리 생성</a>
+      <!-- Author card widget style 2 -->
+      <div class="border-top border-bottom py-2 mb-4 mt-5">
+        <div class="d-flex align-items-start py-2">
+          <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+          <div class="d-md-flex w-75 ps-4">
+            <div style="max-width: 50rem;">
+              <a class="badge text-nav fs-xs border mt-2" >유형</a>
+              <h3 class="h5 mb-0">Darlene Robertson</h3>
+              <p class="fs-xs mb-2"> 작성자</p>
+              <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+            </div>
+
+            <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+              <div class="d-flex">
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                  <i class="ai-show"> 20</i>
+                </a>
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                  <i class="ai-message"> 20</i>
+                </a>
+                <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                  <i class="ai-heart"> 20</i>
+                </a>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <section class="container pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
-        <div class="container d-flex justify-content-center">
-          <button type="button" class="btn btn-primary active" id="option1">팀 정보</button>
-          <button type="button" class="btn btn-primary active ms-2" id="option2">스토리</button>
-          <button type="button" class="btn btn-primary active ms-2" id="option3">관리</button>
-        </div>
-        <div id="option1-input-form" style="display: block;">
-          <div class="float-end " >생성일 regdate 
-          </div>
-          <div class="border-top border-bottom py-2 mb-4 mt-5">
-            <h2 >팀 소개</h2>
-                팀 소개
-               어쩌고 저쩌고~~
-                <br>
-                팀 규칙
-                어쩌고 저쩌고~~
-          </div>
-        </div>
-          <!--팀 스토리 리스트-->
-        <div id="option2-input-form" style="display: none;">
-          <!-- Author card widget style 2 -->
-          <div class="border-top border-bottom py-2 mb-4 mt-5">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                  <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                      <div class="d-flex">
-                          <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                              <i class="ai-show"> 20</i>
-                          </a>
-                          <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                              <i class="ai-message"> 20</i>
-                          </a>
-                          <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                              <i class="ai-heart"> 20</i>
-                          </a>
-                      </div>
-                  </div>
-                </div>
+      </div>
+      <!-- Author card widget style 2 -->
+      <div class="border-top border-bottom py-2 mb-4 mt-2">
+        <div class="d-flex align-items-start py-2">
+          <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+          <div class="d-md-flex w-75 ps-4">
+            <div style="max-width: 50rem;">
+              <a class="badge text-nav fs-xs border mt-2" >유형</a>
+              <h3 class="h5 mb-0">Darlene Robertson</h3>
+              <p class="fs-xs mb-2"> 작성자</p>
+              <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
             </div>
-          </div>
-          <!-- Author card widget style 2 -->
-          <div class="border-top border-bottom py-2 mb-4 mt-2">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
 
-                  <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                      <div class="d-flex">
-                          <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                              <i class="ai-show"> 20</i>
-                          </a>
-                          <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                              <i class="ai-message"> 20</i>
-                          </a>
-                          <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                              <i class="ai-heart"> 20</i>
-                          </a>
-                      </div>
-                  </div>
-                </div>
+            <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+              <div class="d-flex">
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                  <i class="ai-show"> 20</i>
+                </a>
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                  <i class="ai-message"> 20</i>
+                </a>
+                <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                  <i class="ai-heart"> 20</i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-        <div id="option3-input-form" style="display: none;">
-          <!-- 팀 관리-->
-          <div class="border-top border-bottom py-2 mb-4 mt-5">
-            ㅇㅇㅇㅇ
+      </div>
+    </div>
+    <div id="option3-input-form" style="display: none;">
+      <!-- 팀 관리-->
+      <div class="float-end " >
+        <a type="button " class="btn btn-success mt-5" href="#">팀삭제</a>
+        <a type="button " class="btn btn-success mt-5" href="#">모집마감</a>
+        <a type="button " class="btn btn-success mt-5" href="#">팀 수정</a>
+      </div>
+      <div class="border-top border-bottom py-2 mb-4 mt-5">
+        <h2>신청목록</h2>
+        <!-- Item-->
+        <div class="swiper-slide w-auto">
+          <div class="card-hover text-center" style="max-width: 306px">
+            <img
+                    class="d-block rounded-5 mb-4"
+                    src="../assets/img/landing/creative-agency/team/01.jpg"
+                    alt="Image"
+            />
+            <h3 class="h5 mb-1">Guy Hawkins</h3>
+            <p class="text-muted mb-2">President of Sales</p>
+            <a type="button " class="btn btn-success mt-5" href="#">거절</a>
+            <a type="button " class="btn btn-success mt-5" href="#">수락</a>
           </div>
         </div>
-        
-      </section>
+      </div>
+    </div>
 
-      <!-- Team-->
-      <section class="position-relative pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
-        <div class="position-absolute w-100 start-0 bottom-0 overflow-hidden">
-          <div
-            class="text-primary opacity-10"
-            style="width: 3840px; height: 250px"
-          >
-            <svg
-              width="3840"
-              height="250"
-              viewBox="0 0 3840 250"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3840,32.1V250H0V32.1c72.5,0,112.1-17.4,271.6,5.5c199.3,28.5,206,34.7,378.4,29c172.4-5.7,287.8-34.5,418.9-34.5S1317,55.2,1430,48.4c113-6.8,176.5-37.9,248-45.9c15.4-1.7,33-2.6,51.8-2.6c68.4,0.1,166.7,14,223.1,23.4c84.8,6.6,128.1,27.8,288.5,43.5c199.8,19.5,156.2,5.5,328.6-0.2c172.4-5.7,287.8-34.5,418.9-34.5c131.1,0,248.1,23.1,361.1,16.3c113-6.8,176.5-37.9,248-45.9c15.4-1.7,33-2.6,51.8-2.6C3718.2,0,3800.9,11.2,3840,32.1z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="container position-relative zindex-2 pb-3 pt-2 pt-sm-3 pt-md-4 pt-lg-5 mt-md-3 mt-xxl-2 mb-3 mb-lg-4"
+  </section>
+
+  <!-- Team-->
+  <section class="position-relative pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
+    <div class="position-absolute w-100 start-0 bottom-0 overflow-hidden">
+      <div
+              class="text-primary opacity-10"
+              style="width: 3840px; height: 250px"
+      >
+        <svg
+                width="3840"
+                height="250"
+                viewBox="0 0 3840 250"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
         >
-          <div class="text-center mx-auto" style="max-width: 460px">
-            <h2 class="h1">팀 멤버</h2>
-            <svg
-              class="d-inline-block heartbeat text-danger"
-              width="52"
-              height="38"
-              viewBox="0 0 52 38"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M52,6.3c0.8-12.6-18.6-4-24.8,1.6c-0.4,0.4-1.1,0.4-1.5,0.1C9.9-2.7-2,1.5,0.3,10c1.5,5.6,16.2,20.4,25.5,27.7c0.4,0.3,1,0.3,1.4,0C36.7,29.5,51.2,19.1,52,6.3z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <div class="container-start pe-0">
-          <div
-            class="swiper"
-            data-swiper-options='{
+          <path
+                  d="M3840,32.1V250H0V32.1c72.5,0,112.1-17.4,271.6,5.5c199.3,28.5,206,34.7,378.4,29c172.4-5.7,287.8-34.5,418.9-34.5S1317,55.2,1430,48.4c113-6.8,176.5-37.9,248-45.9c15.4-1.7,33-2.6,51.8-2.6c68.4,0.1,166.7,14,223.1,23.4c84.8,6.6,128.1,27.8,288.5,43.5c199.8,19.5,156.2,5.5,328.6-0.2c172.4-5.7,287.8-34.5,418.9-34.5c131.1,0,248.1,23.1,361.1,16.3c113-6.8,176.5-37.9,248-45.9c15.4-1.7,33-2.6,51.8-2.6C3718.2,0,3800.9,11.2,3840,32.1z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div
+            class="container position-relative zindex-2 pb-3 pt-2 pt-sm-3 pt-md-4 pt-lg-5 mt-md-3 mt-xxl-2 mb-3 mb-lg-4"
+    >
+      <div class="text-center mx-auto" style="max-width: 460px">
+        <h2 class="h1">팀 멤버</h2>
+        <svg
+                class="d-inline-block heartbeat text-danger"
+                width="52"
+                height="38"
+                viewBox="0 0 52 38"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  d="M52,6.3c0.8-12.6-18.6-4-24.8,1.6c-0.4,0.4-1.1,0.4-1.5,0.1C9.9-2.7-2,1.5,0.3,10c1.5,5.6,16.2,20.4,25.5,27.7c0.4,0.3,1,0.3,1.4,0C36.7,29.5,51.2,19.1,52,6.3z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="container-start pe-5 me-lg-5 border-right:5em">
+      <div
+              class="swiper"
+              data-swiper-options='{
         "slidesPerView": "auto",
         "spaceBetween": 24,
         "loop": true,
@@ -506,383 +526,228 @@
           "nextEl": "#next-feature"
         }
       }'
-          >
-            <div class="swiper-wrapper">
-              <!-- Item-->
-              <div class="swiper-slide w-auto">
-                <div class="card-hover text-center" style="max-width: 306px">
-                  <img
-                    class="d-block rounded-5 mb-4"
-                    src="../assets/img/landing/creative-agency/team/02.jpg"
-                    alt="Image"
-                  />
-                  <h3 class="h5 mb-1">Alisa Black</h3>
-                  <p class="text-muted mb-2">Head of marketing</p>
-                  <div
-                    class="d-none d-lg-flex nav justify-content-center opacity-0"
-                  >
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-instagram"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-linkedin"></i
-                    ></a>
-                  </div>
-                  <div class="d-lg-none nav justify-content-center">
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-instagram"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-linkedin"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Item-->
-              <div class="swiper-slide w-auto">
-                <div class="card-hover text-center" style="max-width: 306px">
-                  <img
-                    class="d-block rounded-5 mb-4"
-                    src="../assets/img/landing/creative-agency/team/01.jpg"
-                    alt="Image"
-                  />
-                  <h3 class="h5 mb-1">Guy Hawkins</h3>
-                  <p class="text-muted mb-2">President of Sales</p>
-                  <div
-                    class="d-none d-lg-flex nav justify-content-center opacity-0"
-                  >
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-twitter"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-instagram"></i
-                    ></a>
-                  </div>
-                  <div class="d-lg-none nav justify-content-center">
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-twitter"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-instagram"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Item-->
-              <div class="swiper-slide w-auto">
-                <div class="card-hover text-center" style="max-width: 306px">
-                  <img
-                    class="d-block rounded-5 mb-4"
-                    src="../assets/img/landing/creative-agency/team/06.jpg"
-                    alt="Image"
-                  />
-                  <h3 class="h5 mb-1">Robert Fox</h3>
-                  <p class="text-muted mb-2">Web Designer</p>
-                  <div
-                    class="d-none d-lg-flex nav justify-content-center opacity-0"
-                  >
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-behance"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-dribbble"></i
-                    ></a>
-                  </div>
-                  <div class="d-lg-none nav justify-content-center">
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-behance"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-dribbble"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Item-->
-              <div class="swiper-slide w-auto">
-                <div class="card-hover text-center" style="max-width: 306px">
-                  <img
-                    class="d-block rounded-5 mb-4"
-                    src="../assets/img/landing/creative-agency/team/04.jpg"
-                    alt="Image"
-                  />
-                  <h3 class="h5 mb-1">Jane Cooper</h3>
-                  <p class="text-muted mb-2">Marketing Coordinator</p>
-                  <div
-                    class="d-none d-lg-flex nav justify-content-center opacity-0"
-                  >
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-instagram"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-linkedin"></i
-                    ></a>
-                  </div>
-                  <div class="d-lg-none nav justify-content-center">
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-instagram"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-linkedin"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Item-->
-              <div class="swiper-slide w-auto">
-                <div class="card-hover text-center" style="max-width: 306px">
-                  <img
-                    class="d-block rounded-5 mb-4"
-                    src="../assets/img/landing/creative-agency/team/03.jpg"
-                    alt="Image"
-                  />
-                  <h3 class="h5 mb-1">Cody Fisher</h3>
-                  <p class="text-muted mb-2">SMM Specialist</p>
-                  <div
-                    class="d-none d-lg-flex nav justify-content-center opacity-0"
-                  >
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-twitter"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-instagram"></i
-                    ></a>
-                  </div>
-                  <div class="d-lg-none nav justify-content-center">
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-twitter"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-instagram"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Item-->
-              <div class="swiper-slide w-auto">
-                <div class="card-hover text-center" style="max-width: 306px">
-                  <img
-                    class="d-block rounded-5 mb-4"
-                    src="../assets/img/landing/creative-agency/team/05.jpg"
-                    alt="Image"
-                  />
-                  <h3 class="h5 mb-1">Jacob Jones</h3>
-                  <p class="text-muted mb-2">Web Designer</p>
-                  <div
-                    class="d-none d-lg-flex nav justify-content-center opacity-0"
-                  >
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-behance"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-dribbble"></i
-                    ></a>
-                  </div>
-                  <div class="d-lg-none nav justify-content-center">
-                    <a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-facebook"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
-                      href="#"
-                      ><i class="ai-behance"></i></a
-                    ><a
-                      class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
-                      href="#"
-                      ><i class="ai-dribbble"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
+      >
+        <div class="swiper-wrapper">
+          <!-- Item-->
+          <div class="swiper-slide w-auto">
+            <div class="card-hover text-center" style="max-width: 306px">
+              <img
+                      class="d-block rounded-5 mb-4"
+                      src="../assets/img/landing/creative-agency/team/02.jpg"
+                      alt="Image"
+              />
+              <h3 class="h5 mb-1">Alisa Black</h3>
+              <p class="text-muted mb-2">Head of marketing</p>
+              <!-- <div
+                class="d-none d-lg-flex nav justify-content-center opacity-0"
+              >
+                <a
+                  class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
+                  href="#"
+                  ><i class="ai-instagram"></i></a
+                ><a
+                  class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
+                  href="#"
+                  ><i class="ai-facebook"></i></a
+                ><a
+                  class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
+                  href="#"
+                  ><i class="ai-linkedin"></i
+                ></a>
+              </div> -->
+              <!-- <div class="d-lg-none nav justify-content-center">
+                <a
+                  class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
+                  href="#"
+                  ><i class="ai-instagram"></i></a
+                ><a
+                  class="nav-link btn btn-icon btn-sm fs-sm fw-normal me-1"
+                  href="#"
+                  ><i class="ai-facebook"></i></a
+                ><a
+                  class="nav-link btn btn-icon btn-sm fs-sm fw-normal"
+                  href="#"
+                  ><i class="ai-linkedin"></i
+                ></a>
+              </div> -->
+            </div>
+          </div>
+          <!-- Item-->
+          <div class="swiper-slide w-auto">
+            <div class="card-hover text-center" style="max-width: 306px">
+              <img
+                      class="d-block rounded-5 mb-4"
+                      src="../assets/img/landing/creative-agency/team/01.jpg"
+                      alt="Image"
+              />
+              <h3 class="h5 mb-1">Guy Hawkins</h3>
+              <p class="text-muted mb-2">President of Sales</p>
+
+            </div>
+          </div>
+          <!-- Item-->
+          <div class="swiper-slide w-auto">
+            <div class="card-hover text-center" style="max-width: 306px">
+              <img
+                      class="d-block rounded-5 mb-4"
+                      src="../assets/img/landing/creative-agency/team/06.jpg"
+                      alt="Image"
+              />
+              <h3 class="h5 mb-1">Robert Fox</h3>
+              <p class="text-muted mb-2">Web Designer</p>
+
+            </div>
+          </div>
+          <!-- Item-->
+          <div class="swiper-slide w-auto">
+            <div class="card-hover text-center" style="max-width: 306px">
+              <img
+                      class="d-block rounded-5 mb-4"
+                      src="../assets/img/landing/creative-agency/team/04.jpg"
+                      alt="Image"
+              />
+              <h3 class="h5 mb-1">Jane Cooper</h3>
+              <p class="text-muted mb-2">Marketing Coordinator</p>
+
+            </div>
+          </div>
+          <!-- Item-->
+          <div class="swiper-slide w-auto">
+            <div class="card-hover text-center" style="max-width: 306px">
+              <img
+                      class="d-block rounded-5 mb-4"
+                      src="../assets/img/landing/creative-agency/team/03.jpg"
+                      alt="Image"
+              />
+              <h3 class="h5 mb-1">Cody Fisher</h3>
+              <p class="text-muted mb-2">SMM Specialist</p>
+
+            </div>
+          </div>
+          <!-- Item-->
+          <div class="swiper-slide w-auto">
+            <div class="card-hover text-center" style="max-width: 306px">
+              <img
+                      class="d-block rounded-5 mb-4"
+                      src="../assets/img/landing/creative-agency/team/05.jpg"
+                      alt="Image"
+              />
+              <h3 class="h5 mb-1">Jacob Jones</h3>
+              <p class="text-muted mb-2">Web Designer</p>
+
             </div>
           </div>
         </div>
-      </section>
-      <!-- button-->
-      <div class="container d-flex justify-content-center">
-        <!-- Success solid button -->
-        <a type="button " class="btn btn-success mt-5" href="#">신청하기</a>
       </div>
-      
-    </main>
-    <!-- Footer-->
-    <footer
-      class="footer dark-mode bg-light py-5"
-      style="position: relative; bottom: 0"
-    >
-      <div class="container">
-        <ul class="nav justify-content- py-1 pb-sm-1">
-          <li class="nav-item">
-            <a
-              class="nav-link py-1 px-3 mx-1"
-              href="#"
-              style="font-size: 1.6rem; font-family: Arial"
-              >S-With</a
-            >
-          </li>
-        </ul>
-        <ul class="nav">
-          <li
-            class="nav-item"
-            style="margin-right: auto; padding-left: 10px; color: gray"
-          >
-            contact wnduq@gmail.com
-          </li>
-          <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
-            >이용약관</a
-          >
-          <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
-            >개인정보처리방침</a
-          >
-          <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
-            >서비스소개</a
-          >
-        </ul>
-        <ul class="nav">
-          <li
-            class="nav justify-content"
-            style="margin-right: auto; padding-left: 10px; color: gray"
-          >
-            Copyright S-With. All rights reserved
-          </li>
-        </ul>
-      </div>
-    </footer>
+    </div>
+  </section>
+  <!-- button-->
+  <div class="container d-flex justify-content-center">
+    <!-- Success solid button -->
+    <a type="button " class="btn btn-success mt-5" href="#">신청하기</a>
+  </div>
 
-    <!-- Back to top button--><a class="btn-scroll-top" href="#top" data-scroll>
-      <svg
-        viewBox="0 0 40 40"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
+</main>
+<!-- Footer-->
+<footer
+        class="footer dark-mode bg-light py-5"
+        style="position: relative; bottom: 0"
+>
+  <div class="container">
+    <ul class="nav justify-content- py-1 pb-sm-1">
+      <li class="nav-item">
+        <a
+                class="nav-link py-1 px-3 mx-1"
+                href="#"
+                style="font-size: 1.6rem; font-family: Arial"
+        >S-With</a
+        >
+      </li>
+    </ul>
+    <ul class="nav">
+      <li
+              class="nav-item"
+              style="margin-right: auto; padding-left: 10px; color: gray"
       >
-        <circle
-          cx="20"
-          cy="20"
-          r="19"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-miterlimit="10"
-        ></circle>
-      </svg>
-      <i class="ai-arrow-up"></i
-    ></a>
-    <!-- Vendor scripts: js libraries and plugins-->
-    <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-    <script src="../assets/vendor/parallax-js/dist/parallax.min.js"></script>
-    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="../assets/vendor/aos/dist/aos.js"></script>
-    <!-- Main theme script-->
-    <script src="../assets/js/theme.min.js"></script>
-    <!-- 팀정보 , 스토리, 관리 스크립트-->
-    <script>
-      // Get input form containers
-      var option1InputForm = document.getElementById("option1-input-form");
-      var option2InputForm = document.getElementById("option2-input-form");
-      var option3InputForm = document.getElementById("option3-input-form");
-      // Listen for click event on buttons
-      var option1Button = document.getElementById("option1");
-      var option2Button = document.getElementById("option2");
-      var option3Button = document.getElementById("option3");
+        contact wnduq@gmail.com
+      </li>
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
+      >이용약관</a
+      >
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
+      >개인정보처리방침</a
+      >
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
+      >서비스소개</a
+      >
+    </ul>
+    <ul class="nav">
+      <li
+              class="nav justify-content"
+              style="margin-right: auto; padding-left: 10px; color: gray"
+      >
+        Copyright S-With. All rights reserved
+      </li>
+    </ul>
+  </div>
+</footer>
 
-      option1Button.addEventListener("click", function() {
-        // Hide all input forms
-        option1InputForm.style.display = "block";
-        option2InputForm.style.display = "none";
-        option3InputForm.style.display = "none";
-      });
+<!-- Back to top button--><a class="btn-scroll-top" href="#top" data-scroll>
+  <svg
+          viewBox="0 0 40 40"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+            cx="20"
+            cy="20"
+            r="19"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+    ></circle>
+  </svg>
+  <i class="ai-arrow-up"></i
+  ></a>
+<!-- Vendor scripts: js libraries and plugins-->
+<script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script src="../assets/vendor/parallax-js/dist/parallax.min.js"></script>
+<script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="../assets/vendor/aos/dist/aos.js"></script>
+<!-- Main theme script-->
+<script src="../assets/js/theme.min.js"></script>
+<!-- 팀정보 , 스토리, 관리 스크립트-->
+<script>
+  // Get input form containers
+  var option1InputForm = document.getElementById("option1-input-form");
+  var option2InputForm = document.getElementById("option2-input-form");
+  var option3InputForm = document.getElementById("option3-input-form");
+  // Listen for click event on buttons
+  var option1Button = document.getElementById("option1");
+  var option2Button = document.getElementById("option2");
+  var option3Button = document.getElementById("option3");
 
-      option2Button.addEventListener("click", function() {
-        // Hide all input forms
-        option1InputForm.style.display = "none";
-        option2InputForm.style.display = "block";
-        option3InputForm.style.display = "none";
-      });
-      
-      option3Button.addEventListener("click",function(){
-        option1InputForm.style.display = "none";
-        option2InputForm.style.display = "none";
-        option3InputForm.style.display = "block";
-      })
-    </script>
-  </body>
+  option1Button.addEventListener("click", function() {
+    // Hide all input forms
+    option1InputForm.style.display = "block";
+    option2InputForm.style.display = "none";
+    option3InputForm.style.display = "none";
+  });
+
+  option2Button.addEventListener("click", function() {
+    // Hide all input forms
+    option1InputForm.style.display = "none";
+    option2InputForm.style.display = "block";
+    option3InputForm.style.display = "none";
+  });
+
+  option3Button.addEventListener("click",function(){
+    option1InputForm.style.display = "none";
+    option2InputForm.style.display = "none";
+    option3InputForm.style.display = "block";
+  })
+</script>
+</body>
 </html>
