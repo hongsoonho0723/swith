@@ -278,13 +278,14 @@
                     class="d-block rounded-5"
                     src="../assets/img/landing/marketing-agency/case-studies/01.jpg"
                     alt="Image"
+                    style="height: 500px; width: 600px"
             />
           </div>
         </div>
       </div>
       <div class="col-md-6 col-xl-5 offset-xl-1">
         <div class="ps-md-4 ps-xl-0">
-          <div class="d-flex align-items-center ms-n3 pb-3 mb-sm-2 mb-xl-4">
+          <div class="d-flex ms-n3 pb-3 mb-sm-2 mb-xl-4">
 
           </div>
           <!-- Swiper slider-->
@@ -370,104 +371,130 @@
     </div>
   </section>
   <section class="container pt-5 mt-lg-3 mt-xl-4 mt-xxl-5">
+    <!-- Nav tabs -->
     <div class="container d-flex justify-content-center">
-      <button type="button" class="btn btn-primary active" id="option1">팀 정보</button>
-      <button type="button" class="btn btn-primary active ms-2" id="option2">스토리</button>
-      <button type="button" class="btn btn-primary active ms-2" id="option3">관리</button>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a href="#teaminfo" class="nav-link active" data-bs-toggle="tab" role="tab">
+          <i class="fi-home m-auto"></i>
+          <h8 class="fs-5">팀 정보</h8>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#teamstory" class="nav-link" data-bs-toggle="tab" role="tab">
+          <i class="fi-user m-auto"></i>
+          <h8 class="fs-5">스토리</h8>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#teamadmin" class="nav-link" data-bs-toggle="tab" role="tab">
+          <i class="fi-user m-auto"></i>
+          <h8 class="fs-5">관리</h8>
+        </a>
+      </li>
+    </ul>
     </div>
-    <div id="option1-input-form" style="display: block;">
-      <div class="float-end " >생성일 regdate
-      </div>
-      <div class="border-top border-bottom py-2 mb-4 mt-5">
-        <h2 >팀 소개</h2>
-        팀 소개
-        어쩌고 저쩌고~~
-        <br>
-        팀 규칙
-        어쩌고 저쩌고
-      </div>
-    </div>
-    <!--팀 스토리 리스트-->
-    <div id="option2-input-form" style="display: none;">
-      <a type="button " class="btn btn-success mt-5" href="#">스토리 생성</a>
-      <!-- Author card widget style 2 -->
-      <div class="border-top border-bottom py-2 mb-4 mt-5">
-        <div class="d-flex align-items-start py-2">
-          <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-          <div class="d-md-flex w-75 ps-4">
-            <div style="max-width: 50rem;">
-              <a class="badge text-nav fs-xs border mt-2" >유형</a>
-              <h3 class="h5 mb-0">Darlene Robertson</h3>
-              <p class="fs-xs mb-2"> 작성자</p>
-              <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-            </div>
 
-            <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-              <div class="d-flex">
-                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                  <i class="ai-show"> 20</i>
-                </a>
-                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                  <i class="ai-message"> 20</i>
-                </a>
-                <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                  <i class="ai-heart"> 20</i>
-                </a>
+    <!-- Tabs content -->
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="teaminfo" role="tabpanel">
+        <div class="float-end">
+          생성일 yyyy-MM-dd
+        </div>
+        <div class="border-top border-bottom py-2 mb-4 mt-3">
+          <h2 >팀 소개</h2>
+          <p>
+          팀 소개
+          어쩌고 저쩌고~~
+          </p>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="teamstory" role="tabpanel">
+        <div class="border-top py-2 mb-4 mt-3">
+        <a type="button " class="btn btn-success mt-2" href="#">스토리 생성</a>
+
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4 mt-3">
+          <div class="d-flex align-items-start py-2">
+            <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+            <div class="d-md-flex w-75 ps-4">
+              <div style="max-width: 50rem;">
+                <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                <h3 class="h5 mb-0">Darlene Robertson</h3>
+                <p class="fs-xs mb-2"> 작성자</p>
+                <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+              </div>
+
+              <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                <div class="d-flex">
+                  <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                    <i class="ai-show"> 20</i>
+                  </a>
+                  <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                    <i class="ai-message"> 20</i>
+                  </a>
+                  <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                    <i class="ai-heart"> 20</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Author card widget style 2 -->
+        <div class="border-top border-bottom py-2 mb-4 mt-2">
+          <div class="d-flex align-items-start py-2">
+            <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+            <div class="d-md-flex w-75 ps-4">
+              <div style="max-width: 50rem;">
+                <a class="badge text-nav fs-xs border mt-2" >유형</a>
+                <h3 class="h5 mb-0">Darlene Robertson</h3>
+                <p class="fs-xs mb-2"> 작성자</p>
+                <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+              </div>
+
+              <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                <div class="d-flex">
+                  <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                    <i class="ai-show"> 20</i>
+                  </a>
+                  <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                    <i class="ai-message"> 20</i>
+                  </a>
+                  <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                    <i class="ai-heart"> 20</i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Author card widget style 2 -->
-      <div class="border-top border-bottom py-2 mb-4 mt-2">
-        <div class="d-flex align-items-start py-2">
-          <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-          <div class="d-md-flex w-75 ps-4">
-            <div style="max-width: 50rem;">
-              <a class="badge text-nav fs-xs border mt-2" >유형</a>
-              <h3 class="h5 mb-0">Darlene Robertson</h3>
-              <p class="fs-xs mb-2"> 작성자</p>
-              <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-            </div>
+      </div>
 
-            <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-              <div class="d-flex">
-                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                  <i class="ai-show"> 20</i>
-                </a>
-                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                  <i class="ai-message"> 20</i>
-                </a>
-                <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                  <i class="ai-heart"> 20</i>
-                </a>
-              </div>
-            </div>
-          </div>
+      <div class="tab-pane fade" id="teamadmin" role="tabpanel">
+        <!-- 팀 관리-->
+        <div class="float-end " >
+          <a type="button " class="btn btn-success mt-5" href="#">팀삭제</a>
+          <a type="button " class="btn btn-success mt-5" href="#">모집마감</a>
+          <a type="button " class="btn btn-success mt-5" href="#">팀 수정</a>
         </div>
-      </div>
-    </div>
-    <div id="option3-input-form" style="display: none;">
-      <!-- 팀 관리-->
-      <div class="float-end " >
-        <a type="button " class="btn btn-success mt-5" href="#">팀삭제</a>
-        <a type="button " class="btn btn-success mt-5" href="#">모집마감</a>
-        <a type="button " class="btn btn-success mt-5" href="#">팀 수정</a>
-      </div>
-      <div class="border-top border-bottom py-2 mb-4 mt-5">
-        <h2>신청목록</h2>
-        <!-- Item-->
-        <div class="swiper-slide w-auto">
-          <div class="card-hover text-center" style="max-width: 306px">
-            <img
-                    class="d-block rounded-5 mb-4"
-                    src="../assets/img/landing/creative-agency/team/01.jpg"
-                    alt="Image"
-            />
-            <h3 class="h5 mb-1">Guy Hawkins</h3>
-            <p class="text-muted mb-2">President of Sales</p>
-            <a type="button " class="btn btn-success mt-5" href="#">거절</a>
-            <a type="button " class="btn btn-success mt-5" href="#">수락</a>
+        <div class="border-top border-bottom py-2 mb-4 mt-5">
+          <h2 class="mt-2">신청목록</h2>
+          <!-- Item-->
+          <div class="swiper-slide w-auto">
+            <div class="card-hover text-center" style="max-width: 306px">
+              <img
+                      class="d-block rounded-5 mb-4"
+                      src="../assets/img/landing/creative-agency/team/01.jpg"
+                      alt="Image"
+              />
+              <h3 class="h5 mb-1">Guy Hawkins</h3>
+              <p class="text-muted mb-2">President of Sales</p>
+              <a type="button " class="btn btn-secondary mt-5" href="#">거절</a>
+              <a type="button " class="btn btn-success mt-5" href="#">수락</a>
+            </div>
           </div>
         </div>
       </div>
