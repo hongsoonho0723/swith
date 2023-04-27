@@ -8,21 +8,11 @@
   rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 
+   <!-- TOAST UI Editor CDN URL(CSS)-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+   <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
- <!-- include libraries(jQuery, bootstrap) -->
- <link
- href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
- rel="stylesheet"
-/>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<!-- include summernote css/js -->
-<link
- href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
- rel="stylesheet"
-/>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 
 </head>
@@ -654,33 +644,24 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
   <h1 style="font-size: 2rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 내용</h1>
 
 
-  <script>
-    $(document).ready(function () {
-      $("#summernote").summernote({
-        placeholder:'필요한 도움에 대해서 자세히 적어주세요!',
-        height:500,
-        toolbar: [
-          // [groupName, [list of button]]
-          [
-            "style",
-            ["bold", "italic", "underline", "strikethrough", "clear"],
-          ],
-          ["fontsize", ["fontsize"]],
-          ["color", ["forecolor", "backcolor"]],
-          ["para", ["ul", "ol", "paragraph"]],
-          ["height", ["height"]],
-          ["insert", ["link", "picture"]],
-        ],
-      });
-    });
-  </script>
-  <form method="post">
-    <table border="1" width=100%>
-      <tr></tr>
-    </table>
+   <!-- TOAST UI Editor가 들어갈 div태그 -->
+   <div id="editor"></div>
+  </div>
+  <!-- TOAST UI Editor CDN URL(JS) -->
+  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
-    <textarea id="summernote" name="editordata"></textarea>
-  </form>
+  <!-- TOAST UI Editor 생성 JavaScript 코드 -->
+  <script>
+      const editor = new toastui.Editor({
+          el: document.querySelector('#editor'),
+          height: '600px',
+          language: 'ko-KR',
+      });
+
+  </script>
+
+
+
 
 
   <div class="container d-flex justify-content-center" style="padding-top: 50px;">
