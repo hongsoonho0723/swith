@@ -690,6 +690,21 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
     <textarea id="summernote" name="content"></textarea>
 <!--  </form>-->
 
+  <!-- TOAST UI Editor가 들어갈 div태그 -->
+  <div id="editor"></div>
+</div>
+<!-- TOAST UI Editor CDN URL(JS) -->
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<!-- TOAST UI Editor 생성 JavaScript 코드 -->
+<script>
+  const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    height: '600px',
+    language: 'ko-KR',
+  });
+
+</script>
 
   <div class="container d-flex justify-content-center" style="padding-top: 50px;">
    
