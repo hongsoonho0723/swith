@@ -101,10 +101,10 @@
   <div style="padding-top: 20px; ">
     <input type="radio" name="b_category" id="radio-1" ;>
     <label for="radio-1" style="padding-right:190px ;">서포터구인</label>
-  
+
     <input type="radio" name="b_category" id="radio-2">
     <label for="radio-2" style="padding-right:180px ;">활동지원</label>
-  
+
     <input type="radio" name="b_category" id="radio-3">
     <label for="radio-3" >플레이윗미</label>
   
@@ -627,7 +627,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
     <option>이동지원</option>
     <option>활동지원</option>
     <option>기타지원</option>
-  
+
   </select>
   
   <h1 style="font-size: 2rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 제목</h1>
@@ -661,6 +661,28 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
       <tr></tr>
     </table>
 
+
+
+
+
+
+  <!-- TOAST UI Editor가 들어갈 div태그 -->
+  <div id="editor"></div>
+</div>
+<!-- TOAST UI Editor CDN URL(JS) -->
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<!-- TOAST UI Editor 생성 JavaScript 코드 -->
+<script>
+  const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    height: '600px',
+    language: 'ko-KR',
+  });
+
+</script>
+
+
     <textarea id="summernote" name="content"></textarea>
 <!--  </form>-->
 
@@ -673,7 +695,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 </div>
-</form>
+
 <br>
 <br>
 <br>
