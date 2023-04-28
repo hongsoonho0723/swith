@@ -3,9 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sportsmania.swith.mapper.userMapper">
-    <insert id="join" parameterType="com.sportsmania.swith.DTO.userDTO">
+<mapper namespace="com.sportsmania.swith.mapper.UserMapper">
+    <insert id="join" parameterType="com.sportsmania.swith.DTO.UserDTO">
         insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType)
         values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType});
     </insert>
+
+    <select id="findByIdPW" resultType="com.sportsmania.swith.DTO.UserDTO" parameterType="String">
+        select * from user where userId = #{userId} AND Pwd = #{Pwd}
+    </select>
+
+    <update id="modifyInfo" parameterType="com.sportsmania.swith.DTO.UserDTO">
+        update user set introduction = #{introduction}, preference = #{preference},nickname = #{nickname},email = #{email}
+        where userId = #{userId}
+    </update>
 </mapper>

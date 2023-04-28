@@ -199,20 +199,20 @@
             <div class="left">
                 <div class="w-100 mt-auto" style="max-width: 526px;">
                     <h1>회원가입</h1>
-                    <p class="pb-3 mb-3 mb-lg-4">아이디가 있습니까 ?&nbsp;&nbsp;<a href='login.html' style="color: #056297;">로그인!</a></p>
-                    <form class="needs-validation" novalidate>
+                    <p class="pb-3 mb-3 mb-lg-4">아이디가 있습니까 ?&nbsp;&nbsp;<a href='/members/signin' style="color: #056297;">로그인!</a></p>
+                    <form class="needs-validation" id="form1" novalidate>
                       <div class="pb-2 mb-3 row row-cols-1 row-cols-sm-2 gy-3">
                         <div class="position-relative" style="width: 50%;"><i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                          <input class="form-control form-control-lg ps-5" type="text" placeholder="이름" required>
+                          <input class="form-control form-control-lg ps-5" type="text" name="name" placeholder="이름" required>
                         </div>
                         <div class="position-relative" style="width: 50%;"><i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                            <input class="form-control form-control-lg ps-5" type="text" placeholder="아이디" required>
+                            <input class="form-control form-control-lg ps-5" type="text" name="userId" placeholder="아이디" required>
                           </div>
                       </div>
                       <div class="mb-4">
                         <div class="position-relative"><i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                           <div class="password-toggle">
-                            <input class="form-control form-control-lg ps-5" type="password" placeholder="비밀번호" required>
+                            <input class="form-control form-control-lg ps-5" name="pwd" type="password" placeholder="비밀번호" required>
                             <label class="password-toggle-btn" aria-label="Show/hide password">
                               <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
                             </label>
@@ -231,13 +231,13 @@
                       </div>
                       <div class="pb-2 mb-3 row row-cols-1 row-cols-sm-2 gy-3">
                         <div class="position-relative" style="width: 40%;"><i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                          <input class="form-control form-control-lg ps-5" type="nickname" placeholder="닉네임" required>
+                          <input class="form-control form-control-lg ps-5" name="nickname" type="text" placeholder="닉네임" required>
                         </div>
                         <div class="position-relative" style="width: 40%;"><i class="ai-calendar fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                            <input class="form-control form-control-lg ps-5"  type="date" placeholder="생년월일" required >
+                            <input class="form-control form-control-lg ps-5"  name="birthday" type="date" placeholder="생년월일" required >
                           </div>
-                          <div class="position-relative" style="width: 20%;">
-                                <select class="form-select">
+                          <div class="position-relative"  style="width: 20%;">
+                                <select class="form-select" name="gender">
                                     <option>남자</option>
                                     <option>여자</option>
                                 </select>
@@ -246,12 +246,12 @@
                       </div>
                       <div class="pb-2 mb-3">
                         <div class="position-relative" ><i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                          <input class="form-control form-control-lg ps-5" type="email" placeholder="이메일" required>
+                          <input class="form-control form-control-lg ps-5" name="email" type="email" placeholder="이메일" required>
                         </div>
                       </div>
                       <div class="pb-2 mb-3">
                         <div class="position-relative" ><i class="ai-mobile fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                          <input class="form-control form-control-lg ps-5" type="email" placeholder="휴대폰" required>
+                          <input class="form-control form-control-lg ps-5" name="phone" type="text" placeholder="휴대폰" required>
                         </div>
                       </div>
                     </form>
@@ -265,22 +265,23 @@
                 <form>
                     <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
                         <div class="position-relative" style="width: 50%;">
-                            <button style="background-color: #056297;border-color: #056297;" class="btn btn-lg btn-primary w-100 mb-4" type="button" id="option1">도움을 받고싶어요 !</button>
+                            <button style="background-color: #056297;border-color: #056297;" class="btn btn-lg btn-primary w-100 mb-4" name="joinType" value="1" type="button" id="option1">도움을 받고싶어요 !</button>
                         </div>
                         <div class="position-relative" style="width: 50%;">
-                            <button style="background-color: #056297;border-color: #056297;" class="btn btn-lg btn-primary w-100 mb-4" type="button" id="option2">서포터 활동을하고싶어요!</button>
+                            <button style="background-color: #056297;border-color: #056297;" class="btn btn-lg btn-primary w-100 mb-4" name="joinType" value="2" type="button" id="option2">서포터 활동을하고싶어요!</button>
                         </div>
                       </div>
                 </form>
+
                   <div id="input-form-container">
                     <!-- Input form for Option 1 -->
                     <div id="option1-input-form" style="display: none;">
                       <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
                         <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                          <input class="form-control form-control-lg ps-5" type="text" placeholder="장애유형" required>
+                          <input class="form-control form-control-lg ps-5" name="disableType" type="text" placeholder="장애유형" required>
                         </div>
                         <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                            <input class="form-control form-control-lg ps-5" type="text" placeholder="등급분류" required>
+                            <input class="form-control form-control-lg ps-5" name="grade" type="text" placeholder="등급분류" required>
                           </div>
                       </div>
                       <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
@@ -288,16 +289,16 @@
                           <input class="form-control form-control-lg ps-5" type="text" placeholder="자택번호" required>
                         </div>
                         <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                            <input class="form-control form-control-lg ps-5" type="text" placeholder="선호종목유형" required>
+                            <input class="form-control form-control-lg ps-5" type="text"name="preference" placeholder="선호종목유형" required>
                           </div>
                       </div>
                       <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
                         <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
-                          <input class="form-control form-control-lg ps-5" type="text" placeholder="활동지역" required>
+                          <input class="form-control form-control-lg ps-5" type="text" name="region" placeholder="활동지역" required>
                         </div>
                       </div>
                     </div>
-                    
+
 
                     <!-- Input form for Option 2 -->
                     <div id="option2-input-form" style="display: none;">
@@ -330,22 +331,42 @@
                     <form-check>
                         <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
                             <div>
-                                <input class="form-check-input" type="checkbox" id="keep-signedin">
-                                <label class="form-check-label ms-1" for="keep-signedin"><a href="#" data-bs-toggle="modal" data-bs-target="#modalId">서비스이용약관</a></label>
+                                <input class="form-check-input" type="checkbox" id="keep-signedin1">
+                                <label class="form-check-label ms-1" for="keep-signedin1"><a href="#" data-bs-toggle="modal" data-bs-target="#modalId">서비스이용약관</a></label>
                             </div>
                             <div>
-                                <input class="form-check-input" type="checkbox" id="keep-signedin" >
-                                <label class="form-check-label ms-1" for="keep-signedin">개인정보처리약관</label>
+                                <input class="form-check-input" type="checkbox" id="keep-signedin2" >
+                                <label class="form-check-label ms-1" for="keep-signedin2">개인정보처리약관</label>
                             </div>
     
                             <div>
-                                <input class="form-check-input" type="checkbox" id="keep-signedin">
-                                <label class="form-check-label ms-1" for="keep-signedin">범죄이력조회</label>
+                                <input class="form-check-input" type="checkbox" id="keep-signedin3">
+                                <label class="form-check-label ms-1" for="keep-signedin3">범죄이력조회</label>
                             </div>
                         </div>
                     </form-check>
                   </div>
-                    
+                      <script>
+                          function sendFormData() {
+                              const form1 = document.querySelector('#form1');
+                              const form2 = document.querySelector('#form2');
+
+                              const formData1 = new FormData(form1);
+                              const formData2 = new FormData(form2);
+
+                              const combinedFormData = new FormData();
+                              for (const [key, value] of formData1.entries()) {
+                                  combinedFormData.append(key, value);
+                              }
+                              for (const [key, value] of formData2.entries()) {
+                                  combinedFormData.append(key, value);
+                              }
+
+                              const xhr = new XMLHttpRequest();
+                              xhr.open('POST', '/url/to/server');
+                              xhr.send(combinedFormData);
+                          }
+                      </script>
                   <button class="btn btn-lg btn-primary w-100 mb-4" type="submit" style = "background-color: #056297;border-color:#056297" >회 원 가 입</button>
                   <!-- 개인정보 처리방침 -->
                   <div class="modal" id="modalId" tabindex="-1" role="dialog">

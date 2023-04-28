@@ -1,7 +1,8 @@
-<!DOCTYPE >
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <!--< lang="">-->
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Around | Services v.1</title>
     <!-- SEO Meta Tags-->
     <meta name="description" content="Around - Multipurpose Bootstrap HTML Template">
@@ -216,48 +217,29 @@
               </div>
             </div>
           </div>
-          <!--로그인 스크립트-->
-          <script>
-            const loginForm = document.getElementById("login-form");
-            const beforeLoginElement = document.getElementById("before-login");
-            const afterLoginElement = document.getElementById("after-login");
 
-            loginForm.addEventListener("submit", function(event) {
-              event.preventDefault(); // 폼 제출 이벤트를 취소한다.
-              
-              const usernameInput = document.getElementById("username");
-              const passwordInput = document.getElementById("password");
-              
-              // 사용자가 입력한 정보를 검증한다.
-              if (usernameInput.value === "john" && passwordInput.value === "password123") {
-                // 로그인에 성공하면, before-login 요소를 숨기고 after-login 요소를 보여준다.
-                beforeLoginElement.style.display = "none";
-                afterLoginElement.style.display = "block";
-              } else {
-                alert("Invalid username or password. Please try again.");
-              }
-            });
-            </script>
             <!--로그인하지 않았을때-->
-            <div id="before-login">
-                  <a href="signin.html" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+            <div th:if="${#session.getAttribute('user') == null}">
+                  <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
                   <i class="ai-user me-2 ms-n1"></i>
                   로그인
                   </a>
             </div>
             
             <!--로그인 했을 때-->
-            <div id="after-login" style="display: none;">
+            <div th:if="${#session.getAttribute('user') != null}">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">nickname</a>
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#" class="dropdown-item">마이페이지</a></li>
+                    <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
                     <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/members/logout" class="dropdown-item" style="color: red">log out</a></li>
                     <li><a href="#" class="dropdown-item">나의 팀</a></li>
-                    <li class="dropdown-divider"></li>
+
                     <li href="#"><a class="dropdown-item">찜 목록</a></li>
                     <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+
                   </ul>
                 </li>
               </ul>
@@ -313,7 +295,7 @@
         
         <!-- Page title-->
         <h1 class="text-center">매칭라운지</h1>
-        <p class="text-center pb-4 mb-2 mb-lg-3">#마감임박 #운동을 도와줄 서포터를 찾습니다!</p>
+        <p class="text-center pb-4 mb-2 mb-lg-3">#마감임박 #운동을 도와줄 서포터를 찾습니다! </p>
         <!-- Services grid-->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 pb-sm-3 pb-md-4 pb-xl-5">
           <!-- Item-->

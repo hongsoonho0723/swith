@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <title>Around | Account - Overview</title>
@@ -186,11 +186,24 @@
                 </ul>
               </li>
             </ul>
-      
-            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-              <i class="ai-user me-2 ms-n1"></i>
-              로그인
-            </a>
+
+            <div style="background-color: #00ab6c;" >
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/members/mypage" class="dropdown-item">마이페이지</a></li>
+                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/members/logout" class="dropdown-item" style="color: red">log out</a></li>
+                    <li><a href="#" class="dropdown-item">나의 팀</a></li>
+
+                    <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                    <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </nav>
         </div>
       </header>
@@ -207,15 +220,15 @@
                 <button class="btn-close position-absolute top-0 end-0 mt-3 me-3 d-lg-none" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarAccount"></button>
                 <div class="offcanvas-body">
                   <div class="pb-2 pb-lg-0 mb-4 mb-lg-5"><img class="d-block rounded-circle mb-2" src="../assets/img/avatar/02.jpg" width="80" alt="Isabella Bocouse">
-                    <h3 class="h5 mb-1">이름</h3>
-                    <p class="fs-sm text-muted mb-0">example@gmail.com</p>
+                    <h3 class="h5 mb-1" th:text="${#session.getAttribute('user').name}">이름</h3>
+                    <p class="fs-sm text-muted mb-0" th:text="${#session.getAttribute('user').email}">example@gmail.com</p>
                   </div>
                   <nav class="nav flex-column pb-5 pb-lg-5 mb-3">
                     <h4 class="fs-xs fw-medium text-muted text-uppercase pb-1 mb-2">계정</h4><a class="nav-link fw-semibold py-2 px-0 active" href="mypage.html"><i class="ai-user-check fs-5 opacity-60 me-2"></i>마이페이지</a><a class="nav-link fw-semibold py-2 px-0" href="history.html"><i class="ai-wallet fs-5 opacity-60 me-2"></i>나의활동</a>
                   </nav>
                   <div class="d-none d-lg-block" style="padding-top: 300px;"></div>
                   <div>
-                    <nav class="nav flex-column"><a class="nav-link fw-semibold py-2 px-0" href="account-signin.html"><i class="ai-logout fs-5 opacity-60 me-2"></i>로그아웃</a></nav>
+                    <nav class="nav flex-column"><a class="nav-link fw-semibold py-2 px-0" href="/info/logout"><i class="ai-logout fs-5 opacity-60 me-2"></i>로그아웃</a></nav>
                   </div>
 
                   <div>
@@ -231,7 +244,7 @@
             <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
                 <div class="card-body">
                   <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3"><i class="ai-user text-primary lead pe-1 me-2"></i>
-                    <h2 class="h4 mb-0">내정보</h2><a class="btn btn-sm btn-secondary ms-auto" href="mypageModify.html"><i class="ai-edit ms-n1 me-2"></i>수정하기</a>
+                    <h2 class="h4 mb-0">내정보</h2><a class="btn btn-sm btn-secondary ms-auto" href="/info/my"><i class="ai-edit ms-n1 me-2"></i>수정하기</a>
                   </div>
                   
                   <div class="row py-4 mb-2 mb-sm-3">
@@ -239,9 +252,9 @@
                         <div class="d-md-flex align-items-center">
                             <div class="d-sm-flex align-items-center">
                               <div class="pt-3 pt-sm-0 pb-3">
-                                <h3 class="h5 mb-2">이름<i class="ai-circle-check-filled fs-base text-success ms-2"></i></h3>
+                                <h3 class="h5 mb-2" th:text="${#session.getAttribute('user').name}">이름<i class="ai-circle-check-filled fs-base text-success ms-2"></i></h3>
                                 <div class="text-muted fw-medium d-flex flex-wrap flex-sm-nowrap align-iteems-center">
-                                  <div class="d-flex align-items-center me-3"><i class="ai-mail me-1"></i>email@example.com</div>
+                                  <div class="d-flex align-items-center me-3" th:text="${#session.getAttribute('user').email}"><i class="ai-mail me-1"></i>email@example.com</div>
                                 </div>
                               </div>
                             </div>
@@ -249,15 +262,15 @@
                       <table class="table mb-0">
                         <tr>
                           <td class="border-0 text-muted py-1 px-0">전화번호</td>
-                          <td class="border-0 text-dark fw-medium py-1 ps-3">010-****-****</td>
+                          <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').phone}">010-****-****</td>
                         </tr>
                         <tr>
                           <td class="border-0 text-muted py-1 px-0">유형</td>
-                          <td class="border-0 text-dark fw-medium py-1 ps-3">서포터or표시x</td>
+                          <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').joinType}">서포터or표시x</td>
                         </tr>
                         <tr>
                           <td class="border-0 text-muted py-1 px-0">성별</td>
-                          <td class="border-0 text-dark fw-medium py-1 ps-3">성별</td>
+                          <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').gender}">성별</td>
                         </tr>
                         <tr>
                           <td class="border-0 text-muted py-1 px-0">소통</td>
@@ -265,19 +278,19 @@
                         </tr>
                         <tr>
                             <td class="border-0 text-muted py-1 px-0">활동지역</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3">지역</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').region}">지역</td>
                           </tr>
                           <tr>
                             <td class="border-0 text-muted py-1 px-0">닉네임</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3">닉네임</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').nickname}">닉네임</td>
                           </tr>
                           <tr>
                             <td class="border-0 text-muted py-1 px-0">장애여부</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3">x or 정보</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').disabledType}">x or 정보</td>
                           </tr>
                       </table>
                       <p style="padding-top: 10px; font-weight: bold;">소개글</p>
-                      <p>안녕하세요 ~</p>
+                      <p th:text="${#session.getAttribute('user').introduction}">안녕하세요 ~</p>
                     </div>
                     <div class="col-md-6 d-md-flex justify-content-end">
                       <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 60%;">
