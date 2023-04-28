@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
   <meta charset="utf-8" />
   <title>Around | Blog Grid no Sidebar</title>
@@ -291,6 +292,39 @@
           </div>
         </div>
       </div>
+      <!-- item -->
+      <tbody th:with="link = ${pageRequestDTO.getLink()}">
+      <div class="col" th:each="dto:${responseDTO.dtoList}">
+        <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" >
+          <div class="card-body pt-3 pb-0 pr-4">
+
+            <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]]</p>
+            <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
+
+            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
+
+            <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
+            <p class="card-text">마감일 +-계산이안됌</p>
+            <a class="h4 card-title mt-0" th:href="|@{/match/blog-single-v1(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
+          </div>
+          <div class="card-footer border-0 py-3 my-3 mb-sm-4">
+            <div class="container d-flex justify-content-center">
+                    <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
+                    <i class="ai-user">[[${dto.board_writer}]]</i>
+                    </span>
+              <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
+                        <i class="ai-chat"> [[${dto.recruitsNum}]]</i>
+                      </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </tbody>
+
+
+
+
+
     </div>
     <!-- </div> -->
     <!-- Pagination-->
@@ -303,20 +337,43 @@
       </div>
       <div class="col col-md-4 col-6 order-md-3 order-2">
         <nav aria-label="Page navigation">
-          <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item active" aria-current="page">
-                  <span class="page-link"
-                  >1<span class="visually-hidden">(current)</span></span
-                  >
+          <ul class="pagination pagination-sm justify-content-end" >
+            <li class="page-item" th:if="${responseDTO.prev}">
+              <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+            <li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+              <a class="page-link"  th:data-num="${i}">[[${i}]]</a>
+            </li>
+            </th:block>
+            <li class="page-item" th:if="${responseDTO.next}">
+              <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
+            </li>
           </ul>
         </nav>
       </div>
     </div>
+    <!-- Pagination-->
+    <!--<div class="float-end">
+      <ul class="pagination flex-wrap">
+
+        <li class="page-item" th:if="${responseDTO.prev}">
+          <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
+        </li>
+
+        <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+          <li th:class="${responseDTO.page == i}?'page-item active':'page-item'" >
+            <a class="page-link" th:href="@{/match?pageNum=${i}}"  th:data-num="${i}">[[${i}]]</a>
+          </li>
+        </th:block>
+
+        <li class="page-item" th:if="${responseDTO.next}">
+          <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
+        </li>
+      </ul>
+    </div>-->
+
+
   </div>
 </main>
 <!-- Subscription-->
