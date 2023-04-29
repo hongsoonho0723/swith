@@ -1,11 +1,11 @@
 package com.sportsmania.swith.Service;
 
-import com.sportsmania.swith.DTO.UserDTO;
+import com.sportsmania.swith.DTO.UserDto;
 
 
 public interface UserService {
-    void join(UserDTO dto);
+    void join(UserDto dto);
 
-    UserDTO login(String userId,String Pwd);
-    int modify(UserDTO dto);
+    UserDto login(String userId,String Pwd);
+    int modify(UserDto dto);
 }

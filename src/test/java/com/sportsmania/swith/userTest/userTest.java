@@ -1,6 +1,6 @@
 package com.sportsmania.swith.userTest;
 
-import com.sportsmania.swith.DTO.UserDTO;
+import com.sportsmania.swith.DTO.UserDto;
 import com.sportsmania.swith.Service.userServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class userTest {
 
     @Test
     public void join(){
-        UserDTO dto = UserDTO.builder()
+        UserDto dto = UserDto.builder()
                 .userId("rbalss")
                 .name("규민")
                 .pwd("1234")
@@ -34,7 +34,7 @@ public class userTest {
     public void login(){
         String id = "rbal";
         String pwd = "1234";
-        Optional<UserDTO> result = Optional.ofNullable(userService.login(id, pwd));
+        Optional<UserDto> result = Optional.ofNullable(userService.login(id, pwd));
         System.out.println(result);
 
     }

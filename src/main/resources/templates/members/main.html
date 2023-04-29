@@ -217,17 +217,16 @@
               </div>
             </div>
           </div>
-
+          <th:block th:with="user=${#session.getAttribute('user')}">
             <!--로그인하지 않았을때-->
-            <div th:if="${#session.getAttribute('user') == null}">
-                  <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-                  <i class="ai-user me-2 ms-n1"></i>
-                  로그인
-                  </a>
+            <div th:if="${user == null}">
+              <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                <i class="ai-user me-2 ms-n1"></i>
+                로그인
+              </a>
             </div>
-            
             <!--로그인 했을 때-->
-            <div th:if="${#session.getAttribute('user') != null}">
+            <div th:if="${user != null}">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
@@ -236,15 +235,13 @@
                     <li><a href="#" class="dropdown-item">내 활동내역</a></li>
                     <li><a href="/members/logout" class="dropdown-item" style="color: red">log out</a></li>
                     <li><a href="#" class="dropdown-item">나의 팀</a></li>
-
                     <li href="#"><a class="dropdown-item">찜 목록</a></li>
                     <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
-
                   </ul>
                 </li>
               </ul>
             </div>
-            
+          </th:block>
           </div>
         </nav>
       </div>

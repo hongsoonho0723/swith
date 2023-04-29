@@ -1,9 +1,8 @@
 package com.sportsmania.swith.Controller;
 
-import com.sportsmania.swith.DTO.UserDTO;
+import com.sportsmania.swith.DTO.UserDto;
 import com.sportsmania.swith.Service.UserService;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +33,7 @@ public class MemberController {
     @PostMapping("/my")
     public String modify1(HttpSession httpSession, @RequestParam("email") String email,@RequestParam("preference") String preference,
                             @RequestParam("introduction") String introduction,@RequestParam("nickname") String nickname){
-        UserDTO dto = (UserDTO) httpSession.getAttribute("user");
+        UserDto dto = (UserDto) httpSession.getAttribute("user");
         dto.setEmail(email);
         dto.setNickname(nickname);
         dto.setPreference(preference);

@@ -1,6 +1,6 @@
 package com.sportsmania.swith.mapper;
 
-import com.sportsmania.swith.DTO.UserDTO;
+import com.sportsmania.swith.DTO.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
 public interface UserMapper {
-    void join(UserDTO dto);
+    void join(UserDto dto);
 
-    UserDTO findByIdPW(@Param("userId") String userId,@Param("Pwd") String Pwd);
+    UserDto findByIdPW(@Param("userId") String userId,@Param("Pwd") String Pwd);
 
-    int modifyInfo(UserDTO dto);
+    int modifyInfo(UserDto dto);
 
 }

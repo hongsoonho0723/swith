@@ -1,6 +1,6 @@
 package com.sportsmania.swith.Controller;
 
-import com.sportsmania.swith.DTO.UserDTO;
+import com.sportsmania.swith.DTO.UserDto;
 import com.sportsmania.swith.Service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +37,12 @@ public class MyController {
 
     @PostMapping("/signin")
     public String login(@RequestParam("userId") String userId, @RequestParam("pwd") String pwd, HttpSession session){
-        Optional<UserDTO> result = Optional.ofNullable(userService.login(userId, pwd));
+        Optional<UserDto> result = Optional.ofNullable(userService.login(userId, pwd));
 
         if(result.isEmpty()){
             return "members/signin";
         }else{
-            UserDTO dto = result.get();
+            UserDto dto = result.get();
             log.info(result);
             log.info(dto);
             session.setAttribute("user",dto);
