@@ -81,19 +81,24 @@
   </div>
 </div>
 
+<!-- 폼태그 -->
+<form action="/match/register" method="post">
+
+
 <div class="container" style="padding-left: 80px;">
 
   <h1 style="font-size: 1.5rem; padding-top: 40px; color: #57B0E2; ">* 유형</h1>
 
   <div style="padding-top: 20px; ">
-    <input type="radio" name="radio-button" id="radio-1" ;>
-    <label for="radio-1" style="padding-right:315px ;">서포터구인</label>
 
-    <input type="radio" name="radio-button" id="radio-2">
-    <label for="radio-2" style="padding-right:280px ;">활동지원</label>
+    <input type="radio" name="b_category" id="radio-1" ;>
+    <label for="radio-1" style="padding-right:190px ;">서포터구인</label>
+  
+    <input type="radio" name="b_category" id="radio-2">
+    <label for="radio-2" style="padding-right:180px ;">활동지원</label>
+  
+    <input type="radio" name="b_category" id="radio-3">
 
-    <input type="radio" name="radio-button" id="radio-3">
-    <label for="radio-3" >플레이윗미</label>
 
   </div>
   <h1 style="font-size: 1rem;
@@ -146,7 +151,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
   </style>
 
 
-  <select id="sport-select">
+  <select id="sport-select" name="exercise">
     <option selected disabled hidden>운동 선택</option>
     <option value="golf">골프</option>
     <option value="basketball">농구</option>
@@ -189,6 +194,35 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
       console.log(`Selected sport: ${selectedSport}`);
     });
   </script>
+
+  
+
+<select name="region" id="city" onchange="updateDistricts(); updateDistricts1();">
+  <option selected disabled hidden value="">도시 선택</option>
+  <option value="seoul">서울</option>
+  <option value="gyeonggi">경기</option>
+  <option value="incheon">인천</option>
+  <option value="busan">부산</option>
+  <option value="daegu">대구</option>
+  <option value="gwangju">광주</option>
+  <option value="daejeon">대전</option>
+  <option value="ulsan">울산</option>
+  <option value="sejong">세종</option>
+  <option value="gangwon">강원</option>
+  <option value="gyeongnam">경남</option>
+  <option value="gyeongbuk">경북</option>
+  <option value="jeonnam">전남</option>
+  <option value="jeonbuk">전북</option>
+  <option value="chungnam">충남</option>
+  <option value="chungbuk">충북</option>
+  <option value="jeju">제주</option>
+</select>
+
+
+<select name="region" id="district">
+  <option value="">구 선택</option>
+</select>
+
 
 
   <select id="city" onchange="updateDistricts(); updateDistricts1();">
@@ -486,10 +520,11 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
     }
   </script>
 
-  <input type="datetime-local" style=" width: 160px; height: 40px; margin-right: 25px;">
+  <input name="startdate" type="datetime-local" style=" width: 160px; height: 40px; margin-right: 25px;">
 
 
-  <input type="datetime-local" style=" width: 160px; height: 40px;">
+  <input name="enddate" type="datetime-local" style=" width: 160px; height: 40px;">
+ 
 
 
   <ul class="nav" style="padding-top: 40px; padding-bottom: 20px;">
@@ -500,7 +535,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
   </ul>
 
-  <select style="height: 40px; width: 280px; margin-right: 25px; ">
+  <select name="recruitsNum" style="height: 40px; width: 280px; margin-right: 25px; ">
     <option selected disabled hidden> 인원선택</option>
     <option>1</option>
     <option>2</option>
@@ -514,7 +549,8 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
     <option>10</option>
   </select>
 
-  <select id="district2" style="width:280px;">
+   <select name ="sportsfacility" id="district2" style="width:280px;">
+
     <option value="">체육 시설 선택</option>
   </select>
 
@@ -608,26 +644,51 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
     }
   </script>
 
+ 
+  <select name="supporttype" style="height: 40px; width: 280px; margin-right: 25px; ">
 
-  <select style="height: 40px; width: 280px; margin-right: 25px; ">
     <option selected disabled hidden> 지원 유형</option>
     <option>이동지원</option>
     <option>활동지원</option>
     <option>기타지원</option>
 
   </select>
+  
+  <h1 style="font-size: 2rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 제목</h1>
+  <input name="title" type="text" minlength='5' maxlength='30' style="height: 40px; width: 950px; margin-right: 25px;" placeholder="   5~30글자로 적어주세요 예)배드민턴 서포터해주실 분!">
+  <input type="text" name="board_writer">
+  <h1 style="font-size: 2rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 내용</h1>
 
-  <h1 style="font-size: 1.5rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 제목</h1>
-  <input type="text" minlength='5' maxlength='30' style="height: 40px; width: 950px; margin-right: 25px;" placeholder="   5~30글자로 적어주세요 예)배드민턴 서포터해주실 분!">
 
   <h1 style="font-size: 1.5rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 내용</h1>
 
+  <script>
+    $(document).ready(function () {
+      $("#summernote").summernote({
+        placeholder:'필요한 도움에 대해서 자세히 적어주세요!',
+        height:500,
+        toolbar: [
+          // [groupName, [list of button]]
+          [
+            "style",
+            ["bold", "italic", "underline", "strikethrough", "clear"],
+          ],
+          ["fontsize", ["fontsize"]],
+          ["color", ["forecolor", "backcolor"]],
+          ["para", ["ul", "ol", "paragraph"]],
+          ["height", ["height"]],
+          ["insert", ["link", "picture"]],
+        ],
+      });
+    });
+  </script>
+<!--  <form method="post">-->
+    <table border="1" width=100%>
+      <tr></tr>
+    </table>
 
-
-
-
-
-
+    <textarea id="summernote" name="content"></textarea>
+<!--  </form>-->
 
   <!-- TOAST UI Editor가 들어갈 div태그 -->
   <div id="editor"></div>
@@ -645,34 +706,16 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 </script>
 
+  <div class="container d-flex justify-content-center" style="padding-top: 50px;">
+   
+    <button type="result" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" >작성취소</button>
+    <button type="submit" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" >작성완료</button>
+  </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="container d-flex justify-content-center" style="padding-top: 50px;">
-
-  <a type="button" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" href="#">작성취소</a>
-  <a type="button" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" href="#">작성완료</a>
-</div>
 
 
 </div>
-
+</form>
 <br>
 <br>
 <br>

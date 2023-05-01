@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sportsmania.swith.mapper.BoardMapper">
+    <select id="getTime" resultType="string">
+        select now()
+    </select>
+    <insert id="insert" parameterType="com.sportsmania.swith.dto.BoardDTO">
+        insert into matchboard(board_writer,exercise,startdate,enddate,region,recruitsNum,title,content,b_category)
+        values(#{board_writer},#{exercise},#{startdate},#{enddate},#{region},#{recruitsNum},#{title},#{content},#{b_category})
+        </insert>
+    <select id="selectList" resultType="com.sportsmania.swith.dto.BoardDTO">
+        select * from matchboard
+        <where>
+            <if test="types != null and types.length > 0">
+                <foreach collection="types" item="type" open="(" close=")" separator="OR">
+                    <if test="type == 't'.toString()">
+                        title like concat('%',#{keyword},'%')
+                    </if>
+                    <if test="type == 'w'.toString()">
+                        writer like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+        </where>
+        order by board_no desc limit #{skip},#{size}
+    </select>
+    <select id="getCount" resultType="int">
+        select count(board_no) from matchboard
+    </select>
+</mapper>
