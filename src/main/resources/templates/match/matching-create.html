@@ -99,14 +99,14 @@
   <h1 style="font-size: 2rem; padding-top: 40px; color: #57B0E2; ">* 유형</h1>
 
   <div style="padding-top: 20px; ">
-    <input type="radio" name="b_category" id="radio-1" ;>
+    <input type="radio" name="b_category" id="radio-1" value="서포터구인">
     <label for="radio-1" style="padding-right:190px ;">서포터구인</label>
 
-    <input type="radio" name="b_category" id="radio-2">
-    <label for="radio-2" style="padding-right:180px ;">활동지원</label>
+    <input type="radio" name="b_category" id="radio-2" value="체육활동지원">
+    <label for="radio-2" style="padding-right:180px ;">체육활동지원</label>
 
-    <input type="radio" name="b_category" id="radio-3">
-    <label for="radio-3" >플레이윗미</label>
+    <input type="radio" name="b_category" id="radio-3" value="운동친구모집">
+    <label for="radio-3" >운동친구모집</label>
   
   </div>
   <h1 style="font-size: 1rem;
@@ -499,9 +499,13 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
   }
 </script>
 
+
+  <!--프론트에서 날짜 포맷바꾸기-->
+  <!--<input id="viewStartdate" type="datetime-local" style=" width: 160px; height: 40px; margin-right: 25px;">
+  <input name="startdate" type="hidden">
+  <input id="viewEnddate" type="datetime-local" style=" width: 160px; height: 40px;">
+  <input name="enddate" type="hidden">-->
   <input name="startdate" type="datetime-local" style=" width: 160px; height: 40px; margin-right: 25px;">
-
-
   <input name="enddate" type="datetime-local" style=" width: 160px; height: 40px;">
  
 
@@ -623,10 +627,10 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
  
   <select name="supporttype" style="height: 40px; width: 280px; margin-right: 25px; ">
-    <option selected disabled hidden> 지원 유형</option>
-    <option>이동지원</option>
-    <option>활동지원</option>
-    <option>기타지원</option>
+    <option  selected disabled hidden> 지원 유형</option>
+    <option value="이동지원">이동지원</option>
+    <option value="활동지원">활동지원</option>
+    <option value="기타지원">기타지원</option>
 
   </select>
   
@@ -655,6 +659,51 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
         ],
       });
     });
+
+
+
+    /*function convertTimeFormat(time){
+      var year = time.getFullYear();
+      var month = time.getMonth();
+      var date = time.getDate();
+
+      var hour = time.getHours();
+      var minute = time.getMinutes();
+      var second = time.getSeconds();
+      var millis = time.getMilliseconds();
+
+      //return ''+year+'-'+((month+1)>10?''+(month+1):'0'+(month+1))+'-'+(date>10?''+date:'0'+date)+' '+(hour>10?''+hour:'0'+hour)+':'+(minute>10?''+minute:minute)+':'+(second>10?''+second:'0'+second)+'.'+(millis<10?'00'+millis:(millis<100?'0'+millis:''+millis));
+      return ''+year+'-'+((month+1)>10?''+(month+1):'0'+(month+1))+'-'+(date>10?''+date:'0'+date)+' '+(hour>10?''+hour:'0'+hour)+':'+(minute>10?''+minute:minute);
+    }*/
+
+    function registSubmit(){
+      /*var viewStartdate = document.getElementById('viewStartdate');
+      var viewEnddate = document.getElementById('viewEnddate');
+
+      var startdate = document.querySelector('input[name="startdate"]');
+      var enddate = document.querySelector('input[name="enddate"]');
+
+      var dateStartDate = new Date(viewStartdate.value);
+      var dateEndDate = new Date(viewEnddate.value);
+
+      var convertedStartDate = convertTimeFormat(dateStartDate);
+      var convertedEndDate = convertTimeFormat(dateEndDate);
+
+      startdate.value = convertedStartDate;
+      enddate.value = convertedEndDate;
+*/
+      var form = document.querySelector('form');
+
+      setTimeout(function(){},1000);
+      var isConfirm = confirm('확인누르면 제출함');
+      if(isConfirm){
+        form.submit();
+      }
+    }
+
+    function registCancel(){
+    //~~~ ㅊ ㅟ소 로직~~~~
+    }
   </script>
 <!--  <form method="post">-->
     <table border="1" width=100%>
@@ -664,38 +713,19 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 
-
-
-  <!-- TOAST UI Editor가 들어갈 div태그 -->
-  <div id="editor"></div>
-</div>
-<!-- TOAST UI Editor CDN URL(JS) -->
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-<!-- TOAST UI Editor 생성 JavaScript 코드 -->
-<script>
-  const editor = new toastui.Editor({
-    el: document.querySelector('#editor'),
-    height: '600px',
-    language: 'ko-KR',
-  });
-
-</script>
-
-
     <textarea id="summernote" name="content"></textarea>
 <!--  </form>-->
 
 
   <div class="container d-flex justify-content-center" style="padding-top: 50px;">
-   
-    <button type="result" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" >작성취소</button>
-    <button type="submit" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" >작성완료</button>
+
+    <input onclick="registCancel()" type="button" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" value="작성취소"/>
+    <input onclick="registSubmit()" type="button" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" value="작성완료"/>
   </div>
 
 
 </div>
-
+</form>
 <br>
 <br>
 <br>
@@ -721,5 +751,6 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
 </body>
 </html>

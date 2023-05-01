@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -14,19 +15,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardDTO {
-    @NotEmpty
     private String board_no;
     @NotEmpty
     private String board_writer;
     @NotEmpty
     private String exercise;
-    @NotEmpty
-    private LocalDateTime startdate;
-    @NotEmpty
-    private LocalDateTime enddate;
+    @NotNull
+    private String startdate;
+    @NotNull
+    private String enddate;
+    private String deadline;
     @NotEmpty
     private String region;
-    @NotEmpty
+    @NotNull
     private int recruitsNum;
     @NotEmpty
     private String title;
