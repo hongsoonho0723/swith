@@ -1,6 +1,6 @@
 package com.sportsmania.swith.mapper;
 
-import com.sportsmania.swith.DTO.UserDto;
+import com.sportsmania.swith.dto.UserDto;
 import com.sportsmania.swith.domain.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

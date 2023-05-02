@@ -1,7 +1,7 @@
 package com.sportsmania.swith.userTest;
 
-import com.sportsmania.swith.DTO.UserDto;
-import com.sportsmania.swith.Service.userServiceImpl;
+import com.sportsmania.swith.dto.UserDto;
+import com.sportsmania.swith.service.userServiceImpl;
 import com.sportsmania.swith.domain.UserVo;
 import com.sportsmania.swith.mapper.UserMapper;
 import org.junit.jupiter.api.Test;

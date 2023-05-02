@@ -2,6 +2,8 @@ package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.domain.MatchBoardVO;
 import com.sportsmania.swith.dto.MatchBoardDTO;
+import com.sportsmania.swith.dto.PageRequestDTO;
+import com.sportsmania.swith.dto.PageResponseDTO;
 import com.sportsmania.swith.mapper.MatchBoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -65,6 +67,22 @@ public class MatchBoardServicelmpl implements MatchBoardService {
     @Override
     public void remove(int board_no) {
         matchBoardMapper.delete(board_no);
+    }
+
+    @Override
+    public PageResponseDTO<MatchBoardDTO> getList(PageRequestDTO pageRequestDTO) {
+
+        List<MatchBoardDTO> dtoList = matchBoardMapper.selectList(pageRequestDTO);
+
+        int total = matchBoardMapper.getCount(pageRequestDTO);
+
+        PageResponseDTO<MatchBoardDTO> pageResponseDTO = PageResponseDTO.<MatchBoardDTO>withAll()
+                .dtoList(dtoList)
+                .total(total)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+
+        return pageResponseDTO;
     }
 
 

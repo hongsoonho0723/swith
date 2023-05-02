@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+  <!-- jquery cdn-->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <meta charset="utf-8" />
   <title>Around | Blog Grid no Sidebar</title>
   <!-- SEO Meta Tags-->
@@ -244,15 +246,15 @@
 
       <!--검색-->
       <form action="/match" method="get">
-      <div class="col-xl-2 offset-xl-1 col-lg-3 col-sm-5">
-        <select name="supporttype" class="form-select">
-          <option>전체</option>
-          <option>이동지원</option>
-          <option>체육활동지원</option>
-          <option>기타</option>
-          <!--              <option>Travel &amp; Vacation</option>-->
-        </select>
-      </div>
+        <div class="col-xl-2 offset-xl-1 col-lg-3 col-sm-5">
+          <select name="supporttype" class="form-select">
+            <option>전체</option>
+            <option>이동지원</option>
+            <option>체육활동지원</option>
+            <option>기타</option>
+            <!--              <option>Travel &amp; Vacation</option>-->
+          </select>
+        </div>
       <div class="col-lg-4 col-sm-7">
         <div class="position-relative">
           <i
@@ -284,31 +286,6 @@
     <!-- Services grid-->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 pb-sm-3 pb-md-4 pb-xl-5">
       <!-- Item-->
-      <div class="col">
-        <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" >
-          <div class="card-body pt-3 pb-0 pr-4">
-
-            <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-            <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-
-            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-
-            <p class="card-text">활동날짜 2023.10.22</p>
-            <p class="card-text">마감일 2023.10.22</p>
-            <a class="h4 card-title mt-0" href="blog">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</a>
-          </div>
-          <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-            <div class="container d-flex justify-content-center">
-                    <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                    <i class="ai-user">nickname</i>
-                    </span>
-              <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                        <i class="ai-chat"> 4/5</i>
-                      </span>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- item -->
       <tbody th:with="link = ${pageRequestDTO.getLink()}">
       <div class="col" th:each="dto:${responseDTO.dtoList}">

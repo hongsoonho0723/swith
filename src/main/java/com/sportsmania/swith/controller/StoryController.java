@@ -1,7 +1,6 @@
 package com.sportsmania.swith.controller;
 
-import com.sportsmania.swith.controller.formatter.CheckboxFormatter;
-import com.sportsmania.swith.controller.formatter.LocalDateFormatter;
+import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.service.StoryService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -26,11 +25,6 @@ public class StoryController {
     @Autowired
     private final StoryService storyService;
 
-    @Autowired
-    LocalDateFormatter localDateFormatter;
-
-    @Autowired
-    CheckboxFormatter checkboxFormatter;
 
     public StoryController(StoryService storyService) {
         this.storyService = storyService;

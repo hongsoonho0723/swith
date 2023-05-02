@@ -1,4 +1,4 @@
-package com.sportsmania.swith.DTO;
+package com.sportsmania.swith.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
