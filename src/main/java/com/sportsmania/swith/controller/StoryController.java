@@ -2,28 +2,21 @@ package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.controller.formatter.CheckboxFormatter;
 import com.sportsmania.swith.controller.formatter.LocalDateFormatter;
-import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.service.StoryService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 
 @Controller
