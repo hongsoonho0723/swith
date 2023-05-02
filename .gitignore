@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+## ajax예제
+css
+ajax/
+AjaxController
+AjaxViewController
+AjaxDTO
