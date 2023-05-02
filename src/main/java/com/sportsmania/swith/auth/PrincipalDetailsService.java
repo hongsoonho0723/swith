@@ -1,6 +1,6 @@
 package com.sportsmania.swith.auth;
 
-import com.sportsmania.swith.domain.UserVo;
+import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserVo userVo = userMapper.findByUserId(username);
+        UserVO userVo = userMapper.findByUserId(username);
         if (userVo != null){
             return new PrinclpalDetails(userVo);
         }

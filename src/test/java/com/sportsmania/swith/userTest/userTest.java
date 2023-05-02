@@ -1,8 +1,8 @@
 package com.sportsmania.swith.userTest;
 
-import com.sportsmania.swith.DTO.UserDto;
-import com.sportsmania.swith.Service.userServiceImpl;
-import com.sportsmania.swith.domain.UserVo;
+import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.service.userServiceImpl;
+import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 @SpringBootTest
@@ -30,14 +29,14 @@ public class userTest {
     public void login(){
         String id = "rbal";
         String pwd = "1234";
-        Optional<UserDto> result = Optional.ofNullable(userService.login(id, pwd));
+        Optional<UserDTO> result = Optional.ofNullable(userService.login(id, pwd));
         System.out.println(result);
 
     }
     @Test
     public void testt(){
-        UserVo userVo = userMapper.findByUserId("rbalswkd12");
-        UserDto dto = modelMapper.map(userVo,UserDto.class);
+        UserVO userVo = userMapper.findByUserId("rbalswkd12");
+        UserDTO dto = modelMapper.map(userVo, UserDTO.class);
         System.out.println(dto.getName());
     }
 }

@@ -1,6 +1,6 @@
-package com.sportsmania.swith.Service;
+package com.sportsmania.swith.service;
 
-import com.sportsmania.swith.DTO.UserDto;
+import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,23 +20,23 @@ public class userServiceImpl implements UserService {
 
 
     @Override
-    public void join(UserDto dto) {
+    public void join(UserDTO dto) {
         userMapper.join(dto);
     }
 
     @Override
-    public UserDto login(String userId, String Pwd) {
+    public UserDTO login(String userId, String Pwd) {
         return userMapper.findByIdPW(userId,Pwd);
     }
 
     @Override
-    public int modify(UserDto dto) {
+    public int modify(UserDTO dto) {
         return userMapper.modifyInfo(dto);
     }
 
     @Override
-    public UserDto findByUsername(String username) {
-        UserDto dto = modelMapper.map(userMapper.findByUserId(username),UserDto.class);
+    public UserDTO findByUsername(String username) {
+        UserDTO dto = modelMapper.map(userMapper.findByUserId(username), UserDTO.class);
         return dto;
     }
 }

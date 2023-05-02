@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportsmania.swith.mapper.SupportTeamMapper">
+    <select id="getTime" resultType="string">
+        select now()
+    </select>
+
+    <insert id="insert" parameterType="com.sportsmania.swith.domain.SupportTeamVO">
+        insert into supportteam(team_title,team_writer,content,sido,sigungu,member_num,image_team,simple_content,inquiry,deadline)
+            values(#{team_title},#{team_writer},#{content},#{sido},#{sigungu},#{member_num},#{image_team},#{simple_content},#{inquiry},#{deadline})
+    </insert>
+    <select id="selectAll" resultType="com.sportsmania.swith.domain.SupportTeamVO">
+        select * from supportteam order by regdate desc
+    </select>
+    <select id="selectOne" resultType="com.sportsmania.swith.domain.SupportTeamVO">
+        select * from supportteam where team_title = #{team_title}
+    </select>
+    <delete id="delete">
+        delete from supportteam where team_title = #{team_title}
+    </delete>
+    <update id="update" parameterType="com.sportsmania.swith.domain.SupportTeamVO">
+        update supportteam set sido = #{sido}, sigungu = #{sigungu}, deadline = #{deadline}, member_num = #{member_num},
+                               inquiry=#{inquiry}, image_team=#{image_team},simple_content = #{simple_content}, content = #{content} where team_title = #{team_title}
+    </update>
+</mapper>

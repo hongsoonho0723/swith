@@ -1,16 +1,12 @@
-package com.sportsmania.swith.Controller;
+package com.sportsmania.swith.controller;
 
 
-import com.sportsmania.swith.DTO.UserDto;
-import com.sportsmania.swith.Service.UserService;
+import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.service.UserService;
 
-import com.sportsmania.swith.domain.UserVo;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.io.IOException;
 
 
 @Controller
@@ -47,7 +41,7 @@ public class MyController {
             return "members/main";
         } else {
             log.info(username);
-            UserDto dto = userService.findByUsername(username);
+            UserDTO dto = userService.findByUsername(username);
             log.info(dto);
             session.setAttribute("user", dto);
             return "members/main";
@@ -56,7 +50,7 @@ public class MyController {
 
     // 회원가입할때 권한 설정해줌
     @PostMapping(value = "/signup")
-    public String postMapping(@ModelAttribute UserDto dto) {
+    public String postMapping(@ModelAttribute UserDTO dto) {
         log.info(dto);
         dto.setAuth("ROLE_USER");
         dto.setPwd(bCryptPasswordEncoder.encode(dto.getPwd()));
