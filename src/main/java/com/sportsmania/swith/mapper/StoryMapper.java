@@ -16,9 +16,11 @@ public interface StoryMapper {
 
     StoryVO selectOne(Long story_no);
 
-    void delete(Long tno);
+    void delete(Long story_no);
 
     void  likeCount(Long story_no);
+
+    void update(StoryVO storyVO);
 
     List<StoryVO> selectList(PageRequestDTO pageRequestDTO);
 

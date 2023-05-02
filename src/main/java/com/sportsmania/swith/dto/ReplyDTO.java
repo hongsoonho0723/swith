@@ -12,14 +12,16 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoryReplyDTO {
+public class ReplyDTO {
+
+    private  Long reply_no;
 
     private Long story_no;
 
-    @NotEmpty
+
     private String reply_writer;
 
-    @NotEmpty
+
     private String content;
 
     private LocalDateTime regdate;

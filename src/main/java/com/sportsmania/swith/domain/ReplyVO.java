@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoryReplyVO {
+public class ReplyVO {
+
+    private  Long reply_no;
 
     private Long story_no;
 

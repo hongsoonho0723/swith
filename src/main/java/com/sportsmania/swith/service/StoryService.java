@@ -15,6 +15,8 @@ public interface StoryService {
 
     void like(Long story_no, String userid);
 
+    void modify(StoryDTO storyDTO);
+
     PageResponseDTO<StoryDTO> getList(PageRequestDTO pageRequestDTO);
 
     StoryDTO getOne(Long story_no);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        lang="krg">
   <head>
     <meta charset="utf-8">
     <title>Around | Single Post v.2</title>
@@ -23,6 +24,12 @@
     <!-- TOAST UI Editor CDN URL(CSS)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+   <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'textarea'});</script>-->
+
+    <!-- ajax -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/ajax.js"></script>
 
     <!-- 이미지처리를 위한 js 파일 -->
     <script src="../assets/js/upload.js"></script>
@@ -202,35 +209,36 @@
           </div>
         </div>
       <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
-
+          <!-- 전송 -->
+          <form id="storyForm" method="post" enctype="multipart/form-data">
           <div class="col-12 pb-3">
             <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
-              <input type="radio" name="check-writer" id="writer-check-user" class="form-check-input" value="user">
+              <input type="radio" name="writing type" id="writer-check-user" class="form-check-input" value="user">
               <label for="writer-check-user" class="form-check-label pe-5 fs-6">개인</label>
 
-              <input type="radio" name="check-writer" id="writer-check-team" class="form-check-input btn-info" value="team">
+              <input type="radio" name="writing type" id="writer-check-team" class="form-check-input btn-info" value="team">
               <label for="writer-check-team" class="form-check-label fs-6">서포터팀</label>
 
           </div>
 
           <div class="col-12 py-3">
             <h3 class="fs-4" style="color: #003986;">스토리 유형</h3>
-            <input type="radio" name="check-stroy" id="story-check-1" class="form-check-input" value="" style="accent-color: #57B0E2;">
+            <input type="radio" name="s_category" id="story-check-1" class="form-check-input" value="근황" style="accent-color: #57B0E2;">
             <label for="story-check-1" class="form-check-label pe-5 fs-6">근황</label>
 
-            <input type="radio" name="check-stroy" id="story-check-4" class="form-check-input" value="">
+            <input type="radio" name="s_category" id="story-check-4" class="form-check-input" value="홍보">
             <label for="story-check-4" class="form-check-label pe-5 fs-6">홍보</label>
 
-            <input type="radio" name="check-stroy" id="story-check-2" class="form-check-input" value="">
+            <input type="radio" name="s_category" id="story-check-2" class="form-check-input" value="유형">
             <label for="story-check-2" class="form-check-label pe-5 fs-6">활동후기</label>
 
-            <input type="radio" name="check-stroy" id="story-check-3" class="form-check-input" value="">
+            <input type="radio" name="s_category" id="story-check-3" class="form-check-input" value="정보공유">
             <label for="story-check-3" class="form-check-label pe-5 fs-6">정보공유</label>
           </div>
 
           <div class="mb-3 pt-3">
            <label for="text-input" class="form-label"><h3 class="fs-4" style="color: #003986;">제목</h3></label>
-            <input class="form-control" type="text" id="text-input" placeholder="최대 20자까지 입력 가능합니다." onfocus="this.placeholder=''" onblur="this.placeholder='최대 20자까지 입력 가능합니다.'">
+            <input class="form-control" type="text" name="title" id="text-input" placeholder="최대 20자까지 입력 가능합니다." onfocus="this.placeholder=''" onblur="this.placeholder='최대 10자까지 입력 가능합니다.'">
           </div>
 
           <!-- File input -->
@@ -239,14 +247,18 @@
             <div class="rounded-2 mb-3">
               <img id="preview-image" style="width: 500px; height: 300px;  " src="../assets/img/swith/swith-picture.png">
             </div>
-            <input class="form-control" type="file" id="input-image" onchange="readImage(this);">
+            <input class="form-control" type="file" name="image" id="input-image" onchange="readImage(this);">
           </div>
+
+          <input type="text" name="story_writer">
 
           <div class="mb3 pt3">
           <h3 class="fs-4" style="color: #003986">내용</h3>
 
+            <textarea name="content"></textarea>
+
             <!-- TOAST UI Editor가 들어갈 div태그 -->
-            <div id="editor"></div>
+            <div id="editor" name="content"></div>
           </div>
             <!-- TOAST UI Editor CDN URL(JS) -->
             <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -256,7 +268,8 @@
               const editor = new toastui.Editor({
                 el: document.querySelector('#editor'),
                 height: '600px',
-                language: 'ko-KR',
+                language: 'ko',
+                initialEditType: 'wysiwyg'
               });
 
             </script>
@@ -269,10 +282,10 @@
               </a>
             </div>
             <div class="pl-1">
-            <button type="button" class="btn btn-info" onClick="location.href='read'">작성완료</button>
+            <button type="submit" class="btn btn-info">작성완료</button>
             </div>
           </div>
-
+      </form>
       </section>
     </main>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="krg">
+<html xmlns:th="http://www.thymeleaf.org"
+        lang="krg">
 <head>
     <!-- Favicon and Touch Icons-->
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
@@ -122,6 +123,8 @@
     <link rel="stylesheet" media="screen" href="../assets/vendor/img-comparison-slider/dist/styles.css"/>
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css">
+
+    <link herf="../assets/css/swith.css">
 </head>
 <body>
 <!-- Change to .container-fluid for full width navbar -->
@@ -259,266 +262,74 @@
     </div>
 
         <!-- Author card widget style 2 -->
+    <tbody th:each="dto: ${responseDTO.dtoList}">
         <div class="border-top border-bottom py-2 mb-4">
             <div class="d-flex align-items-start py-2">
-                <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+
+                <img class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" th:src="|/img/${dto.image_main}|" style="min-height: 150px; width: 250px">
                 <div class="d-md-flex w-75 ps-4">
                     <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                        <a class="badge text-nav fs-xs border mt-2" >[[${dto.s_category}]]</a>
+                       <!-- <a style="text-align: none;" th:href="|@{/stories/${dto.story_no}}|">-->
+                        <a th:href="|@{/stories/{story_no}(story_no=${dto.story_no})}|" style="text-decoration:none;">
+                        <h3 class="h5 mb-0">[[${dto.title}]]</h3>
+                        <p class="fs-xs mb-2" style="color: #0d0a0a">[[${dto.story_writer}]]</p>
+                        <p class="fs-sm mb-0"style="color: #0d0a0a">[[${dto.content}]]</p>
+                        </a>
                     </div>
 
                     <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
                         <div class="d-flex">
                             <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
+                                <i class="ai-show"> [[${dto.clicks}]]</i>
                             </a>
                             <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
                                 <i class="ai-message"> 20</i>
                             </a>
                             <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
+                                <i class="ai-heart"> [[${dto.check}]]</i>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </tbody>
 
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
 
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    <!-- Pagination-->
+    <div class="row gy-3 align-items-center mb-md-2 mb-xl-4">
+        <div class="col col-md-4 col-6 order-md-1 order-1">
+            <div class="d-flex align-items-center">
+                <span class="text-muted fs-sm">Show</span>
+                <select class="form-select form-select-flush w-auto">
+                    <option value="6">6</option>
+                    <option value="9" selected>9</option>
+                    <option value="12">12</option>
+                    <option value="24">24</option>
+                </select>
             </div>
         </div>
+        <div class="col col-md-4 col-12 order-md-2 order-3 text-center">
 
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col col-md-4 col-6 order-md-3 order-2">
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm justify-content-end">
+                    <li class="page-item active" aria-current="page">
+                  <span class="page-link"
+                  >1<span class="visually-hidden">(current)</span></span
+                  >
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                </ul>
+            </nav>
         </div>
-
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Author card widget style 2 -->
-        <div class="border-top border-bottom py-2 mb-4">
-            <div class="d-flex align-items-start py-2">
-                <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
-                        <a class="badge text-nav fs-xs border mt-2" >유형</a>
-                        <h3 class="h5 mb-0">Darlene Robertson</h3>
-                        <p class="fs-xs mb-2"> 작성자</p>
-                        <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-                    </div>
-
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                        <div class="d-flex">
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                                <i class="ai-show"> 20</i>
-                            </a>
-                            <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 20</i>
-                            </a>
-                            <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> 20</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    </div>
+    </div>
     </section>
 
 <br><br><br>

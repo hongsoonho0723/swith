@@ -27,7 +27,7 @@ public class StoryServiceImpl implements StoryService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void register(StoryDTO storyDTO) throws IOException {
+    public void register(StoryDTO storyDTO) {
 
         log.info("register....service");
 
@@ -47,9 +47,11 @@ public class StoryServiceImpl implements StoryService {
         //파일 불러올 때 사용할 파일 경로
         Path savePath = Paths.get(uploadPath, saveName);
 
-
-        storyDTO.getImage().transferTo(savePath);
-
+        try {
+            storyDTO.getImage().transferTo(savePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         log.info(modelMapper);
 
         StoryVO storyVO = StoryVO.builder()
@@ -84,6 +86,12 @@ public class StoryServiceImpl implements StoryService {
     public void like(Long story_no, String userid) {
 
         storyMapper.likeCount(story_no);
+    }
+
+    @Override
+    public void modify(StoryDTO storyDTO) {
+        StoryVO storyVO=  modelMapper.map(storyDTO, StoryVO.class );
+        storyMapper.update(storyVO);
     }
 
     @Override

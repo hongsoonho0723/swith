@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportsmania.swith.mapper.StoryMapper">
+    <select id="getTime" resultType="string">
+      select now()
+    </select>
+
+    <insert id="insert" parameterType="com.sportsmania.swith.domain.StoryVO">
+        insert into story (story_writer,s_category,title,content,image_main) values (#{story_writer},#{s_category},#{title},#{content},#{image_main})
+    </insert>
+
+    <select id="selectOne" resultType="com.sportsmania.swith.domain.StoryVO">
+            select * from story where story_no = #{story_no}
+    </select>
+
+    <delete id="delete">
+        delete from story where story_no = #{story_no}
+    </delete>
+
+    <select id=" likeCount" resultType="com.sportsmania.swith.domain.StoryVO">
+        select count(check) from story where story_no = #{story_no}
+    </select>
+
+    <update id="update">
+        update story set title = #{title} , content = #{content}, s_catecory = #{s_catecory}, image_main = {#image_main} where story_no = #{story_no}
+    </update>
+
+    <!-- 검색 시 페이징 처리가 모든 목록 데이터를 기준으로 가져오는 것을..검색기준으로 하기 위해? todo에서 가져옴 추가-->
+    <sql id = "search">
+        <where>
+            <if test="types != null and types.length > 0">
+                <foreach collection="types" item="type" open="(" close=") " separator=" OR ">
+                    <if test="type == 'user'.toString()">
+                        s_catecory = '개인' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
+                    </if>
+                    <if test="type == 'team'.toString()">
+                        s_category = '서포터팀' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
+                    </if>
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="selectList" resultType="com.sportsmania.swith.domain.StoryVO">
+        <!-- mybatis는 기본적으로 getxxx, setxxx를 통해 작동하므로 #{skip}은 getSkip()을 호출한다.-->
+        select * from story
+        <include refid = "search"></include>
+        order by story_no desc limit #{skip}, #{size}
+    </select>
+
+    <!-- 전체 개수를 우선 반환하도록 구성 -->
+    <select id ="getCount" resultType="int">
+        select count(story_no) from story
+        <include refid = "search"></include>
+    </select>
+
+</mapper>
