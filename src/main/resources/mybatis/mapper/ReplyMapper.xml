@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportsmania.swith.mapper.ReplyMapper">
+
+    <select id="getReplyList" resultType="com.sportsmania.swith.domain.ReplyVO">
+        select * from reply where story_no = #{story_no} order by asc
+    </select>
+
+    <insert id="insert" parameterType="com.sportsmania.swith.domain.ReplyVO">
+        insert into story_reply (story_no,reply_writer,content) values (#{story_no},#{reply_writer},#{content})
+    </insert>
+
+    <delete id="delete">
+        delete from reply where reply_no = #{reply_no}
+    </delete>
+
+    <select id="replyCount" resultType="com.sportsmania.swith.domain.ReplyVO">
+        select count(*) from reply where story_no = #{story_no}
+    </select>
+
+    <update id="update">
+        update reply set content = #{content} where reply_no = #{reply_no}
+    </update>
+
+    <!-- 검색 시 페이징 처리가 모든 목록 데이터를 기준으로 가져오는 것을..검색기준으로 하기 위해? 추가-->
+    <sql id = "search">
+        <where>
+            <if test="types != null and types.length > 0">
+                <foreach collection="types" item="type" open="(" close=") " separator=" OR ">
+                    <if test="type == 'user'.toString()">
+                        s_catecory = '개인' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
+                    </if>
+                    <if test="type == 'team'.toString()">
+                        s_category = '서포터팀' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
+                    </if>
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+</mapper>
