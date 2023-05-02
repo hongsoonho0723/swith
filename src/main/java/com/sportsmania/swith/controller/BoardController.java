@@ -1,6 +1,5 @@
 package com.sportsmania.swith.controller;
 
-import com.sportsmania.swith.controller.formatter.LocalDateFormatter;
 import com.sportsmania.swith.dto.BoardDTO;
 import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.PageResponseDTO;
@@ -11,20 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Log4j2
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class BoardController {
-    @Autowired
-    LocalDateFormatter localDateFormatter;
     @Autowired
     private final BoardService boardService;
 
@@ -50,16 +49,36 @@ public class BoardController {
 
     @PostMapping("/match/register")
     public String registerPOST(@Valid BoardDTO boardDTO, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes){
+                               RedirectAttributes redirectAttributes) {
         log.info("post register...");
+        log.info(boardDTO);
+        String date = boardDTO.getStartdate();
+        String date2 = boardDTO.getEnddate();
+
+        log.info(date);
+        log.info(date2);
+        String d = date.replaceAll("T"," ");
+        String d2 = date2.replaceAll("T"," ");
+        boardDTO.setStartdate(d);
+        boardDTO.setEnddate(d2);
+        log.info(d);
+        log.info(d2);
+        log.info(boardDTO);
         if(bindingResult.hasErrors()) {
             log.info("register has errors...");
+            List<ObjectError> errList = bindingResult.getAllErrors();
+            for(ObjectError err:errList){
+                String errMsg = ""+err.getDefaultMessage()+"\r\n toString() :"+err.toString();
+                log.info(errMsg);
+                System.out.println(" ");
+            }
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/match/matching-create";
+            return "redirect:/match/register";
+
         }
         log.info(boardDTO);
         boardService.register(boardDTO);
-        return "redirect:/match/grid";
+        return "redirect:/match";
 
     }
 

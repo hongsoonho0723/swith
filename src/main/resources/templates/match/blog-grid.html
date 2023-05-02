@@ -239,8 +239,13 @@
       <div class="col-lg-5">
         <h1 class="mb-lg-0">모집라운지</h1>
       </div>
+
+
+
+      <!--검색-->
+      <form action="/match" method="get">
       <div class="col-xl-2 offset-xl-1 col-lg-3 col-sm-5">
-        <select class="form-select">
+        <select name="supporttype" class="form-select">
           <option>전체</option>
           <option>이동지원</option>
           <option>체육활동지원</option>
@@ -253,13 +258,25 @@
           <i
                   class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"
           ></i>
-          <input
+          <input type="checkbox" name="types" value="t" >제목
+          <input type="checkbox" name="types" value="w"  >작성자
+          <input  name="keyword"
                   class="form-control ps-5"
                   type="search"
-                  placeholder="Enter keyword"
-          />
+                  placeholder="Enter keyword" />
         </div>
       </div>
+      <!-- ##################################################################################### -->
+
+        <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
+        <div class="mb-3">
+          <input type="checkbox" name="finished" value="" >모집완료
+        </div>
+        <div class="input-group mb-3 dueDateDiv">
+          <input type="date" name="from" class="form-control" value="${pageRequestDTO.from}">
+          <input type="date" name="to" class="form-control"  value="${pageRequestDTO.to}">
+        </div>
+      </form>
     </div>
     <!-- Blog grid (masonry)-->
     <!-- <div class="masonry-grid mb-2 mb-md-4 pb-lg-3" data-columns="3"> -->
@@ -299,12 +316,12 @@
           <div class="card-body pt-3 pb-0 pr-4">
 
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]]</p>
-            <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
+            <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
 
             <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
 
             <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
-            <p class="card-text">마감일 +-계산이안됌</p>
+            <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
             <a class="h4 card-title mt-0" th:href="|@{/match/blog-single-v1(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
           </div>
           <div class="card-footer border-0 py-3 my-3 mb-sm-4">
@@ -372,8 +389,27 @@
         </li>
       </ul>
     </div>-->
+    <script>
+    //페이징 처리
+    document.querySelector(".pagination").addEventListener("click", function (e) {
+    e.preventDefault()
+    e.stopPropagation()
 
+    const target = e.target
 
+    if(target.tagName !== 'A') {
+    return
+    }
+    const num = target.getAttribute("data-num")
+
+    const formObj = document.querySelector("form")
+
+    formObj.innerHTML += "<input type='hidden' name='page' value='"+num+"'>"
+
+    formObj.submit();
+
+    },false)
+    </script>
   </div>
 </main>
 <!-- Subscription-->
