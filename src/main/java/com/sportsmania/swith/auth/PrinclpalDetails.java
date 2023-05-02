@@ -5,7 +5,7 @@ package com.sportsmania.swith.auth;
 // Authenication 안에 user정보가 있어야함 
 // User오브젝트 타입 => UserDetails 타입 객체 
 
-import com.sportsmania.swith.domain.UserVo;
+import com.sportsmania.swith.domain.UserVO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 // security session => Authenication => UserDetails 타입
-public class PrinclpalDetails extends UserVo implements UserDetails {
+public class PrinclpalDetails extends UserVO implements UserDetails {
 
-    private UserVo userVo; // 컴포지션
+    private UserVO userVo; // 컴포지션
 
-    public PrinclpalDetails(UserVo userVo){
+    public PrinclpalDetails(UserVO userVo){
         this.userVo = userVo;
     }
 

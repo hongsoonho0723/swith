@@ -1,10 +1,6 @@
-package com.sportsmania.swith.DTO;
+package com.sportsmania.swith.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,12 +8,12 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserVO {
     private String userId;
     private String name;
-    private String pwd;
+    private String pwd; // 시큐리티로 로그인 하려면 패스워드 암호화를 해야함
     private String nickname;
-    private String birthday;
+    private LocalDate birthday;
     private String phone;
     private String email;
     private String joinType;
