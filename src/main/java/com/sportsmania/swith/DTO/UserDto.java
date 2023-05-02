@@ -1,18 +1,23 @@
 package com.sportsmania.swith.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDate;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
     private String userId;
     private String name;
     private String pwd;
     private String nickname;
-    private LocalDate birthday;
+    private String birthday;
     private String phone;
     private String email;
     private String joinType;
@@ -23,4 +28,6 @@ public class UserDto {
     private String disabledType;
     private String grade;
     private String preference;
+    private String auth;
+
 }

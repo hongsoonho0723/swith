@@ -170,12 +170,8 @@
         })();
 
     </script>
-    <script>
-        document.getElementById("options-input").addEventListener("change", function() {
-        var selectedOption = this.value;
-        this.value = selectedOption;
-        });
-        </script>
+    <!-- JavaScript -->
+
     <!-- Import Google Font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,11 +192,13 @@
     </header>
     <main>
         <div class="container">
+
             <div class="left">
                 <div class="w-100 mt-auto" style="max-width: 526px;">
                     <h1>회원가입</h1>
                     <p class="pb-3 mb-3 mb-lg-4">아이디가 있습니까 ?&nbsp;&nbsp;<a href='/members/signin' style="color: #056297;">로그인!</a></p>
-                    <form class="needs-validation" id="form1" novalidate>
+                    <!-- 폼시작-->
+                    <form id="form1" >
                       <div class="pb-2 mb-3 row row-cols-1 row-cols-sm-2 gy-3">
                         <div class="position-relative" style="width: 50%;"><i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
                           <input class="form-control form-control-lg ps-5" type="text" name="name" placeholder="이름" required>
@@ -241,7 +239,6 @@
                                     <option>남자</option>
                                     <option>여자</option>
                                 </select>
-                          
                           </div>
                       </div>
                       <div class="pb-2 mb-3">
@@ -254,6 +251,7 @@
                           <input class="form-control form-control-lg ps-5" name="phone" type="text" placeholder="휴대폰" required>
                         </div>
                       </div>
+
                     </form>
                   </div>
 
@@ -262,7 +260,7 @@
             <div class="middle"></div>
             
             <div class="right" style="padding-left: 10%;padding-top: 15%;">
-                <form>
+                <form id="form2">
                     <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
                         <div class="position-relative" style="width: 50%;">
                             <button style="background-color: #056297;border-color: #056297;" class="btn btn-lg btn-primary w-100 mb-4" name="joinType" value="1" type="button" id="option1">도움을 받고싶어요 !</button>
@@ -346,28 +344,29 @@
                         </div>
                     </form-check>
                   </div>
+                      <!-- 원래버튼자리-->
+                      <button class="btn btn-lg btn-primary w-100 mb-4" type="submit"  id="submitBtn" onclick="submitForms()" style = "background-color: #056297;border-color:#056297" >회 원 가 입</button>
                       <script>
-                          function sendFormData() {
-                              const form1 = document.querySelector('#form1');
-                              const form2 = document.querySelector('#form2');
-
-                              const formData1 = new FormData(form1);
-                              const formData2 = new FormData(form2);
-
-                              const combinedFormData = new FormData();
-                              for (const [key, value] of formData1.entries()) {
-                                  combinedFormData.append(key, value);
-                              }
-                              for (const [key, value] of formData2.entries()) {
-                                  combinedFormData.append(key, value);
+                          function submitForms() {
+                              // 첫 번째 폼과 두 번째 폼의 데이터를 가져와서 하나로 합침
+                              var formData = new FormData(document.getElementById('form1'));
+                              for (var pair of new FormData(document.getElementById('form2')).entries()) {
+                                  formData.append(pair[0], pair[1]);
                               }
 
-                              const xhr = new XMLHttpRequest();
-                              xhr.open('POST', '/url/to/server');
-                              xhr.send(combinedFormData);
+                              // 합쳐진 데이터를 전송
+                              var xhr = new XMLHttpRequest();
+                              xhr.open('POST', '/members/signup'); // 로그인 페이지로 이동
+                              xhr.onload = function() {
+                                  if (xhr.status === 200) {
+                                      window.location.href = '/members/signin';
+                                  } else {
+                                      // 요청이 실패한 경우 처리할 작업
+                                  }
+                              };
+                              xhr.send(formData);
                           }
                       </script>
-                  <button class="btn btn-lg btn-primary w-100 mb-4" type="submit" style = "background-color: #056297;border-color:#056297" >회 원 가 입</button>
                   <!-- 개인정보 처리방침 -->
                   <div class="modal" id="modalId" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
@@ -400,7 +399,10 @@
                     });
                   </script>
             </div>
+
           </div>
+
+        </div>
     </main>
     <footer
   class="footer dark-mode bg-light py-5"

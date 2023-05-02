@@ -5,16 +5,19 @@
 
 <mapper namespace="com.sportsmania.swith.mapper.UserMapper">
     <insert id="join" parameterType="com.sportsmania.swith.DTO.UserDto">
-        insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType)
-        values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType});
+        insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType,auth)
+        values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType},#{auth});
     </insert>
 
     <select id="findByIdPW" resultType="com.sportsmania.swith.DTO.UserDto" parameterType="String">
         select * from user where userId = #{userId} AND Pwd = #{Pwd}
     </select>
-
+    <select id="findByUserId" resultType="com.sportsmania.swith.domain.UserVo" parameterType="String">
+        select * from user where userId = #{username}
+    </select>
     <update id="modifyInfo" parameterType="com.sportsmania.swith.DTO.UserDto">
         update user set introduction = #{introduction}, preference = #{preference},nickname = #{nickname},email = #{email}
         where userId = #{userId}
     </update>
 </mapper>
+

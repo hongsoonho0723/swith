@@ -8,4 +8,6 @@ public interface UserService {
 
     UserDto login(String userId,String Pwd);
     int modify(UserDto dto);
+
+    UserDto findByUsername(String username);
 }

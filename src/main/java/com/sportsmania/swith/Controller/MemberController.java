@@ -5,6 +5,7 @@ import com.sportsmania.swith.Service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class MemberController {
     private UserService userService;
 
     @GetMapping("/mypage")
-    public void myPage(HttpSession httpSession){
+    public void myPage(){
 
     }
 

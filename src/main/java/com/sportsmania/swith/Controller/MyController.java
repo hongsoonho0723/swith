@@ -1,65 +1,93 @@
 package com.sportsmania.swith.Controller;
 
+
 import com.sportsmania.swith.DTO.UserDto;
 import com.sportsmania.swith.Service.UserService;
+
+import com.sportsmania.swith.domain.UserVo;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+import javax.validation.Valid;
+import java.io.IOException;
+
 
 @Controller
-@RequestMapping("/members")
+@RequestMapping(value = "/members")
 @Log4j2
 public class MyController {
 
 
     @Autowired
-    UserService userService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/main")
-    public String main(){
-        return "members/main";
+    public String main(HttpSession session) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        if (username.equals("anonymousUser")) {
+            return "members/main";
+        } else {
+            log.info(username);
+            UserDto dto = userService.findByUsername(username);
+            log.info(dto);
+            session.setAttribute("user", dto);
+            return "members/main";
+        }
     }
 
+    // 회원가입할때 권한 설정해줌
+    @PostMapping(value = "/signup")
+    public String postMapping(@ModelAttribute UserDto dto) {
+        log.info(dto);
+        dto.setAuth("ROLE_USER");
+        dto.setPwd(bCryptPasswordEncoder.encode(dto.getPwd()));
+        dto.setJoinType("1");
+        userService.join(dto);
+        return "redirect:/members/main";
+    }
+
+
     @GetMapping("/signin")
-    public String sign(){
+    public String sign() {
         return "members/signin";
     }
 
-    @PostMapping("/signin")
-    public String login(@RequestParam("userId") String userId, @RequestParam("pwd") String pwd, HttpSession session){
-        Optional<UserDto> result = Optional.ofNullable(userService.login(userId, pwd));
 
-        if(result.isEmpty()){
-            return "members/signin";
-        }else{
-            UserDto dto = result.get();
-            log.info(result);
-            log.info(dto);
-            session.setAttribute("user",dto);
+    @GetMapping("/signup")
+    public String signup() {
+        return "members/signup";
+    }
 
+
+
+
+
+
+        @GetMapping("logout")
+        public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+            session.invalidate();
+            redirectAttributes.addFlashAttribute("message", "로그아웃되었습니다."); // 리다이렉트 시 전달할 데이터 추가
             return "redirect:/members/main";
         }
-    }
-    @GetMapping("/signup")
-    public String signup(){
-        return "members/signinup";
-    }
 
-    @GetMapping("logout")
-    public String logout(HttpSession session, RedirectAttributes redirectAttributes){
-        session.invalidate();
-        redirectAttributes.addFlashAttribute("message", "로그아웃되었습니다."); // 리다이렉트 시 전달할 데이터 추가
-        return "redirect:/members/main";
-    }
 
 }
