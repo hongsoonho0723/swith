@@ -91,7 +91,7 @@
 </div>
 
 <!-- 폼태그 -->
-<form action="/match/register" method="post">
+<form id="formdata">
 
 
 <div class="container" style="padding-left: 80px;">
@@ -226,7 +226,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 </select>
 
 
-<select name="region" id="district">
+<select name="region2" id="district">
   <option value="">구 선택</option>
 </select>
 
@@ -692,6 +692,8 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
       startdate.value = convertedStartDate;
       enddate.value = convertedEndDate;
 */
+
+      /*
       var form = document.querySelector('form');
 
       setTimeout(function(){},1000);
@@ -699,6 +701,8 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
       if(isConfirm){
         form.submit();
       }
+
+       */
     }
 
     function registCancel(){
@@ -720,12 +724,37 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
   <div class="container d-flex justify-content-center" style="padding-top: 50px;">
 
     <input onclick="registCancel()" type="button" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" value="작성취소"/>
-    <input onclick="registSubmit()" type="button" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" value="작성완료"/>
+    <button style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" value="작성완료"/>
   </div>
 
 
 </div>
 </form>
+<script>
+  $(document).ready(function() {
+    $('#formdata').submit(function(event) { //ajax에서는 submit을 사용하지 않음. ajax는 비동기형식이고 submit과 form은 동기형식
+      event.preventDefault(); //form태그를 이용하여 submit을 사용하려면 submit의 이벤트를 막아줘야 함
+      let formData = new FormData(this);
+      //let formData = new FormData($('#formdata')[0]);
+      let jsonFormData = JSON.stringify(Object.fromEntries(formData));
+      $.ajax({
+        type: "POST",
+        url: "/match/posts",
+        data: jsonFormData,
+        processData: false,
+        contentType: 'application/json',
+        success: function(response) {
+          alert("match posted successfully.");
+          window.location.href = '/match';
+        }
+        /*error: function(error) {
+            alert("Error occurred while posting the story.");
+            console.log(error);
+        }*/
+      });
+    });
+  });
+</script>
 <br>
 <br>
 <br>
