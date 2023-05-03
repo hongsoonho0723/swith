@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+        lang="kr">
 <head>
   <meta charset="utf-8">
   <title>Around | Single Post v.2</title>
@@ -18,6 +19,11 @@
   <meta name="msapplication-TileColor" content="#080032">
   <meta name="msapplication-config" content="../assets/favicon/browserconfig.xml">
   <meta name="theme-color" content="white">
+
+  <!--ajax -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../assets/js/ajax.js"></script>
+
 
   <!-- Page loading styles-->
   <style>
@@ -196,7 +202,7 @@
     <div class="row">
       <!-- Post title + post meta-->
       <div class="pb-2 pb-lg-0 mb-4 mb-lg-0 d-flex mt-5">
-        <h3> <span class="badge text-nav fs-lg border mt-2 me-sm-3">유형</span>Story Title</h3>
+        <h3> <span class="badge text-nav fs-lg border mt-2 me-sm-3">[[${dto.s_category}]]</span>[[${dto.title}]]</h3>
         <div class="pt-4 pt-md-0 ps-md-4 ms-md-auto">
           <a href="#" class="nav-link p-2 px-5 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Heart">
             <i class="ai-heart fs-4"></i>
@@ -208,86 +214,107 @@
       <div class="border-bottom pt-1 pb-0">
         <div class="d-flex align-items-start py-2"><img class="d-block rounded-circle mb-3" src="../assets/img/avatar/04.jpg" width="56" alt="Author image">
           <div class="ps-4 d-block">
-              <h4 class="h5 mb-0">Darlene Robertson</h4>
+              <h4 class="h5 mb-0">[[${dto.story_writer}]]</h4>
 
-                <span class="text-muted fs-sm mb-0">yyyy-MM-dd</span>
+                <span class="text-muted fs-sm mb-0">[[${dto.date}]]</span>
           </div>
           <div class="pe-4 ms-md-auto">
-                  <a href="/story/modify" class="pe-2 text-dark" style="text-decoration-line: none;">수정</a>
-                  <a href="#" class="text-dark fs-6 " style="text-decoration-line: none;">삭제</a>
+            <button  class="pe-2 text-dark" style="border: none; background-color:transparent;">수정</button>
+            <button class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
           </div>
 
         </div>
       </div>
     </div>
 
-
     <!-- Post content-->
     <section class="container pt-2 mt-md-2 mt-lg-3 mt-xl-4">
       <div class="row justify-content-center pt-xxl-2">
         <!-- main image -->
-        <figure class="col-lg-9 col-xl-8"><img class="figure-img rounded-5 mb-3" src="../assets/img/blog/single/image.jpg" alt="Image">
+        <figure class="col-lg-9 col-xl-8"><img class="figure-img rounded-5 mb-3" th:src="|/img/${dto.image_main}|" alt="Image">
         </figure>
         <div class="border-bottom p-0"></div>
         <div class="col-lg-9 col-xl-8 pt-2 mt-2">
-          <p class="fs-lg">Dolor laoreet fermentum lectus praesent aenean molestie mollis integer. Sem ullamcorper montes, lorem ullamcorper orci, pellentesque ipsum malesuada gravida. Donec imperdiet nulla suscipit in. Dignissim ornare ac lorem consectetur massa a. Pellentesque urna pharetra, quis maecenas. Sit dolor amet nulla aenean eu, ac. Nisl mi tempus, iaculis viverra vestibulum scelerisque imperdiet montes. Mauris massa elit pretium elementum eget tortor quis. Semper interdum lectus odio diam.</p>
-          <p class="fs-lg mb-3">Ut pellentesque bibendum dignissim a molestie. Ultrices diam ut vel neque tincidunt eget. Sed ut quis sit semper nunc at etiam lacinia. Quam laoreet eget id sapien a pharetra, ornare diam dignissim. Lorem amet nisl, enim mi aenean mauris. Porta nisl a ultrices ut libero id. Gravida a mi neque, tristique justo, et pharetra. Laoreet nulla est nulla cras ac arcu sed mattis tristique. Morbi convallis suspendisse enim blandit massa. Cursus augue dui mattis morbi velit.</p>
-          <h2 class="h4 mb-lg-4 pt-3 pt-md-4 pt-xl-5">Dolor laoreet fermentum lectus praesent aenean</h2>
-          <p class="fs-lg pb-4 pb-xl-5">Ut pellentesque bibendum dignissim a molestie. Ultrices diam ut vel neque tincidunt eget. Sed ut quis sit semper nunc at etiam lacinia. Quam laoreet eget id sapien a pharetra, ornare diam dignissim. Lorem amet nisl, enim mi aenean mauris. Porta nisl a ultrices ut libero id. Gravida a mi neque, tristique justo, et pharetra. Laoreet nulla est nulla cras ac arcu sed mattis tristique. Morbi convallis suspendisse enim blandit massa. Cursus augue dui mattis morbi velit.</p>
-          <figure class="figure"><img class="figure-img rounded-5 mb-3" src="../assets/img/blog/single/image.jpg" alt="Image">
-            <figcaption class="figure-caption">Image source tristique justo et pharetra</figcaption>
-          </figure>
-          <h2 class="h4 mb-lg-4 pt-3 pt-md-4 pt-xl-5">Cursus augue dui mattis morbi velit</h2>
-          <p class="fs-lg pb-2 pb-lg-0 mb-4 mb-lg-5">Proin non congue sem, sed tristique ante. Donec et sollicitudin tellus. Duis maximus, dui eget egestas mattis, purus ex tempor nulla, quis tempor sapien neque at nisl. Aliquam eu nisi ut nisl ultrices posuere. Praesent dignissim efficitur nisi, a hendrerit ipsum elementum sit amet. Vivamus non ante nisl. Nunc faucibus velit at eros mollis semper. Curabitur aliquam eros tellus, nec facilisis nisl finibus sit amet. Ut et dolor nec lorem gravida elementum.</p>
-        </div>
+          <p class="fs-lg">[[${dto.content}]]</p>
+      </div>
       </div>
     </section>
+
     <!-- Comments-->
     <section class="container border-top pt-xl-4 pb-5 mb-md-2 mb-lg-4 mb-xl-5" id="comments">
       <!-- Multiple button addons -->
       <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
-        <input type="text" class="form-control" placeholder="Buttons on the right">
-        <button type="button" class="btn btn-outline-info btn-icon">
+        <input type="text" class="form-control" placeholder="댓글 작성" id="comment-content">
+        <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
           <i class="ai-edit"></i>
         </button>
       </div>
+      <script>
+        $(document).ready(function() {
+          $('#replySubmit').click(function () {
+
+            const replyContent = $("#comment-content").val(); // 댓글 내용
+            const storyNo = [[${dto.story_no}]]; // 게시물 아이디
+            const userId = "[[${dto.story_writer}]]"; // 임시로 아이디 받아오기
+
+            const data = {
+              "content": replyContent,
+              "story_no": storyNo,
+              "reply_writer": userId
+            };
+
+            $.ajax({
+              type: 'POST',
+              url: '/replies/',
+              data: data,
+              success: function (response) {
+                console.log("댓글이 등록되었습니다.");
+                // 댓글 목록 갱신 등의 처리
+                refreshReplies();
+              },
+              error: function (xhr, status, error) {
+                console.log("댓글 등록에 실패했습니다: ", error);
+              }
+            });
+          });
+        });
+      </script>
+
       <div class="row justify-content-center">
         <div class="col-lg-10 col-xl-10">
           <div class="border-bottom">
             <!-- Comments collapse-->
             <div class="collapse" id="commentsCollapse">
               <!-- Comment-->
-              <div class="border-bottom py-4 mt-2 mb-4">
-                <div class="d-flex align-items-center pb-1 mb-3"><img class="rounded-circle" src="../assets/img/avatar/08.jpg" width="48" alt="Comment author">
-                  <div class="ps-3">
-                    <h6 class="mb-0">Albert Flores</h6><span class="fs-sm text-muted">yyyy-MM-dd</span>
-                  </div>
-                </div>
-                <p class="pb-2 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tellus lectus, tempus eu urna eu, imperdiet dignissim augue. Aliquam fermentum est a ligula bibendum, ac gravida ipsum dictum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur suscipit quam ut velit condimentum, nec mollis risus semper. Curabitur quis mauris eget ligula tincidunt venenatis. Sed congue pulvinar hendrerit.</p>
-              </div>
-              <!-- Comment-->
-              <div class="border-bottom pt-2 pb-4">
-                <div class="d-flex align-items-center pb-1 mb-3"><img class="rounded-circle" src="../assets/img/avatar/11.jpg" width="48" alt="Comment author">
-                  <div class="ps-3">
-                    <h6 class="mb-0">Jenny Wilson</h6><span class="fs-sm text-muted">yyyy-MM-dd</span>
-                  </div>
-                </div>
-                <p class="pb-2 mb-0">Pellentesque urna pharetra, quis maecenas. Sit dolor amet nulla aenean eu, ac. Nisl mi tempus, iaculis viverra vestibulum scelerisque imperdiet montes mauris massa elit pretium elementum eget tortor quis</p>
-              </div>
-              <!-- Comment-->
-              <div class="pt-4 mt-2 mb-2">
-                <div class="d-flex align-items-center pb-1 mb-3"><img class="rounded-circle" src="../assets/img/avatar/07.jpg" width="48" alt="Comment author">
-                  <div class="ps-3">
-                    <h6 class="mb-0">Esther Howard</h6><span class="fs-sm text-muted">yyyy-MM-dd</span>
-                  </div>
-                </div>
-                <p class="pb-2 mb-0">Donec et sollicitudin tellus. Duis maximus, dui eget egestas mattis, purus ex tempor nulla, quis tempor sapien neque at nisl. Aliquam eu nisi ut nisl ultrices posuere. Praesent dignissim efficitur nisi, a hendrerit ipsum elementum sit amet. Vivamus non ante nisl. Nunc faucibus velit at eros mollis semper.</p>
-              </div>
+              <div id="replyDTOList">
+                <!-- 댓글 목록 출력 -->
             </div>
+              <!-- 테스트 -->
+              <!--<div class="border-bottom pt-4 mt-3 mb-0" >
+                <div class="d-flex align-items-center pb-1 mb-3">
+                  <img class="rounded-circle" src="../assets/img/avatar/07.jpg" width="48" alt="Comment author">
+                  <div class="ps-3">
+                    <h6 class="mb-0">replyDTO.reply_writer</h6>
+                    <span class="fs-sm text-muted">replyDTO.regdate</span>
+                  </div>
+                    <div class="pe-4 ms-auto">
+                      <button  class="pe-2 text-dark fs-sm" style="border: none; background-color:transparent;">수정</button>
+                      <button class="text-dark fs-sm" style="border: none; background-color:transparent;">삭제</button>
+                    </div>
+                </div>
+                <p class="pb-2 mb-0">replyDTO.content</p>
+              </div>-->
+
+            </div>
+            <script>
+              $(document).ready(function() {
+                refreshReplies();
+              });
+            </script>
 
             <!-- Comments toggle-->
             <div class="nav">
-              <button class="btn-more nav-link collapsed w-100 justify-content-center p-3" type="button" data-bs-toggle="collapse" data-bs-target="#commentsCollapse" aria-expanded="false" aria-controls="commentsCollapse" data-show-label="댓글 보기" data-hide-label="댓글 접기"><span class="fw-normal opacity-70 ms-1">(4)</span></button>
+              <button class="btn-more nav-link collapsed w-100 justify-content-center p-3" type="button" data-bs-toggle="collapse" data-bs-target="#commentsCollapse" aria-expanded="false" aria-controls="commentsCollapse" data-show-label="댓글 보기" data-hide-label="댓글 접기"><span class="fw-normal opacity-70 ms-1" id="replyCount"></span></button>
             </div>
           </div>
         </div>
