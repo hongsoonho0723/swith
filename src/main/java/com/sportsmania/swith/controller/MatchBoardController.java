@@ -2,6 +2,7 @@ package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.dto.MatchBoardDTO;
 import com.sportsmania.swith.service.MatchBoardService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Log4j2
 @Controller
+@RequiredArgsConstructor
 public class MatchBoardController {
 
     @Autowired

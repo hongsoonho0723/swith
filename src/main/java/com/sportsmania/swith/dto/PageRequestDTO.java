@@ -29,18 +29,21 @@ public class PageRequestDTO {
 
     public int getSkip(){ return (page-1)*10;}
 
-    private String type; //검색종류 제목t,내용c,작성자w
-    public String[] getTypes(){
-        if(type == null || type.isEmpty()){
+    private String[] types; //검색종류 제목t,내용c,작성자w
+    /*public String[] getTypes(){
+        if(types == null || types.isEmpty()){
             return null;
         }
-        return type.split("");
-    }
+        return types.split("");
+    }*/
     private String[] b_category; //서포터구인,체육활동지원,운동친구모집
     private String keyword;
     private boolean finished;
-    private LocalDate startdate;
-    private LocalDate enddate;
+    private String startdate;
+    private String enddate;
+    private String supporttype;
+    private String region;
+    private String region2;
     public String getLink(){
         if(link==null){
             StringBuilder builder = new StringBuilder();
