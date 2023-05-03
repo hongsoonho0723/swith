@@ -16,7 +16,7 @@ public class StoryVO {
     private String content;
     private String image_main;
     // String date;
-    private LocalDate date;
+    private LocalDateTime date;
     private int check; //좋아요
     private int clicks;
 
