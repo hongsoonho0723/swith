@@ -39,4 +39,10 @@ public class userTest {
         UserDTO dto = modelMapper.map(userVo, UserDTO.class);
         System.out.println(dto.getName());
     }
+    @Test
+    public void eamil(){
+        String email = "rbalswkd1";
+        boolean result = userService.checkDuplicateId(email);
+        System.out.println(result);
+    }
 }

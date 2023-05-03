@@ -14,4 +14,10 @@ public interface UserMapper {
     int modifyInfo(UserDTO dto);
 
     UserVO findByUserId(String userId);
+
+    boolean existsByEmail(String email); // 이메일 중복체크
+
+    boolean existsBynickname(String nickname); // 닉네임 중복체크
+
+    boolean checkDuplicateId(String userId); // 아이디 중복체크
 }

@@ -19,5 +19,17 @@
         update user set introduction = #{introduction}, preference = #{preference},nickname = #{nickname},email = #{email}
         where userId = #{userId}
     </update>
+
+    <select id="existsByEmail" resultType="boolean" parameterType="String">
+        select COUNT(*) from user where email = #{email}
+    </select>
+
+    <select id="existsBynickname" resultType="boolean" parameterType="String">
+        select COUNT(*) from user where nickname = #{nickname}
+    </select>
+
+    <select id="checkDuplicateId" resultType="boolean" parameterType="String">
+        select COUNT(*) from user where userId = #{userId}
+    </select>
 </mapper>
 

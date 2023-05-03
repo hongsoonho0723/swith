@@ -39,4 +39,19 @@ public class userServiceImpl implements UserService {
         UserDTO dto = modelMapper.map(userMapper.findByUserId(username), UserDTO.class);
         return dto;
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userMapper.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existsBynickname(String nickname) {
+        return userMapper.existsBynickname(nickname);
+    }
+
+    @Override
+    public boolean checkDuplicateId(String userId) {
+        return userMapper.checkDuplicateId(userId);
+    }
 }
