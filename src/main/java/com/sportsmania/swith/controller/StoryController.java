@@ -65,7 +65,6 @@ public class StoryController {
 
         @DeleteMapping("/stories/posts/{story_no}")
         public ResponseEntity<Void> deleteStory(@PathVariable("story_no") Long story_no) {
-            log.info("스토리 삭제: " + story_no);
             storyService.remove(story_no);
 
             return ResponseEntity.noContent().build(); //HTTP 응답 코드 204

@@ -6,7 +6,7 @@
 <mapper namespace="com.sportsmania.swith.mapper.ReplyMapper">
 
     <select id="getReplyList" resultType="com.sportsmania.swith.domain.ReplyVO">
-        select * from story_reply where story_no = #{story_no} order by reply_no desc
+        select * from reply where story_no = #{story_no} order by asc
     </select>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.ReplyVO">
@@ -14,11 +14,15 @@
     </insert>
 
     <delete id="delete">
-        delete from story_reply where reply_no = #{reply_no}
+        delete from reply where reply_no = #{reply_no}
     </delete>
 
+    <select id="replyCount" resultType="com.sportsmania.swith.domain.ReplyVO">
+        select count(*) from reply where story_no = #{story_no}
+    </select>
+
     <update id="update">
-        update story_reply set content = #{content} where reply_no = #{reply_no}
+        update reply set content = #{content} where reply_no = #{reply_no}
     </update>
 
     <!-- 검색 시 페이징 처리가 모든 목록 데이터를 기준으로 가져오는 것을..검색기준으로 하기 위해? 추가-->

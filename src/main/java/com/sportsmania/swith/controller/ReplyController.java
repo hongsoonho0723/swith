@@ -1,7 +1,5 @@
 package com.sportsmania.swith.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sportsmania.swith.domain.ReplyVO;
 import com.sportsmania.swith.dto.ReplyDTO;
 import com.sportsmania.swith.service.ReplyService;
@@ -11,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RequestMapping("/replies")
 @RestController
@@ -24,7 +23,7 @@ public class ReplyController {
     @Autowired
     private ReplyService replyService;
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReplyDTO> register(@Valid @RequestBody ReplyDTO replyDTO) {
         log.info("댓글 등록:"  + replyDTO);
 
@@ -34,30 +33,5 @@ public class ReplyController {
 
     }
 
-    @GetMapping("/{story_no}")
-    public ResponseEntity<String> getList(@PathVariable("story_no") Long story_no){
-
-       List<ReplyDTO> replyDTOList = replyService.getList(story_no);
-
-        return new ResponseEntity(replyDTOList , HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{reply_no}")
-    public ResponseEntity<Void> remove(@PathVariable("reply_no") Long reply_no){
-        log.info("댓글 삭제:" + reply_no);
-        replyService.remove(reply_no);
-
-       return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/{reply_no}")
-    public ResponseEntity<ReplyDTO> modifyReply(@PathVariable("reply_no") Long reply_no, @RequestBody ReplyDTO replyDTO) {
-        replyDTO.setReply_no(reply_no); // reply_no 설정
-        replyService.modify(replyDTO);
-
-        log.info("댓글 수정:" + replyDTO);
-
-        return new ResponseEntity<>(replyDTO, HttpStatus.OK);
-    }
 
 }

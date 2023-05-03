@@ -39,7 +39,7 @@ public class StoryDTO {
 
     private String image_main;
 
-    private LocalDateTime date;
+    private LocalDate date;
 
     private int check;
     private int clicks;

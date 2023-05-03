@@ -18,7 +18,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sportsmania.swith.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.sportsmania.swith.Controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
