@@ -480,26 +480,16 @@
             <div class="tab-pane fade" id="teamadmin" role="tabpanel">
                 <!-- 팀 관리-->
                 <div class="float-end ">
-                    <a type="button " class="btn btn-success mt-5" href="#">팀삭제</a>
-                    <a type="button " class="btn btn-success mt-5" href="#">모집마감</a>
-                    <a type="button " class="btn btn-success mt-5" href="#">팀 수정</a>
+                    <a type="button " onclick="teamRemove()" class="btn btn-success mt-5" href="#">팀삭제</a>
+                    <a type="button " id="recruitButton" class="btn btn-success mt-5" onclick="recruitFinished()">모집완료</a>
+                    <a type="button " class="btn btn-success mt-5" th:href="@{/teams/admin/{team_title}(team_title=${dto.team_title})}">팀 수정</a>
                 </div>
                 <div class="border-top border-bottom py-2 mb-4 mt-5">
                     <h2 class="mt-2">신청목록</h2>
-                    <!-- Item-->
-                    <div class="swiper-slide w-auto">
-                        <div class="card-hover text-center" style="max-width: 306px">
-                            <img
-                                    class="d-block rounded-5 mb-4"
-                                    src="../assets/img/landing/creative-agency/team/01.jpg"
-                                    alt="Image"
-                            />
-                            <h3 class="h5 mb-1">Guy Hawkins</h3>
-                            <p class="text-muted mb-2">President of Sales</p>
-                            <a type="button " class="btn btn-secondary mt-5" href="#">거절</a>
-                            <a type="button " class="btn btn-success mt-5" href="#">수락</a>
-                        </div>
+                    <div class="swiper">
+                    <div id="userItem" class="swiper-wrapper"> </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -555,7 +545,7 @@
     <!-- button-->
     <div class="container d-flex justify-content-center">
         <!-- Success solid button -->
-        <a type="button " class="btn btn-success mt-5" href="#">신청하기</a>
+        <a type="button" id="applicationButton" class="btn btn-success mt-5" onclick="applicationTeam()">신청하기</a>
     </div>
 
 </main>
@@ -661,31 +651,7 @@
     })
 </script>
 
-<!--<script>
-    $(document).ready(function () {
-        $.ajax({
-            url: "/teams/" + team_title,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                $('#team_title').text(data.team_title);
-                $('#team_writer').text(data.team_writer);
-                $('#sido').text(data.sido);
-                $('#deadline').text("마감일 " + data.deadline);
-                $('#member_num').text(data.member_num);
-                $('#simple_content').text(data.simple_content);
-                if (data.finished == 0) {
-                    $('#finished').text("모집중");
-                } else {
-                    $('#finsihed').text("모집완료");
-                }
-            },
-            error: function () {
-                console.log("실패했슴둥");
-            }
-        });
-    });
-</script>-->
+
 
 
 
