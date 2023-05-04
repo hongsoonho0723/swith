@@ -108,7 +108,8 @@
   </ul>
 
 
-  <input type="text" style="width: 400px; height: 40px; padding-right: 40px; margin-right: 40px;" checked disabled th:placeholder="${dto.team_title}";>
+  <input id="team_title" type="text" style="width: 400px; height: 40px; padding-right: 40px; margin-right: 40px;" checked disabled th:placeholder="${dto.team_title}";>
+
 
   <p style="margin-top:40px">
 
@@ -528,10 +529,39 @@
 
     <div class="container d-flex justify-content-center" style="padding-top: 50px; text-align: center;">
       <a type="button" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" href="#">작성취소</a>
-      <a type="button" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" href="/teams" onclick="modifyForm()">수정완료</a>
+      <a type="button" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" th:href="@{/teams/{team_title}(team_title=${dto.team_title})}" onclick="modifyForm()">수정완료</a>
     </div>
-
-
+      <script>
+      function modifyForm(){
+        const team_title = document.querySelector("#team_title").getAttribute('placeholder');
+        console.log(team_title);
+      const supportTeamDTO={
+      "team_title": team_title,
+      "team_writer": "testUser1",
+      "content": $("#summernote").val(),
+      "sido": $("#city").val(),
+      "sigungu": $("#district").val(),
+      "member_num": $("#member_num").val(),
+      "image_team": "C://user/motorora",  //$("#input-image").val(),
+      "simple_content": $("#simple_content").val(),
+      "inquiry": $("#inquiry").val(),
+      "finished": false,
+      "deadline": $("#deadline").val()
+      };
+      $.ajax({
+        url: "/teams/admin/" + team_title,
+      type: "PUT",
+      data: JSON.stringify(supportTeamDTO),
+      contentType: "application/json",
+      success: function (res){
+      console.log("서포터팀 수정 완료")
+      },
+      error: function(){
+      console.log("서포터팀 수정 실패")
+      }
+      });
+      };
+      </script>
   </div>
 
   <br>

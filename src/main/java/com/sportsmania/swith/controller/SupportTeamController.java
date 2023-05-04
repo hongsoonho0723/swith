@@ -159,10 +159,13 @@ public class SupportTeamController {
     }
 
     @PutMapping("/teams/admin/{team_title}")
-    public ResponseEntity modifyTeam(@RequestBody SupportTeamDTO supportTeamDTO) {
+    public ResponseEntity modifyTeam(@RequestBody SupportTeamDTO supportTeamDTO,
+                                     @PathVariable("team_title") String team_title) {
         String deadline = supportTeamDTO.getDeadline();
         supportTeamDTO.setDeadline(deadline.replaceAll("T", " "));
+        supportTeamDTO.setTeam_title(team_title);
         log.info("modify dto: " + supportTeamDTO);
+
         supportTeamService.modify(supportTeamDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

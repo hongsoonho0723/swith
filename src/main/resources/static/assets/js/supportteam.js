@@ -5,7 +5,7 @@
 
 //caught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
 //위의 에러때문에 처리함
-self.addEventListener('message',function(event){
+/*self.addEventListener('message',function(event){
     //비동기작업 실행
     doAsyncWork().then(function(result){
         //비동기 작업이 완료되면 결과를 반환함.
@@ -22,7 +22,7 @@ function doAsyncWork(){
             resolve('result');
         }, 1000);
     });
-}
+}*/
 
 //서포터팀상세보기 페이지에서 팀 정보탭의 정보를 ajax로 표현
     $(document).ready(function () {
