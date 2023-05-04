@@ -250,8 +250,14 @@
           <option value="이동지원">이동지원</option>
           <option value="활동지원">활동지원</option>
           <option value="기타지원">기타지원</option>
-          <!--              <option>Travel &amp; Vacation</option>-->
         </select>
+        <select name="b_category" class="form-select">
+          <option selected disabled hidden value="">구인종류</option>
+          <option value="서포터구인">서포터구인</option>
+          <option value="체육활동지원">체육활동지원</option>
+        </select>
+<!--        <input type="checkbox" name="b_categories" value="서포터구인">서포터구인-->
+<!--        <input type="checkbox" name="b_categories" value="체육활동지원">체육활동지원-->
 
         <!--지역 검색-->
         <select name="region" id="city" onchange="updateDistricts(); updateDistricts1();">
@@ -573,6 +579,7 @@
           <input type="date" name="startdate" class="form-control" value="">
           <input type="date" name="enddate" class="form-control"  value="">
         </div>
+
       </form>
     </div>
     <!-- Blog grid (masonry)-->
@@ -590,8 +597,34 @@
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
 
-            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart">찜</i></button>
+            <a id="starbutton" class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="likefunction()">
+              <i id="star" class="ai-star">찜</i>
+              </a>
+<!--            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="unlikefunction()"><i class="ai-star-filled">찜</i></button>-->
+            <script>
+              function likefunction(){
+                const boardJjimDTO = {
+                  "userid": "user1",
+                  "board_no": [[${dto.board_no}]]
+                }
+                $.ajax({
+                  url : "/match/wish",
+                  type : "POST",
+                  data : JSON.stringify(boardJjimDTO),
+                  contentType : "application/json",
+                  success : function (){
+                    console.log("성공")
+                    const i = $("<i class='ai-star-filled'>찜</i>");
+                    $("#star").remove();
+                    $("#starbutton").append(i);
+                  },
+                  error : function (){
+                    console.log("실패")
+                  }
 
+                })
+              }
+            </script>
             <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
             <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
             <a class="h4 card-title mt-0" th:href="|@{/match/blog-single-v1(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
@@ -643,24 +676,7 @@
       </div>
     </div>
     <!-- Pagination-->
-    <!--<div class="float-end">
-      <ul class="pagination flex-wrap">
 
-        <li class="page-item" th:if="${responseDTO.prev}">
-          <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
-        </li>
-
-        <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-          <li th:class="${responseDTO.page == i}?'page-item active':'page-item'" >
-            <a class="page-link" th:href="@{/match?pageNum=${i}}"  th:data-num="${i}">[[${i}]]</a>
-          </li>
-        </th:block>
-
-        <li class="page-item" th:if="${responseDTO.next}">
-          <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
-        </li>
-      </ul>
-    </div>-->
     <script>
     //페이징 처리
     document.querySelector(".pagination").addEventListener("click", function (e) {
@@ -685,7 +701,7 @@
 
     <!--ajax-->
     <!--<button onclick="함수명">함수명 호출</button>-->
-    <script>
+    <!--<script>
       const 함수명 =()=>{
         $.ajax({
           //요청 방식 : get
@@ -702,7 +718,7 @@
           }
         })
       }
-    </script>
+    </script>-->
   </div>
 </main>
 <!-- Subscription-->

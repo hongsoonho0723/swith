@@ -1,6 +1,8 @@
 package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.dto.BoardDTO;
+import com.sportsmania.swith.dto.BoardJjimDTO;
+import com.sportsmania.swith.service.BoardJjimService;
 import com.sportsmania.swith.service.BoardService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,12 @@ import java.util.List;
 public class BoardRestController {
     @Autowired
     private final BoardService boardService;
+    private final BoardJjimService boardJjimService;
 
-    public BoardRestController(BoardService boardService) {  this.boardService = boardService; }
+
+    public BoardRestController(BoardService boardService, BoardJjimService boardJjimService) {  this.boardService = boardService;
+        this.boardJjimService = boardJjimService;
+    }
 
     @PostMapping("match/posts")
     public ResponseEntity<BoardDTO> registerPOST(@Valid @RequestBody BoardDTO boardDTO, BindingResult bindingResult,
@@ -51,5 +57,14 @@ public class BoardRestController {
         boardService.register(boardDTO);
         return  new ResponseEntity<>(boardDTO, HttpStatus.OK);
 
+    }
+
+    //찜하기
+    @PostMapping("/match/wish")
+    public ResponseEntity wish(@RequestBody BoardJjimDTO boardJjimDTO){
+        boardJjimService.register(boardJjimDTO);
+        log.info(boardJjimDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -40,24 +40,26 @@
                     </if>
                 </foreach>
             </if>
-            <if test="supporttype != null">
-                OR supporttype = #{supporttype}
+            <if test="supporttype != null and supporttype.length>0">
+                or supporttype = #{supporttype}
             </if>
-            <if test="region != null">
-                AND region = #{region}
+            <if test="region != null and region.length>0">
+                or region = #{region}
             </if>
-            <if test="region2 != null">
-                AND region2 = #{region2}
+            <if test="region2 != null and region2.length>0">
+                or region2 = #{region2}
             </if>
             <if test="startdate != null and enddate != null">
-                AND startdate between #{startdate} and #{enddate}
+                or startdate between #{startdate} and #{enddate}
             </if>
             <if test="finished">
                 <trim prefix="and">
                     finished = 1
                 </trim>
             </if>
-
+            <if test="b_category != null and b_category.length>0">
+                or b_category = #{b_category}
+            </if>
         </where>
         order by board_no desc limit #{skip},#{size}
     </select>
