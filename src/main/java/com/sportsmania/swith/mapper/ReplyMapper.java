@@ -1,8 +1,6 @@
 package com.sportsmania.swith.mapper;
 
 import com.sportsmania.swith.domain.ReplyVO;
-import com.sportsmania.swith.domain.StoryVO;
-import com.sportsmania.swith.dto.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,6 +9,8 @@ import java.util.List;
 public interface ReplyMapper {
 
     void insert (ReplyVO replyVO);
+
+    ReplyVO getReplyOne(Long reply_no);
 
     void delete(Long reply_no);
 

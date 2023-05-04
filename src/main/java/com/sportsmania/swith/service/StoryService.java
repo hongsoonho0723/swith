@@ -17,6 +17,7 @@ public interface StoryService {
 
     void modify(StoryDTO storyDTO);
 
+
     PageResponseDTO<StoryDTO> getList(PageRequestDTO pageRequestDTO);
 
     StoryDTO getOne(Long story_no);

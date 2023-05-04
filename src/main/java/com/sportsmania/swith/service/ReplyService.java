@@ -11,6 +11,8 @@ public interface ReplyService {
 
     List<ReplyDTO> getList(Long story_no);
 
+    ReplyDTO getReplyOne(Long reply_no);
+
     void modify(ReplyDTO replyDTO);
 
     void remove(Long reply_no);
