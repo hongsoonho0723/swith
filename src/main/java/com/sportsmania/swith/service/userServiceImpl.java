@@ -54,4 +54,9 @@ public class userServiceImpl implements UserService {
     public boolean checkDuplicateId(String userId) {
         return userMapper.checkDuplicateId(userId);
     }
+
+    @Override
+    public void addAuth(UserDTO dto) {
+        userMapper.addAuth(dto);
+    }
 }

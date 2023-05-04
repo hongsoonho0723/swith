@@ -31,5 +31,11 @@
     <select id="checkDuplicateId" resultType="boolean" parameterType="String">
         select COUNT(*) from user where userId = #{userId}
     </select>
+
+    <update id="addAuth" parameterType="com.sportsmania.swith.dto.UserDTO">
+        update user set auth = #{auth}
+        where userId = #{userId}
+    </update>
+
 </mapper>
 

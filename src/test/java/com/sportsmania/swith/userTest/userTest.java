@@ -35,9 +35,11 @@ public class userTest {
     }
     @Test
     public void testt(){
-        UserVO userVo = userMapper.findByUserId("rbalswkd12");
-        UserDTO dto = modelMapper.map(userVo, UserDTO.class);
-        System.out.println(dto.getName());
+        UserDTO userDTO = userService.findByUsername("rbalswkd12");
+        userDTO.setAuth("ROLE_USER,ROLE_ADMIN,ROLE_TEAM");
+
+          userService.addAuth(userDTO);
+
     }
     @Test
     public void eamil(){
