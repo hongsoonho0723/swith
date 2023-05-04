@@ -18,5 +18,8 @@ public interface TeamMemberMapper {
 
     List<TeamMemberVO> selectMember(String team_title);
 
+    List<TeamMemberVO> selectAll(String team_title);
+
     void update(TeamMemberVO teamMemberVO);
+
 }

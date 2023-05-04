@@ -58,6 +58,14 @@ public class TeamMemberServiceImpl implements TeamMemberService{
     }
 
     @Override
+    public List<TeamMemberDTO> getAll(String team_title) {
+        List<TeamMemberDTO> teamList = teamMemberMapper.selectAll(team_title).stream()
+                .map(vo -> modelMapper.map(vo, TeamMemberDTO.class))
+                .collect(Collectors.toList());
+        return teamList;
+    }
+
+    @Override
     public void modify(TeamMemberDTO teamMemberDTO) {
         TeamMemberVO teamMemberVO = modelMapper.map(teamMemberDTO, TeamMemberVO.class);
         teamMemberMapper.update(teamMemberVO);

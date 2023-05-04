@@ -16,6 +16,7 @@ public interface TeamMemberService {
     List<TeamMemberDTO> getUser(String team_title);
 
     List<TeamMemberDTO> getMember(String team_title);
+    List<TeamMemberDTO> getAll(String team_title);
 
     void modify(TeamMemberDTO teamMemberDTO);
 }

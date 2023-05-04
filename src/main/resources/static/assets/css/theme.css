@@ -2296,6 +2296,8 @@ textarea.form-control-lg {
 .form-range:focus {
   outline: 0;
 }
+
+
 .form-range:focus::-webkit-slider-thumb {
   box-shadow: 0 0 0 1px #fff, unset;
 }
@@ -6965,7 +6967,9 @@ textarea.form-control-lg {
 .border-opacity-100 {
   --ar-border-opacity: 1;
 }
-
+.w-600px{
+  Width: 600px !important;
+}
 .w-25 {
   width: 25% !important;
 }
@@ -17331,6 +17335,8 @@ tr.event-custom-style {
   width: calc(var(--ar-hotspots-size) - 1.25rem);
   height: calc(var(--ar-hotspots-size) - 1.25rem);
 }
+
+
 
 img-comparison-slider {
   display: block;

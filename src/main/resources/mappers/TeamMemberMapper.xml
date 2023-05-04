@@ -22,5 +22,8 @@
     <select id="selectMember" resultType="com.sportsmania.swith.domain.TeamMemberVO">
         select * from supportteam_member where team_title = #{team_title} and team_fixed = 1
     </select>
+    <select id="selectAll" resultType="com.sportsmania.swith.domain.TeamMemberVO">
+        select * from supportteam_member where team_title = #{team_title}
+    </select>
 
 </mapper>
