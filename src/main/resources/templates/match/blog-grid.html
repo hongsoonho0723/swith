@@ -597,8 +597,34 @@
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
 
-            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart">찜</i></button>
+            <a id="starbutton" class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="likefunction()">
+              <i id="star" class="ai-star">찜</i>
+              </a>
+<!--            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="unlikefunction()"><i class="ai-star-filled">찜</i></button>-->
+            <script>
+              function likefunction(){
+                const boardJjimDTO = {
+                  "userid": "user1",
+                  "board_no": [[${dto.board_no}]]
+                }
+                $.ajax({
+                  url : "/match/wish",
+                  type : "POST",
+                  data : JSON.stringify(boardJjimDTO),
+                  contentType : "application/json",
+                  success : function (){
+                    console.log("성공")
+                    const i = $("<i class='ai-star-filled'>찜</i>");
+                    $("#star").remove();
+                    $("#starbutton").append(i);
+                  },
+                  error : function (){
+                    console.log("실패")
+                  }
 
+                })
+              }
+            </script>
             <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
             <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
             <a class="h4 card-title mt-0" th:href="|@{/match/blog-single-v1(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>

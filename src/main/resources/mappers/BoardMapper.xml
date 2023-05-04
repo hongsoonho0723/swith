@@ -50,7 +50,7 @@
                 or region2 = #{region2}
             </if>
             <if test="startdate != null and enddate != null">
-                AND startdate between #{startdate} and #{enddate}
+                or startdate between #{startdate} and #{enddate}
             </if>
             <if test="finished">
                 <trim prefix="and">

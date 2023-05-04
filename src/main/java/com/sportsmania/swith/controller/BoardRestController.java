@@ -1,13 +1,13 @@
 package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.dto.BoardDTO;
+import com.sportsmania.swith.dto.BoardJjimDTO;
+import com.sportsmania.swith.service.BoardJjimService;
 import com.sportsmania.swith.service.BoardService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +23,12 @@ import java.util.List;
 public class BoardRestController {
     @Autowired
     private final BoardService boardService;
+    private final BoardJjimService boardJjimService;
 
 
-    public BoardRestController(BoardService boardService) {  this.boardService = boardService; }
+    public BoardRestController(BoardService boardService, BoardJjimService boardJjimService) {  this.boardService = boardService;
+        this.boardJjimService = boardJjimService;
+    }
 
     @PostMapping("match/posts")
     public ResponseEntity<BoardDTO> registerPOST(@Valid @RequestBody BoardDTO boardDTO, BindingResult bindingResult,
@@ -58,11 +61,10 @@ public class BoardRestController {
 
     //찜하기
     @PostMapping("/match/wish")
-    public ResponseEntity<String> wish(int id, String wish, @AuthenticationPrincipal UserDetails principal){
-        if(principal == null){
-            return ResponseEntity.badRequest().body("회원만 가능");
-        }
+    public ResponseEntity wish(@RequestBody BoardJjimDTO boardJjimDTO){
+        boardJjimService.register(boardJjimDTO);
+        log.info(boardJjimDTO);
 
-        return ResponseEntity.ok().body("완료");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
