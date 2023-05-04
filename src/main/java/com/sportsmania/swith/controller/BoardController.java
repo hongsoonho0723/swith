@@ -35,7 +35,7 @@ public class BoardController {
         if(bindingResult.hasErrors()){
             pageRequestDTO=PageRequestDTO.builder().build();
         }
-
+//        String a = pageRequestDTO.getB_category();
         model.addAttribute("responseDTO",boardService.getList(pageRequestDTO));
         log.info(pageRequestDTO);
         return "match/blog-grid";

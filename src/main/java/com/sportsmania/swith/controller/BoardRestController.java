@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +23,7 @@ import java.util.List;
 public class BoardRestController {
     @Autowired
     private final BoardService boardService;
+
 
     public BoardRestController(BoardService boardService) {  this.boardService = boardService; }
 
@@ -51,5 +54,15 @@ public class BoardRestController {
         boardService.register(boardDTO);
         return  new ResponseEntity<>(boardDTO, HttpStatus.OK);
 
+    }
+
+    //찜하기
+    @PostMapping("/match/wish")
+    public ResponseEntity<String> wish(int id, String wish, @AuthenticationPrincipal UserDetails principal){
+        if(principal == null){
+            return ResponseEntity.badRequest().body("회원만 가능");
+        }
+
+        return ResponseEntity.ok().body("완료");
     }
 }

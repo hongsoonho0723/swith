@@ -250,8 +250,14 @@
           <option value="이동지원">이동지원</option>
           <option value="활동지원">활동지원</option>
           <option value="기타지원">기타지원</option>
-          <!--              <option>Travel &amp; Vacation</option>-->
         </select>
+        <select name="b_category" class="form-select">
+          <option selected disabled hidden value="">구인종류</option>
+          <option value="서포터구인">서포터구인</option>
+          <option value="체육활동지원">체육활동지원</option>
+        </select>
+<!--        <input type="checkbox" name="b_categories" value="서포터구인">서포터구인-->
+<!--        <input type="checkbox" name="b_categories" value="체육활동지원">체육활동지원-->
 
         <!--지역 검색-->
         <select name="region" id="city" onchange="updateDistricts(); updateDistricts1();">
@@ -573,6 +579,7 @@
           <input type="date" name="startdate" class="form-control" value="">
           <input type="date" name="enddate" class="form-control"  value="">
         </div>
+
       </form>
     </div>
     <!-- Blog grid (masonry)-->
@@ -643,24 +650,7 @@
       </div>
     </div>
     <!-- Pagination-->
-    <!--<div class="float-end">
-      <ul class="pagination flex-wrap">
 
-        <li class="page-item" th:if="${responseDTO.prev}">
-          <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
-        </li>
-
-        <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-          <li th:class="${responseDTO.page == i}?'page-item active':'page-item'" >
-            <a class="page-link" th:href="@{/match?pageNum=${i}}"  th:data-num="${i}">[[${i}]]</a>
-          </li>
-        </th:block>
-
-        <li class="page-item" th:if="${responseDTO.next}">
-          <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
-        </li>
-      </ul>
-    </div>-->
     <script>
     //페이징 처리
     document.querySelector(".pagination").addEventListener("click", function (e) {
@@ -685,7 +675,7 @@
 
     <!--ajax-->
     <!--<button onclick="함수명">함수명 호출</button>-->
-    <script>
+    <!--<script>
       const 함수명 =()=>{
         $.ajax({
           //요청 방식 : get
@@ -702,7 +692,7 @@
           }
         })
       }
-    </script>
+    </script>-->
   </div>
 </main>
 <!-- Subscription-->

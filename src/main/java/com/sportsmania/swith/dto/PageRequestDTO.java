@@ -36,7 +36,7 @@ public class PageRequestDTO {
         }
         return types.split("");
     }*/
-    private String[] b_category; //서포터구인,체육활동지원,운동친구모집
+    private String b_category; //서포터구인,체육활동지원,운동친구모집
     private String keyword;
     private boolean finished;
     private String startdate;
