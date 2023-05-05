@@ -35,34 +35,29 @@ public class BoardController {
         if(bindingResult.hasErrors()){
             pageRequestDTO=PageRequestDTO.builder().build();
         }
-
+//        String a = pageRequestDTO.getB_category();
         model.addAttribute("responseDTO",boardService.getList(pageRequestDTO));
         log.info(pageRequestDTO);
         return "match/blog-grid";
 
     }
-    @GetMapping("/match/register")
+    @GetMapping("/match/posts")
     public String registerGET(){
         log.info("get register...");
         return "match/matching-create";
     }
 
-    @PostMapping("/match/register")
+    /*@PostMapping("/match/posts")
     public String registerPOST(@Valid BoardDTO boardDTO, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
         log.info("post register...");
         log.info(boardDTO);
         String date = boardDTO.getStartdate();
         String date2 = boardDTO.getEnddate();
-
-        log.info(date);
-        log.info(date2);
         String d = date.replaceAll("T"," ");
         String d2 = date2.replaceAll("T"," ");
         boardDTO.setStartdate(d);
         boardDTO.setEnddate(d2);
-        log.info(d);
-        log.info(d2);
         log.info(boardDTO);
         if(bindingResult.hasErrors()) {
             log.info("register has errors...");
@@ -73,13 +68,13 @@ public class BoardController {
                 System.out.println(" ");
             }
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/match/register";
+            return "redirect:/match/posts";
 
         }
         log.info(boardDTO);
         boardService.register(boardDTO);
         return "redirect:/match";
 
-    }
+    }*/
 
 }

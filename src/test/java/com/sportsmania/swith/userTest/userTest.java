@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 public class userTest {
@@ -24,6 +25,23 @@ public class userTest {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+    @Test
+    public void signup(){
+        IntStream.rangeClosed(10,30).forEach(i ->{
+            UserDTO userDTO = UserDTO.builder()
+                    .userId("testUSer" + i)
+                    .pwd("1111" + i)
+                    .email(i + "ex@naver.com")
+                    .birthday("1997-03-" + i)
+                    .nickname("testNick" + i)
+                    .phone("010-9999-99" + i)
+                    .name("이테스트" + i)
+                    .joinType("1")
+                    .auth("ROLE_USER")
+                    .build();
+            userService.join(userDTO);
+        });
+    }
 
     @Test
     public void login(){

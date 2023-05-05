@@ -27,6 +27,8 @@ public class BoardDTO {
     private String deadline;
     @NotEmpty
     private String region;
+    @NotEmpty
+    private String region2;
     @NotNull
     private int recruitsNum;
     @NotEmpty
