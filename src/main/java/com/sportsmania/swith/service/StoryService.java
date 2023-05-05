@@ -4,12 +4,18 @@ import com.sportsmania.swith.domain.StoryVO;
 import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.PageResponseDTO;
 import com.sportsmania.swith.dto.StoryDTO;
+import com.sportsmania.swith.dto.StoryFileDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 public interface StoryService {
 
     void register(StoryDTO storyDTO) throws IOException;
+
+    void uploadStoryFile(StoryDTO storyDTO, MultipartFile file) throws  IOException;
+
+    void uploadFile(StoryFileDTO storyFileDTO) throws IOException;
 
     void remove(Long story_no);
 

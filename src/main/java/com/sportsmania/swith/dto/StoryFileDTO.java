@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -11,8 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StoryFileDTO {
 
-    private Long file_no;
+    //private String filename;
+
+    private MultipartFile filename;
+
+    private MultipartFile originalFileName;
+
     private Long story_no;
-    private String image_sub;
 
 }

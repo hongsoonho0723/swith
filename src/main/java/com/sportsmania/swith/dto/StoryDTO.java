@@ -28,14 +28,13 @@ public class StoryDTO {
     @NotEmpty
     private String s_category;
 
+    private String user_type;
+
     @NotEmpty
     private String title;
 
     @NotEmpty
     private String content;
-
-    @Nullable
-    private MultipartFile image;
 
     private String image_main;
 

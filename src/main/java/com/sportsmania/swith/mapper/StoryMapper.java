@@ -1,7 +1,10 @@
 package com.sportsmania.swith.mapper;
 
+import com.sportsmania.swith.domain.StoryFileVO;
 import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.domain.StoryVO;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,6 +21,7 @@ public interface StoryMapper {
 
     void delete(Long story_no);
 
+
     void  likeCount(Long story_no);
 
     void update(StoryVO storyVO);
@@ -26,5 +30,8 @@ public interface StoryMapper {
 
     int getCount(PageRequestDTO pageRequestDTO);
 
+    //이미지 처리
+    @Insert("INSERT INTO story_file values(#{filename}, #{story_no}")
+    void insertFile(StoryFileVO storyFileVO);
 
 }

@@ -9,7 +9,7 @@
     </select>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.StoryVO">
-        insert into story (story_writer,s_category,title,content,image_main) values (#{story_writer},#{s_category},#{title},#{content},#{image_main})
+        insert into story (user_type,story_writer,s_category,title,content,image_main) values (#{user_type},#{story_writer},#{s_category},#{title},#{content},#{image_main})
     </insert>
 
     <select id="selectOne" resultType="com.sportsmania.swith.domain.StoryVO">

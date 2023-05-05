@@ -17,11 +17,10 @@ import java.nio.file.Files;
 @Log4j2
 public class ImgController {
 
-    @Value("${com.sportsmania.upload.path}")
-    private String uploadPath;
 
     @GetMapping("/img/{image_main}")
     public ResponseEntity<Resource> imgGET(@PathVariable String image_main){
+        String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\storyfile\\";
 
         Resource resource = new FileSystemResource(uploadPath+ File.separator + image_main);
         String resourceName = resource.getFilename();
