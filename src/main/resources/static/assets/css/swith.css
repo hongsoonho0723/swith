@@ -1,0 +1,22 @@
+.container-swith {
+    width: 500px;
+    height: 300px;
+    background-color: #F5F5F5;;
+    /* 설정 */
+    position: relative;
+}
+
+.child-swith {
+    width: 40px;
+    height: 40px;
+    /* 상하좌우 정중앙 정렬하기 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.a-non {
+    color: #000;
+    text-decoration: none;
+}
