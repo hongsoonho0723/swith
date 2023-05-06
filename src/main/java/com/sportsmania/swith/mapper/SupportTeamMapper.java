@@ -2,6 +2,7 @@ package com.sportsmania.swith.mapper;
 
 import com.sportsmania.swith.domain.SupportTeamVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface SupportTeamMapper {
     void update(SupportTeamVO supportTeamVO);
     void delete(String team_title);
 
+    void insertWithFile(SupportTeamVO supportTeamVO, MultipartFile file);
 }

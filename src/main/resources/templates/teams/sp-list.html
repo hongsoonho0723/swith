@@ -169,16 +169,16 @@
             <nav class="collapse navbar-collapse" id="navbarCollapse1">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">매칭라운지</a>
+                        <a th:href="@{/match}" class="nav-link">매칭라운지</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">서포터팀</a>
+                        <a th:href="@{/teams}" class="nav-link">서포터팀</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">플레이윗미</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">스토리</a>
+                        <a th:href="@{/stories}" class="nav-link">스토리</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -190,8 +190,8 @@
                             <li><a href="#" class="dropdown-item">서포터팀원 구하기</a></li>
                             <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
                             <li class="dropdown-divider"></li>
-                            <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                            <li href="#"><a class="dropdown-item">스토리 생성</a></li>
+                            <li th:href="@{/teams/posts}"><a class="dropdown-item">서포터 팀 생성</a></li>
+                            <li th:href="@{/stories/posts}"><a class="dropdown-item">스토리 생성</a></li>
                         </ul>
                     </li>
                 </ul>
