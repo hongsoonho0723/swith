@@ -9,8 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class StoryFileVO {
 
-    private Long file_no;
+    private String filename;
     private Long story_no;
-    private String image_sub;
 
 }

@@ -36,6 +36,14 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
+    public ReplyDTO getReplyOne(Long reply_no) {
+        ReplyVO replyVO = replyMapper.getReplyOne(reply_no);
+        ReplyDTO replyDTO = modelMapper.map(replyVO, ReplyDTO.class);
+
+        return replyDTO;
+    }
+
+    @Override
     public void modify(ReplyDTO replyDTO) {
         ReplyVO replyVO = modelMapper.map(replyDTO, ReplyVO.class);
         replyMapper.update(replyVO);
@@ -44,5 +52,12 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void remove(Long reply_no) {
         replyMapper.delete(reply_no);
+    }
+
+
+    @Override
+    public int storyReplyCount(Long story_no) {
+
+        return replyMapper.storyReplyCount(story_no);
     }
 }

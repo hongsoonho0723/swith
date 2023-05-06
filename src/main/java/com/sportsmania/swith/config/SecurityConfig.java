@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -40,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //   .antMatchers("/members/main").hasRole("USER")
                 .antMatchers("/members/main").permitAll()
-                .antMatchers("//**").permitAll()
                 .antMatchers("/members/signin","/members/signup").anonymous() // 권한이 없는 사용자만 접근 가능
                 .anyRequest().permitAll() // 나머지 페이지에 대한 인증이 필요없음
                 .and()
@@ -77,10 +75,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         firewall.setAllowSemicolon(true);
         return firewall;
     }
-/*
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
-    }*/
 }
 

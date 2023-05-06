@@ -26,5 +26,4 @@ public class UserDTO {
     private String grade;
     private String preference;
     private String auth;
-
 }

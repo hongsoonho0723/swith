@@ -72,16 +72,12 @@ public class MyController {
     }
 
 
-
-
-
-
-        @GetMapping("logout")
-        public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
-            session.invalidate();
-            redirectAttributes.addFlashAttribute("message", "로그아웃되었습니다."); // 리다이렉트 시 전달할 데이터 추가
-            return "redirect:/members/main";
-        }
+    @GetMapping("logout")
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("message", "로그아웃되었습니다."); // 리다이렉트 시 전달할 데이터 추가
+        return "redirect:/members/main";
+    }
 
 
 }
