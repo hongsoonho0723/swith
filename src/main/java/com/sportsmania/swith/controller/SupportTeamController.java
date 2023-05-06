@@ -4,14 +4,19 @@ import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.dto.TeamMemberDTO;
 import com.sportsmania.swith.service.SupportTeamService;
 import com.sportsmania.swith.service.TeamMemberService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -31,7 +36,7 @@ public class SupportTeamController {
         return mv;
     }
 
-    @PostMapping("/teams/posts")
+    /*@PostMapping("/teams/posts")
     public ResponseEntity registerPosts(@RequestBody SupportTeamDTO supportTeamDTO) {
         log.info("dto = " + supportTeamDTO);
         String deadline = supportTeamDTO.getDeadline();
@@ -42,7 +47,73 @@ public class SupportTeamController {
         supportTeamDTO.setImage_team("imagefileTest1");
         supportTeamService.register(supportTeamDTO);
         return new ResponseEntity<>(supportTeamDTO, HttpStatus.OK);
+    }*/
+
+   /* @PostMapping(value = "/teams/posts", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity registerImage(@RequestPart("image") MultipartFile image,
+                                        @RequestPart("supportTeamDTO") SupportTeamDTO supportTeamDTO) throws Exception{
+        supportTeamService.writeImage(supportTeamDTO, image);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
+*/
+    /*@PostMapping("/teams/posts")
+    public ResponseEntity registerPosts(@ModelAttribute SupportTeamDTO supportTeamDTO,
+                                        @RequestParam("file") MultipartFile file) throws IOException{
+
+        log.info("등록전: " + supportTeamDTO);
+        supportTeamDTO.setTeam_writer("testUser2");
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        supportTeamDTO.setImage_team(fileName);
+
+        String uploadDir = "/assets/image_team/" + supportTeamDTO.getTeam_title();
+
+        FileUploadUtil.saveFile(uploadDir, fileName, file);
+
+        supportTeamService.register(supportTeamDTO);
+        log.info("등록후: " + supportTeamDTO);
+        return new ResponseEntity<>(supportTeamDTO,HttpStatus.OK);
+    }*/
+
+    //private static String UPLOAD_DIR = "/assets/image_team/";  // 업로드할 디렉토리를 지정합니다.
+   /* String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\image_team";*/
+    @PostMapping("/teams/posts")
+    public ResponseEntity uploadFIle(@RequestParam("image") MultipartFile file,
+                                     @ModelAttribute SupportTeamDTO supportTeamDTO){
+        if (file.isEmpty()) {
+            log.info("file empty");
+            return new ResponseEntity<>("Please select a file!", HttpStatus.OK);
+        }
+
+        try {
+            log.info("드디어 받아온" + supportTeamDTO);
+          supportTeamService.registerWithFile(supportTeamDTO, file);
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("Successfully uploaded - " + supportTeamDTO, HttpStatus.OK);
+    }
+
+    /*// 파일을 디스크에 저장합니다.
+    private void saveUploadedFile(MultipartFile file) throws Exception {
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+            Files.write(path, bytes);
+
+            SupportTeamDTO supportTeamDTO = supportTeamService.getOne("testTeam1");
+            log.info("path.toString() 전 : " + supportTeamDTO);
+            supportTeamDTO.setImage_team(path.toString());
+            log.info("path.toString() 후 : " + supportTeamDTO);
+            supportTeamService.modify(supportTeamDTO);
+        }
+    }*/
+
 
     @GetMapping("/teams")
     public ModelAndView viewList() {
