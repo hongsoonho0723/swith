@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 
 @Configuration
@@ -64,6 +66,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("my-remember-me-key", userDetailsService);
         rememberMeServices.setTokenValiditySeconds(60 * 60 * 24 * 7); // 토큰 유효기간 7일로 설정
         return rememberMeServices;
+    }
+
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedDoubleSlash(true);
+        firewall.setAllowSemicolon(true);
+        return firewall;
     }
 }
 

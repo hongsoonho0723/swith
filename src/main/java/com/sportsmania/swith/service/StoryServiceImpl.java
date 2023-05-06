@@ -1,16 +1,20 @@
 package com.sportsmania.swith.service;
 
+import com.sportsmania.swith.domain.StoryFileVO;
 import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.PageResponseDTO;
 import com.sportsmania.swith.dto.StoryDTO;
+import com.sportsmania.swith.dto.StoryFileDTO;
 import com.sportsmania.swith.mapper.StoryMapper;
 import com.sportsmania.swith.domain.StoryVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -30,17 +34,13 @@ public class StoryServiceImpl implements StoryService {
     public void register(StoryDTO storyDTO) {
 
         log.info("register....service");
-
         //실제 저장 경로
         String uploadPath = "C:\\upload\\";
 
-        //원래 파일 이름
-        //MultipartFile multipartFile = storyDTO.getImage_main();
-
-        String orginalImgName = storyDTO.getImage().getOriginalFilename(); //오리지널 이름은 필요 없음
+       /* String originalImgName = storyDTO.getImage().getOriginalFilename();
 
         //확장자 추출
-        String extension = orginalImgName.substring(orginalImgName.lastIndexOf("."));
+        String extension = originalImgName.substring(originalImgName.lastIndexOf("."));
 
         String saveName = UUID.randomUUID() + extension;
 
@@ -52,7 +52,6 @@ public class StoryServiceImpl implements StoryService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        log.info(modelMapper);
 
         StoryVO storyVO = StoryVO.builder()
                 .story_no(storyDTO.getStory_no())
@@ -69,14 +68,45 @@ public class StoryServiceImpl implements StoryService {
 
         log.info(storyVO);
 
-        storyMapper.insert(storyVO);
+        storyMapper.insert(storyVO);*/
 
     }
+
+    @Override
+    public void registerWithFile(StoryDTO storyDTO, MultipartFile file) throws IOException {
+        //String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\storyfile\\";
+
+        String uploadPath = "C:\\upload\\";
+
+        String originalFileName = file.getOriginalFilename();
+
+        String filename = UUID.randomUUID() + originalFileName;
+
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(uploadPath + filename);
+        Files.write(path, bytes);
+
+        storyDTO.setImage_main(filename);
+
+        StoryVO storyVO = modelMapper.map(storyDTO, StoryVO.class);
+
+        storyMapper.insert(storyVO);
+    }
+
+    @Override
+    public void increaseViewCount(Long storyNo) {
+
+            storyMapper.increaseViewCount(storyNo);
+
+    }
+
+
 
 
     @Override
     public void remove(Long story_no) {
 
+        //storyMapper.deleteStoryWithReplies(story_no);
         storyMapper.delete(story_no);
         log.info("delete" + story_no);
 

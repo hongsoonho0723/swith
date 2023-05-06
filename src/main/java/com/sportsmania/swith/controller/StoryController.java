@@ -1,8 +1,11 @@
 package com.sportsmania.swith.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sportsmania.swith.dto.PageRequestDTO;
+import com.sportsmania.swith.dto.ReplyDTO;
 import com.sportsmania.swith.dto.StoryDTO;
+import com.sportsmania.swith.service.ReplyService;
 import com.sportsmania.swith.service.StoryService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.extern.log4j.Log4j2;
@@ -14,9 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -26,45 +35,50 @@ public class StoryController {
     @Autowired
     private final StoryService storyService;
 
+    @Autowired
+    private final ReplyService replyService;
 
-    public StoryController(StoryService storyService) {
+    public StoryController(StoryService storyService, ReplyService replyService) {
         this.storyService = storyService;
+        this.replyService = replyService;
     }
 
 
-    @GetMapping("stories/posts")
+    @GetMapping("/stories/posts")
     public String getRegister() {
 
         return "/story/register";
     }
 
-
-    /*@GetMapping("/posts")
-    public ResponseEntity<String> getRegisterPage() throws IOException {
-        // ResourceLoader를 이용하여 register.html 파일을 가져옵니다.
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource("classpath:/story/register.html");
-        String html = new String(Files.readAllBytes(resource.getFile().toPath()));
-
-        // 응답 생성
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_HTML);
-        return new ResponseEntity<String>(html, headers, HttpStatus.OK);
-    }*/
-
     @RestController
     public  class StoryRestController {
-        @PostMapping(value = "stories/posts")
-        public ResponseEntity<StoryDTO> registerPOST(@Valid @RequestBody StoryDTO storyDTO) throws IOException {
-            log.info("registerPOST");
+        /* @PostMapping(value = "stories/posts")
+         public ResponseEntity<StoryDTO> registerPOST(@Valid @RequestBody StoryDTO storyDTO) throws IOException {
+             log.info("registerPOST");
+             log.info(storyDTO);
+             storyService.register(storyDTO);
 
-            storyService.register(storyDTO);
+             return new ResponseEntity<>(storyDTO, HttpStatus.OK);
+         }*/
+        @PostMapping("/stories/posts")
+        public ResponseEntity registerPOST(@RequestParam("image") MultipartFile file, @ModelAttribute StoryDTO storyDTO) throws IOException {
 
-            return new ResponseEntity<>(storyDTO, HttpStatus.OK);
+            storyService.registerWithFile(storyDTO, file);
+
+            return new ResponseEntity(storyDTO, HttpStatus.OK);
         }
 
         @DeleteMapping("/stories/posts/{story_no}")
         public ResponseEntity<Void> deleteStory(@PathVariable("story_no") Long story_no) {
+            List<ReplyDTO> replyList = replyService.getList(story_no);
+            log.info(replyList);
+            if (!replyList.isEmpty()) {
+                IntStream.rangeClosed(0, replyList.size() - 1).forEach(i -> {
+                    ReplyDTO replyDTO = replyList.get(i);
+                    replyService.remove(replyDTO.getReply_no());
+                });
+            }
+            log.info("스토리 삭제: " + story_no);
             storyService.remove(story_no);
 
             return ResponseEntity.noContent().build(); //HTTP 응답 코드 204
@@ -77,34 +91,10 @@ public class StoryController {
             return ResponseEntity.noContent().build(); //HTTP 응답 코드 204
         }
 
-        /*@GetMapping(value = "/stories/{story_no}")
-        public ResponseEntity<StoryDTO> read(@PathVariable Long story_no) {
-            StoryDTO storyDTO = storyService.getOne(story_no);
-            log.info(storyDTO);
-            return ResponseEntity.ok(storyDTO);
-        }*/
 
-       /* @GetMapping("/stories/{story_no}")
-        public ResponseEntity<StoryDTO> getStory(@PathVariable Long story_no) {
-            StoryDTO storyDTO = storyService.getOne(story_no);
-            if (storyDTO == null) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(storyDTO);
-        }*/
     }
-   /* @RequestMapping(value = "/stories/posts", method =RequestMethod.POST)
-    public String registerPOST(@Valid StoryDTO storyDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
-        log.info("registerPOST");
 
-        storyService.register(storyDTO);
-
-        return "redirect: /stories";
-    }*/
-
-
-
-        @RequestMapping(value = "/stories", method = RequestMethod.GET)
+        @GetMapping("/stories")
         public String list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
             log.info(pageRequestDTO);
             if (bindingResult.hasErrors()) {
@@ -114,13 +104,30 @@ public class StoryController {
 
             return "/story/list";
         }
+
         @GetMapping(value = "/stories/{story_no}")
-        public String read(@PathVariable("story_no") Long story_no, Model model) {
+        public String read(@PathVariable("story_no") Long story_no, Model model, HttpSession session) {
+
             StoryDTO storyDTO = storyService.getOne(story_no);
             log.info(storyDTO);
 
+            // 세션에 저장된 게시글 번호 리스트를 가져옵니다.
+            List<Long> viewedStoryList = (List<Long>) session.getAttribute("viewedStoryList");
+            if (viewedStoryList == null) {
+                viewedStoryList = new ArrayList<>();
+            }
+
+            // 현재 게시글 번호가 세션에 저장된 리스트에 없으면 조회수를 증가합니다.
+            if (!viewedStoryList.contains(story_no)) {
+                storyService.increaseViewCount(story_no);
+                viewedStoryList.add(story_no);
+                session.setAttribute("viewedStoryList", viewedStoryList);
+            }
+
             model.addAttribute("dto", storyDTO);
-            return "story/read";
+
+
+            return "/story/read";
         }
 
 }

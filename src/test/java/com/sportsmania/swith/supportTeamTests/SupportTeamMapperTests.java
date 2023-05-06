@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 @Log4j2
@@ -18,22 +19,24 @@ public class SupportTeamMapperTests {
 
     @Test
     public void insert() {
-        SupportTeamDTO supportTeamDTO2 = SupportTeamDTO.builder()
-                .team_title("testTeam2")
-                .team_writer("testUser2")
-                .content("testContent2")
-                .sido("부산")
-                .sigungu("금정구")
-                .member_num(4)
-                .regdate("2023-09-10 18:20:15")
-                .image_team("C:/User/momentum")
-                .simple_content("hello, we are volunteers.")
-                .inquiry("채팅방으로 오셈")
-                .finished(false)
-                .deadline("2023-10-19")
-                .build();
-        log.info(supportTeamDTO2);
-        supportTeamService.register(supportTeamDTO2);
+        IntStream.rangeClosed(21,30).forEach(i -> {
+            SupportTeamDTO supportTeamDTO = SupportTeamDTO.builder()
+                    .team_title("testTeam" +i)
+                    .team_writer("testUser" +i)
+                    .content("testContent" +i)
+                    .sido("서울")
+                    .sigungu("강남구")
+                    .member_num(4)
+                    .regdate("2023-09-10 18:20:15")
+                    .image_team("C:/User/momentum")
+                    .simple_content("이동지원하는 봉사팀입니다." + i)
+                    .inquiry("채팅방으로 오셈" +i)
+                    .finished(false)
+                    .deadline("2023-10-" + i)
+                    .build();
+            supportTeamService.register(supportTeamDTO);
+        });
+
     }
 
     @Test
