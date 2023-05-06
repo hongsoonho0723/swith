@@ -182,15 +182,23 @@
                   <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
                   <li href="#"><a class="dropdown-item">스토리 생성</a></li>
                   <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-      
                 </ul>
               </li>
             </ul>
-      
-            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-              <i class="ai-user me-2 ms-n1"></i>
-              로그인
-            </a>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                    <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                    <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                    <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                  </ul>
+                </li>
+              </ul>
+
           </nav>
         </div>
       </header>
