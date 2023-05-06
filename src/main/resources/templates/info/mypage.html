@@ -193,7 +193,7 @@
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
                   <ul class="dropdown-menu">
                     <li><a href="/members/mypage" class="dropdown-item">마이페이지</a></li>
-                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/info/history" class="dropdown-item">내 활동내역</a></li>
                     <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
                     <li><a href="#" class="dropdown-item">나의 팀</a></li>
 
@@ -224,7 +224,7 @@
                     <p class="fs-sm text-muted mb-0" th:text="${#session.getAttribute('user').email}">example@gmail.com</p>
                   </div>
                   <nav class="nav flex-column pb-5 pb-lg-5 mb-3">
-                    <h4 class="fs-xs fw-medium text-muted text-uppercase pb-1 mb-2">계정</h4><a class="nav-link fw-semibold py-2 px-0 active" href="mypage.html"><i class="ai-user-check fs-5 opacity-60 me-2"></i>마이페이지</a><a class="nav-link fw-semibold py-2 px-0" href="history.html"><i class="ai-wallet fs-5 opacity-60 me-2"></i>나의활동</a>
+                    <h4 class="fs-xs fw-medium text-muted text-uppercase pb-1 mb-2">계정</h4><a class="nav-link fw-semibold py-2 px-0 active" href="mypage.html"><i class="ai-user-check fs-5 opacity-60 me-2"></i>마이페이지</a><a class="nav-link fw-semibold py-2 px-0" href="/info/history"><i class="ai-wallet fs-5 opacity-60 me-2"></i>나의활동</a>
                   </nav>
                   <div class="d-none d-lg-block" style="padding-top: 300px;"></div>
                   <div>
@@ -302,7 +302,7 @@
               </section>
 
               <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
-                <!-- Address-->
+                <!-- 차단목록-->
                 <section class="col">
                   <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
                     <div class="card-body">
@@ -328,7 +328,7 @@
                     </div>
                   </div>
                 </section>
-                <!-- Billing-->
+                <!-- 찜목록-->
                 <section class="col">
                   <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
                     <div class="card-body">
@@ -350,7 +350,7 @@
               <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
                 <div class="card-body">
                   <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3" style="text-align: center;">
-                    <h2 class="h4 mb-0">활동내역</h2><a class="btn btn-sm btn-secondary ms-auto" href="account-orders.html">전체보기</a>
+                    <h2 class="h4 mb-0">활동내역</h2><a class="btn btn-sm btn-secondary ms-auto" href="/info/history">전체보기</a>
                   </div>
                   <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
                     <table style="width: 100%;">

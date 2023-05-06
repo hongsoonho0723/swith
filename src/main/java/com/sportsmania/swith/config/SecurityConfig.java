@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록
 @Log4j2
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true) //메소드를 사용해서 권한설정
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -33,10 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable();
+        http.csrf().disable(); // csrf요청 비활성화
         http.authorizeRequests()
-                //   .antMatchers("/members/main").hasRole("USER")
                 .antMatchers("/members/main").permitAll()
+                .antMatchers("/info/**").hasRole("USER")
                 .antMatchers("/members/signin","/members/signup").anonymous() // 권한이 없는 사용자만 접근 가능
                 .anyRequest().permitAll() // 나머지 페이지에 대한 인증이 필요없음
                 .and()
