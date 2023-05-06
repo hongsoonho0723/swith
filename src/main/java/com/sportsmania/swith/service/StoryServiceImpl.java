@@ -73,9 +73,10 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public void uploadStoryFile(StoryDTO storyDTO, MultipartFile file) throws IOException {
+    public void registerWithFile(StoryDTO storyDTO, MultipartFile file) throws IOException {
+        //String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\storyfile\\";
 
-        String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\storyfile\\";
+        String uploadPath = "C:\\upload\\";
 
         String originalFileName = file.getOriginalFilename();
 
@@ -85,7 +86,7 @@ public class StoryServiceImpl implements StoryService {
         Path path = Paths.get(uploadPath + filename);
         Files.write(path, bytes);
 
-        storyDTO.setImage_main(path.toString());
+        storyDTO.setImage_main(filename);
 
         StoryVO storyVO = modelMapper.map(storyDTO, StoryVO.class);
 
@@ -93,37 +94,13 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public void uploadFile(StoryFileDTO storyFileDTO) throws IOException {
-        //실제 저장 경로
-        String uploadPath = "C:\\upload\\";
+    public void increaseViewCount(Long storyNo) {
 
-        //String originalFileName = storyFileDTO.getOriginalFileName().getOriginalFilename();
-        String originalFileName = storyFileDTO.getFilename().getOriginalFilename();
+            storyMapper.increaseViewCount(storyNo);
 
-        //확장자 추출
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-
-        String fileName = UUID.randomUUID() + extension;
-
-        //파일 불러올 때 사용할 파일 경로
-        Path savePath = Paths.get(uploadPath, fileName);
-
-        try {
-            storyFileDTO.getOriginalFileName().transferTo(savePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        StoryFileVO storyFileVO = StoryFileVO.builder()
-                .filename(fileName)
-                .story_no(storyFileDTO.getStory_no())
-                .build();
-
-
-        log.info(storyFileVO);
-
-        storyMapper.insertFile(storyFileVO);
     }
+
+
 
 
     @Override

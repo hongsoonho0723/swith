@@ -38,6 +38,12 @@ public class ReplyController {
         return new ResponseEntity(replyDTOList , HttpStatus.OK);
     }
 
+    @GetMapping( "{story_no}/total")
+    public ResponseEntity<Integer> getReplyCount(@PathVariable("story_no") Long story_no) {
+        int replyCount = replyService.storyReplyCount(story_no);
+        return new ResponseEntity<>(replyCount, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{reply_no}")
     public ResponseEntity<Void> remove(@PathVariable("reply_no") Long reply_no){
         log.info("댓글 삭제:" + reply_no);

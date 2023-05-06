@@ -20,7 +20,9 @@ public interface ReplyMapper {
 
     List<ReplyVO> getReplyList(Long story_no);
 
-   // int getCount(PageRequestDTO pageRequestDTO);
+    int storyReplyCount(Long storyNo);
+
+   // int getCount(StoryPageRequestDTO pageRequestDTO);
 
 
 }

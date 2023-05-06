@@ -53,4 +53,11 @@ public class ReplyServiceImpl implements ReplyService {
     public void remove(Long reply_no) {
         replyMapper.delete(reply_no);
     }
+
+
+    @Override
+    public int storyReplyCount(Long story_no) {
+
+        return replyMapper.storyReplyCount(story_no);
+    }
 }

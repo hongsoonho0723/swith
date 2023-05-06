@@ -18,9 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -49,18 +52,18 @@ public class StoryController {
 
     @RestController
     public  class StoryRestController {
-       /* @PostMapping(value = "stories/posts")
-        public ResponseEntity<StoryDTO> registerPOST(@Valid @RequestBody StoryDTO storyDTO) throws IOException {
-            log.info("registerPOST");
-            log.info(storyDTO);
-            storyService.register(storyDTO);
+        /* @PostMapping(value = "stories/posts")
+         public ResponseEntity<StoryDTO> registerPOST(@Valid @RequestBody StoryDTO storyDTO) throws IOException {
+             log.info("registerPOST");
+             log.info(storyDTO);
+             storyService.register(storyDTO);
 
-            return new ResponseEntity<>(storyDTO, HttpStatus.OK);
-        }*/
+             return new ResponseEntity<>(storyDTO, HttpStatus.OK);
+         }*/
         @PostMapping("/stories/posts")
         public ResponseEntity registerPOST(@RequestParam("image") MultipartFile file, @ModelAttribute StoryDTO storyDTO) throws IOException {
 
-            storyService.uploadStoryFile(storyDTO, file);
+            storyService.registerWithFile(storyDTO, file);
 
             return new ResponseEntity(storyDTO, HttpStatus.OK);
         }
@@ -69,8 +72,8 @@ public class StoryController {
         public ResponseEntity<Void> deleteStory(@PathVariable("story_no") Long story_no) {
             List<ReplyDTO> replyList = replyService.getList(story_no);
             log.info(replyList);
-            if(!replyList.isEmpty()){
-                IntStream.rangeClosed(0, replyList.size()-1).forEach(i ->{
+            if (!replyList.isEmpty()) {
+                IntStream.rangeClosed(0, replyList.size() - 1).forEach(i -> {
                     ReplyDTO replyDTO = replyList.get(i);
                     replyService.remove(replyDTO.getReply_no());
                 });
@@ -91,7 +94,7 @@ public class StoryController {
 
     }
 
-        @RequestMapping(value = "/stories", method = RequestMethod.GET)
+        @GetMapping("/stories")
         public String list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
             log.info(pageRequestDTO);
             if (bindingResult.hasErrors()) {
@@ -101,12 +104,30 @@ public class StoryController {
 
             return "/story/list";
         }
+
         @GetMapping(value = "/stories/{story_no}")
-        public String read(@PathVariable("story_no") Long story_no, Model model) {
+        public String read(@PathVariable("story_no") Long story_no, Model model, HttpSession session) {
+
             StoryDTO storyDTO = storyService.getOne(story_no);
             log.info(storyDTO);
 
+            // 세션에 저장된 게시글 번호 리스트를 가져옵니다.
+            List<Long> viewedStoryList = (List<Long>) session.getAttribute("viewedStoryList");
+            if (viewedStoryList == null) {
+                viewedStoryList = new ArrayList<>();
+            }
+
+            // 현재 게시글 번호가 세션에 저장된 리스트에 없으면 조회수를 증가합니다.
+            if (!viewedStoryList.contains(story_no)) {
+                storyService.increaseViewCount(story_no);
+                viewedStoryList.add(story_no);
+                session.setAttribute("viewedStoryList", viewedStoryList);
+            }
+
             model.addAttribute("dto", storyDTO);
+
+
             return "/story/read";
         }
+
 }

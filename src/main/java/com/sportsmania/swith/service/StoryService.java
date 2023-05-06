@@ -13,9 +13,9 @@ public interface StoryService {
 
     void register(StoryDTO storyDTO) throws IOException;
 
-    void uploadStoryFile(StoryDTO storyDTO, MultipartFile file) throws  IOException;
+    void registerWithFile(StoryDTO storyDTO, MultipartFile file) throws  IOException;
 
-    void uploadFile(StoryFileDTO storyFileDTO) throws IOException;
+    void increaseViewCount(Long storyNo);
 
     void remove(Long story_no);
 

@@ -17,5 +17,7 @@ public interface ReplyService {
 
     void remove(Long reply_no);
 
+    int storyReplyCount(Long story_no);
+
 
 }

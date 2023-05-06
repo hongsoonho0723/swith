@@ -21,6 +21,7 @@ public interface StoryMapper {
 
     void delete(Long story_no);
 
+    void increaseViewCount(Long storyNo);
 
     void  likeCount(Long story_no);
 

@@ -204,19 +204,19 @@ $(document).on("click", "#submitEditReply", function () {
 
 function refreshReplies() {
     // 현재 페이지의 URL을 가져옴
-    var currentUrl = window.location.href;
+    const currentUrl = window.location.href;
     console.log(currentUrl);
 // URL에서 "stories/posts/" 다음에 오는 문자열을 추출하여 story_no 값을 가져옴
-    var story_no = currentUrl.split("/stories/")[1];
+    const story_no = currentUrl.split("/stories/")[1];
     console.log(story_no);
     $.ajax({
         type: "GET",
         url: "/replies/" + story_no,
         success: function (replyDTOList) {
-            var html = "";
-            var replyCount = replyDTOList.length; // 댓글 수
+            let html = "";
+            const replyCount = replyDTOList.length; // 댓글 수
             replyDTOList.forEach(function (replyDTO) {
-                var replyNo= replyDTO.reply_no;
+                const replyNo= replyDTO.reply_no;
                 html += '<div class="border-bottom pt-4 mt-3 mb-0">' +
                     '<div class="d-flex align-items-center pb-1 mb-3">' +
                     '<img class="rounded-circle" src="../assets/img/avatar/07.jpg" width="48" alt="Comment author">' +
@@ -237,13 +237,13 @@ function refreshReplies() {
 
             // 삭제 버튼에 대한 클릭 이벤트 핸들러 등록
             $(".delete-reply-btn").on("click", function () {
-                var reply_no = $(this).data("reply-no");
+                const reply_no = $(this).data("reply-no");
                 deleteReplyBtn(reply_no);
             });
             $(".edit-reply-btn").on("click", function () {
-                var replyNo = $(this).data("reply-no");
-                var replyContent = $(this).closest(".border-bottom").find("p").text(); // 수정 버튼을 누르면 버튼에서 가장 가까운 border-bottomd 클래스 찾아 p태그의 내용을 가져온다
-                var html = '<div class="input-group justify-content-center" style="width: 100%; margin: 0 auto">' +
+                const replyNo = $(this).data("reply-no");
+                const replyContent = $(this).closest(".border-bottom").find("p").text(); // 수정 버튼을 누르면 버튼에서 가장 가까운 border-bottomd 클래스 찾아 p태그의 내용을 가져온다
+                const html = '<div class="input-group justify-content-center" style="width: 100%; margin: 0 auto">' +
                     '<input type="text" class="form-control" placeholder="댓글 작성" id="edit-comment-content" value="' + replyContent + '">' +
                     '<button type="button" class="btn btn-outline-info btn-icon" id="submitEditReply" data-reply-no="' + replyNo + '">' +
                     '<i class="ai-edit"></i>' +
@@ -275,8 +275,8 @@ function deleteReplyBtn(reply_no) {
 }
 
 $(document).on("click", "#submitEditReply", function () {
-    var replyNo = $(this).data("reply-no");
-    var replyContent = $("#edit-comment-content").val();
+    const replyNo = $(this).data("reply-no");
+    const replyContent = $("#edit-comment-content").val();
     $.ajax({
         type: "PUT",
         url: "/replies/" + replyNo,
@@ -289,3 +289,5 @@ $(document).on("click", "#submitEditReply", function () {
         }
     });
 });
+
+
