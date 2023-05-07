@@ -26,9 +26,11 @@
   <script src="../assets/js/supportteam.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <!-- include summernote css/js -->
+  <!--&lt;!&ndash; include summernote css/js &ndash;&gt;
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>-->
+  <!-- Load the CKEditor library --> <!-- CKEditor5 사용하기 위한 CDN -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
 
   <!-- 이미지처리를 위한 js 파일 -->
   <script src="../assets/js/upload.js"></script>
@@ -498,7 +500,7 @@
     <h1 style="font-size: 2rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 소개글</h1>
 
 
-    <script>
+    <!--<script>
       $(document).ready(function () {
         $("#summernote").summernote({
           placeholder:'팀에 대해서 설명해주세요!',
@@ -517,18 +519,29 @@
           ],
         });
       });
-    </script>
-    <form method="post">
+    </script>-->
+
       <table border="1" width=100%>
         <tr></tr>
       </table>
 
+    <form id="myForm">
       <textarea id="summernote" name="content">
-
       </textarea>
     </form>
-
-
+    <script>
+      let editor;
+      ClassicEditor
+              .create( document.querySelector( '#summernote' ),{
+                toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
+              } )
+              .then( newEditor => {
+                editor = newEditor;
+              } )
+              .catch( error => {
+                console.error( error );
+              } );
+    </script>
     <div class="container d-flex justify-content-center" style="padding-top: 50px; text-align: center;">
       <a type="button" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" href="#">작성취소</a>
       <a type="button" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" th:href="@{/teams/{team_title}(team_title=${dto.team_title})}" onclick="modifyForm()">수정완료</a>
@@ -536,7 +549,12 @@
 
   </div>
 <script>
+  function removeHtmltags(str) {
+    return str.replace(/<\/?[^>]+(>|$)/g, "");
+  }
   function modifyForm(){
+    document.querySelector('#summernote').value = removeHtmltags(editor.getData());
+
   const team_title = document.querySelector("#team_title").getAttribute('placeholder');
   console.log(team_title);
   const supportTeamDTO={
@@ -546,7 +564,7 @@
   "sido": $("#city").val(),
   "sigungu": $("#district").val(),
   "member_num": $("#member_num").val(),
-  "image_team": "C://user/motorora",  //$("#input-image").val(),
+  "image_team": "../assets/image_team/default.jpg",  //$("#input-image").val(),
   "simple_content": $("#simple_content").val(),
   "inquiry": $("#inquiry").val(),
   "finished": false,
