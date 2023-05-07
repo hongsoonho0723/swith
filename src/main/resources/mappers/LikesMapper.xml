@@ -5,7 +5,7 @@
 
 <mapper namespace="com.sportsmania.swith.mapper.LikesMapper">
 
-    <insert id="insertLike">
+    <insert id="insertLike" parameterType="com.sportsmania.swith.dto.LikesDTO">
         INSERT INTO `likes` (`userId`, `story_no`)
         VALUES (#{userId}, #{story_no})
     </insert>

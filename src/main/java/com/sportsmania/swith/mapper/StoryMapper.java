@@ -6,6 +6,7 @@ import com.sportsmania.swith.dto.LikesDTO;
 import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -34,5 +35,7 @@ public interface StoryMapper {
     @Insert("INSERT INTO story_file values(#{filename}, #{story_no}")
     void insertFile(StoryFileVO storyFileVO);
 
+    //인기글 출력
+    List<StoryVO> getPopularStories();
 
 }

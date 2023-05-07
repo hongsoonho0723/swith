@@ -295,12 +295,11 @@
             let formData = new FormData();
             /*var content = tinymce.activeEditor.getContent();*/
             let html = editor.getData();
-            let cleanHtml = html.replace(regex, "");
             formData.append('s_category', $('input[name="s_category"]:checked').val());
             formData.append('title', $('input[name="title"]').val());
             formData.append('story_writer', $('input[name="story_writer"]').val());
             formData.append('user_type', $('input[name="usertype"]').val());
-            formData.append('content', cleanHtml);
+            formData.append('content', html);
             formData.append('image', $('input[name="image"]')[0].files[0]);
 
             $.ajax({
