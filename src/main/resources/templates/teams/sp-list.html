@@ -230,7 +230,7 @@
             <div th:each="dto : ${dtoList}" class="col-lg-4 col-md-6 col-sm-12">
                 <div class="row">
                     <div id="item" class="card mx-3 p-0">
-                        <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
+                        <img th:src="${dto.image_team}" style="height: 200px;"  class="card-img-top" alt="Card image">
                         <div class="card-body py-2">
                             <div id="finished"  th:switch="${dto.finished}">
                                 <a id="sido" class="badge border border-info text-info fs-xs my-2"

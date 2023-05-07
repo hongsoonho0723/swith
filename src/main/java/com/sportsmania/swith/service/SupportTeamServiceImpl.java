@@ -65,14 +65,17 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
     public void registerWithFile(SupportTeamDTO supportTeamDTO, MultipartFile file) throws IOException {
         String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\image_team\\";
         String pathStr = "";
+        String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf("."));
+
         if(!file.isEmpty()){
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+            Path path = Paths.get(UPLOAD_DIR + supportTeamDTO.getTeam_title() + extension);
             Files.write(path, bytes);
-            pathStr = path.toString();
+            pathStr = "../assets/image_team/" + supportTeamDTO.getTeam_title() + extension;
+            supportTeamDTO.setImage_team(pathStr);
         }
 
-        supportTeamDTO.setImage_team(pathStr);
         SupportTeamVO supportTeamVO = modelMapper.map(supportTeamDTO, SupportTeamVO.class);
         supportTeamMapper.insert(supportTeamVO);
     }
