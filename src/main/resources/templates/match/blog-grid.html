@@ -156,6 +156,7 @@
       };
     })();
   </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <!-- Import Google Font-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -591,40 +592,16 @@
       <!-- item -->
       <tbody th:with="link = ${pageRequestDTO.getLink()}">
       <div class="col" th:each="dto:${responseDTO.dtoList}">
-        <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" >
+        <div  class="starbutton card card-hover-primary bg-secondary border-0 h-100 text-decoration-none " >
           <div class="card-body pt-3 pb-0 pr-4">
 
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
 
-            <a id="starbutton" class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="likefunction()">
-              <i id="star" class="ai-star">찜</i>
-              </a>
-<!--            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="unlikefunction()"><i class="ai-star-filled">찜</i></button>-->
-            <script>
-              function likefunction(){
-                const boardJjimDTO = {
-                  "userid": "user1",
-                  "board_no": [[${dto.board_no}]]
-                }
-                $.ajax({
-                  url : "/match/wish",
-                  type : "POST",
-                  data : JSON.stringify(boardJjimDTO),
-                  contentType : "application/json",
-                  success : function (){
-                    console.log("성공")
-                    const i = $("<i class='ai-star-filled'>찜</i>");
-                    $("#star").remove();
-                    $("#starbutton").append(i);
-                  },
-                  error : function (){
-                    console.log("실패")
-                  }
+            <button class=" btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5 " type="button" th:attr="data-board-no=${dto.board_no}">
+              <i th:id="${dto.board_writer}" class="ai-star">찜</i>
+            </button>
 
-                })
-              }
-            </script>
             <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
             <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
             <a class="h4 card-title mt-0" th:href="|@{/match/blog-single-v1(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
@@ -632,7 +609,7 @@
           <div class="card-footer border-0 py-3 my-3 mb-sm-4">
             <div class="container d-flex justify-content-center">
                     <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                    <i class="ai-user">[[${dto.board_writer}]]</i>
+                    <i id="" class="ai-user">[[${dto.board_writer}]]</i>
                     </span>
               <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
                         <i class="ai-chat"> [[${dto.recruitsNum}]]</i>
@@ -642,12 +619,33 @@
         </div>
       </div>
       </tbody>
-
-
-
-
-
     </div>
+
+    <script>
+      $(".starbutton").click(function () {
+        const $this = $(this); // $(this) 객체를 변수 $this에 저장
+        const boardNo = $this.data('board_no');
+        const boardJjimDTO = {
+          "userid": "testUser2",
+          "board_no": boardNo
+        }
+        $.ajax({
+          url: "/match/wish",
+          type: "POST",
+          data: JSON.stringify(boardJjimDTO),
+          contentType: "application/json",
+          success: function () {
+            console.log("성공")
+            const i = $("<i class='ai-star-filled'>찜</i>");
+            $this.find("i").remove(); // $(this) 대신 변수 $this 사용
+            $this.append(i); // $(this) 대신 변수 $this 사용
+          },
+          error: function () {
+            console.log("실패")
+          }
+        });
+      });
+    </script>
     <!-- </div> -->
     <!-- Pagination-->
     <div class="row gy-3 align-items-center mb-md-2 mb-xl-4">

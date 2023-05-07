@@ -5,7 +5,7 @@
 
 //caught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
 //위의 에러때문에 처리함
-self.addEventListener('message',function(event){
+/*self.addEventListener('message',function(event){
     //비동기작업 실행
     doAsyncWork().then(function(result){
         //비동기 작업이 완료되면 결과를 반환함.
@@ -22,7 +22,7 @@ function doAsyncWork(){
             resolve('result');
         }, 1000);
     });
-}
+}*/
 
 //서포터팀상세보기 페이지에서 팀 정보탭의 정보를 ajax로 표현
     $(document).ready(function () {
@@ -165,7 +165,7 @@ function applicationTeam(){
     const team_title= document.querySelector("#team_title").textContent;
     const teamMemberDTO = {
         "team_title" : team_title,
-        "team_memberId": "testUSer8"    //userId
+        "team_memberId": "testUSer11"    //userId
     }
     $.ajax({
         url: "/teams/info",
@@ -296,51 +296,125 @@ $(document).ready(function(){
    });
 });
 
-//팀 수정 페이지 이동
-function viewModifyTeam(){
-    const team_title = document.querySelector("#team_title").textContent;
+function modifyForm(){
+    const team_title = document.querySelector("#team_title").getAttribute('placeholder');
+    console.log(team_title);
+    const supportTeamDTO={
+    "team_title": team_title,
+    "team_writer": "testUser1",
+    "content": $("#summernote").val(),
+    "sido": $("#city").val(),
+    "sigungu": $("#district").val(),
+    "member_num": $("#member_num").val(),
+    "image_team": "C://user/motorora",  //$("#input-image").val(),
+    "simple_content": $("#simple_content").val(),
+    "inquiry": $("#inquiry").val(),
+    "finished": false,
+    "deadline": $("#deadline").val()
+};
     $.ajax({
-        url: "/teams/admin/" + team_title,
-        type: "GET",
-        data: "json",
-        success: function (res){
-            console.log("팀수정페이지 이동 성공");
-
-        },
-        error: function () {
-            console.log("팀수정페이지 이동 실패");
-        },
-
-    })
+    url: "/teams/admin/" + team_title,
+    type: "PUT",
+    data: JSON.stringify(supportTeamDTO),
+    contentType: "application/json",
+    success: function (res){
+    console.log("서포터팀 수정 완료")
+},
+    error: function(){
+    console.log("서포터팀 수정 실패")
+}
+});
 }
 
-//---------------------------modify----------------------------------------------------------
 
-function modifyForm(){
-    const team_title = document.querySelector("#team_title").textContent;
-    const supportTeamDTO={
-        "team_title": team_title,
-        "team_writer": "testUser1",
-        "content": $("$content").val(),
-        "sido": $("#city").val(),
-        "sigungu": $("#district").val(),
-        "member_num": $("#member_num").val(),
-        "image_team": "C://user/motorora",  //$("#input-image").val(),
-        "simple_content": $("#simple_content").val(),
-        "inquiry": $("#inquiry").val(),
-        "finished": false,
-        "deadline": $("#deadline").val()
-    };
+    /*let formData = {};
+    $('#formData').serializeArray().forEach(function(item){
+        formData[item.name] = item.value;
+    })*/;
+
+/*function uploadTeamProfile() {
+    let formData = new FormData($("#formData")[0]);
+    formData.append('supportTeamDTO', JSON.stringify({
+        "team_title": document.getElementById("team_title").value,
+        "team_writer": "testUser2",
+        "content": document.getElementById("summernote").value,
+        "simple_content": document.getElementById("simple_content").value,
+        "sido": $('#city').val(),
+        "sigungu": $('#district').val(),
+        "member_num": $('#member_num').val(),
+        "inquiry": document.getElementById("inquiry").value,
+        "deadline": document.getElementById("deadline").value,
+    }))
     $.ajax({
-        url: "/teams/admin/"+team_title,
-        type: "PUT",
-        data: JSON.stringify(supportTeamDTO),
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/teams/posts",
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: 'json',
+        success: function (data) {
+            console.log("SUCCESS : ", data);
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        },
+    })
+}*/
+function uploadTeamProfile() {
+let formData = new FormData();
+formData.append('image',$('#input-image')[0].files[0]);
+
+$.ajax({
+    type: "POST",
+    url: "/teams/posts",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (data) {
+        console.log("SUCCESS : ", data);
+    },
+    error: function (e) {
+        console.log("ERROR : ", e);
+    }
+});
+}
+
+
+
+
+/*
+
+formData.append('supportTeamDTO',JSON.stringify({
+    "team_title": $('#team_title').val(),
+    "team_writer": "testUser2",
+    "content": $('#summernote').val(),
+    "sido": $('#city').val(),
+    "sigungu": $('#district').val(),
+    "member_num": $('#member_num').val(),
+    "image_team": "",
+    "deadline": $('#deadline').val(),
+    "simple_content": $('#simple_content').val()
+}));
+
+
+function registerFn() {
+    let formData = {};
+    $('#formData').serializeArray().forEach(function(item){
+        formData[item.name] = item.value;
+    });
+    $.ajax({
+        url: "/teams/posts",
+        type: "POST",
         contentType: "application/json",
-        success: function (res){
-            console.log("서포터팀 수정 완료")
+        data: JSON.stringify(formData),
+        success: function(res){
+            console.log(res);
         },
         error: function(){
-            console.log("서포터팀 수정 실패")
+
+            console.log("실패했슴둥");
         }
-    })
-}
+    });
+}*/
