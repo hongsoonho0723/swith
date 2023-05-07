@@ -19,8 +19,13 @@ public class StoryVO {
     private String content;
     private String image_main;
     private LocalDateTime date;
-    private int check; //좋아요
     private int clicks;
+
+    private int likeCount;
+
+    private int replyCount;
+
+    private double score;
 
 
 }

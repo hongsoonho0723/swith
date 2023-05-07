@@ -50,8 +50,12 @@
     </sql>
 
 
-    <select id="selectList" resultType="com.sportsmania.swith.domain.StoryVO">
-        select * from story
+    <select id="selectList" resultMap="storyResultMap">
+        SELECT S.*, COUNT(DISTINCT L.userId) AS likeCount, COUNT(DISTINCT R.reply_no) AS replyCount
+        FROM story S
+        LEFT JOIN likes L ON S.story_no = L.story_no
+        LEFT JOIN story_reply R ON S.story_no = R.story_no
+        GROUP BY S.story_no
         <include refid = "search"/>
         order by story_no desc limit #{skip}, #{size}
     </select>
@@ -62,4 +66,35 @@
         <include refid = "search"/>
     </select>
 
+    <resultMap id="storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
+        <id column="story_no" property="story_no"/>
+        <result column="story_writer" property="story_writer"/>
+        <result column="user_type" property="user_type"/>
+        <result column="s_category" property="s_category"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="image_main" property="image_main"/>
+        <result column="date" property="date"/>
+        <result column="clicks" property="clicks"/>
+        <result column="likeCount" property="likeCount"/>
+        <result column="score" property="score"/>
+        <result column="replyCount" property="replyCount"/>
+    </resultMap>
+
+    <select id="getPopularStories" resultMap="storyResultMap">
+        SELECT s.*, COUNT(l.story_no) AS likeCount, (s.clicks * 0.5 + COUNT(l.story_no) * 1) as score
+        FROM story s
+                 LEFT JOIN likes l ON s.story_no = l.story_no
+        GROUP BY s.story_no
+        ORDER BY score DESC
+            LIMIT 4
+    </select>
+
+    <!--<select id="getStoryLikeAndReplyCount" resultType="com.example.dto.StoryDTO">
+        SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount
+        FROM story S
+                 LEFT JOIN likes L ON S.story_no = L.story_no
+                 LEFT JOIN story_reply R ON S.story_no = R.story_no
+        GROUP BY S.story_no
+    </select>-->
 </mapper>

@@ -6,6 +6,7 @@ import com.sportsmania.swith.domain.StoryVO;
 import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.ReplyDTO;
 import com.sportsmania.swith.dto.StoryDTO;
+import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
 import com.sportsmania.swith.service.ReplyService;
 import com.sportsmania.swith.service.StoryService;
@@ -134,6 +135,12 @@ public class StoryController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
+        @GetMapping("/stories/popular-stories")
+        public ResponseEntity<List<StoryVO>> getPopularStories() {
+           List<StoryVO> stories = storyService.getPopularStories();
+            return new ResponseEntity<>(stories,HttpStatus.OK);
+        }
     }
+
 
 }

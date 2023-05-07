@@ -1,6 +1,5 @@
 package com.sportsmania.swith.service;
 
-import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
 import com.sportsmania.swith.dto.page.StoryPageResponseDTO;
@@ -155,13 +154,18 @@ public class StoryServiceImpl implements StoryService {
                 .content(storyVO.getContent())
                 .image_main(storyVO.getImage_main())
                 .date(storyVO.getDate())
-                .check(storyVO.getCheck())
                 .clicks(storyVO.getClicks())
                 .build();
 
 
         return storyDTO;
     }
-    
+
+    @Override
+    public List<StoryVO> getPopularStories() {
+       List<StoryVO> popularStories = storyMapper.getPopularStories();
+       return popularStories;
+    }
+
 
 }

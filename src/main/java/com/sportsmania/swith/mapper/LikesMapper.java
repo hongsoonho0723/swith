@@ -13,8 +13,8 @@ public interface LikesMapper {
     void deleteLike(LikesDTO likesDTO);
 
     // 특정 게시물에 대한 좋아요 여부 체크
-    boolean isLikedByUser(Long storyNo, String userId);
+    boolean isLikedByUser(Long story_no, String userId);
 
     // 특정 게시물에 대한 좋아요 수 조회
-    Long countLikes(Long storyNo);
+    Long countLikes(Long story_no);
 }

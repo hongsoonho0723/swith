@@ -40,8 +40,14 @@ public class StoryDTO {
 
     private LocalDateTime date;
 
-    private int check;
     private int clicks;
+
+    private int likeCount;
+
+    private int replyCount;
+
+    private double score;
+
 
 
 }
