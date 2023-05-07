@@ -236,6 +236,7 @@
   <div class="container pt-5 pb-lg-5 pb-md-4 pb-2 my-5">
     <!-- Breadcrumb-->
     <!-- Page title + filters-->
+    <form action="/match" method="get">
     <div class="row align-items-center gy-2 mb-4 pb-1 pb-sm-2 pb-lg-3">
       <div class="col-lg-5">
         <a href="/match"><h1 class="mb-lg-0">모집라운지</h1></a>
@@ -243,6 +244,8 @@
 
 
 
+
+      <!--검색-->
 
       <div class="col-xl-2 offset-xl-1 col-lg-3 col-sm-5">
         <select name="supporttype" class="form-select" >
@@ -568,10 +571,15 @@
           <i
                   class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"
           ></i>
-          <input type="checkbox" name="types" value="t"  >제목
-          <input type="checkbox" name="types" value="w"  >작성자
-<!--          <input type="checkbox" name="types" value="t" th:checked="${pageRequestDTO.types != null and pageRequestDTO.types.contains('t')}" >제목
-          <input type="checkbox" name="types" value="w" th:checked="${pageRequestDTO.types != null and pageRequestDTO.types.contains('w')}" >작성자-->
+
+          <th:block th:if="${pageRequestDTO.types} == null">
+            <input type="checkbox" name="types" value="t" th:checked="false">제목
+            <input type="checkbox" name="types" value="w" th:checked="false">작성자
+          </th:block>
+          <th:block th:if="${pageRequestDTO.types} != null">
+            <input type="checkbox" name="types" value="t" th:checked="${#strings.contains(pageRequestDTO.types,'t')}">제목
+            <input type="checkbox" name="types" value="w" th:checked="${#strings.contains(pageRequestDTO.types,'w')}">작성자
+          </th:block>
           <input  name="keyword"
                   class="form-control ps-5"
                   type="search"
@@ -581,35 +589,34 @@
       <!-- ##################################################################################### -->
 
         <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
-        <div class="mb-3">
-          <input type="checkbox" name="finished" value="" >모집완료
-        </div>
+      <!--모집완료 부분 잘안됌..-->
+      <!--<div class="mb-3">
+        <th:block th:if="${pageRequestDTO.finished} == false">
+          <input type="checkbox" name="finished" value="" th:checked="pageRequestDTO.finished">모집완료
+        </th:block>
+        <th:block th:if="${pageRequestDTO.finished} != false">
+          <input type="checkbox" name="finished" value="" th:checked="pageRequestDTO.finished">모집완료
+        </th:block>
+
+      </div>-->
         <div class="input-group mb-3 dueDateDiv">
-<!--          <input type="date" name="startdate" class="form-control" value="">-->
-<!--          <input type="date" name="enddate" class="form-control"  value="">-->
           <input type="date" name="startdate" class="form-control" th:value="${pageRequestDTO.startdate}">
           <input type="date" name="enddate" class="form-control"  th:value="${pageRequestDTO.enddate}">
         </div>
 
 
-
-
     </div>
     </form>
-    <!--검색조건저장-->
-
     <!-- Blog grid (masonry)-->
     <!-- <div class="masonry-grid mb-2 mb-md-4 pb-lg-3" data-columns="3"> -->
     <!-- Blog item-->
-
-
     <!-- Services grid-->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 pb-sm-3 pb-md-4 pb-xl-5">
       <!-- Item-->
       <!-- item -->
       <tbody th:with="link = ${pageRequestDTO.getLink()}">
       <div class="col" th:each="dto:${responseDTO.dtoList}">
-        <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" >
+        <div  class="starbutton card card-hover-primary bg-secondary border-0 h-100 text-decoration-none " >
           <div class="card-body pt-3 pb-0 pr-4">
 
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
@@ -643,7 +650,7 @@
         const $this = $(this); // $(this) 객체를 변수 $this에 저장
         const boardNo = $this.data('board_no');
         const boardJjimDTO = {
-          "userid": "testUser2",
+          "userid": "user1",
           "board_no": boardNo
         }
         $.ajax({
