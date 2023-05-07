@@ -280,7 +280,7 @@
                               </div>
                             </div>
                         </div>
-                      <form id="myForm" method="post" action="/info/my">
+                      <form id="myForm" method="post" action="/info/my" enctype="multipart/form-data">
                         <table class="table mb-0">
                           <tr>
                             <td class="border-0 text-muted py-1 px-0">전화번호</td>
@@ -321,28 +321,25 @@
                         </table>
                         <p style="padding-top: 10px; font-weight: bold;">소개글</p>
                         <input type="text" id="textbox" name="introduction" style="border-radius: 10px;height: 150px;" maxlength="100" placeholder="100자 이내">
-                      </form>  
+
                       
                     </div>
                     <!--프로필 이미지 -->
-
                     <div class="card border-0 col-md-6 d-md-flex justify-content-start" style="padding-left: 15%;">
                       <div class="w-100 border rounded-3 p-4 h-50 c" style="justify-content: center;align-items: center;display: flex;flex-direction: column;height: 300px;">
-                        <div  style="flex: 3;overflow: hidden;border-radius: 7px;">
-                          <div id="image-container"></div>
+                        <div  style="flex: 3;overflow: hidden;border-radius: 7px;" >
+                          <div id="image-container" ></div>
                         </div>
                         <div style="flex: 1;">
                           <button onclick="document.getElementById('image-input').click()" id="upload-btn" type="button" class="btn btn-primary" style="position: absolute;left: 50%;bottom: 55%">
                             <i class="ai-user me-2"></i>
                             Upload
                           </button>
-                          <input type="file" id="image-input" style="display: none;" onchange="displayImage()">
+                          <input type="file" name="file" id="image-input" style="display: none;" onchange="displayImage()">
                         </div>
-                          
                       </div>
-                      
                     </div>
-
+                    </form>
                     <script>
                       function displayImage() {
                       // input 요소 가져오기

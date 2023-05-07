@@ -169,16 +169,16 @@
             <nav class="collapse navbar-collapse" id="navbarCollapse1">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">매칭라운지</a>
+                        <a th:href="@{/match}" class="nav-link">매칭라운지</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">서포터팀</a>
+                        <a th:href="@{/teams}" class="nav-link">서포터팀</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">플레이윗미</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">스토리</a>
+                        <a th:href="@{/stories}" class="nav-link">스토리</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -190,8 +190,8 @@
                             <li><a href="#" class="dropdown-item">서포터팀원 구하기</a></li>
                             <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
                             <li class="dropdown-divider"></li>
-                            <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                            <li href="#"><a class="dropdown-item">스토리 생성</a></li>
+                            <li th:href="@{/teams/posts}"><a class="dropdown-item">서포터 팀 생성</a></li>
+                            <li th:href="@{/stories/posts}"><a class="dropdown-item">스토리 생성</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -232,13 +232,13 @@
                     <div id="item" class="card mx-3 p-0">
                         <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
                         <div class="card-body py-2">
-                            <a id="sido" class="badge border border-info text-info fs-xs my-2"
-                               th:text="${dto.sido} +' '+ ${dto.sigungu}"></a>
-                            <div id="finished" th:switch="${dto.finished}">
+                            <div id="finished"  th:switch="${dto.finished}">
+                                <a id="sido" class="badge border border-info text-info fs-xs my-2"
+                                   th:text="${dto.sido} +' '+ ${dto.sigungu}"></a>
                                 <a class="badge border border-primary text-primary fs-xs border my-2"
-                                   th:case="0">모집중</a>
+                                   th:case="false">모집중</a>
                                 <a class="badge border border-primary text-primary fs-xs border my-2"
-                                   th:case="1">모집완료</a>
+                                   th:case="true">모집완료</a>
                             </div>
                             <p id="deadline" class="text-muted fs-sm mb-3" th:text="${dto.deadline}"></p>
                             <a th:href="@{/teams/{team_title}(team_title=${dto.team_title})}"><h4 id="team_title" class="card-title" th:text="${dto.team_title}"></h4></a>

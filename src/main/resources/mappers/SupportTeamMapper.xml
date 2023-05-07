@@ -22,7 +22,7 @@
         delete from supportteam where team_title = #{team_title}
     </delete>
     <update id="update" parameterType="com.sportsmania.swith.domain.SupportTeamVO">
-        update supportteam set sido = #{sido}, sigungu = #{sigungu}, deadline = #{deadline}, member_num = #{member_num},
+        update supportteam set sido = #{sido}, sigungu = #{sigungu}, deadline = #{deadline}, member_num = #{member_num}, finished=#{finished},
                                inquiry=#{inquiry}, image_team=#{image_team},simple_content = #{simple_content}, content = #{content} where team_title = #{team_title}
     </update>
 </mapper>
