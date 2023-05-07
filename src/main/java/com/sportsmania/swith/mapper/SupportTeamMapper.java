@@ -10,9 +10,15 @@ import java.util.List;
 public interface SupportTeamMapper {
     void insert(SupportTeamVO supportTeamVO);
     List<SupportTeamVO> selectAll();
+
+    List<SupportTeamVO> selectSearch(Boolean finished, String sido);
     SupportTeamVO selectOne(String team_title);
+
     void update(SupportTeamVO supportTeamVO);
+
     void delete(String team_title);
+    List<SupportTeamVO> selectPage(int rownum1);
+
 
     void insertWithFile(SupportTeamVO supportTeamVO, MultipartFile file);
 }

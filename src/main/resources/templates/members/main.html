@@ -186,36 +186,39 @@
         <nav class="collapse navbar-collapse" id="navbarCollapse1">
           <ul class="navbar-nav me-auto">
             <li class="nav-item active">
-              <a href="#" class="nav-link">매칭라운지</a>
+              <a href="/match" class="nav-link">매칭라운지</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">서포터팀</a>
+              <a href="/teams" class="nav-link">서포터팀</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">플레이윗미</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">스토리</a>
+              <a href="/stories" class="nav-link">스토리</a>
             </li>
     
           </ul>
           
           <div class="navbar-nav ml-auto">
             <div class="container d-flex justify-content-right">
-            <div class="btn-group dropdown">
+              <th:block th:with="user=${#session.getAttribute('user')}">
+
+            <div th:if="${user != null}" class="btn-group dropdown">
               <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 구인/팀 & 스토리생성
               </button>
               <div class="dropdown-menu dropdown-menu-end my-1">
                 <a href="#" class="dropdown-item">매칭라운지 글 생성</a>
-                <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                <a href="" class="dropdown-item">서포터팀원 구하기</a>
                 <a href="#" class="dropdown-item">플레이메이트 구하기</a>
                 <div class="dropdown-divider"></div>
                 <div><hr/></div> 
-                <a href="#" class="dropdown-item">서포터팀 생성</a>
-                <a href="#" class="dropdown-item">스토리 생성</a>
+                <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
+                <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
               </div>
             </div>
+              </th:block>
           </div>
           <th:block th:with="user=${#session.getAttribute('user')}">
             <!--로그인하지 않았을때-->

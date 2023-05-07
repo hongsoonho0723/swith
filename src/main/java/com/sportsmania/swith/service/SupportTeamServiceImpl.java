@@ -42,6 +42,26 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
     }
 
     @Override
+    public List<SupportTeamDTO> getSearch(Boolean finished, String keyword) {
+        List<SupportTeamDTO> dtoList = supportTeamMapper.selectSearch(finished, keyword).stream()
+                .map(vo -> modelMapper.map(vo, SupportTeamDTO.class))
+                .collect(Collectors.toList());
+        log.info("serviceImpl: getSearch메서드 실행");
+        for (int i = 0; i < dtoList.size(); i++) {
+            log.info("dtoList " + i + ": " + dtoList.get(i));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<SupportTeamDTO> getPage(int rownum1) {
+        List<SupportTeamDTO> dtoList = supportTeamMapper.selectPage(rownum1).stream()
+                .map(vo -> modelMapper.map(vo, SupportTeamDTO.class))
+                .collect(Collectors.toList());
+        return dtoList;
+    }
+
+    @Override
     public SupportTeamDTO getOne(String team_title) {
         SupportTeamVO supportTeamVO = supportTeamMapper.selectOne(team_title);
         log.info("getOne-VO: " + supportTeamVO);
