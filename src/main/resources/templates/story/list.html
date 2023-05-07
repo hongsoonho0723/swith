@@ -233,48 +233,52 @@
 
 
     <!-- Page title + filters-->
+    <form action="/stories" method="get">
     <div class="row align-items-center gy-2 mb-2 pb-1 pb-sm-2 pb-lg-3">
         <div class="col-lg-5">
             <h2 class="mb-lg-0" style="color:#003986"> 스토리</h2>
             <a> 스윗!에 다양한 이야기</a>
         </div>
         <div class="col-xl-2 offset-xl-0 col-lg-3 col-sm-5 ms-xl-auto">
-            <select class="form-select">
-                <option>모든 작성자</option>
-                <option>개인</option>
-                <option>서포터팀</option>
+            <select name="user_type" class="form-select">
+                <option value="">모든 작성자</option>
+                <option value="개인" th:selected="${storyPageRequestDTO.user_type} == '개인'">개인</option>
+                <option value="서포터팀" th:selected="${storyPageRequestDTO.user_type} == '서포터팀'">서포터팀</option>
             </select>
         </div>
         <div class="col-xl-2 offset-xl-0 col-lg-3 col-sm-5">
-            <select class="form-select">
-                <option>모든 유형</option>
-                <option>근황</option>
-                <option>정보</option>
-                <option>후기</option>
-                <option>홍보</option>
+            <select name="s_category" class="form-select" onchange=" this.form.submit();">
+                <option value="">모든 유형</option>
+                <option value="근황" th:selected="${storyPageRequestDTO.s_category} == '근황'">근황</option>
+                <option value="정보공유" th:selected="${storyPageRequestDTO.s_category} == '정보공유'">정보공유</option>
+                <option value="활동후기" th:selected="${storyPageRequestDTO.s_category} == '활동후기'">활동후기</option>
+                <option value="홍보" th:selected="${storyPageRequestDTO.s_category} == '홍보'">홍보</option>
             </select>
         </div>
         <div class="col-lg-3 col-sm-7">
             <div class="position-relative"><i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                <input class="form-control ps-5" type="search" placeholder="Enter keyword">
+                <input class="form-control ps-5" type="search" name="keyword"  th:value="${storyPageRequestDTO.keyword}" placeholder="Enter keyword">
             </div>
         </div>
     </div>
+    </form>
 
-        <!-- Author card widget style 2 -->
+
+    <!-- Author card widget style 2 -->
     <tbody th:each="dto: ${responseDTO.dtoList}">
         <div class="border-top border-bottom py-2 mb-4">
             <div class="d-flex align-items-start py-2">
 
                 <img class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" th:src="|/img/${dto.image_main}|" style="min-height: 150px; width: 250px">
                 <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
+                    <div style="max-width: 48rem;">
                         <a class="badge text-nav fs-xs border mt-2" >[[${dto.s_category}]]</a>
                        <!-- <a style="text-align: none;" th:href="|@{/stories/${dto.story_no}}|">-->
                         <a th:href="|@{/stories/{story_no}(story_no=${dto.story_no})}|" style="text-decoration:none;">
                         <h3 class="h5 mb-0">[[${dto.title}]]</h3>
                         <p class="fs-xs mb-2" style="color: #0d0a0a">[[${dto.story_writer}]]</p>
-                        <p class="fs-sm mb-0"style="color: #0d0a0a">[[${dto.content}]]</p>
+                            <p class="fs-sm mb-0" th:utext="${#strings.substring(dto.content, 0, 340)}" th:if="${#strings.length(dto.content) > 350}" th:style="'color: #0d0a0a'"></p>
+                            <p class="fs-sm mb-0" th:utext="${dto.content}" th:if="${#strings.length(dto.content) <= 340}" th:style="'color: #0d0a0a'"></p>
                         </a>
                     </div>
 
@@ -295,41 +299,57 @@
             </div>
         </div>
     </tbody>
-
     <!-- Pagination-->
     <div class="row gy-3 align-items-center mb-md-2 mb-xl-4">
         <div class="col col-md-4 col-6 order-md-1 order-1">
-            <div class="d-flex align-items-center">
-                <span class="text-muted fs-sm">Show</span>
-                <select class="form-select form-select-flush w-auto">
-                    <option value="6">6</option>
-                    <option value="9" selected>9</option>
-                    <option value="12">12</option>
-                    <option value="24">24</option>
-                </select>
-            </div>
+
         </div>
         <div class="col col-md-4 col-12 order-md-2 order-3 text-center">
 
         </div>
         <div class="col col-md-4 col-6 order-md-3 order-2">
             <nav aria-label="Page navigation">
-                <ul class="pagination pagination-sm justify-content-end">
-                    <li class="page-item active" aria-current="page">
-                  <span class="page-link"
-                  >1<span class="visually-hidden">(current)</span></span
-                  >
+                <ul class="pagination pagination-sm justify-content-end" >
+                    <li class="page-item" th:if="${responseDTO.prev}">
+                        <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                        <li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+                            <a class="page-link"  th:data-num="${i}">[[${i}]]</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:if="${responseDTO.next}">
+                        <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </div>
-    </div>
-    </section>
+
+    <!-- Pagination-->
+
+    <script>
+        //페이징 처리
+        document.querySelector(".pagination").addEventListener("click", function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+
+            const target = e.target
+
+            if(target.tagName !== 'A') {
+                return
+            }
+            const num = target.getAttribute("data-num")
+
+            const formObj = document.querySelector("form")
+
+            formObj.innerHTML += "<input type='hidden' name='page' value='"+num+"'>"
+
+            formObj.submit();
+
+        },false)
+    </script>
+
 
 <br><br><br>
 <footer class="footer bg-light py-5" style="position: relative; bottom ">

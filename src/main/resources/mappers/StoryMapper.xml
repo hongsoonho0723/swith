@@ -4,9 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sportsmania.swith.mapper.StoryMapper">
-    <select id="getTime" resultType="string">
-      select now()
-    </select>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.StoryVO">
         insert into story (user_type,story_writer,s_category,title,content,image_main) values (#{user_type},#{story_writer},#{s_category},#{title},#{content},#{image_main})
@@ -32,44 +29,37 @@
         UPDATE story SET clicks = clicks + 1 WHERE story_no = #{storyNo}
     </update>
 
-    <!-- 검색 시 페이징 처리가 모든 목록 데이터를 기준으로 가져오는 것을..검색기준으로 하기 위해? todo에서 가져옴 추가-->
     <sql id = "search">
         <where>
-            <if test="types != null and types.length > 0">
-                <foreach collection="types" item="type" open="(" close=") " separator=" OR ">
-                    <if test="type == 'user'.toString()">
-                        s_catecory = '개인' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
-                    </if>
-                    <if test="type == 'team'.toString()">
-                        s_category = '서포터팀' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
-                    </if>
+            <if test="user_type != null and user_type.length > 0">
+                AND user_type IN
+                <foreach collection="user_type" item="user_type" open="(" separator="," close=")">
+                    #{user_type}
                 </foreach>
             </if>
-            <if test="category != null and types.length > 0">
-                <foreach collection="types" item="type" open="(" close=") " separator=" OR ">
-                    <if test="type == 'user'.toString()">
-                        s_catecory = '개인' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
-                    </if>
-                    <if test="type == 'team'.toString()">
-                        s_category = '서포터팀' and (title like concat('%', #{keyword}, '%') or (content like concat('%', #{keyword}, '%') or (story_writer like concat('%', #{keyword}, '%')
-                    </if>
+            <if test="s_category != null and s_category.length > 0">
+                AND s_category IN
+                <foreach collection="s_category" item="s_category" open="(" separator="," close=")">
+                    #{s_category}
                 </foreach>
+            </if>
+            <if test="keyword != null and keyword.trim().length() > 0">
+                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
             </if>
         </where>
     </sql>
 
 
     <select id="selectList" resultType="com.sportsmania.swith.domain.StoryVO">
-        <!-- mybatis는 기본적으로 getxxx, setxxx를 통해 작동하므로 #{skip}은 getSkip()을 호출한다.-->
         select * from story
-        <include refid = "search"></include>
+        <include refid = "search"/>
         order by story_no desc limit #{skip}, #{size}
     </select>
 
     <!-- 전체 개수를 우선 반환하도록 구성 -->
-    <select id ="getCount" resultType="int">
+    <select id ="selectCount" resultType="int">
         select count(story_no) from story
-        <include refid = "search"></include>
+        <include refid = "search"/>
     </select>
 
 </mapper>
