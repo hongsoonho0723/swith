@@ -52,15 +52,6 @@ public class ReplyController {
         return ResponseEntity.noContent().build();
     }
 
-    /*@PutMapping("/{reply_no}")
-    public ResponseEntity<ReplyDTO> modifyReply(@PathVariable("reply_no") Long reply_no, @RequestBody ReplyDTO replyDTO) {
-        replyDTO.setReply_no(reply_no); // reply_no 설정
-        replyService.modify(replyDTO);
-
-        log.info("댓글 수정:" + replyDTO);
-
-        return new ResponseEntity<>(replyDTO, HttpStatus.OK);
-    }*/
 
     @PutMapping("/{reply_no}")
     public ResponseEntity<ReplyDTO> modifyReply(@PathVariable("reply_no") Long reply_no, @RequestBody ReplyDTO modifiedReplyDTO) {

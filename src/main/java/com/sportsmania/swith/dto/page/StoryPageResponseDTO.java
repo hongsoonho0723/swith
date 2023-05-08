@@ -5,9 +5,8 @@ import lombok.Data;
 
 import java.util.List;
 
-//TodoDTO 목록, 페이지번호처리를위한 데이터 가져오기
-//제네릭을 이용하는 이유는 나중에 다른 종류의 객체를 이용해서 PageResponseDTO를 구성할 수 있도록 하기 위함..
-@Data //추가해주었습니당
+
+@Data
 public class StoryPageResponseDTO<E>{
 
     private int page;

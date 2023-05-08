@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html
+<html xmlns:th="http://www.thymeleaf.org"
         lang="krg">
   <head>
     <meta charset="utf-8">
@@ -22,10 +22,12 @@
     <meta name="theme-color" content="white">
 
     <!-- TOAST UI Editor CDN URL(CSS)-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-   <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'textarea'});</script>-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />-->
+
+    <!-- Load the CKEditor library -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -36,6 +38,12 @@
     <!-- 정렬을 위한 css 파일 -->
     <link rel="stylesheet" href="../assets/css/swith.css">
 
+    <style>
+      .ck-editor__editable[role="textbox"] {
+        /* editing area */
+        min-height: 600px;
+      }
+    </style>
     <!-- Page loading styles-->
     <style>
       .page-loading {
@@ -167,13 +175,13 @@
           <nav class="collapse navbar-collapse" id="navbarCollapse1">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a href="#" class="nav-link">매칭라운지</a>
+                <a href="#" class="nav-link">모집라운지</a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">서포터팀</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">플레이윗미</a>
+                <a href="#" class="nav-link">운동친구모집</a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link active">스토리</a>
@@ -254,25 +262,22 @@
           <div class="mb3 pt3">
           <h3 class="fs-4" style="color: #003986">내용</h3>
 
-            <textarea name="content"></textarea>
-
-            <!-- TOAST UI Editor가 들어갈 div태그 -->
-            <div id="editor" name="content"></div>
-          </div>
-            <!-- TOAST UI Editor CDN URL(JS) -->
-            <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-            <!-- TOAST UI Editor 생성 JavaScript 코드 -->
+            <div id="editor" name="content">
+            </div>
             <script>
-              const editor = new toastui.Editor({
-                el: document.querySelector('#editor'),
-                height: '600px',
-                language: 'ko',
-                initialEditType: 'wysiwyg'
-              });
+              let editor;
+              ClassicEditor
+                      .create( document.querySelector( '#editor' ),{
+                        toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
+                      } )
 
+                      .then( newEditor => {
+                        editor = newEditor;
+                      } )
+                      .catch( error => {
+                        console.error( error );
+                      } );
             </script>
-
 
           <div class="d-flex justify-content-center pt-5">
             <div class="pe-2">
@@ -287,13 +292,14 @@
       <script>
           function insertStory() {
 
-            // 파일 업로드 데이터만 FormData 객체에 추가
             let formData = new FormData();
+            /*var content = tinymce.activeEditor.getContent();*/
+            let html = editor.getData();
             formData.append('s_category', $('input[name="s_category"]:checked').val());
             formData.append('title', $('input[name="title"]').val());
             formData.append('story_writer', $('input[name="story_writer"]').val());
             formData.append('user_type', $('input[name="usertype"]').val());
-            formData.append('content', $('input[name="content"]').val());
+            formData.append('content', html);
             formData.append('image', $('input[name="image"]')[0].files[0]);
 
             $.ajax({
