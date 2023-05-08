@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -105,8 +106,9 @@ public class StoryController {
     @RestController
     public  class StoryRestController {
         @PostMapping("/stories/posts")
-        public ResponseEntity registerPOST(@RequestParam("image") MultipartFile file, @ModelAttribute StoryDTO storyDTO) throws IOException {
-
+        public ResponseEntity registerPOST(@RequestParam("image") MultipartFile file, @ModelAttribute StoryDTO storyDTO, Authentication authentication) throws IOException {
+            String user_id = authentication.getName();
+            storyDTO.setStory_writer(user_id);
             storyService.registerWithFile(storyDTO, file);
 
             return new ResponseEntity(storyDTO, HttpStatus.OK);

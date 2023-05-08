@@ -34,7 +34,7 @@
     <script src="../assets/js/ajax.js"></script>
 
     <!-- 이미지처리를 위한 js 파일 -->
-    <script src="../assets/js/upload.js"></script>
+    <script src="../assets/js/imgfile.js"></script>
     <!-- 정렬을 위한 css 파일 -->
     <link rel="stylesheet" href="../assets/css/swith.css">
 
@@ -257,8 +257,6 @@
             <input class="form-control" type="file" name="image" id="input-image" onchange="readImage(this);">
           </div>
 
-          <input type="text" name="story_writer">
-
           <div class="mb3 pt3">
           <h3 class="fs-4" style="color: #003986">내용</h3>
 
@@ -297,7 +295,7 @@
             let html = editor.getData();
             formData.append('s_category', $('input[name="s_category"]:checked').val());
             formData.append('title', $('input[name="title"]').val());
-            formData.append('story_writer', $('input[name="story_writer"]').val());
+            /*formData.append('story_writer', $('input[name="story_writer"]').val());*/
             formData.append('user_type', $('input[name="usertype"]').val());
             formData.append('content', html);
             formData.append('image', $('input[name="image"]')[0].files[0]);

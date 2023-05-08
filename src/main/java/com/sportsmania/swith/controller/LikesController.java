@@ -24,12 +24,13 @@ public class LikesController {
     }
 
     @GetMapping("/{story_no}")
-    public ResponseEntity<Boolean> isLiked(@PathVariable("story_no") LikesDTO likesDTO){
-        boolean isLiked = likesService.isLikedByUser(likesDTO.getStory_no(), likesDTO.getUserId());
+    public ResponseEntity<Boolean> isLiked(@PathVariable("story_no") Long story_no,Authentication authentication ){
+        String userId = authentication.getName();
+        boolean isLiked = likesService.isLikedByUser(story_no, userId);
         return new ResponseEntity<>(isLiked, HttpStatus.OK);
     }
 
-    @PostMapping("/")
+   /* @PostMapping("/")
     public ResponseEntity<Boolean> addLike(@RequestBody LikesDTO likesDTO, Authentication authentication){
             String userId = authentication.getName();
             likesDTO.setUserId(userId);
@@ -39,6 +40,20 @@ public class LikesController {
             if(isLiked == true)likesService.removeLike(likesDTO);
             else likesService.addLike(likesDTO);
             return new ResponseEntity<>(isLiked,HttpStatus.CREATED);
+    }*/
+
+    @PostMapping("/")
+    public ResponseEntity<Boolean> addLike(@RequestBody LikesDTO likesDTO, Authentication authentication) {
+        String userId = authentication.getName();
+        likesDTO.setUserId(userId);
+        boolean isLiked = likesService.isLikedByUser(likesDTO.getStory_no(), likesDTO.getUserId());
+        if (isLiked) {
+            likesService.removeLike(likesDTO);
+        } else {
+            likesService.addLike(likesDTO);
+        }
+        // 좋아요 취소 여부를 클라이언트에 전달
+        return new ResponseEntity<>(isLiked, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/")

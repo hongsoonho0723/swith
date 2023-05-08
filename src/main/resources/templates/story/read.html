@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-        lang="kr">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="kr">
 <head>
   <meta charset="utf-8">
   <title>Around | Single Post v.2</title>
@@ -232,8 +232,8 @@
       <div class="pb-2 pb-lg-0 mb-4 mb-lg-0 d-flex mt-5">
         <h3> <span class="badge text-nav fs-lg border mt-2 me-sm-3">[[${dto.s_category}]]</span>[[${dto.title}]]</h3>
         <div class="pt-4 pt-md-0 ps-md-4 ms-md-auto">
-            <button type="button" class="nav-link p-2 px-5 me-2 like-button" title="Heart" th:attr="data-story-no=${dto.story_no}"/>
-            <i class="ai-heart fs-4"></i>
+          <button type="button" class="nav-link p-2 px-5 me-2 like-button" title="Heart" th:attr="data-story-no=${dto.story_no}"/>
+          <i class="ai-heart fs-4"></i>
         </div>
       </div>
 
@@ -241,15 +241,16 @@
       <div class="border-bottom pt-1 pb-0">
         <div class="d-flex align-items-start py-2"><img class="d-block rounded-circle mb-3" src="../assets/img/avatar/04.jpg" width="56" alt="Author image">
           <div class="ps-4 d-block">
-              <h4 class="h5 mb-0">[[${dto.story_writer}]]</h4>
+            <h4 class="h5 mb-0">[[${dto.story_writer}]]</h4>
 
-                <span class="text-muted fs-sm mb-0">[[${dto.date}]]</span>
+            <span class="text-muted fs-sm mb-0">[[${dto.date}]]</span>
           </div>
-          <div class="pe-4 ms-md-auto">
-            <button  class="pe-2 text-dark" style="border: none; background-color:transparent;">수정</button>
-            <button class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
-          </div>
-
+          <th:block th:with="user=${#session.getAttribute('user')}, writer=${dto.story_writer}">
+            <div class="pe-4 ms-md-auto" th:if="${user != null and user.userId == writer}">
+              <button  class="pe-2 text-dark" style="border: none; background-color:transparent;">수정</button>
+              <button class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
+            </div>
+          </th:block>
         </div>
       </div>
     </div>
@@ -263,19 +264,30 @@
         <div class="border-bottom p-0"></div>
         <div class="col-lg-9 col-xl-8 pt-2 mt-2">
           <p class="fs-lg" th:utext="${dto.content}"></p>
-      </div>
+        </div>
       </div>
     </section>
 
     <!-- Comments-->
     <section class="container border-top pt-xl-4 pb-5 mb-md-2 mb-lg-4 mb-xl-5" id="comments">
       <!-- Multiple button addons -->
-      <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
-        <input type="text" class="form-control" placeholder="댓글 작성" id="comment-content">
-        <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
-          <i class="ai-edit"></i>
-        </button>
-      </div>
+      <th:block th:with="user=${#session.getAttribute('user')}">
+        <div th:if="${user == null}">
+          <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
+            <input type="text" class="form-control" placeholder="로그인 후 작성해주세요." id="comment-content" readonly onclick="alert('로그인 후 이용해주세요.');">
+            <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
+              <i class="ai-edit"></i>
+            </button>
+          </div>
+          <div th:if="${user != null}">
+            <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
+              <input type="text" class="form-control" placeholder="댓글을 작성해주세요." id="comment-content">
+              <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
+                <i class="ai-edit"></i>
+              </button>
+            </div>
+          </div>
+      </th:block>
       <script>
         $(document).ready(function() {
           $('#replySubmit').click(function () {
@@ -308,28 +320,43 @@
       </script>
 
       <script>
-        $(".like-button").click(function () {
-          const $this = $(this); // $(this) 객체를 변수 $this에 저장
-          const storyNo = $this.data('story-no');
-          console.log(storyNo);
-          const likesDTO = {
-            /*"userId": "userid1",*/
-            "story_no": storyNo
+        const story_no = [[${dto.story_no}]]; // 게시물 아이디
+        $.ajax({
+          url: '/stories/likes/' + story_no,
+          type: 'GET',
+          success: function (isLiked) {
+            if (isLiked) {
+              $('.like-button').html("<i class='ai-heart-filled fs-4'></i>");
+            } else {
+              $('.like-button').html("<i class='ai-heart fs-4'></i>");
+            }
+          },
+          error: function () {
+            $('.like-button').html("<i class='ai-heart fs-4'></i>");
           }
-          console.log(likesDTO)
+        });
+        $(".like-button").click(function () {
+          const $this = $(this);
+          const storyNo = $this.data('story-no');
+          const likesDTO = {
+            "story_no": storyNo
+          };
           $.ajax({
             url: '/stories/likes/',
             type: 'POST',
             data: likesDTO,
-            success: function () {
-              console.log("성공")
-                const i = $("<i class='ai-heart-filled fs-4 btn-reddit'></i>");
-                $this.find("i").remove(); // $(this) 대신 변수 $this 사용
-                $this.append(i); // $(this) 대신 변수 $this 사용
+            success: function (isLiked) { // 서버에서 좋아요 취소 결과를 전달받음
+              const i = $("<i class='ai-heart-filled fs-4'></i>");
+              if (isLiked) { // 좋아요 취소한 경우
+                $this.find("i").remove();
+                $this.append("<i class='ai-heart fs-4'></i>");
+              } else { // 좋아요 추가한 경우
+                $this.find("i").remove();
+                $this.append(i);
               }
             },
             error: function () {
-              console.log("실패")
+              alert("로그인 후 이용해주세요.");
             }
           });
         });
@@ -343,7 +370,7 @@
               <!-- Comment-->
               <div id="replyDTOList">
                 <!-- 댓글 목록 출력 -->
-            </div>
+              </div>
               <!-- 테스트 -->
               <!--<div class="border-bottom pt-4 mt-3 mb-0">
                 <div class="d-flex align-items-center pb-1 mb-3">
