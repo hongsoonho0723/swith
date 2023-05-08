@@ -114,7 +114,6 @@ public class SupportTeamController {
         }
     }*/
 
-
     @GetMapping("/teams")
     public ModelAndView viewList() {
         List<SupportTeamDTO> dtoList = supportTeamService.getAll();
@@ -123,6 +122,33 @@ public class SupportTeamController {
         mv.addObject("dtoList", dtoList);
         return mv;
     }
+
+    @GetMapping("/teams/search/{category}/{keyword}")
+    public ResponseEntity viewSearchList(@PathVariable("category") String category,
+                                       @PathVariable("keyword") String keyword){
+        log.info("검색컨트롤ㄹ러들어옴");
+        log.info("category: " + category);
+            Boolean finished = null;
+
+        if(category.equals("1")){
+            finished = true;
+        } else if (category.equals("0")) {
+            finished = false;
+        }
+        log.info("finished: " + finished + ",keyword: " + keyword);
+
+        List<SupportTeamDTO> dtoList = supportTeamService.getSearch(finished, keyword);
+        return new ResponseEntity<>(dtoList,HttpStatus.OK);
+    }
+
+    /*@GetMapping("/teams")
+    public ResponseEntity getList(@RequestParam("row_num") int row_num){
+        //Integer num = Integer.parseInt(row_num);
+        List<SupportTeamDTO> dtoList = supportTeamService.getPage(row_num);
+        log.info("teams get list 출력");
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }*/
+
 
     @GetMapping("/teams/{team_title}")
     public ModelAndView viewPost(@PathVariable("team_title") String team_title) {
