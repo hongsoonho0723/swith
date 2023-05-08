@@ -6,7 +6,6 @@
     <!-- SEO Meta Tags-->
 
 
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId="></script>
 
 
 
@@ -181,11 +180,11 @@
 
                     <span style="padding-right: 10px;">작성일 : </span>
 
-                    <span style="padding-right: 60px;" th:text="${dto.regdate}"></span>
+                    <span style="padding-right: 40px;" th:text="${dto.regdate}"></span>
 
                     <span style="padding-right: 10px;">마감일 : </span>
 
-                    <span style="padding-right: 60px;" th:text="${dto.enddate}"></span>
+                    <span style="padding-right: 40px;" th:text="${dto.enddate}"></span>
 
                     <span style="padding-right: 10px;">활동 시작일 : </span>
 
@@ -196,7 +195,7 @@
                 <div class="d-flex flex-wrap align-items-center mt-n2">
 
 
-                    <span th:text="${dto.b_category}" style="font-size: 15x;"></span>
+                    <span th:text="${dto.b_category}" style="font-size: 15px;"></span>
                     <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
                     <span th:text="${dto.region}" style="font-size: 15px;"></span>
                     <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
@@ -234,13 +233,9 @@
                                 width="80"
                                 alt="Author image"
                         />
-                        <a
-                                href="#"
-                                data-bs-toggle="dropdown"
+                  <a href="#" th:text="${user.nickname}" data-bs-toggle="dropdown"
                                 data-bs-auto-close="outside"
-                                aria-expanded="false"
-                        >닉네임</a
-                        >
+                                aria-expanded="false"></a>
                         <ul class="dropdown-menu">
                             <li><a href="#" class="dropdown-item">프로필보기</a></li>
                             <li><a href="#" class="dropdown-item">1:1채팅</a></li>
@@ -257,17 +252,19 @@
     <!-- Post content-->
     <section class="container py-5 my-md-2 my-lg-3 my-xl-4">
         <div class="row pt-xxl-2">
-            <div class="col-lg-9 col-xl-8 pe-lg-4 pe-xl-0">
+            <div class="col-lg-9 col-xl-8 pe-lg-4 pe-xl-0" >
                 <p class="fs-lg">
-                    <span th:text="${dto.content}" style="font-size: 15px;"></span>
+                    <span th:utext="${dto.content}" style="font-size: 15px;"></span>
                 </p>
             </div>
             <!-- Sidebar-->
-            <aside
-                    class="col-lg-3 offset-xl-1 pt-4 pt-lg-0"
-                    style="margin-top: -7rem">
-                <div class="position-sticky top-0 mt-2 mt-md-3 mt-lg-0"
-                        style="padding-top: 7rem">
+
+                    <aside class="col-lg-3 offset-xl-1 pt-4 pt-lg-0" style="margin-top: -7rem; margin-bottom: 2rem; padding-top: 1rem;">
+                        <div class="position-sticky top-0 mt-2 mt-md-3 mt-lg-0" style="padding-top: 3.3rem;">
+
+
+
+                        <a href="#"><h3 class="pt-xl-1 mb-4">채팅방 입장</h3></a>
                     <!-- Sharing-->
                     <!-- Relevant topics-->
                     <!-- Trending posts-->
@@ -275,14 +272,14 @@
                     <ul class="list-unstyled mb-0">
                         <li class="border-bottom pb-3 mb-3">
                   <span class="h6 mb-0">
-                       <a th:href="@{/match/matching-view?board_no={id}(id=${dto.board_no-1})}">이전 글</a>
-                         </li>
+                       <a th:href="@{/match/matching-view(board_no=${dto.board_no}-1,userId=${user.userId})}">이전 글</a>
+                           </span> </li>
                         <li class="border-bottom pb-3 mb-3">
                   <span class="h6 mb-0">
-                      <a th:href="@{/match/matching-view?board_no={id}(id=${dto.board_no}+1)}">다음 글</a>
+                      <a th:href="@{/match/matching-view(board_no=${dto.board_no}+1,userId=${user.userId})}">다음 글</a>
+
 
                             </span>
-
                         </li>
                     </ul>
                 </div>
@@ -302,20 +299,79 @@
 
 
 
-            <div id="map" style="width:80%; height:500px; margin-top: 40px" >
-            </div>
 
-            <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID&callback=initMap"></script>
-            <script type="text/javascript">
-                var map = null;
 
-                function initMap() {
-                    map = new naver.maps.Map('map', {
-                        center: new naver.maps.LatLng(37.3595704, 127.105399),
-                        zoom: 10
-                    });
+
+
+
+            <div id="map" style="width:1400px;height:700px;"></div>
+            <div id="address">${dto.facilityadd}</div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8cbb98637d2397e88ca006cf8b7e1a50&libraries=services"></script>
+            <script>
+                var container = document.getElementById('map');
+                var options = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667),
+                    level: 3
+                };
+
+                var map = new kakao.maps.Map(container, options);
+
+                var geocoder = new kakao.maps.services.Geocoder();
+                var addressDiv = document.getElementById('address');
+                var address = "[[${dto.facilityadd}]]";
+
+                if (!address || address.trim() === '') {
+                    address = "[[${dto.region}]][[${dto.region2}]]";
                 }
+
+                var marker; // 마커 객체 변수
+
+                geocoder.addressSearch(address, function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        var location = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                        marker = new kakao.maps.Marker({
+                            position: location,
+                            map: map
+                        });
+
+                        map.setCenter(location);
+                        addressDiv.innerHTML = '주소: ' + result[0].address_name;
+
+                        // 마커 클릭 이벤트 처리
+                        kakao.maps.event.addListener(marker, 'click', function() {
+                            if (marker.infoWindow) {
+                                // 이미 열린 InfoWindow가 있다면 닫기
+                                marker.infoWindow.close();
+                                marker.infoWindow = null;
+                            } else {
+                                // InfoWindow 열기
+                                var infoWindow = new kakao.maps.InfoWindow({
+                                    content: '<div style="width: auto; height: auto; padding:40px; font-size:25px;">' +
+                                        '시설명: [[${dto.sportsfacility}]]' + '<br>' +
+                                        '주소: ' + result[0].address_name +
+                                        '</div>'
+                                });
+                                infoWindow.open(map, marker);
+                                marker.infoWindow = infoWindow;
+                            }
+                        });
+                    } else {
+                        addressDiv.innerHTML = '주소를 찾을 수 없습니다.';
+                    }
+                });
+
+                // 맵 클릭 이벤트 처리
+                kakao.maps.event.addListener(map, 'click', function() {
+                    // 열린 InfoWindow가 있다면 닫기
+                    if (marker && marker.infoWindow) {
+                        marker.infoWindow.close();
+                        marker.infoWindow = null;
+                    }
+                });
             </script>
+
+
 
 
 
@@ -333,14 +389,20 @@
         </div>
         <p></p>
         <div class="container d-flex justify-content-center">
+
+            <!-- Info solid button -->
+
+
+            <a type="button" class="btn btn-info" th:href="@{/match/matching-modify(board_no=${dto.board_no},userId=${user.userId})}">수정하기</a>
+
+            <!-- Success solid button -->
+            <a type="button " style="margin-right: 10px" class="btn btn-success ms-2" href="#">모집완료</a>
+
             <form action="/remove" method="post">
                 <input type="hidden" name="board_no" th:value="${dto.board_no}" readonly></input>
-                <button class="btn btn-info" type="submit" style="background-colo0: none; border: none; padding-top: 12px; margin-right: 10px" >삭제</button>
+                <input type="hidden" name="userId" th:value="${user.userId}" readonly></input>
+                <button type="submit" style="width:110px;margin-right: 10px; background-color: #e1f0d8; border: none; " class="btn btn-info" >삭제</button>
             </form>
-            <!-- Info solid button -->
-            <a type="button" class="btn btn-info" th:href="@{/match/matching-modify?board_no={id}(id=${dto.board_no})}">수정하기</a>
-            <!-- Success solid button -->
-            <a type="button " class="btn btn-success ms-2" href="#">모집완료</a>
         </div>
     </section>
 
