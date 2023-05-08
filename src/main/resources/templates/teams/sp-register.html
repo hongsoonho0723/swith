@@ -27,9 +27,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="../assets/js/supportteam.js"></script>
-    <!-- include summernote css/js -->
+    <!--&lt;!&ndash; include summernote css/js &ndash;&gt;
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>-->
+    <!-- Load the CKEditor library --> <!-- CKEditor5 사용하기 위한 CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
     <!-- 이미지처리를 위한 js 파일 -->
     <script src="../assets/js/upload.js"></script>
     <!-- 정렬을 위한 css 파일 -->
@@ -41,14 +43,13 @@
 
 <header class="navbar navbar-expand-lg fixed-top bg-light">
     <div class="container">
-        <a href="index.html" class="navbar-brand">
-      <span class="text-primary flex-shrink-0 me-2">
-        <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-          <path fill="currentColor"
-                d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"/>
-        </svg>
-      </span>
-            S-with
+        <a href="#" class="navbar-brand">
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
+            S-With
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
             <span class="navbar-toggler-icon"></span>
@@ -56,38 +57,63 @@
         <nav class="collapse navbar-collapse" id="navbarCollapse1">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">매칭라운지</a>
+                    <a href="/match" class="nav-link">매칭라운지</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">서포터팀</a>
+                    <a href="/teams" class="nav-link">서포터팀</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">플레이윗미</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">스토리</a>
+                    <a href="/stories" class="nav-link">스토리</a>
                 </li>
 
             </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-                       aria-expanded="false">구인/팀 & 스토리 생성</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">서포터 구하기</a></li>
-                        <li><a href="#" class="dropdown-item">활동지원 해드림</a></li>
-                        <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                        <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-                    </ul>
-                </li>
-            </ul>
 
-            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-                <i class="ai-user me-2 ms-n1"></i>
-                로그인
-            </a>
+            <div class="navbar-nav ml-auto">
+                <div class="container d-flex justify-content-right">
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            구인/팀 & 스토리생성
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end my-1">
+                            <a href="#" class="dropdown-item">매칭라운지 글 생성</a>
+                            <a href="" class="dropdown-item">서포터팀원 구하기</a>
+                            <a href="#" class="dropdown-item">플레이메이트 구하기</a>
+                            <div class="dropdown-divider"></div>
+                            <div><hr/></div>
+                            <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
+                            <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
+                        </div>
+                    </div>
+                </div>
+                <th:block th:with="user=${#session.getAttribute('user')}">
+                    <!--로그인하지 않았을때-->
+                    <div th:if="${user == null}">
+                        <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                            <i class="ai-user me-2 ms-n1"></i>
+                            로그인
+                        </a>
+                    </div>
+                    <!--로그인 했을 때-->
+                    <div th:if="${user != null}">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                                    <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                                    <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                                    <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                                    <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </th:block>
+            </div>
         </nav>
     </div>
 </header>
@@ -502,7 +528,7 @@
                 * 소개글</h1>
 
 
-            <script>
+            <!--<script>
                 $(document).ready(function () {
                     $("#summernote").summernote({
                         placeholder: '팀에 대해서 설명해주세요!',
@@ -521,16 +547,28 @@
                         ],
                     });
                 });
-            </script>
-            <!--<form method="post">-->
+            </script>-->
+
                 <table border="1" width=100%>
                     <tr></tr>
                 </table>
 
-                <textarea id="summernote" name="content">
-
-                </textarea>
-            <!--</form>-->
+            <form id="myForm">
+            <textarea id="summernote" name="content"></textarea>
+            </form>
+            <script>
+                let editor;
+                ClassicEditor
+                    .create( document.querySelector( '#summernote' ),{
+                        toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
+                    } )
+                    .then( newEditor => {
+                        editor = newEditor;
+                    } )
+                    .catch( error => {
+                        console.error( error );
+                    } );
+            </script>
 
             <div class="container d-flex justify-content-center" style="padding-top: 50px; text-align: center;">
                 <a type="button"
@@ -542,7 +580,12 @@
         </div>
     </div>
 <script>
+    function removeHtmltags(str) {
+        return str.replace(/<\/?[^>]+(>|$)/g, "");
+    }
 function uploadTeamProfile() {
+    document.querySelector('#summernote').value = removeHtmltags(editor.getData());
+
 let formData = new FormData();
 formData.append('image',$('#input-image')[0].files[0]);
 formData.append('team_title',$('#team_title').val())
@@ -553,7 +596,7 @@ formData.append('sigungu',$('#district').val())
 formData.append('member_num',$('#member_num').val())
 formData.append('deadline',$('#deadline').val())
 formData.append('simple_content',$('#simple_content').val())
-formData.append('image_team',"33")
+formData.append('image_team',"../assets/image_team/default.jpg")
 
 $.ajax({
 type: "POST",
