@@ -210,7 +210,6 @@ function teamRemove(){
     const team_title = document.querySelector("#team_title").textContent;
     const supportTeamDTO ={
         "team_title": team_title,
-        "team_writer": "testUser11",
     }
     $.ajax({
         url: "/teams/admin/" + team_title,
@@ -301,12 +300,12 @@ function modifyForm(){
     console.log(team_title);
     const supportTeamDTO={
     "team_title": team_title,
-    "team_writer": "testUser1",
+    /*"team_writer": "testUser1",*/
     "content": $("#summernote").val(),
     "sido": $("#city").val(),
     "sigungu": $("#district").val(),
     "member_num": $("#member_num").val(),
-    "image_team": "C://user/motorora",  //$("#input-image").val(),
+    "image_team": "../assets/image_team/default.jpg",  //$("#input-image").val(),
     "simple_content": $("#simple_content").val(),
     "inquiry": $("#inquiry").val(),
     "finished": false,
