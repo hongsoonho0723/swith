@@ -41,16 +41,16 @@
                 </foreach>
             </if>
             <if test="supporttype != null and supporttype.length>0">
-                or supporttype = #{supporttype}
+                and supporttype = #{supporttype}
             </if>
             <if test="region != null and region.length>0">
-                or region = #{region}
+                and region = #{region}
             </if>
             <if test="region2 != null and region2.length>0">
-                or region2 = #{region2}
+                and region2 = #{region2}
             </if>
-            <if test="startdate != null and enddate != null">
-                or startdate between #{startdate} and #{enddate}
+            <if test="startdate != null and enddate != null and startdate != '' and enddate != ''">
+                and startdate between #{startdate} and #{enddate}
             </if>
             <if test="finished">
                 <trim prefix="and">
@@ -58,12 +58,44 @@
                 </trim>
             </if>
             <if test="b_category != null and b_category.length>0">
-                or b_category = #{b_category}
+                and b_category = #{b_category}
             </if>
         </where>
         order by board_no desc limit #{skip},#{size}
     </select>
     <select id="getCount" resultType="int">
         select count(board_no) from matchboard
+        <where>
+            <if test="types != null and types.length > 0">
+                <foreach collection="types" item="type" open="(" close=")" separator="OR">
+                    <if test="type == 't'.toString()">
+                        title like concat('%',#{keyword},'%')
+                    </if>
+                    <if test="type == 'w'.toString()">
+                        board_writer like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+            <if test="supporttype != null and supporttype.length>0">
+                and supporttype = #{supporttype}
+            </if>
+            <if test="region != null and region.length>0">
+                and region = #{region}
+            </if>
+            <if test="region2 != null and region2.length>0">
+                and region2 = #{region2}
+            </if>
+            <if test="startdate != null and enddate != null and startdate != '' and enddate != ''">
+                and startdate between #{startdate} and #{enddate}
+            </if>
+            <if test="finished">
+                <trim prefix="and">
+                    finished = 1
+                </trim>
+            </if>
+            <if test="b_category != null and b_category.length>0">
+                and b_category = #{b_category}
+            </if>
+        </where>
     </select>
 </mapper>

@@ -236,6 +236,7 @@
   <div class="container pt-5 pb-lg-5 pb-md-4 pb-2 my-5">
     <!-- Breadcrumb-->
     <!-- Page title + filters-->
+    <form action="/match" method="get">
     <div class="row align-items-center gy-2 mb-4 pb-1 pb-sm-2 pb-lg-3">
       <div class="col-lg-5">
         <a href="/match"><h1 class="mb-lg-0">모집라운지</h1></a>
@@ -243,19 +244,27 @@
 
 
 
+
       <!--검색-->
-      <form action="/match" method="get">
+
       <div class="col-xl-2 offset-xl-1 col-lg-3 col-sm-5">
-        <select name="supporttype" class="form-select">
-          <option selected disabled hidden value="">지원종류</option>
-          <option value="이동지원">이동지원</option>
-          <option value="활동지원">활동지원</option>
-          <option value="기타지원">기타지원</option>
+        <select name="supporttype" class="form-select" >
+          <!--<option selected disabled hidden th:value="${pageRequestDTO.supporttype}" th:text="지원종류"></option>
+          <option th:value="이동지원" th:text="이동지원"></option>
+          <option th:value="활동지원" th:text="활동지원"></option>
+          <option th:value="기타지원" th:text="기타지원"></option>-->
+          <option value="">지원종류</option>
+          <option value="이동지원" th:selected="${pageRequestDTO.supporttype == '이동지원'}">이동지원</option>
+          <option value="활동지원" th:selected="${pageRequestDTO.supporttype == '활동지원'}">활동지원</option>
+          <option value="기타지원" th:selected="${pageRequestDTO.supporttype == '기타지원'}">기타지원</option>
         </select>
         <select name="b_category" class="form-select">
-          <option selected disabled hidden value="">구인종류</option>
+          <!--<option selected disabled hidden value="">구인종류</option>
           <option value="서포터구인">서포터구인</option>
-          <option value="체육활동지원">체육활동지원</option>
+          <option value="체육활동지원">체육활동지원</option>-->
+          <option value="">구인종류</option>
+          <option value="서포터구인" th:selected="${pageRequestDTO.b_category == '서포터구인'}">서포터구인</option>
+          <option value="체육활동지원" th:selected="${pageRequestDTO.b_category == '체육활동지원'}">체육활동지원</option>
         </select>
 <!--        <input type="checkbox" name="b_categories" value="서포터구인">서포터구인-->
 <!--        <input type="checkbox" name="b_categories" value="체육활동지원">체육활동지원-->
@@ -263,28 +272,28 @@
         <!--지역 검색-->
         <select name="region" id="city" onchange="updateDistricts(); updateDistricts1();">
           <option selected disabled hidden value="">도시 선택</option>
-          <option value="seoul">서울</option>
-          <option value="gyeonggi">경기</option>
-          <option value="incheon">인천</option>
-          <option value="busan">부산</option>
-          <option value="daegu">대구</option>
-          <option value="gwangju">광주</option>
-          <option value="daejeon">대전</option>
-          <option value="ulsan">울산</option>
-          <option value="sejong">세종</option>
-          <option value="gangwon">강원</option>
-          <option value="gyeongnam">경남</option>
-          <option value="gyeongbuk">경북</option>
-          <option value="jeonnam">전남</option>
-          <option value="jeonbuk">전북</option>
-          <option value="chungnam">충남</option>
-          <option value="chungbuk">충북</option>
-          <option value="jeju">제주</option>
+          <option value="seoul" th:selected="${pageRequestDTO.region == 'seoul'}">서울</option>
+          <option value="gyeonggi" th:selected="${pageRequestDTO.region == 'gyeonggi'}">경기</option>
+          <option value="incheon" th:selected="${pageRequestDTO.region == 'incheon'}">인천</option>
+          <option value="busan" th:selected="${pageRequestDTO.region == 'busan'}">부산</option>
+          <option value="daegu" th:selected="${pageRequestDTO.region == 'daegu'}">대구</option>
+          <option value="gwangju" th:selected="${pageRequestDTO.region == 'gwangju'}">광주</option>
+          <option value="daejeon" th:selected="${pageRequestDTO.region == 'daejeon'}">대전</option>
+          <option value="ulsan" th:selected="${pageRequestDTO.region == 'ulsan'}">울산</option>
+          <option value="sejong" th:selected="${pageRequestDTO.region == 'sejong'}">세종</option>
+          <option value="gangwon" th:selected="${pageRequestDTO.region == 'gangwon'}">강원</option>
+          <option value="gyeongnam" th:selected="${pageRequestDTO.region == 'gyeongnam'}">경남</option>
+          <option value="gyeongbuk" th:selected="${pageRequestDTO.region == 'gyeongbuk'}">경북</option>
+          <option value="jeonnam" th:selected="${pageRequestDTO.region == 'jeonnam'}">전남</option>
+          <option value="jeonbuk" th:selected="${pageRequestDTO.region == 'jeonbuk'}">전북</option>
+          <option value="chungnam" th:selected="${pageRequestDTO.region == 'chungnam'}">충남</option>
+          <option value="chungbuk" th:selected="${pageRequestDTO.region == 'chungbuk'}">충북</option>
+          <option value="jeju" th:selected="${pageRequestDTO.region == 'jeju'}">제주</option>
         </select>
 
 
-        <select name="region2" id="district">
-          <option value="">구 선택</option>
+        <select name="region2" id="district" >
+          <option value="" th:selected="${pageRequestDTO.region2}">구 선택</option>
         </select>
 
         <script>
@@ -562,27 +571,42 @@
           <i
                   class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"
           ></i>
-          <input type="checkbox" name="types" value="t" >제목
-          <input type="checkbox" name="types" value="w"  >작성자
+
+          <th:block th:if="${pageRequestDTO.types} == null">
+            <input type="checkbox" name="types" value="t" th:checked="false">제목
+            <input type="checkbox" name="types" value="w" th:checked="false">작성자
+          </th:block>
+          <th:block th:if="${pageRequestDTO.types} != null">
+            <input type="checkbox" name="types" value="t" th:checked="${#strings.contains(pageRequestDTO.types,'t')}">제목
+            <input type="checkbox" name="types" value="w" th:checked="${#strings.contains(pageRequestDTO.types,'w')}">작성자
+          </th:block>
           <input  name="keyword"
                   class="form-control ps-5"
                   type="search"
-                  placeholder="Enter keyword" />
+                  th:value="${pageRequestDTO.keyword}" >
         </div>
       </div>
       <!-- ##################################################################################### -->
 
         <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
-        <div class="mb-3">
-          <input type="checkbox" name="finished" value="" >모집완료
-        </div>
+      <!--모집완료 부분 잘안됌..-->
+      <!--<div class="mb-3">
+        <th:block th:if="${pageRequestDTO.finished} == false">
+          <input type="checkbox" name="finished" value="" th:checked="pageRequestDTO.finished">모집완료
+        </th:block>
+        <th:block th:if="${pageRequestDTO.finished} != false">
+          <input type="checkbox" name="finished" value="" th:checked="pageRequestDTO.finished">모집완료
+        </th:block>
+
+      </div>-->
         <div class="input-group mb-3 dueDateDiv">
-          <input type="date" name="startdate" class="form-control" value="">
-          <input type="date" name="enddate" class="form-control"  value="">
+          <input type="date" name="startdate" class="form-control" th:value="${pageRequestDTO.startdate}">
+          <input type="date" name="enddate" class="form-control"  th:value="${pageRequestDTO.enddate}">
         </div>
 
-      </form>
+
     </div>
+    </form>
     <!-- Blog grid (masonry)-->
     <!-- <div class="masonry-grid mb-2 mb-md-4 pb-lg-3" data-columns="3"> -->
     <!-- Blog item-->
@@ -626,7 +650,7 @@
         const $this = $(this); // $(this) 객체를 변수 $this에 저장
         const boardNo = $this.data('board_no');
         const boardJjimDTO = {
-          "userid": "testUser2",
+          "userid": "user1",
           "board_no": boardNo
         }
         $.ajax({
