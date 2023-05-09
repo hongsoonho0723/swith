@@ -12,6 +12,7 @@
     <meta name="msapplication-config" content="../assets/favicon/browserconfig.xml">
     <meta name="theme-color" content="white">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .page-loading {
             position: fixed;
@@ -130,14 +131,14 @@
 <!-- Change to .container-fluid for full width navbar -->
 
 <!-- Menu with dropdown + Button -->
-<header class="navbar navbar-expand-lg bg-light fixed-top">
+<header class="navbar navbar-expand-lg fixed-top bg-light">
     <div class="container">
         <a href="#" class="navbar-brand">
-      <span class="text-primary flex-shrink-0 me-2">
-        <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-          <path fill= "#57B0E2" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
-        </svg>
-      </span>
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
             S-With
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
@@ -155,26 +156,54 @@
                     <a href="#" class="nav-link">플레이윗미</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">스토리</a>
+                    <a href="/stories" class="nav-link">스토리</a>
                 </li>
+
             </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">매칭라운지 글 쓰기</a></li>
-                        <li><a href="#" class="dropdown-item">서포터팀원 구하기</a></li>
-                        <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
-                        <li class="dropdown-divider"> </li>
-                        <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                        <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-                <i class="ai-user me-2 ms-n1"></i>
-                로그인
-            </a>
+
+            <div class="navbar-nav ml-auto">
+                <div class="container d-flex justify-content-right">
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            구인/팀 & 스토리생성
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end my-1">
+                            <a href="#" class="dropdown-item">매칭라운지 글 생성</a>
+                            <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                            <a href="#" class="dropdown-item">플레이메이트 구하기</a>
+                            <div class="dropdown-divider"></div>
+                            <div><hr/></div>
+                            <a href="#" class="dropdown-item">서포터팀 생성</a>
+                            <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
+                        </div>
+                    </div>
+                </div>
+                <th:block th:with="user=${#session.getAttribute('user')}">
+                    <!--로그인하지 않았을때-->
+                    <div th:if="${user == null}">
+                        <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                            <i class="ai-user me-2 ms-n1"></i>
+                            로그인
+                        </a>
+                    </div>
+                    <!--로그인 했을 때-->
+                    <div th:if="${user != null}">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                                    <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                                    <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                                    <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                                    <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </th:block>
+            </div>
         </nav>
     </div>
 </header>
@@ -182,20 +211,8 @@
 <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
     <h2 class="mb-lg-2 mt-lg-5 mt-5" style="color:#003986;"><img src="../assets/img/swith/free-icon-popularity-1685418.png" width="4%"> 인기스토리</h2>
     <!-- Simple post preview card -->
-    <div class="d-flex mb-5">
-        <!-- Image on top -->
-        <div class="card mx-3 p-0">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body px-lg-5 py-lg-4">
-                <a class="text-decoration-none text-dark" href="/story/read">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">내용......</p>
-                </a>
-            </div>
-        </div>
-
-        <!-- Image on top -->
-        <div class="card mx-3 p-0">
+    <div class="d-flex mb-5" id="popular-stories">
+        <!--<div class="card mx-3 p-0">
             <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
             <div class="card-body px-lg-5 py-lg-4">
                 <a class="text-decoration-none text-dark" href="/story/read">
@@ -203,91 +220,99 @@
                     <p class="card-text">내용......</p>
                 </a>
             </div>
-        </div>
-
-
-        <!-- Image on top -->
-        <div class="card mx-3 p-0">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body px-lg-5 py-lg-4">
-                <a class="text-decoration-none text-dark" href="/story/read">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">내용......</p>
-                </a>
-            </div>
-        </div>
-
-
-        <!-- Image on top -->
-        <div class="card mx-3 p-0">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body px-lg-5 py-lg-4">
-                <a class="text-decoration-none text-dark" href="/story/read">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">내용......</p>
-                </a>
-            </div>
-        </div>
-
+        </div>-->
+        <script>
+            $(function() {
+                $.ajax({
+                    url: '/stories/popular-stories',
+                    type: 'GET',
+                    success: function(stories){
+                        let html = '';
+                        stories.forEach(function (stories) {
+                            /*let content = stories.content;
+                            if (content.length > 50) {
+                                content = content.slice(0, 50) + '...';
+                            }*/
+                            let link = `/stories/${stories.story_no}`;
+                            let img = `/img/${stories.image_main}`;
+                            html += '<div class="card mx-3 p-0">' +
+                                '<img src="' + img + '" class="card-img-top" alt="Card image">' +
+                                '<div class="card-body px-lg-5 py-lg-3">' +
+                                '<a class="text-decoration-none text-dark" href="' + link + '">' +
+                                '<h6 class="card-title">' + stories.title + '</h6>' +
+                                '<p class="card-text fs-sm">' + stories.story_writer+ '</p>' +
+                                '</a>' +
+                                '</div>' +
+                                '</div>';
+                        });
+                        $("#popular-stories").html(html);
+                    }
+                });
+            });
+        </script>
     </div>
 
 
     <!-- Page title + filters-->
+    <form action="/stories" method="get">
     <div class="row align-items-center gy-2 mb-2 pb-1 pb-sm-2 pb-lg-3">
         <div class="col-lg-5">
             <h2 class="mb-lg-0" style="color:#003986"> 스토리</h2>
             <a> 스윗!에 다양한 이야기</a>
         </div>
         <div class="col-xl-2 offset-xl-0 col-lg-3 col-sm-5 ms-xl-auto">
-            <select class="form-select">
-                <option>모든 작성자</option>
-                <option>개인</option>
-                <option>서포터팀</option>
+            <select name="user_type" class="form-select">
+                <option value="">모든 작성자</option>
+                <option value="개인" th:selected="${storyPageRequestDTO.user_type} == '개인'">개인</option>
+                <option value="서포터팀" th:selected="${storyPageRequestDTO.user_type} == '서포터팀'">서포터팀</option>
             </select>
         </div>
         <div class="col-xl-2 offset-xl-0 col-lg-3 col-sm-5">
-            <select class="form-select">
-                <option>모든 유형</option>
-                <option>근황</option>
-                <option>정보</option>
-                <option>후기</option>
-                <option>홍보</option>
+            <select name="s_category" class="form-select" onchange=" this.form.submit();">
+                <option value="">모든 유형</option>
+                <option value="근황" th:selected="${storyPageRequestDTO.s_category} == '근황'">근황</option>
+                <option value="정보공유" th:selected="${storyPageRequestDTO.s_category} == '정보공유'">정보공유</option>
+                <option value="활동후기" th:selected="${storyPageRequestDTO.s_category} == '활동후기'">활동후기</option>
+                <option value="홍보" th:selected="${storyPageRequestDTO.s_category} == '홍보'">홍보</option>
             </select>
         </div>
         <div class="col-lg-3 col-sm-7">
             <div class="position-relative"><i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                <input class="form-control ps-5" type="search" placeholder="Enter keyword">
+                <input class="form-control ps-5" type="search" name="keyword"  th:value="${storyPageRequestDTO.keyword}" placeholder="Enter keyword">
             </div>
         </div>
     </div>
+    </form>
 
-        <!-- Author card widget style 2 -->
+
+    <!-- Author card widget style 2 -->
     <tbody th:each="dto: ${responseDTO.dtoList}">
         <div class="border-top border-bottom py-2 mb-4">
             <div class="d-flex align-items-start py-2">
 
                 <img class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" th:src="|/img/${dto.image_main}|" style="min-height: 150px; width: 250px">
                 <div class="d-md-flex w-75 ps-4">
-                    <div style="max-width: 50rem;">
+                    <div style="max-width: 48rem;">
                         <a class="badge text-nav fs-xs border mt-2" >[[${dto.s_category}]]</a>
                        <!-- <a style="text-align: none;" th:href="|@{/stories/${dto.story_no}}|">-->
                         <a th:href="|@{/stories/{story_no}(story_no=${dto.story_no})}|" style="text-decoration:none;">
                         <h3 class="h5 mb-0">[[${dto.title}]]</h3>
                         <p class="fs-xs mb-2" style="color: #0d0a0a">[[${dto.story_writer}]]</p>
-                        <p class="fs-sm mb-0"style="color: #0d0a0a">[[${dto.content}]]</p>
+                            <p class="fs-sm mb-0" th:text="${#strings.substring(dto.content, 0, 340)}" th:if="${#strings.length(dto.content) > 350}" th:style="'color: #0d0a0a'"></p>
+                            <p class="fs-sm mb-0" th:utext="${dto.content}" th:if="${#strings.length(dto.content) <= 340}" th:style="'color: #0d0a0a'"></p>
                         </a>
                     </div>
 
-                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+                    <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto" style="min-width: 167px">
                         <div class="d-flex">
                             <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
                                 <i class="ai-show"> [[${dto.clicks}]]</i>
                             </a>
                             <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                                <i class="ai-message"> 0</i>
+                                <i class="ai-message"> [[${dto.replyCount}]]</i>
                             </a>
                             <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                                <i class="ai-heart"> [[${dto.check}]]</i>
+                                <i class="ai-heart"> [[${dto.likeCount}]]</i>
                             </a>
                         </div>
                     </div>
@@ -295,41 +320,57 @@
             </div>
         </div>
     </tbody>
-
     <!-- Pagination-->
     <div class="row gy-3 align-items-center mb-md-2 mb-xl-4">
         <div class="col col-md-4 col-6 order-md-1 order-1">
-            <div class="d-flex align-items-center">
-                <span class="text-muted fs-sm">Show</span>
-                <select class="form-select form-select-flush w-auto">
-                    <option value="6">6</option>
-                    <option value="9" selected>9</option>
-                    <option value="12">12</option>
-                    <option value="24">24</option>
-                </select>
-            </div>
+
         </div>
         <div class="col col-md-4 col-12 order-md-2 order-3 text-center">
 
         </div>
         <div class="col col-md-4 col-6 order-md-3 order-2">
             <nav aria-label="Page navigation">
-                <ul class="pagination pagination-sm justify-content-end">
-                    <li class="page-item active" aria-current="page">
-                  <span class="page-link"
-                  >1<span class="visually-hidden">(current)</span></span
-                  >
+                <ul class="pagination pagination-sm justify-content-end" >
+                    <li class="page-item" th:if="${responseDTO.prev}">
+                        <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                        <li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+                            <a class="page-link"  th:data-num="${i}">[[${i}]]</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:if="${responseDTO.next}">
+                        <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </div>
-    </div>
-    </section>
+
+    <!-- Pagination-->
+
+    <script>
+        //페이징 처리
+        document.querySelector(".pagination").addEventListener("click", function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+
+            const target = e.target
+
+            if(target.tagName !== 'A') {
+                return
+            }
+            const num = target.getAttribute("data-num")
+
+            const formObj = document.querySelector("form")
+
+            formObj.innerHTML += "<input type='hidden' name='page' value='"+num+"'>"
+
+            formObj.submit();
+
+        },false)
+    </script>
+
 
 <br><br><br>
 <footer class="footer bg-light py-5" style="position: relative; bottom ">

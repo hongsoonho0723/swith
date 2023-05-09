@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
     <!-- 이미지처리를 위한 js 파일 -->
     <script src="../assets/js/upload.js"></script>
     <!-- 정렬을 위한 css 파일 -->
@@ -205,32 +207,33 @@
 
         <div class="col-12 pb-3">
             <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
-            <input type="radio" name="check-writer" id="writer-check-user" class="form-check-input" value="" checked disabled>
+            <input type="radio" name="user_type" id="writer-check-user" class="form-check-input" value="개인" th:checked="${dto.user_type == '개인'}">
+
             <label for="writer-check-user" class="form-check-label pe-5 fs-6">개인</label>
 
-            <input type="radio" name="check-writer" id="writer-check-team" class="form-check-input btn-info" value="" readonly checked disabled>
+            <input type="radio" name="user_type" id="writer-check-team" class="form-check-input btn-info" value="서포터팀"  th:checked="${dto.user_type == '서포터팀'}">
             <label for="writer-check-team" class="form-check-label fs-6">서포터팀</label>
 
         </div>
 
         <div class="col-12 py-3">
             <h3 class="fs-4" style="color: #003986;">스토리 유형</h3>
-            <input type="radio" name="check-stroy" id="story-check-1" class="form-check-input" value="" style="accent-color: #57B0E2;">
+            <input type="radio" name="s_category" id="story-check-1" class="form-check-input" value="근황"  th:checked="${dto.s_category == '근황'}">
             <label for="story-check-1" class="form-check-label pe-5 fs-6">근황</label>
 
-            <input type="radio" name="check-stroy" id="story-check-4" class="form-check-input" value="">
+            <input type="radio" name="s_category" id="story-check-4" class="form-check-input" value="홍보" th:checked="${dto.s_category == '홍보'}">
             <label for="story-check-4" class="form-check-label pe-5 fs-6">홍보</label>
 
-            <input type="radio" name="check-stroy" id="story-check-2" class="form-check-input" value="">
+            <input type="radio" name="s_category" id="story-check-2" class="form-check-input" value="활동후기" th:checked="${dto.s_category == '활동후기'}">
             <label for="story-check-2" class="form-check-label pe-5 fs-6">활동후기</label>
 
-            <input type="radio" name="check-stroy" id="story-check-3" class="form-check-input" value="">
+            <input type="radio" name="s_category" id="story-check-3" class="form-check-input" value="정보공유" th:checked="${dto.s_category == '정보공유'}">
             <label for="story-check-3" class="form-check-label pe-5 fs-6">정보공유</label>
         </div>
 
         <div class="mb-3 pt-3">
             <label for="text-input" class="form-label"><h3 class="fs-4" style="color: #003986;">제목</h3></label>
-            <input class="form-control" type="text" id="text-input" placeholder="최대 20자까지 입력 가능합니다." onfocus="this.placeholder=''" onblur="this.placeholder='최대 20자까지 입력 가능합니다.'">
+            <input class="form-control" type="text" id="text-input" placeholder="최대 20자까지 입력 가능합니다." onfocus="this.placeholder=''" onblur="this.placeholder='최대 20자까지 입력 가능합니다.'" th:value="${dto.title}">
         </div>
 
         <!-- File input -->
@@ -244,22 +247,6 @@
 
         <div class="mb3 pt3">
             <h3 class="fs-4" style="color: #003986">내용</h3>
-
-            <!-- TOAST UI Editor가 들어갈 div태그 -->
-            <div id="editor"></div>
-        </div>
-        <!-- TOAST UI Editor CDN URL(JS) -->
-        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-        <!-- TOAST UI Editor 생성 JavaScript 코드 -->
-        <script>
-            const editor = new toastui.Editor({
-                el: document.querySelector('#editor'),
-                height: '600px',
-                language: 'ko-KR',
-            });
-
-        </script>
 
 
         <div class="d-flex justify-content-center pt-5">

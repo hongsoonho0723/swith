@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class StoryPageRequestDTO {
 
-    private String[] types; //작성자 종류
+    private String[] user_type; //작성자 종류
     private String[] s_category; //검색종류
     private String keyword; //검색 종류에 따라 사용할 키워드
 

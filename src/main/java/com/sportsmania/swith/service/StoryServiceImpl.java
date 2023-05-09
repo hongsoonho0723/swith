@@ -1,10 +1,8 @@
 package com.sportsmania.swith.service;
 
-import com.sportsmania.swith.domain.StoryFileVO;
-import com.sportsmania.swith.dto.PageRequestDTO;
-import com.sportsmania.swith.dto.PageResponseDTO;
 import com.sportsmania.swith.dto.StoryDTO;
-import com.sportsmania.swith.dto.StoryFileDTO;
+import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
+import com.sportsmania.swith.dto.page.StoryPageResponseDTO;
 import com.sportsmania.swith.mapper.StoryMapper;
 import com.sportsmania.swith.domain.StoryVO;
 import lombok.RequiredArgsConstructor;
@@ -102,7 +100,6 @@ public class StoryServiceImpl implements StoryService {
 
 
 
-
     @Override
     public void remove(Long story_no) {
 
@@ -124,25 +121,26 @@ public class StoryServiceImpl implements StoryService {
         storyMapper.update(storyVO);
     }
 
+
+
     @Override
-    public PageResponseDTO<StoryDTO> getList(PageRequestDTO pageRequestDTO) {
-
-
-        List<StoryVO> voList = storyMapper.selectList(pageRequestDTO);
+    public StoryPageResponseDTO<StoryDTO> getList(StoryPageRequestDTO storyPageRequestDTO) {
+        List<StoryVO> voList = storyMapper.selectList(storyPageRequestDTO);
         List<StoryDTO> dtoList = voList.stream()
                 .map(vo -> modelMapper.map(vo, StoryDTO.class))
                 .collect(Collectors.toList());
 
-        int total = storyMapper.getCount(pageRequestDTO);
+        int total = storyMapper.selectCount(storyPageRequestDTO);
 
-        PageResponseDTO<StoryDTO> pageResponseDTO = PageResponseDTO.<StoryDTO>withAll()
+        StoryPageResponseDTO<StoryDTO> storyPageResponseDTO =StoryPageResponseDTO.<StoryDTO>withAll()
                 .dtoList(dtoList)
                 .total(total)
                 // 페이지 번호의 처리를 위한 데이터들
-                .pageRequestDTO(pageRequestDTO)
+                .storyPageRequestDTO(storyPageRequestDTO)
                 .build();
-        return pageResponseDTO;
+        return storyPageResponseDTO;
     }
+
 
     @Override
     public StoryDTO getOne(Long story_no) {
@@ -156,13 +154,18 @@ public class StoryServiceImpl implements StoryService {
                 .content(storyVO.getContent())
                 .image_main(storyVO.getImage_main())
                 .date(storyVO.getDate())
-                .check(storyVO.getCheck())
                 .clicks(storyVO.getClicks())
                 .build();
 
 
         return storyDTO;
     }
-    
+
+    @Override
+    public List<StoryVO> getPopularStories() {
+       List<StoryVO> popularStories = storyMapper.getPopularStories();
+       return popularStories;
+    }
+
 
 }
