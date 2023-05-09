@@ -37,3 +37,4 @@ const inputImage = document.getElementById("input-image")
 inputImage.addEventListener("change", e => {
     readImage(e.target)
 })*/
+
