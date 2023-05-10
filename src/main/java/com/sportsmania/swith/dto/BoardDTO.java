@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BoardDTO {
     private String board_no;
-    @NotEmpty
     private String board_writer;
     @NotEmpty
     private String exercise;
