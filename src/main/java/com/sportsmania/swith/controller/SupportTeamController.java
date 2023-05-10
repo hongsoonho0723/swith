@@ -1,7 +1,10 @@
 package com.sportsmania.swith.controller;
 
+import com.sportsmania.swith.domain.TeamMemberVO;
+import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.dto.TeamMemberDTO;
+import com.sportsmania.swith.service.StoryService;
 import com.sportsmania.swith.service.SupportTeamService;
 import com.sportsmania.swith.service.TeamMemberService;
 
@@ -12,6 +15,7 @@ import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RestController
@@ -30,8 +35,9 @@ public class SupportTeamController {
 
     private final SupportTeamService supportTeamService;
     private final TeamMemberService teamMemberService;
+    private final StoryService storyService;
 
-    @GetMapping("/posts")
+    @GetMapping("/teams/posts")
     public ModelAndView viewResgister() {
         ModelAndView mv = new ModelAndView("/teams/sp-register");
 
@@ -119,7 +125,7 @@ public class SupportTeamController {
         }
     }*/
 
-    @GetMapping("teams")
+    @GetMapping("/teams")
     public ModelAndView viewList() {
         List<SupportTeamDTO> dtoList = supportTeamService.getAll();
         ModelAndView mv = new ModelAndView("/teams/sp-list");
@@ -280,6 +286,31 @@ public class SupportTeamController {
         supportTeamService.modify(supportTeamDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/teams/userInfo")
+    public SupportTeamDTO getUser(){
+       // String userId = authentication.getName();
+        SupportTeamDTO supportTeamDTO = supportTeamService.getOne("testTeam1");
+        log.info("userId cors");
+        return supportTeamDTO;
+    }
+
+    @GetMapping("/teams/members")
+    public ResponseEntity<Boolean> getAllMember(Authentication authentication) {
+        List<TeamMemberDTO> memberList = teamMemberService.getAllMember();
+        String currentUserId = authentication.getName();
+        boolean isMember = memberList.stream()
+                .anyMatch(member -> member.getTeam_memberId().equals(currentUserId));
+        log.info("isMember: {}", isMember);
+        return new ResponseEntity<>(isMember, HttpStatus.OK);
+    }
+
+   /* @GetMapping("teams/stories/{team_title}")
+    public ResponseEntity<List<StoryDTO>> getTeamStory(@PathVariable("team_title") String team_title){
+
+        return new ResponseEntity<>();
+    }*/
 
 
 }

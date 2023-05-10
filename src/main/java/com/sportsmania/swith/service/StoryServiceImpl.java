@@ -1,10 +1,8 @@
 package com.sportsmania.swith.service;
 
-import com.sportsmania.swith.domain.StoryFileVO;
-import com.sportsmania.swith.dto.PageRequestDTO;
-import com.sportsmania.swith.dto.PageResponseDTO;
 import com.sportsmania.swith.dto.StoryDTO;
-import com.sportsmania.swith.dto.StoryFileDTO;
+import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
+import com.sportsmania.swith.dto.page.StoryPageResponseDTO;
 import com.sportsmania.swith.mapper.StoryMapper;
 import com.sportsmania.swith.domain.StoryVO;
 import lombok.RequiredArgsConstructor;
@@ -29,48 +27,6 @@ public class StoryServiceImpl implements StoryService {
     private final StoryMapper storyMapper;
 
     private final ModelMapper modelMapper;
-
-    @Override
-    public void register(StoryDTO storyDTO) {
-
-        log.info("register....service");
-        //실제 저장 경로
-        String uploadPath = "C:\\upload\\";
-
-       /* String originalImgName = storyDTO.getImage().getOriginalFilename();
-
-        //확장자 추출
-        String extension = originalImgName.substring(originalImgName.lastIndexOf("."));
-
-        String saveName = UUID.randomUUID() + extension;
-
-        //파일 불러올 때 사용할 파일 경로
-        Path savePath = Paths.get(uploadPath, saveName);
-
-        try {
-            storyDTO.getImage().transferTo(savePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        StoryVO storyVO = StoryVO.builder()
-                .story_no(storyDTO.getStory_no())
-                .story_writer(storyDTO.getStory_writer())
-                .s_category(storyDTO.getS_category())
-                .title(storyDTO.getTitle())
-                .content(storyDTO.getContent())
-                .image_main(saveName) // 이미지 파일명 저장
-                .date(storyDTO.getDate())
-                .check(storyDTO.getCheck())
-                .clicks(storyDTO.getClicks())
-                .build();
-
-
-        log.info(storyVO);
-
-        storyMapper.insert(storyVO);*/
-
-    }
 
     @Override
     public void registerWithFile(StoryDTO storyDTO, MultipartFile file) throws IOException {
@@ -102,7 +58,6 @@ public class StoryServiceImpl implements StoryService {
 
 
 
-
     @Override
     public void remove(Long story_no) {
 
@@ -119,50 +74,57 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public void modify(StoryDTO storyDTO) {
+    public void modify(StoryDTO storyDTO, MultipartFile file) throws IOException {
+        String uploadPath = "C:\\upload\\";
+
+        String originalFileName = file.getOriginalFilename();
+
+        String filename = UUID.randomUUID() + originalFileName;
+
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(uploadPath + filename);
+        Files.write(path, bytes);
+
+        storyDTO.setImage_main(filename);
         StoryVO storyVO=  modelMapper.map(storyDTO, StoryVO.class );
         storyMapper.update(storyVO);
     }
 
+
+
     @Override
-    public PageResponseDTO<StoryDTO> getList(PageRequestDTO pageRequestDTO) {
-
-
-        List<StoryVO> voList = storyMapper.selectList(pageRequestDTO);
+    public StoryPageResponseDTO<StoryDTO> getList(StoryPageRequestDTO storyPageRequestDTO) {
+        List<StoryVO> voList = storyMapper.selectList(storyPageRequestDTO);
         List<StoryDTO> dtoList = voList.stream()
                 .map(vo -> modelMapper.map(vo, StoryDTO.class))
                 .collect(Collectors.toList());
 
-        int total = storyMapper.getCount(pageRequestDTO);
+        int total = storyMapper.selectCount(storyPageRequestDTO);
 
-        PageResponseDTO<StoryDTO> pageResponseDTO = PageResponseDTO.<StoryDTO>withAll()
+        StoryPageResponseDTO<StoryDTO> storyPageResponseDTO =StoryPageResponseDTO.<StoryDTO>withAll()
                 .dtoList(dtoList)
                 .total(total)
                 // 페이지 번호의 처리를 위한 데이터들
-                .pageRequestDTO(pageRequestDTO)
+                .storyPageRequestDTO(storyPageRequestDTO)
                 .build();
-        return pageResponseDTO;
+        return storyPageResponseDTO;
     }
+
 
     @Override
     public StoryDTO getOne(Long story_no) {
         StoryVO storyVO = storyMapper.selectOne(story_no);
-        //StoryDTO storyDTO = modelMapper.map(storyVO, StoryDTO.class);
-        StoryDTO storyDTO = StoryDTO.builder()
-                .story_no(storyVO.getStory_no())
-                .story_writer(storyVO.getStory_writer())
-                .s_category(storyVO.getS_category())
-                .title(storyVO.getTitle())
-                .content(storyVO.getContent())
-                .image_main(storyVO.getImage_main())
-                .date(storyVO.getDate())
-                .check(storyVO.getCheck())
-                .clicks(storyVO.getClicks())
-                .build();
+        StoryDTO storyDTO = modelMapper.map(storyVO, StoryDTO.class);
 
 
         return storyDTO;
     }
-    
+
+    @Override
+    public List<StoryVO> getPopularStories() {
+       List<StoryVO> popularStories = storyMapper.getPopularStories();
+       return popularStories;
+    }
+
 
 }

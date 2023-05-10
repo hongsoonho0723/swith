@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 //   .antMatchers("/members/main").hasRole("USER")
+                .antMatchers("/stories/posts").hasRole("USER")
+                .antMatchers("/stories/posts/**").hasRole("USER")
                 .antMatchers("/members/main").permitAll()
                 .antMatchers("/teams/posts","/teams/modify","/teams/admin/**","/teams/total/**").hasRole("USER")
                 .antMatchers("/members/signin","/members/signup").anonymous() // 권한이 없는 사용자만 접근 가능
@@ -59,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/members/main") // 로그아웃 성공시 이동할 URL 지정
                 .invalidateHttpSession(true) // 세션 무효화
                 .deleteCookies("JSESSIONID"); // 쿠키 삭제
-                ;
+        ;
     }
 
     @Bean
