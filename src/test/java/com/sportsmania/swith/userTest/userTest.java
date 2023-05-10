@@ -61,8 +61,10 @@ public class userTest {
     }
     @Test
     public void eamil(){
-        String email = "rbalswkd1";
-        boolean result = userService.checkDuplicateId(email);
+        String name = "규민";
+        String email = "33333333";
+
+        UserVO result = userService.userCheck("규민","33333333");
         System.out.println(result);
     }
 }

@@ -22,4 +22,6 @@ public interface UserMapper {
     boolean checkDuplicateId(String userId); // 아이디 중복체크
 
     void addAuth(UserDTO dto); //권한 추가
+
+    UserVO userCheck(@Param("name") String name,@Param("email") String email); // 아이디 찾기
 }

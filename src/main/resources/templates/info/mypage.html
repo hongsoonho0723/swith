@@ -118,7 +118,7 @@
           transform: none;
         }
       }
-      
+
     </style>
     <!-- Page loading scripts-->
     <script>
@@ -196,10 +196,8 @@
                     <li><a href="/info/history" class="dropdown-item">내 활동내역</a></li>
                     <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
                     <li><a href="#" class="dropdown-item">나의 팀</a></li>
-
                     <li href="#"><a class="dropdown-item">찜 목록</a></li>
                     <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
-
                   </ul>
                 </li>
               </ul>
@@ -219,7 +217,10 @@
               <div class="offcanvas-lg offcanvas-start" id="sidebarAccount">
                 <button class="btn-close position-absolute top-0 end-0 mt-3 me-3 d-lg-none" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarAccount"></button>
                 <div class="offcanvas-body">
-                  <div class="pb-2 pb-lg-0 mb-4 mb-lg-5"><img class="d-block rounded-circle mb-2" src="../assets/img/avatar/02.jpg" width="80" alt="Isabella Bocouse">
+                  <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
+                    <div class="d-md-flex" style="border-radius: 50%;overflow: hidden;width: 100px;height: 100px ">
+                      <img  style="object-fit: contain;height: 100%;width: 100%;" th:src="${#session.getAttribute('user').image_profile}">
+                    </div>
                     <h3 class="h5 mb-1" th:text="${#session.getAttribute('user').name}">이름</h3>
                     <p class="fs-sm text-muted mb-0" th:text="${#session.getAttribute('user').email}">example@gmail.com</p>
                   </div>
@@ -295,6 +296,7 @@
                     <div class="col-md-6 d-md-flex justify-content-end">
                       <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 60%;">
                         <h4 style="padding-left: 4%;">프로필 이미지</h4>
+                          <img style="height: 80%;width: 100%;border-radius: 10px" th:src="${#session.getAttribute('user').image_profile}">
                       </div>
                     </div>
                   </div>

@@ -1,17 +1,16 @@
 package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.domain.MatchBoardVO;
+import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.MatchBoardDTO;
+import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.mapper.MatchBoardMapper;
+import com.sportsmania.swith.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @Service
@@ -23,7 +22,6 @@ public class MatchBoardServicelmpl implements MatchBoardService {
 
     private final ModelMapper modelMapper;
     private final MatchBoardMapper matchBoardMapper;
-
 
 
  /*   @Override
@@ -61,6 +59,16 @@ public class MatchBoardServicelmpl implements MatchBoardService {
         MatchBoardDTO matchBoardDTO = modelMapper.map(matchBoardVO, MatchBoardDTO.class);
         return matchBoardDTO;
     }
+
+    @Override
+    public UserDTO getOne1(String userId) {
+        UserVO userVO = matchBoardMapper.selectOne1(userId);
+        UserDTO userDTO= modelMapper.map(userVO, UserDTO.class);
+
+
+        return userDTO;
+    }
+
 
     @Override
     public void remove(int board_no) {

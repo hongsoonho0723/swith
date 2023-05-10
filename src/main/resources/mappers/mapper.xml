@@ -5,8 +5,8 @@
 
 <mapper namespace="com.sportsmania.swith.mapper.UserMapper">
     <insert id="join" parameterType="com.sportsmania.swith.dto.UserDTO">
-        insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType,auth)
-        values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType},#{auth});
+        insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType,auth,gender)
+        values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType},#{auth},#{gender});
     </insert>
 
     <select id="findByIdPW" resultType="com.sportsmania.swith.dto.UserDTO" parameterType="String">
@@ -16,7 +16,7 @@
         select * from user where userId = #{username}
     </select>
     <update id="modifyInfo" parameterType="com.sportsmania.swith.dto.UserDTO">
-        update user set introduction = #{introduction}, preference = #{preference},nickname = #{nickname},email = #{email}
+        update user set introduction = #{introduction}, preference = #{preference},nickname = #{nickname},email = #{email}, image_profile =#{image_profile}
         where userId = #{userId}
     </update>
 
@@ -30,6 +30,10 @@
 
     <select id="checkDuplicateId" resultType="boolean" parameterType="String">
         select COUNT(*) from user where userId = #{userId}
+    </select>
+
+    <select id="userCheck" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
+        select * from user where name = #{name} AND email = #{email}
     </select>
 
     <update id="addAuth" parameterType="com.sportsmania.swith.dto.UserDTO">

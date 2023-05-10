@@ -1,6 +1,7 @@
 package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.dto.MatchBoardDTO;
+import com.sportsmania.swith.dto.UserDTO;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public interface MatchBoardService {
     void modify(MatchBoardDTO matchBoardDTO);
 
     MatchBoardDTO getOne(int board_no);
+    UserDTO getOne1(String userId);
 
     void remove(int board_no);
 
