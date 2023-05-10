@@ -54,7 +54,6 @@ public class MyController {
         log.info(dto);
         dto.setAuth("ROLE_USER");
         dto.setPwd(bCryptPasswordEncoder.encode(dto.getPwd()));
-        dto.setJoinType("1");
         userService.join(dto);
         return "redirect:/members/main";
     }
@@ -71,6 +70,10 @@ public class MyController {
         return "members/signup";
     }
 
+    @GetMapping(value = "/login/info")
+    public String find(){
+        return "members/find";
+    }
 
     @GetMapping("logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
@@ -78,6 +81,8 @@ public class MyController {
         redirectAttributes.addFlashAttribute("message", "로그아웃되었습니다."); // 리다이렉트 시 전달할 데이터 추가
         return "redirect:/members/main";
     }
+
+
 
 
 }
