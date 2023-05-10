@@ -312,5 +312,19 @@ public class SupportTeamController {
         return new ResponseEntity<>();
     }*/
 
+    @GetMapping("teams/list")
+    public ResponseEntity<List> getUserTeams( Authentication authentication) {
+        List<StoryDTO> teamList = teamMemberService.getUserTeams(authentication.getName());
+        log.info(teamList);
+        return new ResponseEntity<>(teamList,HttpStatus.OK);
+    }
+
+    @GetMapping("/teams/{team_title}/stories")
+    public ResponseEntity<List> getTeamStories(@PathVariable("team_title") String team_title) {
+        List<StoryDTO> teamStoryList = teamMemberService.getTeamStories(team_title);
+        log.info(teamStoryList);
+        return new ResponseEntity<>(teamStoryList, HttpStatus.OK);
+    }
+
 
 }

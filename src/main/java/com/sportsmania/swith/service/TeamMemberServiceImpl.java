@@ -1,7 +1,9 @@
 package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.domain.TeamMemberVO;
+import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.dto.TeamMemberDTO;
+import com.sportsmania.swith.mapper.StoryMapper;
 import com.sportsmania.swith.mapper.TeamMemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 public class TeamMemberServiceImpl implements TeamMemberService{
     private final ModelMapper modelMapper;
     private final TeamMemberMapper teamMemberMapper;
+    private final StoryMapper storyMapper;
 
 
     @Override
@@ -71,6 +74,22 @@ public class TeamMemberServiceImpl implements TeamMemberService{
                 .map(vo -> modelMapper.map(vo, TeamMemberDTO.class))
                 .collect(Collectors.toList());
         return memberList;
+    }
+
+    @Override
+    public List<StoryDTO> getUserTeams(String story_writer) {
+        List<StoryDTO> teamList = storyMapper.select_user_teams(story_writer).stream()
+                .map(vo -> modelMapper.map(vo, StoryDTO.class))
+                .collect(Collectors.toList());
+        return teamList;
+    }
+
+    @Override
+    public List<StoryDTO> getTeamStories(String team_title) {
+        List<StoryDTO> teamStoryList = storyMapper.selectTeamStories(team_title).stream()
+                .map(vo -> modelMapper.map(vo, StoryDTO.class))
+                .collect(Collectors.toList());
+        return teamStoryList;
     }
 
     @Override

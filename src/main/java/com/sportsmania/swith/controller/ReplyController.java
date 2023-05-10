@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,11 +58,11 @@ public class ReplyController {
         return ResponseEntity.noContent().build();
     }
 
-
+    @PreAuthorize("principal.username == #replyDTO.reply_writer")
     @PutMapping("/{reply_no}")
-    public ResponseEntity<ReplyDTO> modifyReply(@PathVariable("reply_no") Long reply_no, @RequestBody ReplyDTO modifiedReplyDTO) {
+    public ResponseEntity<ReplyDTO> modifyReply(@PathVariable("reply_no") Long reply_no, @RequestBody ReplyDTO replyDTO) {
         ReplyDTO originalReplyDTO = replyService.getReplyOne(reply_no); // 댓글 번호로 기존 댓글 정보 가져오기
-        originalReplyDTO.setContent(modifiedReplyDTO.getContent()); // 수정된 내용으로 댓글 내용 설정
+        originalReplyDTO.setContent(replyDTO.getContent()); // 수정된 내용으로 댓글 내용 설정
         replyService.modify(originalReplyDTO); // DB에 수정된 댓글 정보 업데이트
 
         log.info("댓글 수정:" + originalReplyDTO);

@@ -6,7 +6,7 @@
 <mapper namespace="com.sportsmania.swith.mapper.StoryMapper">
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.StoryVO">
-        insert into story (user_type,story_writer,s_category,title,content,image_main) values (#{user_type},#{story_writer},#{s_category},#{title},#{content},#{image_main})
+        insert into story (user_type,story_writer,s_category,title,content,image_main,team_no) values (#{user_type},#{story_writer},#{s_category},#{title},#{content},#{image_main}, #{team_no})
     </insert>
 
     <select id="selectOne" resultType="com.sportsmania.swith.domain.StoryVO">
@@ -117,10 +117,21 @@
         <result column="score" property="score"/>
         <result column="replyCount" property="replyCount"/>
         <result column="team_title" property="team_title"/>
+        <result column="team_no" property="team_no"/>
     </resultMap>
 
 
-    <select id="selectTeamStory" resultMap="t-storyResultMap">
-
+    <select id="select_user_teams" resultMap="t-storyResultMap">
+        select team_no,team_title from supportteam_member where team_memberId = #{story_writer};
     </select>
+    <select id="selectTeamStories" resultMap="t-storyResultMap">
+    SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount
+    FROM story S
+    LEFT JOIN likes L ON S.story_no = L.story_no
+    LEFT JOIN story_reply R ON S.story_no = R.story_no
+    LEFT JOIN supportteam_member M ON S.team_no = M.team_no
+    WHERE S.user_type = '서포터팀' AND M.team_title = #{team_title}
+    GROUP BY S.story_no;
+    </select>
+
 </mapper>
