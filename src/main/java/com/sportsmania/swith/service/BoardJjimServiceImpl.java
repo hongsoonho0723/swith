@@ -23,6 +23,12 @@ public class BoardJjimServiceImpl implements BoardJjimService{
     }
 
     @Override
+    public void remove(BoardJjimDTO boardJjimDTO) {
+        boardJjimMapper.deleteJjim(boardJjimDTO);
+    }
+
+    /* 찜목록 출력
+    @Override
     @Transactional
     public List<BoardJjimDTO> getJjimListByUserid(String userid) {
         //찜한 목록 찾지
@@ -35,16 +41,17 @@ public class BoardJjimServiceImpl implements BoardJjimService{
 
 
         return likeList;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void remove(int board_no, String userid) {
         boardJjimMapper.deleteJjim(board_no,userid);
 
-    }
+    }*/
+
 
     @Override
-    public BoardJjimDTO getByBnoWithUserid(BoardJjimDTO boardJjimDTO) {
-        return null;
+    public boolean isWishByUser(int board_no, String userid) {
+        return boardJjimMapper.isWishByUser(board_no,userid);
     }
 }
