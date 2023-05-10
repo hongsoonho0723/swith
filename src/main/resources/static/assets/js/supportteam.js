@@ -400,7 +400,7 @@ formData.append('supportTeamDTO',JSON.stringify({
 
 function registerFn() {
     let formData = {};
-    $('#formData').serializeArray().forEach(function(item){
+    $('#formCheck').serializeArray().forEach(function(item){
         formData[item.name] = item.value;
     });
     $.ajax({
@@ -416,4 +416,5 @@ function registerFn() {
             console.log("실패했슴둥");
         }
     });
-}*/
+}
+*/

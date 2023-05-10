@@ -85,6 +85,7 @@ function submitForms() {
     // 합쳐진 데이터를 전송
 }
 
+
 //중복체크
 $(document).ready(function() {
     // 아이디 중복체크
@@ -152,4 +153,25 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#submit-btn').click(function(e) {
+        e.preventDefault(); // 폼 제출 이벤트 방지
+        var name = $('#name').val(); // name 입력란 값 가져오기
+        var email = $('#email1').val(); // email 입력란 값 가져오기
+        $.ajax({
+            type: 'POST', // 전송 방식
+            url: '/check_user', // 서버 URL
+            data: {name: name, email: email}, // 전송할 데이터
+            success: function(response) {
+                if (response.userId == null){
+                    alert("일치하는 회원정보가 없습니다");
+                }else{
+                    alert("등록된 아이디는 " + response.userId + "입니다.");
+                }
+            }
+        });
+    });
+
+
+
 });

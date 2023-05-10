@@ -244,7 +244,7 @@
                                     <a href="#" class="dropdown-item">플레이메이트 구하기</a>
                                     <div class="dropdown-divider"></div>
                                     <div><hr/></div>
-                                    <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
+                                    <a href="/posts" class="dropdown-item">서포터팀 생성</a>
                                     <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
                                 </div>
                             </div>
@@ -514,7 +514,7 @@
                 <div class="float-end ">
                     <a type="button " onclick="teamRemove()" class="btn btn-success mt-5" href="#">팀삭제</a>
                     <a type="button " id="recruitButton" class="btn btn-success mt-5" onclick="recruitFinished()">모집완료</a>
-                    <a type="button " class="btn btn-success mt-5" th:href="@{/teams/admin/{team_title}(team_title=${dto.team_title})}">팀 수정</a>
+                    <a type="button " class="btn btn-success mt-5" th:href="@{/admin/{team_title}(team_title=${dto.team_title})}">팀 수정</a>
                 </div>
                 <div class="border-top border-bottom py-2 mb-4 mt-5">
                     <h2 class="mt-2">신청목록</h2>
@@ -583,7 +583,42 @@
     </div>
     </th:block>
 
-    <script>
+
+   <!-- <script th:inline="javascript">
+        function goNode() {
+            const userDTO = [[${#session.getAttribute('user')}]];
+            const nickname = userDTO.nickname;
+            const chatRoomTitle = [[${dto.team_title}]];
+            console.log(nickname, chatRoomTitle);
+            const params = {
+                'nickname': nickname,
+                'chatRoomTitle': chatRoomTitle
+            };
+            $.ajax({
+                url: "/chatrooms",
+                method: "GET",
+                data: params,
+
+                success: function () {
+                    console.log("goNode() 성공");
+                },
+                error: function () {
+                    console.log("goNode() 성공");
+                }
+            })
+        }
+    </script>-->
+  <script th:inline="javascript">
+        function goNode(){
+         const userDTO = [[${#session.getAttribute('user')}]];
+            const nickname = userDTO.nickname;
+            const chatRoomTitle = [[${dto.team_title}]];
+            console.log("team_title: ", chatRoomTitle);
+            window.location.href="http://localhost:3000?title="+encodeURIComponent(chatRoomTitle)+"&nickname="+encodeURIComponent(nickname);
+
+        }
+    </script>
+    <!--<script>
         function goNode() {
             console.log("채팅방입장 버튼 클릭함");
             fetch('http://localhost:3000', {
@@ -596,12 +631,13 @@
                 .then(response => {
                     console.log("Response:", response.body);
                     console.log("성공^^");
+                    window.location.href="http://localhost:3000";
                 })
                 .catch(error => {
                     console.error("Error:", error);
                 });
         }
-    </script>
+    </script>-->
     <!--<script>
         function goNode(){
             const team_title = "testTeam2";
