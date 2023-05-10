@@ -24,6 +24,7 @@ public class BoardJjimController {
 
     @GetMapping("/wish/{board_no}")
     public ResponseEntity<Boolean> isLiked(@PathVariable("board_no") Integer board_no, Authentication authentication ){
+        log.info("booleancheck");
         String userId = authentication.getName();
         boolean isWish = boardJjimService.isWishByUser(board_no,userId);
         return new ResponseEntity<>(isWish, HttpStatus.OK);
