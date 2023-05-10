@@ -5,13 +5,6 @@
     <title>S-with</title>
     <!-- SEO Meta Tags-->
 
-
-
-
-
-
-
-
     <meta
 
             content="Around - Multipurpose Bootstrap HTML Template"
@@ -272,11 +265,11 @@
                     <ul class="list-unstyled mb-0">
                         <li class="border-bottom pb-3 mb-3">
                   <span class="h6 mb-0">
-                       <a th:href="@{/match/matching-view(board_no=${dto.board_no}-1,userId=${user.userId})}">이전 글</a>
+                       <a th:href="@{/match/view(board_no=${dto.board_no}-1,userId=${user.userId})}">이전 글</a>
                            </span> </li>
                         <li class="border-bottom pb-3 mb-3">
                   <span class="h6 mb-0">
-                      <a th:href="@{/match/matching-view(board_no=${dto.board_no}+1,userId=${user.userId})}">다음 글</a>
+                      <a th:href="@{/match/view(board_no=${dto.board_no}+1,userId=${user.userId})}">다음 글</a>
 
 
                             </span>
@@ -306,7 +299,7 @@
 
             <div id="map" style="width:1400px;height:700px;"></div>
             <div id="address">${dto.facilityadd}</div>
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8cbb98637d2397e88ca006cf8b7e1a50&libraries=services"></script>
             <script>
                 var container = document.getElementById('map');
                 var options = {
@@ -347,7 +340,7 @@
                             } else {
                                 // InfoWindow 열기
                                 var infoWindow = new kakao.maps.InfoWindow({
-                                    content: '<div style="width: auto; height: auto; padding:40px; font-size:25px;">' +
+                                    content: '<div style="width: auto; height: auto; padding:40px; font-size:20px;">' +
                                         '시설명: [[${dto.sportsfacility}]]' + '<br>' +
                                         '주소: ' + result[0].address_name +
                                         '</div>'
@@ -393,7 +386,7 @@
             <!-- Info solid button -->
 
 
-            <a type="button" class="btn btn-info" th:href="@{/match/matching-modify(board_no=${dto.board_no},userId=${user.userId})}">수정하기</a>
+            <a type="button" class="btn btn-info" th:href="@{/match/modify(board_no=${dto.board_no},userId=${user.userId})}">수정하기</a>
 
             <!-- Success solid button -->
             <a type="button " style="margin-right: 10px" class="btn btn-success ms-2" href="#">모집완료</a>
