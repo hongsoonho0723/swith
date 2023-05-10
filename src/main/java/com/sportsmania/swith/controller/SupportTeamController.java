@@ -1,16 +1,22 @@
 package com.sportsmania.swith.controller;
 
+import com.sportsmania.swith.domain.TeamMemberVO;
+import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.dto.TeamMemberDTO;
+import com.sportsmania.swith.service.StoryService;
 import com.sportsmania.swith.service.SupportTeamService;
 import com.sportsmania.swith.service.TeamMemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RestController
@@ -28,6 +35,7 @@ public class SupportTeamController {
 
     private final SupportTeamService supportTeamService;
     private final TeamMemberService teamMemberService;
+    private final StoryService storyService;
 
     @GetMapping("/teams/posts")
     public ModelAndView viewResgister() {
@@ -79,7 +87,10 @@ public class SupportTeamController {
    /* String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\image_team";*/
     @PostMapping("/teams/posts")
     public ResponseEntity uploadFIle(@RequestParam("image") MultipartFile file,
-                                     @ModelAttribute SupportTeamDTO supportTeamDTO){
+                                     @ModelAttribute SupportTeamDTO supportTeamDTO,
+                                     Authentication authentication){
+        String team_writer = authentication.getName();
+        supportTeamDTO.setTeam_writer(team_writer);
         if (file.isEmpty()) {
             log.info("file empty");
             return new ResponseEntity<>("Please select a file!", HttpStatus.OK);
@@ -209,7 +220,8 @@ public class SupportTeamController {
     }
 
     @DeleteMapping("/teams/admin/{team_title}")
-    public ResponseEntity removeTeam(@RequestBody SupportTeamDTO supportTeamDTO) {
+    public ResponseEntity removeTeam(@RequestBody SupportTeamDTO supportTeamDTO,
+                                     Authentication authentication) {
         String team_title = supportTeamDTO.getTeam_title();
         List<TeamMemberDTO> teamList = teamMemberService.getAll(team_title);
         if (!teamList.isEmpty()) {
@@ -219,7 +231,12 @@ public class SupportTeamController {
             });
         }
         log.info("removeTeam()의 dto: " + supportTeamDTO);
+
+        if(authentication.getName().equals(supportTeamDTO.getTeam_writer())){
         supportTeamService.remove(team_title);
+        }else{
+            log.info("작성자와 로그인한 유저가 달라서 팀삭제 실패");
+        }
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -246,7 +263,7 @@ public class SupportTeamController {
     }*/
 
 
-    @GetMapping("/teams/admin/{team_title}")
+    @GetMapping("/admin/{team_title}")
     public ModelAndView viewModify(@PathVariable("team_title") String team_title) {
         SupportTeamDTO supportTeamDTO = supportTeamService.getOne(team_title);
         log.info("modify view" + supportTeamDTO);
@@ -257,7 +274,10 @@ public class SupportTeamController {
 
     @PutMapping("/teams/admin/{team_title}")
     public ResponseEntity modifyTeam(@RequestBody SupportTeamDTO supportTeamDTO,
-                                     @PathVariable("team_title") String team_title) {
+                                     @PathVariable("team_title") String team_title,
+                                     Authentication authentication) {
+        String team_writer = authentication.getName();
+        supportTeamDTO.setTeam_writer(team_writer);
         String deadline = supportTeamDTO.getDeadline();
         supportTeamDTO.setDeadline(deadline.replaceAll("T", " "));
         supportTeamDTO.setTeam_title(team_title);
@@ -266,4 +286,31 @@ public class SupportTeamController {
         supportTeamService.modify(supportTeamDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/teams/userInfo")
+    public SupportTeamDTO getUser(){
+       // String userId = authentication.getName();
+        SupportTeamDTO supportTeamDTO = supportTeamService.getOne("testTeam1");
+        log.info("userId cors");
+        return supportTeamDTO;
+    }
+
+    @GetMapping("/teams/members")
+    public ResponseEntity<Boolean> getAllMember(Authentication authentication) {
+        List<TeamMemberDTO> memberList = teamMemberService.getAllMember();
+        String currentUserId = authentication.getName();
+        boolean isMember = memberList.stream()
+                .anyMatch(member -> member.getTeam_memberId().equals(currentUserId));
+        log.info("isMember: {}", isMember);
+        return new ResponseEntity<>(isMember, HttpStatus.OK);
+    }
+
+   /* @GetMapping("teams/stories/{team_title}")
+    public ResponseEntity<List<StoryDTO>> getTeamStory(@PathVariable("team_title") String team_title){
+
+        return new ResponseEntity<>();
+    }*/
+
+
 }

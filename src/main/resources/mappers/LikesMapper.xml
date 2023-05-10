@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportsmania.swith.mapper.LikesMapper">
+
+    <insert id="insertLike" parameterType="com.sportsmania.swith.dto.LikesDTO">
+        INSERT INTO `likes` (`userId`, `story_no`)
+        VALUES (#{userId}, #{story_no})
+    </insert>
+
+    <delete id="deleteLike">
+        DELETE FROM `likes`
+        WHERE `userId` = #{userId} AND `story_no` = #{story_no}
+    </delete>
+
+    <select id="isLikedByUser" resultType="boolean">
+        SELECT EXISTS (
+                       SELECT * FROM `likes`
+                       WHERE `userId` = #{userId} AND `story_no` = #{story_no}
+                   )
+    </select>
+
+    <select id="countLikes" resultType="long">
+        SELECT COUNT(*) FROM `likes`
+        WHERE `story_no` = #{story_no}
+    </select>
+
+
+</mapper>

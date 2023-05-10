@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html
+<html xmlns:th="http://www.thymeleaf.org"
         lang="krg">
   <head>
     <meta charset="utf-8">
@@ -22,20 +22,28 @@
     <meta name="theme-color" content="white">
 
     <!-- TOAST UI Editor CDN URL(CSS)-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-   <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'textarea'});</script>-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />-->
+
+    <!-- Load the CKEditor library -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/ajax.js"></script>
 
     <!-- 이미지처리를 위한 js 파일 -->
-    <script src="../assets/js/upload.js"></script>
+    <script src="../assets/js/imgfile.js"></script>
     <!-- 정렬을 위한 css 파일 -->
     <link rel="stylesheet" href="../assets/css/swith.css">
 
+    <style>
+      .ck-editor__editable[role="textbox"] {
+        /* editing area */
+        min-height: 600px;
+      }
+    </style>
     <!-- Page loading styles-->
     <style>
       .page-loading {
@@ -151,14 +159,14 @@
     <!-- Page wrapper-->
     <main class="page-wrapper">
       <!-- Menu with dropdown + Button -->
-      <header class="navbar navbar-expand-lg bg-light fixed-top">
+      <header class="navbar navbar-expand-lg fixed-top bg-light">
         <div class="container">
-          <a href="#" class="navbar-brand" style="color: #003986">
-      <span class="text-primary flex-shrink-0 me-2">
-        <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-          <path fill= "#57B0E2" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
-        </svg>
-      </span>
+          <a href="/members/main" class="navbar-brand">
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
             S-With
           </a>
           <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
@@ -166,36 +174,64 @@
           </button>
           <nav class="collapse navbar-collapse" id="navbarCollapse1">
             <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a href="#" class="nav-link">매칭라운지</a>
+              <li class="nav-item active">
+                <a href="/macth" class="nav-link">모집라운지</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">서포터팀</a>
+                <a href="/teams" class="nav-link">서포터팀</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">플레이윗미</a>
+                <a href="#" class="nav-link">운동친구모집</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active">스토리</a>
+                <a href="/stories" class="nav-link">스토리</a>
               </li>
+
             </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" class="dropdown-item">매칭라운지 글 쓰기</a></li>
-                  <li><a href="#" class="dropdown-item">서포터팀원 구하기</a></li>
-                  <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
-                  <li class="dropdown-divider"> </li>
-                  <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                  <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-                </ul>
-              </li>
-            </ul>
-            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-              <i class="ai-user me-2 ms-n1"></i>
-              로그인
-            </a>
+
+            <div class="navbar-nav ml-auto">
+              <div class="container d-flex justify-content-right">
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    구인/팀 & 스토리생성
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end my-1">
+                    <a href="#" class="dropdown-item">모집라운지 글 생성</a>
+                    <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                    <a href="#" class="dropdown-item">운동친구 구하기</a>
+                    <div class="dropdown-divider"></div>
+                    <div><hr/></div>
+                    <a href="#" class="dropdown-item">서포터팀 생성</a>
+                    <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
+                  </div>
+                </div>
+              </div>
+              <th:block th:with="user=${#session.getAttribute('user')}">
+                <!--로그인하지 않았을때-->
+                <div th:if="${user == null}">
+                  <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                    <i class="ai-user me-2 ms-n1"></i>
+                    로그인
+                  </a>
+                </div>
+                <!--로그인 했을 때-->
+                <div th:if="${user != null}">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                        <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                        <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                        <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                        <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                        <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </th:block>
+            </div>
           </nav>
         </div>
       </header>
@@ -210,25 +246,45 @@
         </div>
       <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
           <!-- 전송 -->
-          <div class="col-12 pb-3">
-            <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
-              <input type="radio" name="usertype" id="writer-check-user" class="form-check-input" value="개인">
-              <label for="writer-check-user" class="form-check-label pe-5 fs-6">개인</label>
+        <div class="col-12 pb-3">
+          <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
+          <input type="radio" name="usertype" id="user-type" class="form-check-input" value="개인">
+          <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
 
-              <input type="radio" name="usertype" id="writer-check-team" class="form-check-input btn-info" value="서포터팀">
-              <label for="writer-check-team" class="form-check-label fs-6">서포터팀</label>
+          <input type="radio" name="usertype" id="user-type-team" class="form-check-input btn-info" value="서포터팀">
+          <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
+        </div>
 
-          </div>
+        <script>
+          $.ajax({
+            url: '/teams/members',
+            type: 'GET',
+            dataType: 'json',
+            success: function(isMemberList) {
+              console.log(isMemberList);
+              if (isMemberList) {
+                $('#user-type-team').prop('disabled', false);
+              } else {
+                $('#user-type-team').prop('disabled', true);
+                /*$('#user-type').prop('checked', true);*/
+              }
+            },
+            error: function(xhr, status, error) {
+              console.log(xhr.responseText);
+            }
+          });
 
-          <div class="col-12 py-3">
+        </script>
+
+        <div class="col-12 py-3">
             <h3 class="fs-4" style="color: #003986;">스토리 유형</h3>
-            <input type="radio" name="s_category" id="story-check-1" class="form-check-input" value="근황" style="accent-color: #57B0E2;">
+            <input type="radio" name="s_category" id="story-check-1" class="form-check-input" value="근황">
             <label for="story-check-1" class="form-check-label pe-5 fs-6">근황</label>
 
             <input type="radio" name="s_category" id="story-check-4" class="form-check-input" value="홍보">
             <label for="story-check-4" class="form-check-label pe-5 fs-6">홍보</label>
 
-            <input type="radio" name="s_category" id="story-check-2" class="form-check-input" value="유형">
+            <input type="radio" name="s_category" id="story-check-2" class="form-check-input" value="활동후기">
             <label for="story-check-2" class="form-check-label pe-5 fs-6">활동후기</label>
 
             <input type="radio" name="s_category" id="story-check-3" class="form-check-input" value="정보공유">
@@ -249,30 +305,25 @@
             <input class="form-control" type="file" name="image" id="input-image" onchange="readImage(this);">
           </div>
 
-          <input type="text" name="story_writer">
-
           <div class="mb3 pt3">
           <h3 class="fs-4" style="color: #003986">내용</h3>
 
-            <textarea name="content"></textarea>
-
-            <!-- TOAST UI Editor가 들어갈 div태그 -->
-            <div id="editor" name="content"></div>
-          </div>
-            <!-- TOAST UI Editor CDN URL(JS) -->
-            <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-            <!-- TOAST UI Editor 생성 JavaScript 코드 -->
+            <div id="editor" name="content">
+            </div>
             <script>
-              const editor = new toastui.Editor({
-                el: document.querySelector('#editor'),
-                height: '600px',
-                language: 'ko',
-                initialEditType: 'wysiwyg'
-              });
+              let editor;
+              ClassicEditor
+                      .create( document.querySelector( '#editor' ),{
+                        toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
+                      } )
 
+                      .then( newEditor => {
+                        editor = newEditor;
+                      } )
+                      .catch( error => {
+                        console.error( error );
+                      } );
             </script>
-
 
           <div class="d-flex justify-content-center pt-5">
             <div class="pe-2">
@@ -287,13 +338,13 @@
       <script>
           function insertStory() {
 
-            // 파일 업로드 데이터만 FormData 객체에 추가
             let formData = new FormData();
+            /*var content = tinymce.activeEditor.getContent();*/
+            let html = editor.getData();
             formData.append('s_category', $('input[name="s_category"]:checked').val());
             formData.append('title', $('input[name="title"]').val());
-            formData.append('story_writer', $('input[name="story_writer"]').val());
             formData.append('user_type', $('input[name="usertype"]').val());
-            formData.append('content', $('input[name="content"]').val());
+            formData.append('content', html);
             formData.append('image', $('input[name="image"]')[0].files[0]);
 
             $.ajax({
@@ -339,6 +390,24 @@
       </footer>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- 모달 -->
+    <div class="modal" id="mymodal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer flex-column flex-sm-row">
+            <button type="button" class="btn btn-secondary w-100 w-sm-auto mb-3 mb-sm-0" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary w-100 w-sm-auto ms-sm-3">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </body>
 </html>
