@@ -579,9 +579,44 @@
     <div th:if="${user != null}" class="container d-flex justify-content-center">
         <!-- Success solid button -->
         <a type="button" id="applicationButton" class="btn btn-success mt-5" onclick="applicationTeam()">신청하기</a>
+        <a type="button" id="applicationButton" class="btn btn-success mt-5" onclick="goNode()">채팅방입장</a>
     </div>
     </th:block>
 
+    <script>
+        function goNode() {
+            console.log("채팅방입장 버튼 클릭함");
+            fetch('http://localhost:3000', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({chatroom: 'testTeam2'})
+            })
+                .then(response => {
+                    console.log("Response:", response.body);
+                    console.log("성공^^");
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+    </script>
+    <!--<script>
+        function goNode(){
+            const team_title = "testTeam2";
+            $.ajax({
+                url: "/chatrooms",
+                method: "GET",
+                success: function(){
+                    window.location.href='http://localhost:3000?chatroom=' + team_title;
+                },
+                error: function(){
+                    console.log("3000번 이동 실패");
+                }
+            })
+        }
+    </script>-->
 </main>
 <!-- Footer-->
 <footer
