@@ -1,21 +1,19 @@
 package com.sportsmania.swith.controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sportsmania.swith.domain.StoryVO;
-import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.dto.ReplyDTO;
 import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
 import com.sportsmania.swith.service.ReplyService;
 import com.sportsmania.swith.service.StoryService;
+import com.sportsmania.swith.service.TeamMemberService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -24,10 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +40,8 @@ public class StoryController {
     @Autowired
     private final ReplyService replyService;
 
-    public StoryController(StoryService storyService, ReplyService replyService) {
+
+    public StoryController(StoryService storyService, ReplyService replyService, TeamMemberService teamMemberService) {
         this.storyService = storyService;
         this.replyService = replyService;
     }
@@ -54,8 +51,6 @@ public class StoryController {
     public String getRegister() {
 
         return "/story/register";
-
-
     }
 
     @GetMapping(value = "/stories/posts/{story_no}")

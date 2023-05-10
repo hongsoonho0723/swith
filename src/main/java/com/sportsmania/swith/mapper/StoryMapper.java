@@ -29,6 +29,10 @@ public interface StoryMapper {
 
     List<StoryVO> selectList(StoryPageRequestDTO storypageRequestDTO);
 
+    List<StoryVO> select_user_teams(String story_writer);
+
+    List<StoryVO> selectTeamStories(String team_title);
+
     int selectCount(StoryPageRequestDTO storyPageRequestDTO);
 
     //이미지 처리
