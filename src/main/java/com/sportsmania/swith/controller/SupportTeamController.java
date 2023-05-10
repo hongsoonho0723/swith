@@ -287,14 +287,7 @@ public class SupportTeamController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/teams/userInfo")
-    public SupportTeamDTO getUser(){
-       // String userId = authentication.getName();
-        SupportTeamDTO supportTeamDTO = supportTeamService.getOne("testTeam1");
-        log.info("userId cors");
-        return supportTeamDTO;
-    }
+
 
     @GetMapping("/teams/members")
     public ResponseEntity<Boolean> getAllMember(Authentication authentication) {
