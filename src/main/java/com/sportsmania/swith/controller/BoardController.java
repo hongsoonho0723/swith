@@ -37,6 +37,7 @@ public class BoardController {
         }
 //        String a = pageRequestDTO.getB_category();
         model.addAttribute("responseDTO",boardService.getList(pageRequestDTO));
+
         log.info(pageRequestDTO);
         return "match/blog-grid";
 
@@ -47,34 +48,5 @@ public class BoardController {
         return "match/matching-create";
     }
 
-    /*@PostMapping("/match/posts")
-    public String registerPOST(@Valid BoardDTO boardDTO, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
-        log.info("post register...");
-        log.info(boardDTO);
-        String date = boardDTO.getStartdate();
-        String date2 = boardDTO.getEnddate();
-        String d = date.replaceAll("T"," ");
-        String d2 = date2.replaceAll("T"," ");
-        boardDTO.setStartdate(d);
-        boardDTO.setEnddate(d2);
-        log.info(boardDTO);
-        if(bindingResult.hasErrors()) {
-            log.info("register has errors...");
-            List<ObjectError> errList = bindingResult.getAllErrors();
-            for(ObjectError err:errList){
-                String errMsg = ""+err.getDefaultMessage()+"\r\n toString() :"+err.toString();
-                log.info(errMsg);
-                System.out.println(" ");
-            }
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/match/posts";
-
-        }
-        log.info(boardDTO);
-        boardService.register(boardDTO);
-        return "redirect:/match";
-
-    }*/
 
 }

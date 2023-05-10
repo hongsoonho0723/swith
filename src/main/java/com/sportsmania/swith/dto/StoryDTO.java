@@ -29,20 +29,30 @@ public class StoryDTO {
     private String s_category;
 
     @NotEmpty
+    private String user_type;
+
+    @NotEmpty
     private String title;
 
     @NotEmpty
     private String content;
 
-    @Nullable
-    private MultipartFile image;
-
     private String image_main;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
-    private int check;
     private int clicks;
+
+    private int likeCount;
+
+    private int replyCount;
+
+    private double score;
+
+    private String team_title;
+    private String team_memberId;
+    private boolean team_fixed;
+
 
 
 }

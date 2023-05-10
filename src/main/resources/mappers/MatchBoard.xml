@@ -27,7 +27,7 @@
 
 
     <update id="update" parameterType="com.sportsmania.swith.domain.MatchBoardVO">
-        update matchboard set exercise =#{exercise},startdate=#{startdate},enddate=#{enddate},region=#{region},recruitsNum=#{recruitsNum},title=#{title},sportsfacility=#{sportsfacility},supporttype=#{supporttype} where board_no =#{board_no}
+        update matchboard set exercise =#{exercise},content=#{content},facilityadd=#{facilityadd},startdate=#{startdate},enddate=#{enddate},region=#{region},region2=#{region2},recruitsNum=#{recruitsNum},title=#{title},sportsfacility=#{sportsfacility},supporttype=#{supporttype} where board_no =#{board_no}
 
 
     </update>
@@ -35,6 +35,10 @@
 
     <select id="selectOne" resultType="com.sportsmania.swith.domain.MatchBoardVO">
         select *from matchboard where board_no = #{board_no}
+    </select>
+
+    <select id="selectOne1" resultType="com.sportsmania.swith.domain.UserVO">
+        select *from user where userId = #{userId}
     </select>
 
     <delete id="delete">

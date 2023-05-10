@@ -7,18 +7,29 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class StoryVO {
 
     private Long story_no;
     private String story_writer;
+    private String user_type;
     private String s_category;
     private String title;
     private String content;
     private String image_main;
-    // String date;
-    private LocalDate date;
-    private int check; //좋아요
+    private LocalDateTime date;
     private int clicks;
+
+    private int likeCount;
+
+    private int replyCount;
+
+    private double score;
+
+    private String team_title;
+    private String team_memberId;
+    private boolean team_fixed;
 
 
 }

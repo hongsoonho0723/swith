@@ -7,7 +7,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,13 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록
 @Log4j2
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true) //메소드를 사용해서 권한설정
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -35,10 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable(); // csrf요청 비활성화
+        http.csrf().disable();
         http.authorizeRequests()
+                //   .antMatchers("/members/main").hasRole("USER")
+                .antMatchers("/stories/posts").hasRole("USER")
+                .antMatchers("/stories/posts/**").hasRole("USER")
                 .antMatchers("/members/main").permitAll()
-                .antMatchers("/info/**").hasRole("USER")
+                .antMatchers("/teams/posts","/teams/modify","/teams/admin/**","/teams/total/**").hasRole("USER")
                 .antMatchers("/members/signin","/members/signup").anonymous() // 권한이 없는 사용자만 접근 가능
                 .anyRequest().permitAll() // 나머지 페이지에 대한 인증이 필요없음
                 .and()
@@ -58,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/members/main") // 로그아웃 성공시 이동할 URL 지정
                 .invalidateHttpSession(true) // 세션 무효화
                 .deleteCookies("JSESSIONID"); // 쿠키 삭제
-                ;
+
     }
 
     @Bean
@@ -66,6 +69,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("my-remember-me-key", userDetailsService);
         rememberMeServices.setTokenValiditySeconds(60 * 60 * 24 * 7); // 토큰 유효기간 7일로 설정
         return rememberMeServices;
+    }
+
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedDoubleSlash(true);
+        firewall.setAllowSemicolon(true);
+        return firewall;
     }
 }
 
