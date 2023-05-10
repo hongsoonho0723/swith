@@ -22,7 +22,6 @@ public class StoryDTO {
 
     private Long story_no;
 
-    @NotEmpty
     private String story_writer;
 
     @NotEmpty
@@ -49,6 +48,7 @@ public class StoryDTO {
 
     private double score;
 
+    private Long team_no;
     private String team_title;
     private String team_memberId;
     private boolean team_fixed;

@@ -248,32 +248,50 @@
           <!-- 전송 -->
         <div class="col-12 pb-3">
           <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
-          <input type="radio" name="usertype" id="user-type" class="form-check-input" value="개인">
+          <div class="d-flex">
+          <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" onchange="toggleTeamList()">
           <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
 
-          <input type="radio" name="usertype" id="user-type-team" class="form-check-input btn-info" value="서포터팀">
+          <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀" onchange="toggleTeamList()">
           <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
+
+          <div id="team" class="m-lg-2" style="width: 200px"></div>
+          </div>
         </div>
 
         <script>
-          $.ajax({
-            url: '/teams/members',
-            type: 'GET',
-            dataType: 'json',
-            success: function(isMemberList) {
-              console.log(isMemberList);
-              if (isMemberList) {
-                $('#user-type-team').prop('disabled', false);
-              } else {
-                $('#user-type-team').prop('disabled', true);
-                /*$('#user-type').prop('checked', true);*/
-              }
-            },
-            error: function(xhr, status, error) {
-              console.log(xhr.responseText);
-            }
-          });
+          function toggleTeamList() {
+            var userType = $('input[name="user_type"]:checked').val();
 
+            if (userType === '개인') {
+              $('#team').empty(); // 팀 목록을 비움
+            } else {
+              $.ajax({
+                url: '/teams/list',
+                type: 'GET',
+                dataType: 'json',
+                success: function (teamList) {
+                  console.log(teamList);
+                  if (teamList && teamList.length > 0) {
+                    $('#user-type-team').prop('disabled', false);
+                    var optionsHtml = '<select name="team_title" class="form-select">';
+                    optionsHtml += '<option value="">팀 목록</option>';
+                    teamList.forEach(function (team) {
+                      optionsHtml += '<option value="' + team.team_no + '">' + team.team_title + '</option>';
+                    });
+                    optionsHtml += '</select>';
+                    $('#team').html(optionsHtml); // 팀 목록을 채움
+                  } else {
+                    $('#user-type-team').prop('disabled', true);
+                    $('#team').empty(); // 팀 목록을 비움
+                  }
+                },
+                error: function (xhr, status, error) {
+                  console.log(xhr.responseText);
+                }
+              });
+            }
+          }
         </script>
 
         <div class="col-12 py-3">
@@ -339,13 +357,21 @@
           function insertStory() {
 
             let formData = new FormData();
-            /*var content = tinymce.activeEditor.getContent();*/
+
             let html = editor.getData();
             formData.append('s_category', $('input[name="s_category"]:checked').val());
             formData.append('title', $('input[name="title"]').val());
-            formData.append('user_type', $('input[name="usertype"]').val());
+            formData.append('user_type', $('input[name="user_type"]:checked').val());
             formData.append('content', html);
             formData.append('image', $('input[name="image"]')[0].files[0]);
+            /*var selectedTeamNo = $('select[name="team_title"]').find(':selected').val();
+            formData.append('team_no', selectedTeamNo);*/
+            var userType = $('input[name="user_type"]:checked').val();
+            if (userType !== '개인') {
+              var selectedTeamNo = $('select[name="team_title"]').val();
+              formData.append('team_no', selectedTeamNo);
+            }
+
 
             $.ajax({
               type: 'POST',
