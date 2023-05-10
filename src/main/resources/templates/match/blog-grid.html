@@ -237,7 +237,7 @@
     <!-- Page title + filters-->
     <div class="row align-items-center gy-2 mb-4 pb-1 pb-sm-2 pb-lg-3">
       <div class="col-lg-5">
-        <h1 class="mb-lg-0">모집라운지</h1>
+        <a href="/match"><h1 class="mb-lg-0">모집라운지</h1></a>
       </div>
 
 
@@ -246,12 +246,315 @@
       <form action="/match" method="get">
       <div class="col-xl-2 offset-xl-1 col-lg-3 col-sm-5">
         <select name="supporttype" class="form-select">
-          <option>전체</option>
-          <option>이동지원</option>
-          <option>체육활동지원</option>
-          <option>기타</option>
-          <!--              <option>Travel &amp; Vacation</option>-->
+          <option selected disabled hidden value="">지원종류</option>
+          <option value="이동지원">이동지원</option>
+          <option value="활동지원">활동지원</option>
+          <option value="기타지원">기타지원</option>
         </select>
+        <select name="b_category" class="form-select">
+          <option selected disabled hidden value="">구인종류</option>
+          <option value="서포터구인">서포터구인</option>
+          <option value="체육활동지원">체육활동지원</option>
+        </select>
+<!--        <input type="checkbox" name="b_categories" value="서포터구인">서포터구인-->
+<!--        <input type="checkbox" name="b_categories" value="체육활동지원">체육활동지원-->
+
+        <!--지역 검색-->
+        <select name="region" id="city" onchange="updateDistricts(); updateDistricts1();">
+          <option selected disabled hidden value="">도시 선택</option>
+          <option value="seoul">서울</option>
+          <option value="gyeonggi">경기</option>
+          <option value="incheon">인천</option>
+          <option value="busan">부산</option>
+          <option value="daegu">대구</option>
+          <option value="gwangju">광주</option>
+          <option value="daejeon">대전</option>
+          <option value="ulsan">울산</option>
+          <option value="sejong">세종</option>
+          <option value="gangwon">강원</option>
+          <option value="gyeongnam">경남</option>
+          <option value="gyeongbuk">경북</option>
+          <option value="jeonnam">전남</option>
+          <option value="jeonbuk">전북</option>
+          <option value="chungnam">충남</option>
+          <option value="chungbuk">충북</option>
+          <option value="jeju">제주</option>
+        </select>
+
+
+        <select name="region2" id="district">
+          <option value="">구 선택</option>
+        </select>
+
+        <script>
+          const districtsByCity = {
+            seoul: [
+              "강남구",
+              "강동구",
+              "강북구",
+              "강서구",
+              "관악구",
+              "광진구",
+              "구로구",
+              "금천구",
+              "노원구",
+              "도봉구",
+              "동대문구",
+              "동작구",
+              "마포구",
+              "서대문구",
+              "서초구",
+              "성동구",
+              "성북구",
+              "송파구",
+              "양천구",
+              "영등포구",
+              "용산구",
+              "은평구",
+              "종로구",
+              "중구",
+              "중랑구",
+            ],
+            gyeonggi: [
+              "가평군",
+              "고양시",
+              "과천시",
+              "광명시",
+              "광주시",
+              "구리시",
+              "군포시",
+              "김포시",
+              "남양주시",
+              "동두천시",
+              "부천시",
+              "성남시",
+              "수원시",
+              "시흥시",
+              "안산시",
+              "안성시",
+              "안양시",
+              "양주시",
+              "양평군",
+              "여주시",
+              "연천군",
+              "오산시",
+              "용인시",
+              "의왕시",
+              "의정부시",
+              "이천시",
+              "파주시",
+              "평택시",
+              "포천시",
+              "하남시",
+              "화성시",
+            ],
+
+            incheon: [
+              "강화군",
+              "계양구",
+              "남동구",
+              "동구",
+              "미추홀구",
+              "부평구",
+              "서구",
+              "연수구",
+              "옹진군",
+              "중구",
+            ],
+            busan: [
+              "강서구",
+              "금정구",
+              "기장군",
+              "남구",
+              "동구",
+              "동래구",
+              "부산진구",
+              "북구",
+              "사상구",
+              "사하구",
+              "서구",
+              "수영구",
+              "연제구",
+              "영도구",
+              "중구",
+              "해운대구",
+            ],
+
+            daegu: [
+              "남구",
+              "달서구",
+              "달성군",
+              "동구",
+              "북구",
+              "서구",
+              "수성구",
+              "중구",
+            ],
+            gwangju: ["광산구", "남구", "동구", "북구", "서구"],
+            daejeon: ["대덕구", "동구", "서구", "유성구", "중구"],
+            ulsan: ["남구", "동구", "북구", "울주군", "중구"],
+            sejong: ["금산", "부강", "청원"],
+            gangwon: [
+              "강릉시",
+              "고성군",
+              "동해시",
+              "삼척시",
+              "속초시",
+              "양구군",
+              "양양군",
+              "영월군",
+              "원주시",
+              "인제군",
+              "정선군",
+              "철원군",
+              "춘천시",
+              "태백시",
+              "평창군",
+              "홍천군",
+              "화천군",
+              "횡성군",
+            ],
+            gyeongnam: [
+              "거제시",
+              "거창군",
+              "고성군",
+              "김해시",
+              "남해군",
+              "밀양시",
+              "사천시",
+              "산청군",
+              "양산시",
+              "의령군",
+              "진주시",
+              "창녕군",
+              "창원시",
+              "통영시",
+              "하동군",
+              "함안군",
+              "함양군",
+              "합천군",
+            ],
+            gyeongbuk: [
+              "경산시",
+              "경주시",
+              "고령군",
+              "구미시",
+              "군위군",
+              "김천시",
+              "문경시",
+              "봉화군",
+              "상주시",
+              "성주군",
+              "안동시",
+              "영덕군",
+              "영양군",
+              "영주시",
+              "영천시",
+              "예천군",
+              "울릉군",
+              "울진군",
+              "의성군",
+              "청도군",
+              "청송군",
+              "칠곡군",
+              "포항시",
+            ],
+            jeonnam: [
+              "강진군",
+              "고흥군",
+              "곡성군",
+              "광양시",
+              "구례군",
+              "나주시",
+              "담양군",
+              "목포시",
+              "무안군",
+              "보성군",
+              "순천시",
+              "신안군",
+              "여수시",
+              "영광군",
+              "영암군",
+              "완도군",
+              "장성군",
+              "장흥군",
+              "진도군",
+              "함평군",
+              "해남군",
+              "화순군",
+            ],
+            jeonbuk: [
+              "고창군",
+              "군산시",
+              "김제시",
+              "남원시",
+              "무주군",
+              "부안군",
+              "순창군",
+              "완주군",
+              "익산시",
+              "임실군",
+              "장수군",
+              "전주시",
+              "정읍시",
+              "진안군",
+            ],
+            chungnam: [
+              "계룡시",
+              "공주시",
+              "금산군",
+              "논산시",
+              "당진시",
+              "보령시",
+              "부여군",
+              "서산시",
+              "서천군",
+              "아산시",
+              "예산군",
+              "천안시",
+              "청양군",
+              "태안군",
+              "홍성군",
+            ],
+            chungbuk: [
+              "괴산군",
+              "단양군",
+              "보은군",
+              "영동군",
+              "옥천군",
+              "음성군",
+              "제천시",
+              "증평군",
+              "진천군",
+              "청주시",
+              "충주시",
+            ],
+            jeju: ["제주시", "서귀포시"],
+          };
+
+          function updateDistricts() {
+            const citySelect = document.getElementById("city");
+            const districtSelect = document.getElementById("district");
+
+            const selectedCity = citySelect.value;
+            const districts = districtsByCity[selectedCity];
+
+
+            // 기존 옵션 제거
+            districtSelect.innerHTML = "";
+
+            // 새로운 옵션 생성
+            if (districts) {
+              for (const district of districts) {
+                const option = document.createElement("option");
+                option.value = district;
+                option.innerText = district;
+                districtSelect.appendChild(option);
+              }
+            }
+          }
+        </script>
+        <!--지역검색 여기까지-->
       </div>
       <div class="col-lg-4 col-sm-7">
         <div class="position-relative">
@@ -273,9 +576,10 @@
           <input type="checkbox" name="finished" value="" >모집완료
         </div>
         <div class="input-group mb-3 dueDateDiv">
-          <input type="date" name="from" class="form-control" value="${pageRequestDTO.from}">
-          <input type="date" name="to" class="form-control"  value="${pageRequestDTO.to}">
+          <input type="date" name="startdate" class="form-control" value="">
+          <input type="date" name="enddate" class="form-control"  value="">
         </div>
+
       </form>
     </div>
     <!-- Blog grid (masonry)-->
@@ -284,42 +588,43 @@
     <!-- Services grid-->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 pb-sm-3 pb-md-4 pb-xl-5">
       <!-- Item-->
-      <div class="col">
-        <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" >
-          <div class="card-body pt-3 pb-0 pr-4">
-
-            <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-            <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-
-            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-
-            <p class="card-text">활동날짜 2023.10.22</p>
-            <p class="card-text">마감일 2023.10.22</p>
-            <a class="h4 card-title mt-0" href="blog">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</a>
-          </div>
-          <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-            <div class="container d-flex justify-content-center">
-                    <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                    <i class="ai-user">nickname</i>
-                    </span>
-              <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                        <i class="ai-chat"> 4/5</i>
-                      </span>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- item -->
       <tbody th:with="link = ${pageRequestDTO.getLink()}">
       <div class="col" th:each="dto:${responseDTO.dtoList}">
         <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" >
           <div class="card-body pt-3 pb-0 pr-4">
 
-            <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]]</p>
+            <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
 
-            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
+            <a id="starbutton" class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="likefunction()">
+              <i id="star" class="ai-star">찜</i>
+              </a>
+<!--            <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button" onclick="unlikefunction()"><i class="ai-star-filled">찜</i></button>-->
+            <script>
+              function likefunction(){
+                const boardJjimDTO = {
+                  "userid": "user1",
+                  "board_no": [[${dto.board_no}]]
+                }
+                $.ajax({
+                  url : "/match/wish",
+                  type : "POST",
+                  data : JSON.stringify(boardJjimDTO),
+                  contentType : "application/json",
+                  success : function (){
+                    console.log("성공")
+                    const i = $("<i class='ai-star-filled'>찜</i>");
+                    $("#star").remove();
+                    $("#starbutton").append(i);
+                  },
+                  error : function (){
+                    console.log("실패")
+                  }
 
+                })
+              }
+            </script>
             <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
             <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
             <a class="h4 card-title mt-0" th:href="|@{/match/blog-single-v1(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
@@ -371,24 +676,7 @@
       </div>
     </div>
     <!-- Pagination-->
-    <!--<div class="float-end">
-      <ul class="pagination flex-wrap">
 
-        <li class="page-item" th:if="${responseDTO.prev}">
-          <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
-        </li>
-
-        <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-          <li th:class="${responseDTO.page == i}?'page-item active':'page-item'" >
-            <a class="page-link" th:href="@{/match?pageNum=${i}}"  th:data-num="${i}">[[${i}]]</a>
-          </li>
-        </th:block>
-
-        <li class="page-item" th:if="${responseDTO.next}">
-          <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
-        </li>
-      </ul>
-    </div>-->
     <script>
     //페이징 처리
     document.querySelector(".pagination").addEventListener("click", function (e) {
@@ -410,6 +698,27 @@
 
     },false)
     </script>
+
+    <!--ajax-->
+    <!--<button onclick="함수명">함수명 호출</button>-->
+    <!--<script>
+      const 함수명 =()=>{
+        $.ajax({
+          //요청 방식 : get
+          //요청 주소 : /ex01
+          type: "get",
+          url: "/ex01",
+          //요청 성공시
+          success: function (res){
+            console.log("성공",res);
+          },
+          //요청 실패시
+          error: function (){
+            console.log("실패");
+          }
+        })
+      }
+    </script>-->
   </div>
 </main>
 <!-- Subscription-->
