@@ -5,8 +5,8 @@
 
 <mapper namespace="com.sportsmania.swith.mapper.UserMapper">
     <insert id="join" parameterType="com.sportsmania.swith.dto.UserDTO">
-        insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType,auth)
-        values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType},#{auth});
+        insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType,auth,gender)
+        values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType},#{auth},#{gender});
     </insert>
 
     <select id="findByIdPW" resultType="com.sportsmania.swith.dto.UserDTO" parameterType="String">

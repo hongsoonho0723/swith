@@ -46,6 +46,7 @@ public class CheckController {
         boolean duplicate = userService.checkDuplicateId(userId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("duplicate", duplicate);
+
         log.info(response);
         return response;
     }
