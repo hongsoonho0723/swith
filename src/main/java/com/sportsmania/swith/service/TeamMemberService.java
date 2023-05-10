@@ -1,5 +1,6 @@
 package com.sportsmania.swith.service;
 
+import com.sportsmania.swith.domain.TeamMemberVO;
 import com.sportsmania.swith.dto.TeamMemberDTO;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ public interface TeamMemberService {
 
     List<TeamMemberDTO> getMember(String team_title);
     List<TeamMemberDTO> getAll(String team_title);
+
+    List<TeamMemberDTO> getAllMember();
 
     void modify(TeamMemberDTO teamMemberDTO);
 }

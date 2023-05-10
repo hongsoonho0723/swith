@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface StoryService {
 
-    void register(StoryDTO storyDTO) throws IOException;
 
     void registerWithFile(StoryDTO storyDTO, MultipartFile file) throws  IOException;
 
@@ -21,7 +20,7 @@ public interface StoryService {
 
     void like(Long story_no, String userid);
 
-    void modify(StoryDTO storyDTO);
+    void modify(StoryDTO storyDTO, MultipartFile file) throws IOException;
 
     StoryPageResponseDTO<StoryDTO> getList(StoryPageRequestDTO storyPageRequestDTO);
 

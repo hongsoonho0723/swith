@@ -15,7 +15,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,6 +58,18 @@ public class StoryController {
 
     }
 
+    @GetMapping(value = "/stories/posts/{story_no}")
+    public String getModify(@PathVariable("story_no") Long story_no,  Model model) {
+        StoryDTO storyDTO = storyService.getOne(story_no);
+        log.info(storyDTO);
+
+        model.addAttribute("dto",storyDTO);
+
+        return "story/modify";
+    }
+
+
+
     @GetMapping("/stories")
     public String list(StoryPageRequestDTO storyPageRequestDTO, BindingResult bindingResult, Model model) {
         log.info(storyPageRequestDTO);
@@ -91,22 +106,13 @@ public class StoryController {
         return "/story/read";
     }
 
-    @GetMapping("/stories/posts/{story_no}")
-    public String getModify(@PathVariable("story_no") Long story_no,  Model model) {
-        StoryDTO storyDTO = storyService.getOne(story_no);
-        log.info(storyDTO);
-
-        model.addAttribute("dto",storyDTO);
-
-        return "/story/modify";
-    }
-
 
     @RestController
     public  class StoryRestController {
         @PostMapping("/stories/posts")
-        public ResponseEntity registerPOST(@RequestParam("image") MultipartFile file, @ModelAttribute StoryDTO storyDTO) throws IOException {
-
+        public ResponseEntity registerPOST(@RequestParam("image") MultipartFile file, @ModelAttribute StoryDTO storyDTO, Authentication authentication) throws IOException {
+            String user_id = authentication.getName();
+            storyDTO.setStory_writer(user_id);
             storyService.registerWithFile(storyDTO, file);
 
             return new ResponseEntity(storyDTO, HttpStatus.OK);
@@ -128,9 +134,12 @@ public class StoryController {
             return ResponseEntity.noContent().build();
         }
 
+        @PreAuthorize("principal.username == #sotrydDTO.story_writer")
         @PutMapping("/stories/posts/{story_no}")
-        public ResponseEntity<StoryDTO> modifyStory(@RequestBody StoryDTO storyDTO) {
-            storyService.modify(storyDTO);
+        public ResponseEntity<StoryDTO> modifyStory(@RequestParam("image") MultipartFile file,@RequestBody StoryDTO storyDTO, @PathVariable("story_no") Long story_no) throws IOException {
+            storyDTO.setStory_no(story_no);
+            storyService.modify(storyDTO, file);
+            log.info(storyDTO);
 
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -140,6 +149,7 @@ public class StoryController {
            List<StoryVO> stories = storyService.getPopularStories();
             return new ResponseEntity<>(stories,HttpStatus.OK);
         }
+
     }
 
 
