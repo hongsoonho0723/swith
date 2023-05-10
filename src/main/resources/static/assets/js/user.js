@@ -1,34 +1,3 @@
-//////// 타입 전송
-const radioButtons = document.querySelectorAll('input[name="joinType"]');
-let joinType = '';
-//// 서포터 장애인 선택시 활성 비활성
-const disableTypeInput = document.querySelector('input[name="disableType"]');
-const gradeInput = document.querySelector('input[name="grade"]');
-const regionInputs = document.querySelectorAll('input[name="region"]');
-const preferenceInput = document.querySelector('input[name="preference"]');
-
-radioButtons.forEach((radioButton) => {
-    radioButton.addEventListener('change', (event) => {
-        joinType = event.target.value;
-
-        if (event.target.value === '1') {
-            // 1번 옵션 선택 시, 모든 인풋 요소를 활성화
-            disableTypeInput.removeAttribute('disabled');
-            gradeInput.removeAttribute('disabled');
-            regionInputs.forEach((input) => {
-                input.removeAttribute('disabled');
-            });
-            preferenceInput.removeAttribute('disabled');
-        } else if (event.target.value === '2') {
-            // 2번 옵션 선택 시, 모든 인풋 요소를 비활성화
-            disableTypeInput.setAttribute('disabled', true);
-            gradeInput.setAttribute('disabled', true);
-            preferenceInput.setAttribute('disabled', true);
-        }
-        console.log(`선택된 옵션: ${joinType}`);
-    });
-});
-
 let idCheck = true;
 let emailCheck = true;
 let nicknameCheck = true;
@@ -48,9 +17,17 @@ function submitForms() {
 
     const passwordInput = document.querySelector('input[name="pwd"]');
     const passwordConfirmInput = document.querySelector('input[name="pwd-confirm"]');
+
+    var check1 = /^[a-zA-Z0-9]{8,16}$/;
+    var reg = /^\d{11}$/;
+    var phone = document.getElementById("phone");
     if(idCheck){
         event.preventDefault();
         alert("아이디를 확인해주세요");
+    }
+    else if(!check1.test(passwordInput)){
+        event.preventDefault();
+        alert('비밀번호는 8자리이상16자리이하 영문 숫자로 구성해주세요');
     }
     else if (!checkbox1.checked || !checkbox2.checked || !checkbox3.checked) {
         // 하나라도 체크되어 있지 않으면 폼 전송 막고 알림창 출력
@@ -64,6 +41,10 @@ function submitForms() {
     else if(nicknameCheck){
         event.preventDefault();
         alert("닉네임을 확인해주세요");
+    }
+    else if(!reg.test(phone)){
+        event.preventDefault();
+        alert("휴대폰번호는 숫자만 입력해주세요");
     }
     else if(passwordInput.value !== passwordConfirmInput.value){
         event.preventDefault();
@@ -88,9 +69,11 @@ function submitForms() {
 
 //중복체크
 $(document).ready(function() {
-    // 아이디 중복체크
+
+    // 아이디 유효성 검사
     $('#userId').blur(function() {
         var userId = $(this).val();
+        var check1 = /^[a-zA-Z0-9]{8,16}$/;
         $.ajax({
             url: '/checkDuplicateId',
             data: {userId: userId},
@@ -100,8 +83,16 @@ $(document).ready(function() {
                     idCheck = true;
                     alert('중복된 아이디입니다.');
                 } else {
-                    idCheck = false;
-                    alert('사용가능한 아이디 입니다.');
+                    if(userId === ""){
+                        alert('아이디를 입력하세요');
+                    }else{
+                        if(!check1.test(userId)){
+                            alert('아이디는 8자리이상16자리이하 영문 숫자로 구성해주세요');
+                        }else{
+                            idCheck = false;
+                            alert('사용가능한 아이디 입니다.');
+                        }
+                    }
                 }
             },
             error: function() {
@@ -109,6 +100,8 @@ $(document).ready(function() {
             }
         });
     });
+
+
 
     // 닉네임
     $('#nickname').blur(function() {
@@ -122,8 +115,12 @@ $(document).ready(function() {
                     nicknameCheck = true;
                     alert('중복된 닉네임입니다.');
                 } else {
-                    nicknameCheck = false;
-                    alert('사용가능한 닉네임 입니다.');
+                    if (nickname === ""){
+                        alert('닉네임을 입력해주세요');
+                    }else{
+                        nicknameCheck = false;
+                        alert('사용가능한 닉네임 입니다.');
+                    }
                 }
             },
             error: function() {
@@ -132,9 +129,10 @@ $(document).ready(function() {
         });
     });
 
-    // 이메일
+    // 이메일 유효성 검사
     $('#email').blur(function() {
         var email = $(this).val();
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         $.ajax({
             url: '/check-email',
             data: {email: email},
@@ -144,8 +142,16 @@ $(document).ready(function() {
                     emailCheck = true;
                     alert('중복된 이메일입니다.');
                 } else {
-                    emailCheck = false;
-                    alert('사용가능한 이메일 입니다.');
+                    if(email === ""){
+                        alert('이메일을 입력해 주세요');
+                    }else{
+                        if(!emailRegex.test(email)){
+                            alert('이메일 형식으로 입력해주세요');
+                        }else{
+                            emailCheck = false;
+                            alert('사용가능한 이메일 입니다.');
+                        }
+                    }
                 }
             },
             error: function() {
@@ -172,6 +178,17 @@ $(document).ready(function() {
         });
     });
 
+    $('input[type=radio][name="joinType"]').change(function() {
+        const disabledTypeInput = document.querySelector('input[name="disabledType"]');
+        const gradeInput = document.querySelector('input[name="grade"]');
+        if($(this).val() === "1"){
+            disabledTypeInput.disabled = false;
+            gradeInput.disabled = false;
+        }else{
+            disabledTypeInput.disabled = true;
+            gradeInput.disabled = true;
+        }
 
+    });
 
 });
