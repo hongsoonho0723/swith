@@ -4,19 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoryFileDTO {
+public class LikesDTO {
 
-    //private String filename;
+    private Long id;
 
-    private MultipartFile filename;
-
-    private MultipartFile originalFileName;
+    private String userId;
 
     private Long story_no;
 

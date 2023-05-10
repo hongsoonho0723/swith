@@ -7,6 +7,9 @@
     <select id="getTime" resultType="string">
         select now()
     </select>
+    <select id="selectPage" resultType="com.sportsmania.swith.domain.SupportTeamVO">
+        select * from supportteam where rownum > #{rownum} order by rownum limit 3
+    </select>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.SupportTeamVO">
         insert into supportteam(team_title,team_writer,content,sido,sigungu,member_num,image_team,simple_content,inquiry,deadline)
@@ -18,6 +21,16 @@
     <select id="selectOne" resultType="com.sportsmania.swith.domain.SupportTeamVO">
         select * from supportteam where team_title = #{team_title}
     </select>
+    <select id="selectSearch" resultType="com.sportsmania.swith.domain.SupportTeamVO">
+        select * from supportteam where 1 = 1
+        <if test="finished != null">
+        AND finished = #{finished}
+    </if>
+        <if test="sido != null and sido !=''">
+            AND sido = #{sido}
+        </if>
+
+    </select>
     <delete id="delete">
         delete from supportteam where team_title = #{team_title}
     </delete>
@@ -25,4 +38,5 @@
         update supportteam set sido = #{sido}, sigungu = #{sigungu}, deadline = #{deadline}, member_num = #{member_num}, finished=#{finished},
                                inquiry=#{inquiry}, image_team=#{image_team},simple_content = #{simple_content}, content = #{content} where team_title = #{team_title}
     </update>
+
 </mapper>

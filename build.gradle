@@ -53,7 +53,6 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
-    implementation 'org.springframework.boot:spring-boot-starter-mail' // 이메일 발송을 위한 그래들
 }
 
 tasks.named('test') {
