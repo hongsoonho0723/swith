@@ -20,6 +20,10 @@ public interface TeamMemberMapper {
 
     List<TeamMemberVO> selectAll(String team_title);
 
+    List<TeamMemberVO> selectAllMember();
+
     void update(TeamMemberVO teamMemberVO);
+
+
 
 }

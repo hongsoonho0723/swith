@@ -26,6 +26,7 @@ public class MatchBoardDTO {
     private String enddate;
     @NotEmpty
     private String region;
+    private String region2;
     @NotNull
     private int recruitsNum;
     @NotEmpty
@@ -41,7 +42,7 @@ public class MatchBoardDTO {
     private int clicks;
     private String sportsfacility;
     private String supporttype;
-
+    private String facilityadd;
 
 /*
 

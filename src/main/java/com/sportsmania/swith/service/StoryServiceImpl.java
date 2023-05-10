@@ -29,48 +29,6 @@ public class StoryServiceImpl implements StoryService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void register(StoryDTO storyDTO) {
-
-        log.info("register....service");
-        //실제 저장 경로
-        String uploadPath = "C:\\upload\\";
-
-       /* String originalImgName = storyDTO.getImage().getOriginalFilename();
-
-        //확장자 추출
-        String extension = originalImgName.substring(originalImgName.lastIndexOf("."));
-
-        String saveName = UUID.randomUUID() + extension;
-
-        //파일 불러올 때 사용할 파일 경로
-        Path savePath = Paths.get(uploadPath, saveName);
-
-        try {
-            storyDTO.getImage().transferTo(savePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        StoryVO storyVO = StoryVO.builder()
-                .story_no(storyDTO.getStory_no())
-                .story_writer(storyDTO.getStory_writer())
-                .s_category(storyDTO.getS_category())
-                .title(storyDTO.getTitle())
-                .content(storyDTO.getContent())
-                .image_main(saveName) // 이미지 파일명 저장
-                .date(storyDTO.getDate())
-                .check(storyDTO.getCheck())
-                .clicks(storyDTO.getClicks())
-                .build();
-
-
-        log.info(storyVO);
-
-        storyMapper.insert(storyVO);*/
-
-    }
-
-    @Override
     public void registerWithFile(StoryDTO storyDTO, MultipartFile file) throws IOException {
         //String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\storyfile\\";
 
@@ -116,7 +74,18 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public void modify(StoryDTO storyDTO) {
+    public void modify(StoryDTO storyDTO, MultipartFile file) throws IOException {
+        String uploadPath = "C:\\upload\\";
+
+        String originalFileName = file.getOriginalFilename();
+
+        String filename = UUID.randomUUID() + originalFileName;
+
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(uploadPath + filename);
+        Files.write(path, bytes);
+
+        storyDTO.setImage_main(filename);
         StoryVO storyVO=  modelMapper.map(storyDTO, StoryVO.class );
         storyMapper.update(storyVO);
     }
@@ -145,17 +114,7 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public StoryDTO getOne(Long story_no) {
         StoryVO storyVO = storyMapper.selectOne(story_no);
-        //StoryDTO storyDTO = modelMapper.map(storyVO, StoryDTO.class);
-        StoryDTO storyDTO = StoryDTO.builder()
-                .story_no(storyVO.getStory_no())
-                .story_writer(storyVO.getStory_writer())
-                .s_category(storyVO.getS_category())
-                .title(storyVO.getTitle())
-                .content(storyVO.getContent())
-                .image_main(storyVO.getImage_main())
-                .date(storyVO.getDate())
-                .clicks(storyVO.getClicks())
-                .build();
+        StoryDTO storyDTO = modelMapper.map(storyVO, StoryDTO.class);
 
 
         return storyDTO;

@@ -200,26 +200,6 @@
     
           </ul>
           
-          <div class="navbar-nav ml-auto">
-            <div class="container d-flex justify-content-right">
-              <th:block th:with="user=${#session.getAttribute('user')}">
-
-            <div th:if="${user != null}" class="btn-group dropdown">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                구인/팀 & 스토리생성
-              </button>
-              <div class="dropdown-menu dropdown-menu-end my-1">
-                <a href="#" class="dropdown-item">매칭라운지 글 생성</a>
-                <a href="" class="dropdown-item">서포터팀원 구하기</a>
-                <a href="#" class="dropdown-item">플레이메이트 구하기</a>
-                <div class="dropdown-divider"></div>
-                <div><hr/></div> 
-                <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
-                <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
-              </div>
-            </div>
-              </th:block>
-          </div>
           <th:block th:with="user=${#session.getAttribute('user')}">
             <!--로그인하지 않았을때-->
             <div th:if="${user == null}">
@@ -230,6 +210,23 @@
             </div>
             <!--로그인 했을 때-->
             <div th:if="${user != null}">
+              <div class="navbar-nav ml-auto">
+              <div class="container d-flex justify-content-right">
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    구인/팀 & 스토리생성
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end my-1">
+                    <a href="#" class="dropdown-item">매칭라운지 글 생성</a>
+                    <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                    <a href="#" class="dropdown-item">플레이메이트 구하기</a>
+                    <div class="dropdown-divider"></div>
+                    <div><hr/></div>
+                    <a href="#" class="dropdown-item">서포터팀 생성</a>
+                    <a href="#" class="dropdown-item">스토리 생성</a>
+                  </div>
+                </div>
+              </div>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
@@ -244,8 +241,8 @@
                 </li>
               </ul>
             </div>
-          </th:block>
           </div>
+          </th:block>
         </nav>
       </div>
     </header>

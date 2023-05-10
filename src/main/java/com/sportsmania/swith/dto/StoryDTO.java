@@ -28,6 +28,7 @@ public class StoryDTO {
     @NotEmpty
     private String s_category;
 
+    @NotEmpty
     private String user_type;
 
     @NotEmpty
@@ -47,6 +48,10 @@ public class StoryDTO {
     private int replyCount;
 
     private double score;
+
+    private String team_title;
+    private String team_memberId;
+    private boolean team_fixed;
 
 
 

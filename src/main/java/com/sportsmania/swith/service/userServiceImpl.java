@@ -1,5 +1,6 @@
 package com.sportsmania.swith.service;
 
+import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -58,5 +59,10 @@ public class userServiceImpl implements UserService {
     @Override
     public void addAuth(UserDTO dto) {
         userMapper.addAuth(dto);
+    }
+
+    @Override
+    public UserVO userCheck(String name, String email) {
+        return userMapper.userCheck(name,email);
     }
 }

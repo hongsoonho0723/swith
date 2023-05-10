@@ -27,5 +27,9 @@ public class StoryVO {
 
     private double score;
 
+    private String team_title;
+    private String team_memberId;
+    private boolean team_fixed;
+
 
 }
