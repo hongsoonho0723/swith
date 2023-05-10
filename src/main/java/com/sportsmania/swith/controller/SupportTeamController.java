@@ -31,7 +31,7 @@ public class SupportTeamController {
     private final SupportTeamService supportTeamService;
     private final TeamMemberService teamMemberService;
 
-    @GetMapping("/teams/posts")
+    @GetMapping("/posts")
     public ModelAndView viewResgister() {
         ModelAndView mv = new ModelAndView("/teams/sp-register");
 
@@ -119,7 +119,7 @@ public class SupportTeamController {
         }
     }*/
 
-    @GetMapping("/teams")
+    @GetMapping("teams")
     public ModelAndView viewList() {
         List<SupportTeamDTO> dtoList = supportTeamService.getAll();
         ModelAndView mv = new ModelAndView("/teams/sp-list");
@@ -257,7 +257,7 @@ public class SupportTeamController {
     }*/
 
 
-    @GetMapping("/teams/admin/{team_title}")
+    @GetMapping("/admin/{team_title}")
     public ModelAndView viewModify(@PathVariable("team_title") String team_title) {
         SupportTeamDTO supportTeamDTO = supportTeamService.getOne(team_title);
         log.info("modify view" + supportTeamDTO);
@@ -281,12 +281,5 @@ public class SupportTeamController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/teams/userInfo")
-    public SupportTeamDTO getUser(){
-       // String userId = authentication.getName();
-        SupportTeamDTO supportTeamDTO = supportTeamService.getOne("testTeam1");
-        log.info("userId cors");
-        return supportTeamDTO;
-    }
+
 }
