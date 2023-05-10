@@ -652,15 +652,32 @@
 <!--            <span type="hidden" id="board_writer" th:value="${dto.board_writer}"></span>-->
 <!--            <span  id="board_no" value="">[[${dto.board_no}]]</span>-->
 <!--            <span  id="board_writer" value="" >[[${dto.board_writer}]]</span>-->
+
+
+
             <span id="board_no" data-value="[[${dto.board_no}]]"></span>
             <span id="board_writer" data-value="[[${dto.board_writer}]]"></span>
 
             <div class="mt-auto ml-auto">
 <!--              <button class=" btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5 " type="button" th:attr="data-board-no=${dto.board_no}">-->
 <!--              <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no}" >-->
-              <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
-                <i th:id="${dto.board_writer}" class="ai-star">찜</i>
-              </button>
+
+<!--                <i th:id="${dto.board_writer}" class="ai-star">찜</i>-->
+              <!--<button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
+                <i class="ai-star">찜</i>
+              </button>-->
+              <th:block th:with="user=${#session.getAttribute('user')}">
+                <div th:if="${user == null}">
+                    <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" onclick="alert('로그인 후 이용해주세요.');">
+                      <i class="ai-star">찜</i>
+                    </button>
+                </div>
+                <div th:if="${user != null}">
+                    <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
+                      <i class="ai-star">찜</i>
+                    </button>
+                </div>
+              </th:block>
             </div>
 
 
@@ -688,21 +705,21 @@
         $(".starbutton").click(function () {
           const $this = $(this); // $(this) 객체를 변수 $this에 저장
           const boardNo = $this.data('board-no');
-          const boardWriter = $this.data('board-writer');
+          // const boardWriter = $this.data('board-writer');
           console.log(boardNo);
-          console.log(boardWriter);
+          // console.log(boardWriter);
           const boardJjimDTO = {
-            "userid": boardWriter,
+            // "userid": boardWriter,
             "board_no": boardNo,
           }
 
           $.ajax({
             url: "/match/wish",
             type: "POST",
-            data: JSON.stringify(boardJjimDTO) ,
-            contentType: "application/json",
-            // data: boardJjimDTO,
-            success: function (isWish) {
+            // data: JSON.stringify(boardJjimDTO) ,
+            // contentType: "application/json",
+            data: boardJjimDTO,
+            success: function () {
               console.log("성공")
               const i = $("<i class='ai-star-filled'>찜</i>");
               $this.find("i").remove(); // $(this) 대신 변수 $this 사용

@@ -21,14 +21,14 @@ import java.util.List;
 
 @Controller
 @Log4j2
-@RequestMapping("/")
+@RequestMapping("/match")
 @RequiredArgsConstructor
 public class BoardController {
     @Autowired
     private final BoardService boardService;
 
 
-    @GetMapping("/match")
+    @GetMapping("")
     public String list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model){
 
         log.info(pageRequestDTO);
@@ -42,11 +42,12 @@ public class BoardController {
         return "match/blog-grid";
 
     }
-    @GetMapping("/match/posts")
+    @GetMapping("/posts")
     public String registerGET(){
         log.info("get register...");
         return "match/matching-create";
     }
+
 
 
 }
