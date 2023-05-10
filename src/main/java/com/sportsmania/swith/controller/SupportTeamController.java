@@ -222,7 +222,9 @@ public class SupportTeamController {
     @DeleteMapping("/teams/admin/{team_title}")
     public ResponseEntity removeTeam(@RequestBody SupportTeamDTO supportTeamDTO,
                                      Authentication authentication) {
+
         String team_title = supportTeamDTO.getTeam_title();
+        String team_writer = supportTeamDTO.getTeam_writer();
         List<TeamMemberDTO> teamList = teamMemberService.getAll(team_title);
         if (!teamList.isEmpty()) {
             IntStream.rangeClosed(0, teamList.size() - 1).forEach(i -> {
