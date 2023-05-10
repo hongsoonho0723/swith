@@ -223,7 +223,7 @@
       </nav>
     </div>
   </header>
-  >
+
   <!-- Page content-->
   <!-- Page header-->
   <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
@@ -248,8 +248,8 @@
           </div>
           <th:block th:with="user=${#session.getAttribute('user')}, writer=${dto.story_writer}">
             <div class="pe-4 ms-md-auto" th:if="${user != null and user.userId == writer}">
-              <button  class="pe-2 text-dark" th:href="|@{/stories/posts/{story_no}(story_no=${dto.story_no})}|" style="border: none; background-color:transparent;">수정</button>
-              <button class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
+              <a type="button" class="pe-2 text-dark" th:href="|@{/stories/posts/{story_no}(story_no=${dto.story_no})}|" style="border: none; background-color:transparent;">수정</a>
+              <button type="button" class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
             </div>
           </th:block>
         </div>
@@ -295,7 +295,7 @@
           $('#replySubmit').click(function () {
 
             const replyContent = $("#comment-content").val(); // 댓글 내용
-        /*    const userId = "[[${dto.story_writer}]]"; // 임시로 아이디 받아오기*/
+            const storyNo= [[${dto.story_no}]];
 
             const data = {
               "content": replyContent,

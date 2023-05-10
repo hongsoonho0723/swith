@@ -21,10 +21,15 @@
         select count(check) from story where story_no = #{story_no}
     </select>
 
-    <update id="update">
-        update story set title = #{title} , content = #{content}, s_catecory = #{s_catecory}, image_main = {#image_main} where story_no = #{story_no}
+    <update id="update"  parameterType="com.sportsmania.swith.domain.StoryVO">
+        update story
+        set user_type = #{user_type},
+            title = #{title},
+            content = #{content},
+            s_category = #{s_category},
+            image_main = #{image_main}
+        where story_no = #{story_no}
     </update>
-
     <update id="increaseViewCount" parameterType="Long">
         UPDATE story SET clicks = clicks + 1 WHERE story_no = #{storyNo}
     </update>
@@ -97,4 +102,25 @@
                  LEFT JOIN story_reply R ON S.story_no = R.story_no
         GROUP BY S.story_no
     </select>-->
+
+    <resultMap id="t-storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
+        <id column="story_no" property="story_no"/>
+        <result column="story_writer" property="story_writer"/>
+        <result column="user_type" property="user_type"/>
+        <result column="s_category" property="s_category"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="image_main" property="image_main"/>
+        <result column="date" property="date"/>
+        <result column="clicks" property="clicks"/>
+        <result column="likeCount" property="likeCount"/>
+        <result column="score" property="score"/>
+        <result column="replyCount" property="replyCount"/>
+        <result column="team_title" property="team_title"/>
+    </resultMap>
+
+
+    <select id="selectTeamStory" resultMap="t-storyResultMap">
+
+    </select>
 </mapper>

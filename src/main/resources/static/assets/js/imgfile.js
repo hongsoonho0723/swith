@@ -31,6 +31,7 @@ function readImage(input) {
     }
 }
 
+
 // input file에 change 이벤트 부여
 /*
 const inputImage = document.getElementById("input-image")

@@ -30,5 +30,13 @@
 
 .primary-story-img {
     height: 200px;
-    width: 250px
+    width: 250px;
+}
+
+.s-with-story {
+    color: #003986;
+}
+
+.s-with-story-top {
+    background-color: #57B0E2; color:white; max-height: 500px;
 }

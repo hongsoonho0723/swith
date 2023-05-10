@@ -1,4 +1,4 @@
-function getModifyStory(){
+/*function getModifyStory(){
 
     const currentUrl = window.location.href;
     console.log(currentUrl);
@@ -17,6 +17,10 @@ function getModifyStory(){
         },
 
     })
+}*/
+
+function revoke() {
+    window.location.href = '/stories';
 }
 
 
@@ -31,6 +35,34 @@ function deleteBtn(story_no) {
         },
         error: function(jqXHR, textStatus) {
             console.log("Error deleting story: " + textStatus);
+        }
+    });
+}
+
+function modifyStory(story_no) {
+
+    let formData = new FormData();
+    /*var content = tinymce.activeEditor.getContent();*/
+    let html = editor.getData();
+    formData.append('s_category', $('input[name="s_category"]:checked').val());
+    formData.append('title', $('input[name="title"]').val());
+    formData.append('user_type', $('input[name="user_type"]').val());
+    formData.append('content', html);
+    formData.append('image', $('input[name="image"]')[0].files[0]);
+
+    $.ajax({
+        type: 'PUT',
+        url: '/stories/posts/' + story_no,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+        alert("Story posted successfully.");
+            window.location.href = '/stories/' + story_no;
+        },
+        error: function(error) {
+            alert("Error occurred while posting the story.");
+            console.log(error);
         }
     });
 }
@@ -185,5 +217,6 @@ $(document).on("click", "#submitEditReply", function () {
         }
     });
 });
+
 
 

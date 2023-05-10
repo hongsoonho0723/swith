@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //   .antMatchers("/members/main").hasRole("USER")
                 .antMatchers("/stories/posts").hasRole("USER")
-                .antMatchers("/stories/posts/{story_no}").hasRole("USER")
+                .antMatchers("/stories/posts/**").hasRole("USER")
                 .antMatchers("/members/main").permitAll()
                 .antMatchers("/teams/posts","/teams/modify","/teams/admin/**","/teams/total/**").hasRole("USER")
                 .antMatchers("/members/signin","/members/signup").anonymous() // 권한이 없는 사용자만 접근 가능
