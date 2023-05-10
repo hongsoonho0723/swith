@@ -34,18 +34,18 @@
         UPDATE story SET clicks = clicks + 1 WHERE story_no = #{storyNo}
     </update>
 
-    <sql id = "search">
+    <sql id="searchCondition">
         <where>
             <if test="user_type != null and user_type.length > 0">
-                AND user_type IN
-                <foreach collection="user_type" item="user_type" open="(" separator="," close=")">
-                    #{user_type}
+                user_type IN
+                <foreach collection="user_type" item="type" open="(" separator="," close=")">
+                    #{type}
                 </foreach>
             </if>
             <if test="s_category != null and s_category.length > 0">
                 AND s_category IN
-                <foreach collection="s_category" item="s_category" open="(" separator="," close=")">
-                    #{s_category}
+                <foreach collection="s_category" item="category" open="(" separator="," close=")">
+                    #{category}
                 </foreach>
             </if>
             <if test="keyword != null and keyword.trim().length() > 0">
@@ -54,21 +54,20 @@
         </where>
     </sql>
 
-
     <select id="selectList" resultMap="storyResultMap">
         SELECT S.*, COUNT(DISTINCT L.userId) AS likeCount, COUNT(DISTINCT R.reply_no) AS replyCount
         FROM story S
         LEFT JOIN likes L ON S.story_no = L.story_no
         LEFT JOIN story_reply R ON S.story_no = R.story_no
+        <include refid="searchCondition" />
         GROUP BY S.story_no
-        <include refid = "search"/>
         order by story_no desc limit #{skip}, #{size}
     </select>
 
     <!-- 전체 개수를 우선 반환하도록 구성 -->
-    <select id ="selectCount" resultType="int">
+    <select id="selectCount" resultType="int">
         select count(story_no) from story
-        <include refid = "search"/>
+        <include refid="searchCondition" />
     </select>
 
     <resultMap id="storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
