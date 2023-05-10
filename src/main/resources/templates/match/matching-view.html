@@ -272,11 +272,11 @@
                     <ul class="list-unstyled mb-0">
                         <li class="border-bottom pb-3 mb-3">
                   <span class="h6 mb-0">
-                       <a th:href="@{/match/matching-view(board_no=${dto.board_no}-1,userId=${user.userId})}">이전 글</a>
+                       <a th:href="@{/match/view(board_no=${dto.board_no}-1,userId=${user.userId})}">이전 글</a>
                            </span> </li>
                         <li class="border-bottom pb-3 mb-3">
                   <span class="h6 mb-0">
-                      <a th:href="@{/match/matching-view(board_no=${dto.board_no}+1,userId=${user.userId})}">다음 글</a>
+                      <a th:href="@{/match/view(board_no=${dto.board_no}+1,userId=${user.userId})}">다음 글</a>
 
 
                             </span>
@@ -393,7 +393,7 @@
             <!-- Info solid button -->
 
 
-            <a type="button" class="btn btn-info" th:href="@{/match/matching-modify(board_no=${dto.board_no},userId=${user.userId})}">수정하기</a>
+            <a type="button" class="btn btn-info" th:href="@{/match/modify(board_no=${dto.board_no},userId=${user.userId})}">수정하기</a>
 
             <!-- Success solid button -->
             <a type="button " style="margin-right: 10px" class="btn btn-success ms-2" href="#">모집완료</a>

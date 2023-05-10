@@ -181,8 +181,9 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
     <div>
-        <form id="myForm" action="/match/matching-modify" method="post">
 
+
+        <form id="myForm" action="/match/matching-modify" method="post">
 
 
 
@@ -688,11 +689,15 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
             <!-- HTML 코드 -->
             <input th:value="${dto.sportsfacility}" name="sportsfacility" style="height: 40px; width: 300px; margin-right: 25px;" type="text" id="selectedFaciName" readonly>
-            <input name="facilityadd" type="hidden" id="selectedFaciAddr">
+            <input th:value="${dto.facilityadd}" name="facilityadd" type="hidden" id="selectedFaciAddr">
 
+<!--
 
+            <select name="exercise" id="sport-select">
+                &lt;!&ndash;    <option selected disabled hidden>운동 선택</option>&ndash;&gt;
+                <option selected th:text="${dto.exercise}"></option>
 
-
+-->
 
 
 
@@ -718,21 +723,21 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 
-
-
-
-
-
-
     <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
 
-    <div style="height: 500px; overflow-y: auto;">
-        <textarea style="height: 300px" th:utext="${dto.content}" id="editor" name="content"></textarea>
-    </div>
+    <div id="editorContainer" style="height: 600px;"></div>
 
     <script>
         ClassicEditor
-            .create( document.querySelector( '#editor' ) )
+            .create( document.querySelector( '#editorContainer' ), {
+                editorConfig: {
+                    ckfinder: {
+                        options: {
+                            height: 600
+                        }
+                    }
+                }
+            } )
             .then( editor => {
                 console.log( editor );
             } )
@@ -743,21 +748,9 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <input type="hidden" name="board_no" th:value="${dto.board_no}" readonly></input>
-    <input type="hidden" name="b_category" th:value="${dto.b_category}" readonly></input>
+    <input type="hidden" name="userId" th:value="${user.userId}">
+    <input type="hidden" name="board_no" th:value="${dto.board_no}" ></input>
+    <input type="hidden" name="b_category" th:value="${dto.b_category}" ></input>
 </div>
 
 
@@ -770,14 +763,13 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 </style>
 
 <div class="container d-flex justify-content-center" style="padding-top: 50px;">
-    <a type="button" style="width:120px; height:50px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center" th:href="@{/match/matching-view(board_no=${dto.board_no},userId=${user.userId})}">작성취소</a>
+    <a type="button" style="width:120px; height:50px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center" th:href="@{/match/view(board_no=${dto.board_no},userId=${user.userId})}">작성취소</a>
 
     <button type="submit" style="width:120px; height:50px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center">수정완료</button>
 </div>
 
 
 </form>
-
 
 
 <br>
