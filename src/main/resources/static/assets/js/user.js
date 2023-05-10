@@ -20,12 +20,12 @@ function submitForms() {
 
     var check1 = /^[a-zA-Z0-9]{8,16}$/;
     var reg = /^\d{11}$/;
-    var phone = document.getElementById("phone");
+    var phone = document.querySelector('input[name="phone"]');
     if(idCheck){
         event.preventDefault();
         alert("아이디를 확인해주세요");
     }
-    else if(!check1.test(passwordInput)){
+    else if(!check1.test(passwordInput.value)){
         event.preventDefault();
         alert('비밀번호는 8자리이상16자리이하 영문 숫자로 구성해주세요');
     }
@@ -42,7 +42,7 @@ function submitForms() {
         event.preventDefault();
         alert("닉네임을 확인해주세요");
     }
-    else if(!reg.test(phone)){
+    else if(!reg.test(phone.value)){
         event.preventDefault();
         alert("휴대폰번호는 숫자만 입력해주세요");
     }
