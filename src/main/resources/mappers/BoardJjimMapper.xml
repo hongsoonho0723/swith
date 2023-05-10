@@ -24,4 +24,10 @@
         delete from wishlist
         where board_no =#{board_no};
     </delete>
+    <select id="isWishByUser" resultType="boolean">
+        SELECT EXISTS (
+                       SELECT * FROM `wishlist`
+                       WHERE `userid` = #{userid} AND `board_no` = #{board_no}
+                   )
+    </select>
 </mapper>

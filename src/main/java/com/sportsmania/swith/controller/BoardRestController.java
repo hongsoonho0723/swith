@@ -13,10 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +22,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
+@RequestMapping("/match")
 public class BoardRestController {
     @Autowired
     private final BoardService boardService;
@@ -66,7 +64,7 @@ public class BoardRestController {
 
     }*/
 
-    @PostMapping("match/posts")
+    @PostMapping("/posts")
     public ResponseEntity<BoardDTO> registerPOST(@RequestBody BoardDTO boardDTO, BindingResult bindingResult,
                                                  RedirectAttributes redirectAttributes, Authentication authentication) {
         log.info("post register...");
@@ -97,12 +95,12 @@ public class BoardRestController {
 
     }
 
-    //찜하기
+    /*//찜하기
     @PostMapping("/match/wish")
     public ResponseEntity wish(@RequestBody BoardJjimDTO boardJjimDTO){
         boardJjimService.register(boardJjimDTO);
         log.info(boardJjimDTO);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }*/
 }
