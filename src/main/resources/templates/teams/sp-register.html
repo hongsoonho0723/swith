@@ -613,6 +613,8 @@ processData: false,
 contentType: false,
 success: function (data) {
 console.log("SUCCESS : ", data);
+alert('작성완료되었습니다.');
+window.location.href="/teams";
 },
 error: function (e) {
 console.log("ERROR : ", e);
