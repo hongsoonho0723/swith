@@ -336,7 +336,7 @@
                                 width="80"
                                 alt="Author image"
                         />
-                        <a href="#" th:text="${#session.getAttribute('user').name}" data-bs-toggle="dropdown"
+                        <a href="#" th:text="${dto.board_writer}" data-bs-toggle="dropdown"
                            data-bs-auto-close="outside"
                            aria-expanded="false"></a>
                         <ul class="dropdown-menu">
@@ -345,7 +345,7 @@
                             <li class="dropdown-divider"></li>
                             <li><a href="#" class="dropdown-item">차단</a></li>
                         </ul>
-                        <p class="fs-sm mb-4" style="padding-top: 10px" th:text="${#session.getAttribute('user').introduction}">자기소개란</p>
+                        <p class="fs-sm mb-4" style="padding-top: 10px" >자기소개란</p>
                     </div>
                 </div>
             </div>

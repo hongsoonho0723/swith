@@ -71,8 +71,6 @@ public class MatchBoardController {
 
 */
 
-
-
     @GetMapping("/match/modify")
     public String read1(Integer board_no, Model model) {
         if (board_no == null ) {
