@@ -23,5 +23,4 @@ public class SupportTeamDTO {
     private boolean finished;
     private String deadline;
 
-
 }

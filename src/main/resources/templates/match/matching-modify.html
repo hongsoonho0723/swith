@@ -1,22 +1,71 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <title>S-with</title>
+    <!-- SEO Meta Tags-->
 
+    <meta
 
+            content="Around - Multipurpose Bootstrap HTML Template"
+    />
+    <meta
+            name="keywords"
+            content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative"
+    />
+    <meta name="author" content="Createx Studio" />
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Favicon and Touch Icons-->
+    <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="../assets/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+    <link
+            rel="mask-icon"
+            color="#6366f1"
+            href="../assets/favicon/safari-pinned-tab.svg"
+    />
+    <meta name="msapplication-TileColor" content="#080032" />
+    <meta
+            name="msapplication-config"
+            content="../assets/favicon/browserconfig.xml"
+    />
+    <meta name="theme-color" content="white" />
 
-
-
-
-    <!-- TOAST UI Editor CDN URL(CSS)-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
-
+    <!-- Import Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+            rel="stylesheet"
+            id="google-font"
+    />
+    <!-- Vendor styles-->
+    <link
+            rel="stylesheet"
+            media="screen"
+            href="../assets/vendor/swiper/swiper-bundle.min.css"
+    />
+    <!-- 날짜 쓰기?-->
+    <!-- <link href="../src/js/components/countdown.js" /> -->
+    <script src="../assets/vendor/timezz/dist/timezz.js"></script>
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css" />
 </head>
 <body>
 <<!-- Menu with dropdown + Button -->
@@ -26,10 +75,10 @@
         <a href="index.html" class="navbar-brand">
       <span class="text-primary flex-shrink-0 me-2">
         <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-          <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+          <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"/>
         </svg>
       </span>
-            S-with
+            S-With
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
             <span class="navbar-toggler-icon"></span>
@@ -72,20 +121,21 @@
     </div>
 </header>
 
-<div class="header" style="background-color: #57B0E2; color:white; height: 180px; padding-top: 60px; padding-bottom: 60px;">
+<div class="header" style="background-color: #57B0E2; color:white; height: 250px; padding-top: 120px; padding-bottom: 60px;">
     <div class="container me-auto">
-        <h1 class="text-color padding">매칭 수정</h1>
+        <h1 class="text-color padding" style="color:white; font-size: 2rem;">매칭 수정</h1>
 
-        <h1 class="text-color padding" style="font-size: 1rem; padding-top: 10px;">다양한 사람들과 함께 체육활동을 즐겨보세요!</h1>
+        <h1 class="text-color padding" style="color:white; font-size: 1rem; padding-top: 10px;">다양한 사람들과 함께 체육활동을 즐겨보세요!</h1>
 
     </div>
 </div>
 
 <div class="container" style="padding-left: 80px;">
 
-    <h1 style="font-size: 1.5rem; padding-top: 40px; color: #57B0E2; ">* 유형</h1>
 
-
+    <ul class="nav" style="padding-top: 40px; padding-bottom: 20px;">
+        <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 220px;">* 유형</li>
+    </ul>
 
 
 
@@ -175,8 +225,10 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
     <div>
-        <form action="/match/matching-modify" method="post">
 
+
+
+        <form id="myForm" action="/match/matching-modify" method="post">
 
 
 
@@ -229,7 +281,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
             <select name="region" id="city" onchange="updateDistricts(); updateDistricts1();">
                 <!--  <option selected disabled hidden value="">도시 선택</option>-->
-                <option selected th:text="${dto.region.substring(0,2)}" ></option>
+                <option selected th:text="${dto.region}" ></option>
 
                 <option value="서울">서울</option>
                 <option value="경기">경기</option>
@@ -251,11 +303,11 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
             </select>
 
 
-            <select name="region" id="district">
+            <select name="region2" id="district">
 
 
-                <option selected th:text="${dto.region.substring(3, (dto.region.length() >= 7 ? 7 : (dto.region.length() >= 6 ? 6 : (dto.region.length() >= 5 ? 5 : (dto.region.length() >= 4 ? 4 : 3)))))}"></option>
 
+                <option selected th:text="${dto.region2}"></option>
 
 
             </select>
@@ -544,7 +596,123 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
             <ul class="nav" style="padding-top: 40px; padding-bottom: 20px;">
                 <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 220px;">* 모집인원</li>
-                <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 230px;"> 체육시설</li>
+                <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 110px;"> 체육시설</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- 버튼 클릭 시 모달 창 띄우기 -->
+
+                <input style="margin-right: 30px; width: 90px;" type="button" value="시설 검색" onclick="openModal();">
+
+
+                <!-- 모달 창 -->
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h1>시설 정보 검색</h1>
+                        <label for="faciName">검색할 시설 이름을 입력하세요:</label>
+                        <input type="text" id="faciName" name="faciName" />
+
+                        <input type="button" value="검색" onclick="search();">
+                        <div id="result"></div>
+                    </div>
+                </div>
+
+                <!-- 스크립트 -->
+                <script>
+                    // 모달 창 열기
+                    function openModal() {
+                        const modal = document.getElementById("myModal");
+                        modal.style.display = "block";
+                    }
+
+                    // 모달 창 닫기
+                    function closeModal() {
+                        const modal = document.getElementById("myModal");
+                        modal.style.display = "none";
+                    }
+
+
+                    // 시설명 선택 시 입력창에 값 입력
+                    function selectFaciName(faciName, faciAddr) {
+                        const selectedFaciName = document.getElementById("selectedFaciName");
+                        selectedFaciName.value = faciName;
+                        const selectedFaciAddr = document.getElementById("selectedFaciAddr");
+                        selectedFaciAddr.value = faciAddr;
+                        closeModal();
+                    }
+
+
+
+
+                    function search() {
+                        const faciName = document.getElementById("faciName").value;
+                        const encodedFaciName = encodeURIComponent(faciName);
+                        const apiUrl =
+                            "https://apis.data.go.kr/B551014/SRVC_OD_API_SFMS_FACI/TODZ_API_SFMS_FACI_I_NEW?serviceKey=Dh3tNHkDhofXqJ62w2Mu0ywkbgqdOvChWpoKJcGJ23enOQEBLvXfGvORKAqF5Xk7zWeeL5ih3JYZR5FnfJ91ZA%3D%3D&pageNo=1&numOfRows=1000&resultType=json&faci_nm=" +
+                            encodedFaciName;
+
+                        fetch(apiUrl)
+                            .then((response) => response.json())
+                            .then((data) => {
+                                const items = data.response.body.items.item;
+                                let html = "";
+                                for (let i = 0; i < items.length; i++) {
+                                    const item = items[i];
+                                    const faci_nm = item.faci_nm;
+                                    const faci_addr = item.faci_addr;
+                                    const faci_road_addr = item.faci_road_addr;
+
+                                    // 만약 faci_addr값이 없다면 faci_road_addr값으로 대체하여 출력한다
+
+
+                                    if (faci_addr == null || faci_addr === "") {
+                                        html += "<p><a href='#' onclick='selectFaciName(\"" + faci_nm + "\",\"" + faci_road_addr + "\")'>" + faci_nm + "</a> (" + faci_road_addr + ")</p>";
+                                    } else {
+                                        html += "<p><a href='#' onclick='selectFaciName(\"" + faci_nm + "\",\"" + faci_addr + "\")'>" + faci_nm + "</a> (" + faci_addr + ")</p>";
+                                    }
+
+
+                                }
+                                document.getElementById("result").innerHTML = html;
+                            })
+                            .catch((error) => console.log(error));
+                    }
+                </script>
                 <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 31px;"> 지원종류</li>
 
 
@@ -564,99 +732,21 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
                 <option>10</option>
             </select>
 
-            <select name="sportsfacility" id="district2" style="width:300px;">
-                <option selected th:text="${dto.sportsfacility}"></option>
-            </select>
+            <!-- HTML 코드 -->
+            <input th:value="${dto.sportsfacility}" name="sportsfacility" style="height: 40px; width: 300px; margin-right: 25px;" type="text" id="selectedFaciName" readonly>
+            <input th:value="${dto.facilityadd}" name="facilityadd" type="hidden" id="selectedFaciAddr">
+
+<!--
+
+            <select name="exercise" id="sport-select">
+                &lt;!&ndash;    <option selected disabled hidden>운동 선택</option>&ndash;&gt;
+                <option selected th:text="${dto.exercise}"></option>
+
+-->
 
 
-            <script>
-                const districtsByCity2 = {
-                    서울: [
-                        "기타",
-                        "SRC 서울선터",
-                        "서울곰두리체육센터",
-                        "서부재활체육센터",
-                        "동천재활체육센터","마포푸르메스포츠센터","서울수중재활센터","기쁜우리체육센터","정립회관(체육센터)",
-
-                    ],
-                    gyeonggi: [
-                        "기타","광명시장애인종합복지관체육관","홀트장애인종합체육관","고양시재활스포츠센터","성분도복지관(체육관)","명휘체육센터","수원시장애인종합복지관(수영장)","SRC재활체육관","보훈재활체육센터","성남시한마음복지관","안양시수리장애인복지관","시흥어울림국민체육센터",
 
 
-                    ],
-
-                    incheon: [
-                        "기타",
-                        "인천광역시장애인체육관",
-                        "인천광역시장애인국민체육센터",
-                    ],
-                    busan: [
-                        "기타",
-                        "서부산권장애인스포츠센터","부산곰두리스포츠센터","부산한마음스포츠센터"
-
-
-                    ],
-
-                    daegu: [
-                        "기타",
-                        "대구장애인종합복지관",
-                        "대국광역시 달구벌재활스포츠센터",
-                        "대구광역시장애인국민체육센터",
-                    ],
-                    gwangju: [ "기타","광주광역시장애인종합체육관","광주광역시장애인국민체육센터","광주북구반다비체육센터"],
-                    daejeon: [ "기타","대전광역시장애인체육센터","시립산성종합복지관","대전광역시서구건강체련관","성세체육관","유성구장애인종합복지관(체육관)","대전광역시립체육재활원","대덕구장애인종합복지관","동구아름다운복지관",],
-                    ulsan: [ "기타","울산광역시장애인체육관","울산광역시제2장애인체육관",],
-                    sejong: ["기타","세종시장애인형국민체육센터"],
-                    gangwon: ["기타",
-                        "원주드림체육관","춘천장애인스포츠센터","홍천군장애인체육센터"
-
-                    ],
-                    gyeongnam: [ "기타",
-                        "창원시장애인종합복지관(체육관)","창원시립곰두리국민체육센터","사천시장애인국민체육센터","양산반다비체육센터"
-                    ],
-                    gyeongbuk: [ "기타",
-                        "상주시장애인","종합복지관(체육관)","경주시장애인체육관","구미시장애인체육관","애명체육관","문경시온누리체육관",
-                    ],
-                    jeonnam: ["기타",
-                        "전라남도장애인종합복지관(체육관)","여수시장애인국민체육센터","광양장애인국민체육센터","해남군다목적생활체육관",
-
-                    ],
-                    jeonbuk: ["기타",
-                        "전라북도장애인복지관(체육관)","정읍곰두리스포츠센터","김제시장애인체육관","군산시애인체육관","전주어울림국민체육센터","익산반다비체육센터"
-
-                    ],
-                    chungnam: ["기타",
-
-                        "정심체육관","천안시장애인종합체육관","홍성군장애인스포츠센터","아산장애인국민체육센터",
-                    ],
-                    chungbuk: [ "기타",
-                        "충주시장애인형국민체육센터","충청북도곰두리체육관","제천시어울림체육센터","청주시장애인스포츠센터","보은군장애인회관",
-
-                    ],
-                    jeju: [ "기타","제주특별자치도장애인스포츠센터(추후개관예정)"],
-                };
-
-                function updateDistricts1() {
-                    const citySelect2 = document.getElementById("city");
-                    const districtSelect2 = document.getElementById("district2");
-
-                    const selectedCity2 = citySelect2.value;
-                    const districts2 = districtsByCity2[selectedCity2];
-
-                    // 기존 옵션 제거
-                    districtSelect2.innerHTML = "";
-
-                    // 새로운 옵션 생성
-                    if (districts2) {
-                        for (const district2 of districts2) {
-                            const option2 = document.createElement("option");
-                            option2.value = district2;
-                            option2.innerText = district2;
-                            districtSelect2.appendChild(option2);
-                        }
-                    }
-                }
-            </script>
 
 
             <select name="supporttype" style="height: 40px; width: 300px; margin-right: 25px; ">
@@ -667,31 +757,45 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
             </select>
 
-            <h1 style="font-size: 1.5rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 제목</h1>
+
+            <ul class="nav" style="padding-top: 40px; padding-bottom: 20px;">
+                <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 220px;">* 제목</li>
+            </ul>
             <input name="title" type="text" minlength='5' maxlength='30' style="height: 40px; width: 950px; margin-right: 25px;" th:value="${dto.title}">
 
-            <h1 style="font-size: 1.5rem; color: #57B0E2; padding-right: 340px; padding-top: 40px; padding-bottom: 20px;">* 내용</h1>
 
-
-    </div>
-    <!-- TOAST UI Editor가 들어갈 div태그 -->
-    <div name="content" id="editor">
-        <p></p>
+            <ul class="nav" style="padding-top: 40px; padding-bottom: 20px;">
+                <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 220px;">* 내용</li>
+            </ul>
     </div>
 
 
 
-    <!-- TOAST UI Editor CDN URL(JS) -->
-    <script  src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
-    <!-- TOAST UI Editor 생성 JavaScript 코드 -->
+
+
+
+
+
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+
+    <div class="ck ck-editor__main" role="presentation">
+            <textarea th:utext="${dto.content}" id="editor" name="content" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="true" style="height:800px">
+            </textarea>
+    </div>
+
     <script>
-        const editor = new toastui.Editor({
-            el: document.querySelector('#editor'),
-            height: '600px',
-            language: 'ko-KR',
-        });
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
 
+            } )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
     </script>
 
 
@@ -701,29 +805,35 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 
-    <input type="hidden" name="board_no" th:value="${dto.board_no}" readonly></input>
-    <input type="hidden" name="b_category" th:value="${dto.b_category}" readonly></input>
+
+
+
+
+
+
+
+    <input type="hidden" name="userId" th:value="${user.userId}">
+    <input type="hidden" name="board_no" th:value="${dto.board_no}" ></input>
+    <input type="hidden" name="b_category" th:value="${dto.b_category}" ></input>
 </div>
+
+
+<style>
+    .btn-text-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
 <div class="container d-flex justify-content-center" style="padding-top: 50px;">
+    <a type="button" style="width:120px; height:50px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center" th:href="@{/match/view(board_no=${dto.board_no},userId=${user.userId})}">작성취소</a>
 
-    <a type="button" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" th:href="@{/match/matching-view?board_no={id}(id=${dto.board_no})}">작성취소</a>
-    <button type="submit" style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" >수정완료</button>
-
-
-
-
-
-    </form>
-    <form action="/remove" method="post">
-        <input type="hidden" name="board_no" th:value="${dto.board_no}" readonly></input>
-        <button type="submit" style="width:100px; height:40px; background-color: #e1f0d8; border: none; padding-top: 12px;" class="btn btn-info" >삭제</button>
-    </form>
+    <button type="submit" style="width:120px; height:50px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center">수정완료</button>
 </div>
 
 
-
-
-
+</form>
 
 
 
@@ -751,6 +861,5 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>

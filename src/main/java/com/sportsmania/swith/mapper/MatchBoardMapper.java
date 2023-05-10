@@ -1,9 +1,8 @@
 package com.sportsmania.swith.mapper;
 
 import com.sportsmania.swith.domain.MatchBoardVO;
+import com.sportsmania.swith.domain.UserVO;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 @Mapper
 public interface MatchBoardMapper {
@@ -15,7 +14,7 @@ public interface MatchBoardMapper {
 
     void update(MatchBoardVO matchBoardVO);
     MatchBoardVO selectOne(int board_no);
-
+    UserVO selectOne1(String userId);
     void delete(int board_no);
 
 

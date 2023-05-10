@@ -18,6 +18,7 @@ public class MatchBoardVO {
     private String startdate;
     private String enddate;
     private String region;
+    private String region2;
     private int recruitsNum;
     private String title;
     private String content;
@@ -28,5 +29,5 @@ public class MatchBoardVO {
     private int clicks;
     private String sportsfacility;
     private String supporttype;
-
+    private String facilityadd;
 }

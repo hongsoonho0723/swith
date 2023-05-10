@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/members/main") // 로그아웃 성공시 이동할 URL 지정
                 .invalidateHttpSession(true) // 세션 무효화
                 .deleteCookies("JSESSIONID"); // 쿠키 삭제
-        ;
+
     }
 
     @Bean
