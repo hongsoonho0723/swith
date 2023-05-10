@@ -1,19 +1,19 @@
 package com.sportsmania.swith.mapper;
 
 import com.sportsmania.swith.domain.StoryFileVO;
-import com.sportsmania.swith.dto.PageRequestDTO;
 import com.sportsmania.swith.domain.StoryVO;
-import org.apache.ibatis.annotations.Delete;
+import com.sportsmania.swith.dto.LikesDTO;
+import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
 @Mapper
 public interface StoryMapper {
 
-    //테스트
-    String getTime();
 
     void insert (StoryVO storyVO);
 
@@ -27,12 +27,15 @@ public interface StoryMapper {
 
     void update(StoryVO storyVO);
 
-    List<StoryVO> selectList(PageRequestDTO pageRequestDTO);
+    List<StoryVO> selectList(StoryPageRequestDTO storypageRequestDTO);
 
-    int getCount(PageRequestDTO pageRequestDTO);
+    int selectCount(StoryPageRequestDTO storyPageRequestDTO);
 
     //이미지 처리
     @Insert("INSERT INTO story_file values(#{filename}, #{story_no}")
     void insertFile(StoryFileVO storyFileVO);
+
+    //인기글 출력
+    List<StoryVO> getPopularStories();
 
 }

@@ -38,7 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 //   .antMatchers("/members/main").hasRole("USER")
+                .antMatchers("/stories/posts").hasRole("USER")
+                .antMatchers("/stories/posts/**").hasRole("USER")
                 .antMatchers("/members/main").permitAll()
+                .antMatchers("/teams/posts","/teams/modify","/teams/admin/**","/teams/total/**").hasRole("USER")
                 .antMatchers("/members/signin","/members/signup").anonymous() // 권한이 없는 사용자만 접근 가능
                 .anyRequest().permitAll() // 나머지 페이지에 대한 인증이 필요없음
                 .and()

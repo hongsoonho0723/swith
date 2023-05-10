@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-        lang="kr">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="kr">
 <head>
   <meta charset="utf-8">
   <title>Around | Single Post v.2</title>
@@ -147,14 +147,14 @@
 <!-- Page wrapper-->
 <main class="page-wrapper">
   <!-- Menu with dropdown + Button -->
-  <header class="navbar navbar-expand-lg bg-light fixed-top">
+  <header class="navbar navbar-expand-lg fixed-top bg-light">
     <div class="container">
-      <a href="#" class="navbar-brand" style="color: #003986">
-      <span class="text-primary flex-shrink-0 me-2">
-        <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-          <path fill= "#57B0E2" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
-        </svg>
-      </span>
+      <a href="/members/main" class="navbar-brand">
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
         S-With
       </a>
       <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
@@ -162,39 +162,68 @@
       </button>
       <nav class="collapse navbar-collapse" id="navbarCollapse1">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link">매칭라운지</a>
+          <li class="nav-item active">
+            <a href="/macth" class="nav-link">모집라운지</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">서포터팀</a>
+            <a href="/teams" class="nav-link">서포터팀</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">플레이윗미</a>
+            <a href="#" class="nav-link">운동친구모집</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">스토리</a>
+            <a href="/stories" class="nav-link">스토리</a>
           </li>
+
         </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
-            <ul class="dropdown-menu">
-              <li><a href="#" class="dropdown-item">매칭라운지 글 쓰기</a></li>
-              <li><a href="#" class="dropdown-item">서포터팀원 구하기</a></li>
-              <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
-              <li class="dropdown-divider"> </li>
-              <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-              <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-            </ul>
-          </li>
-        </ul>
-        <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-          <i class="ai-user me-2 ms-n1"></i>
-          로그인
-        </a>
+
+        <div class="navbar-nav ml-auto">
+          <div class="container d-flex justify-content-right">
+            <div class="btn-group dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                구인/팀 & 스토리생성
+              </button>
+              <div class="dropdown-menu dropdown-menu-end my-1">
+                <a href="#" class="dropdown-item">모집라운지 글 생성</a>
+                <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                <a href="#" class="dropdown-item">운동친구 구하기</a>
+                <div class="dropdown-divider"></div>
+                <div><hr/></div>
+                <a href="#" class="dropdown-item">서포터팀 생성</a>
+                <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
+              </div>
+            </div>
+          </div>
+          <th:block th:with="user=${#session.getAttribute('user')}">
+            <!--로그인하지 않았을때-->
+            <div th:if="${user == null}">
+              <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                <i class="ai-user me-2 ms-n1"></i>
+                로그인
+              </a>
+            </div>
+            <!--로그인 했을 때-->
+            <div th:if="${user != null}">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                    <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                    <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                    <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </th:block>
+        </div>
       </nav>
     </div>
   </header>
+
   <!-- Page content-->
   <!-- Page header-->
   <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
@@ -204,9 +233,8 @@
       <div class="pb-2 pb-lg-0 mb-4 mb-lg-0 d-flex mt-5">
         <h3> <span class="badge text-nav fs-lg border mt-2 me-sm-3">[[${dto.s_category}]]</span>[[${dto.title}]]</h3>
         <div class="pt-4 pt-md-0 ps-md-4 ms-md-auto">
-          <a href="#" class="nav-link p-2 px-5 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Heart">
-            <i class="ai-heart fs-4"></i>
-          </a>
+          <button type="button" class="nav-link p-2 px-5 me-2 like-button" title="Heart" th:attr="data-story-no=${dto.story_no}"/>
+          <i class="ai-heart fs-4"></i>
         </div>
       </div>
 
@@ -214,15 +242,16 @@
       <div class="border-bottom pt-1 pb-0">
         <div class="d-flex align-items-start py-2"><img class="d-block rounded-circle mb-3" src="../assets/img/avatar/04.jpg" width="56" alt="Author image">
           <div class="ps-4 d-block">
-              <h4 class="h5 mb-0">[[${dto.story_writer}]]</h4>
+            <h4 class="h5 mb-0">[[${dto.story_writer}]]</h4>
 
-                <span class="text-muted fs-sm mb-0">[[${dto.date}]]</span>
+            <span class="text-muted fs-sm mb-0">[[${dto.date}]]</span>
           </div>
-          <div class="pe-4 ms-md-auto">
-            <button  class="pe-2 text-dark" style="border: none; background-color:transparent;">수정</button>
-            <button class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
-          </div>
-
+          <th:block th:with="user=${#session.getAttribute('user')}, writer=${dto.story_writer}">
+            <div class="pe-4 ms-md-auto" th:if="${user != null and user.userId == writer}">
+              <a type="button" class="pe-2 text-dark" th:href="|@{/stories/posts/{story_no}(story_no=${dto.story_no})}|" style="border: none; background-color:transparent;">수정</a>
+              <button type="button" class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
+            </div>
+          </th:block>
         </div>
       </div>
     </div>
@@ -235,32 +264,42 @@
         </figure>
         <div class="border-bottom p-0"></div>
         <div class="col-lg-9 col-xl-8 pt-2 mt-2">
-          <p class="fs-lg">[[${dto.content}]]</p>
-      </div>
+          <p class="fs-lg" th:utext="${dto.content}"></p>
+        </div>
       </div>
     </section>
 
     <!-- Comments-->
     <section class="container border-top pt-xl-4 pb-5 mb-md-2 mb-lg-4 mb-xl-5" id="comments">
       <!-- Multiple button addons -->
-      <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
-        <input type="text" class="form-control" placeholder="댓글 작성" id="comment-content">
-        <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
-          <i class="ai-edit"></i>
-        </button>
-      </div>
+      <th:block th:with="user=${#session.getAttribute('user')}">
+        <div th:if="${user == null}">
+          <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
+            <input type="text" class="form-control" placeholder="로그인 후 작성해주세요." id="comment-content" readonly onclick="alert('로그인 후 이용해주세요.');">
+            <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
+              <i class="ai-edit"></i>
+            </button>
+          </div>
+        </div>
+          <div th:if="${user != null}">
+            <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
+              <input type="text" class="form-control" placeholder="댓글을 작성해주세요." id="comment-content">
+              <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
+                <i class="ai-edit"></i>
+              </button>
+            </div>
+          </div>
+      </th:block>
       <script>
         $(document).ready(function() {
           $('#replySubmit').click(function () {
 
             const replyContent = $("#comment-content").val(); // 댓글 내용
-            const storyNo = [[${dto.story_no}]]; // 게시물 아이디
-            const userId = "[[${dto.story_writer}]]"; // 임시로 아이디 받아오기
+            const storyNo= [[${dto.story_no}]];
 
             const data = {
               "content": replyContent,
-              "story_no": storyNo,
-              "reply_writer": userId
+              "story_no": storyNo
             };
 
             $.ajax({
@@ -280,6 +319,49 @@
         });
       </script>
 
+      <script>
+        const story_no = [[${dto.story_no}]]; // 게시물 아이디
+        $.ajax({
+          url: '/stories/likes/' + story_no,
+          type: 'GET',
+          success: function (isLiked) {
+            if (isLiked) {
+              $('.like-button').html("<i class='ai-heart-filled fs-4'></i>");
+            } else {
+              $('.like-button').html("<i class='ai-heart fs-4'></i>");
+            }
+          },
+          error: function () {
+            $('.like-button').html("<i class='ai-heart fs-4'></i>");
+          }
+        });
+        $(".like-button").click(function () {
+          const $this = $(this);
+          const storyNo = $this.data('story-no');
+          const likesDTO = {
+            "story_no": storyNo
+          };
+          $.ajax({
+            url: '/stories/likes/',
+            type: 'POST',
+            data: likesDTO,
+            success: function (isLiked) { // 서버에서 좋아요 취소 결과를 전달받음
+              const i = $("<i class='ai-heart-filled fs-4'></i>");
+              if (isLiked) { // 좋아요 취소한 경우
+                $this.find("i").remove();
+                $this.append("<i class='ai-heart fs-4'></i>");
+              } else { // 좋아요 추가한 경우
+                $this.find("i").remove();
+                $this.append(i);
+              }
+            },
+            error: function () {
+              alert("로그인 후 이용해주세요.");
+            }
+          });
+        });
+      </script>
+
       <div class="row justify-content-center">
         <div class="col-lg-10 col-xl-10">
           <div class="border-bottom">
@@ -288,7 +370,7 @@
               <!-- Comment-->
               <div id="replyDTOList">
                 <!-- 댓글 목록 출력 -->
-            </div>
+              </div>
               <!-- 테스트 -->
               <!--<div class="border-bottom pt-4 mt-3 mb-0">
                 <div class="d-flex align-items-center pb-1 mb-3">

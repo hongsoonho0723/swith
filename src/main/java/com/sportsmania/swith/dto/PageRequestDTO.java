@@ -49,6 +49,7 @@ public class PageRequestDTO {
             StringBuilder builder = new StringBuilder();
             builder.append("page="+this.page);
             builder.append("&size="+this.size);
+            //builder.append("")
             link = builder.toString();
         }
         return link;
