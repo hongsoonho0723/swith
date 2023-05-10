@@ -666,7 +666,7 @@
 
             <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
             <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
-            <a class="h4 card-title mt-0" th:href="|@{/match/blog-single-v1(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
+            <a class="h4 card-title mt-0" th:href="|@{/match/view(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
           </div>
           <div class="card-footer border-0 py-3 my-3 mb-sm-4">
             <div class="container d-flex justify-content-center">
@@ -701,7 +701,7 @@
             data: JSON.stringify(boardJjimDTO) ,
             contentType: "application/json",
             // data: boardJjimDTO,
-            success: function () {
+            success: function (isWish) {
               console.log("성공")
               const i = $("<i class='ai-star-filled'>찜</i>");
               $this.find("i").remove(); // $(this) 대신 변수 $this 사용
