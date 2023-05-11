@@ -1,5 +1,6 @@
 package com.sportsmania.swith.service;
 
+import com.sportsmania.swith.domain.StoryVO;
 import com.sportsmania.swith.domain.SupportTeamVO;
 import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.mapper.SupportTeamMapper;
@@ -71,6 +72,14 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
     }
 
     @Override
+    public List<SupportTeamDTO> getDeadline() {
+        List<SupportTeamDTO> dtoList = supportTeamMapper.selectDeadline().stream()
+                .map(vo -> modelMapper.map(vo,SupportTeamDTO.class))
+                .collect(Collectors.toList());
+        return dtoList;
+    }
+
+    @Override
     public void remove(String team_title) {
         supportTeamMapper.delete(team_title);
     }
@@ -83,7 +92,7 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
 
     @Override
     public void registerWithFile(SupportTeamDTO supportTeamDTO, MultipartFile file) throws IOException {
-        String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\image_team\\";
+       /* String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\image_team\\";
         String pathStr = "";
         String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf("."));
@@ -97,6 +106,22 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
         }
 
         SupportTeamVO supportTeamVO = modelMapper.map(supportTeamDTO, SupportTeamVO.class);
+        supportTeamMapper.insert(supportTeamVO);*/
+
+        String uploadPath = "C:\\upload\\";
+
+        String originalFileName = file.getOriginalFilename();
+
+        String filename = UUID.randomUUID() + originalFileName;
+
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(uploadPath + filename);
+        Files.write(path, bytes);
+
+        supportTeamDTO.setImage_team(filename);
+
+        SupportTeamVO supportTeamVO = modelMapper.map(supportTeamDTO, SupportTeamVO.class);
+
         supportTeamMapper.insert(supportTeamVO);
     }
 

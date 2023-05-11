@@ -21,4 +21,6 @@ public interface SupportTeamMapper {
 
 
     void insertWithFile(SupportTeamVO supportTeamVO, MultipartFile file);
+
+    List<SupportTeamVO> selectDeadline();
 }

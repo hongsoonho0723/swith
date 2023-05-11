@@ -24,6 +24,63 @@ function doAsyncWork(){
     });
 }*/
 
+
+
+/*$(document).ready(function(){
+    $.ajax({
+        url: "/teams/demo",
+        type: "GET",
+        success: function(dtoList){
+            $.each(dtoList, function(index, team){
+                console.log(team);
+                const div = $(
+                    "<article class=\"masonry-grid-item\">\n" +
+                    "                <div class=\"card border-0 bg-secondary\">\n" +
+                    "                    <img\n" +
+                    "                            class=\"card-img-top\"\n" +
+                    "                            src=\"../assets/img/avatar/11.jpg\"\n" +
+                    "                            style=\"height:200px\"\n" +
+                    "                    />\n" +
+                    "                    <div class=\"card-body pb-4\">\n" +
+                    "                        <div class=\"d-flex align-items-center mb-4 mt-n1\">\n" +
+                    "                  <span class=\"fs-sm \">12 hours ago</span\n" +
+                    "                  ><span class=\"fs-xs mx-3\"><a class=\"badge text-nav fs-xs border\" href=\"#\">"+team.sido+" "+team.sigungu+"</a></span\n" +
+                    "                        ><a class=\"badge text-nav fs-xs border\" href=\"#\">"+모집중+"</a>\n" +
+                    "                        </div>\n" +
+                    "                        <h3 class=\"h4 card-title\">\n" +
+                    "                            <a href=\"blog-single-v2.html\">"+team.team_title+"</a>\n" +
+                    "                        </h3>\n" +
+                    "                        <p class=\"card-text\">"+team.content +"</p>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"card-footer pt-3  d-flex align-items-center justify-content-between\">\n" +
+                    "                        <a\n" +
+                    "                                class=\"d-flex align-items-center text-decoration-none pb-2\"\n" +
+                    "                                href=\"#\"\n" +
+                    "                        ><img\n" +
+                    "                                class=\"rounded-circle\"\n" +
+                    "                                src=\"../assets/img/avatar/06.jpg\"\n" +
+                    "                                width=\"48\"\n" +
+                    "                                alt=\"Post author\"\n" +
+                    "                        />\n" +
+                    "                            <h6 class=\"ps-3 mb-0\">"+team.team_writer +"</h6></a\n" +
+                    "                        ><span><i class=\"ai-user\">"+team.member_num+"</i></span>\n" +
+                    "                    </div>\n" +
+                    "                </div>\n" +
+                    "            </article>"
+                );
+                $("#itemsGrid").append(div);
+                console.log("list demo 성공");
+            })
+        },
+        error: function(){
+            console.log("list demo 실패");
+        }
+    })
+})*/
+
+
+
+
 //서포터팀상세보기 페이지에서 팀 정보탭의 정보를 ajax로 표현
     $(document).ready(function () {
     const team_title = document.querySelector("#team_title").textContent;
@@ -165,8 +222,7 @@ function applicationTeam(){
     const team_title= document.querySelector("#team_title").textContent;
     const teamMemberDTO = {
         "team_title" : team_title,
-        "team_memberId": "testUSer11"    //userId
-    }
+            }
     $.ajax({
         url: "/teams/info",
         type: "POST",
@@ -422,3 +478,5 @@ function registerFn() {
     });
 }
 */
+
+//메인에 마감임박 서포터팀들 출력하기

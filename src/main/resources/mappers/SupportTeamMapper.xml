@@ -10,6 +10,9 @@
     <select id="selectPage" resultType="com.sportsmania.swith.domain.SupportTeamVO">
         select * from supportteam where rownum > #{rownum} order by rownum limit 3
     </select>
+    <select id="selectDeadline" resultType="com.sportsmania.swith.domain.SupportTeamVO">
+        select * from supportteam order by deadline limit 6
+    </select>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.SupportTeamVO">
         insert into supportteam(team_title,team_writer,content,sido,sigungu,member_num,image_team,simple_content,inquiry,deadline)
