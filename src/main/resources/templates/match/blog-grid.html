@@ -47,6 +47,9 @@
   />
   <meta name="theme-color" content="white" />
   <!-- Theme mode-->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/match/blogGrid.js" ></script>
+
   <script>
     let mode = window.localStorage.getItem("mode"),
             root = document.getElementsByTagName("html")[0];
@@ -56,6 +59,7 @@
       root.classList.remove("dark-mode");
     }
   </script>
+
   <!-- Page loading styles-->
   <style>
     .page-loading {
@@ -319,10 +323,15 @@
 
 
         <select name="region2" id="district" >
-          <option value="" th:selected="${pageRequestDTO.region2}">구 선택</option>
+          <option  th:value="${pageRequestDTO.region2}" th:selected="${pageRequestDTO.region2}">구 선택</option>
         </select>
 
         <script>
+          $(document).ready(function () {
+            updateDistricts()
+          })
+
+
           const districtsByCity = {
             seoul: [
               "강남구",
@@ -575,6 +584,7 @@
             const selectedCity = citySelect.value;
             const districts = districtsByCity[selectedCity];
 
+            const originValue = districtSelect.value
 
             // 기존 옵션 제거
             districtSelect.innerHTML = "";
@@ -586,6 +596,11 @@
                 option.value = district;
                 option.innerText = district;
                 districtSelect.appendChild(option);
+
+
+                if (originValue == district) {
+                    option.selected = true
+                }
               }
             }
           }
@@ -603,8 +618,8 @@
             <input type="checkbox" name="types" value="w" th:checked="false">작성자
           </th:block>
           <th:block th:if="${pageRequestDTO.types} != null">
-            <input type="checkbox" name="types" value="t" th:checked="${#strings.contains(pageRequestDTO.types,'t')}">제목
-            <input type="checkbox" name="types" value="w" th:checked="${#strings.contains(pageRequestDTO.types,'w')}">작성자
+            <input type="checkbox" name="types" value="t" th:checked="${#arrays.contains(pageRequestDTO.types,'t')}">제목
+            <input type="checkbox" name="types" value="w" th:checked="${#arrays.contains(pageRequestDTO.types,'w')}">작성자
           </th:block>
           <input  name="keyword"
                   class="form-control ps-5"
@@ -667,14 +682,9 @@
                 <i class="ai-star">찜</i>
               </button>-->
               <th:block th:with="user=${#session.getAttribute('user')}">
-                <div th:if="${user == null}">
-                    <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" onclick="alert('로그인 후 이용해주세요.');">
-                      <i class="ai-star">찜</i>
-                    </button>
-                </div>
                 <div th:if="${user != null}">
                     <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
-                      <i class="ai-star">찜</i>
+                      <i th:class="${dto.is_wish ? 'ai-star-filled' : 'ai-star' }">찜</i>
                     </button>
                 </div>
               </th:block>
@@ -700,8 +710,31 @@
       </tbody>
     </div>
 
+    <!--<script>
+      const $this2 =$(this)
+        const board_no= $this2.data('board_no');
+        $.ajax({
+          url: '/match/wish/' + board_no,
+          type: 'get',
+          success:function (isWish){
+            if(isWish){
+              $('.starbutton').html("<i class='ai-star-filled'>찜</i>");
+            } else {
+              $('.starbutton').html("<i class='ai-star'>찜</i>");
+            }
+          },
+          error: function (){
+            $('.starbutton').html("<i class='ai-star'>찜</i>");
+          }
+        });
 
-    <script>
+
+
+
+
+
+
+
         $(".starbutton").click(function () {
           const $this = $(this); // $(this) 객체를 변수 $this에 저장
           const boardNo = $this.data('board-no');
@@ -719,9 +752,17 @@
             // data: JSON.stringify(boardJjimDTO) ,
             // contentType: "application/json",
             data: boardJjimDTO,
-            success: function () {
-              console.log("성공")
+            success: function (isWish) {
               const i = $("<i class='ai-star-filled'>찜</i>");
+              if(isWish){
+                $this.find("i").remove(); // $(this) 대신 변수 $this 사용
+                $this.append("<i class='ai-star'>찜</i>"); // $(this) 대신 변수 $this 사용
+              } else {
+                $this.find("i").remove(); // $(this) 대신 변수 $this 사용
+                $this.append(i); // $(this) 대신 변수 $this 사용
+              }
+              console.log("성공")
+              // const i = $("<i class='ai-star-filled'>찜</i>");
               $this.find("i").remove(); // $(this) 대신 변수 $this 사용
               $this.append(i); // $(this) 대신 변수 $this 사용
             },
@@ -730,7 +771,8 @@
             }
           });
         });
-    </script>
+    </script>-->
+
     <!-- </div> -->
     <!-- Pagination-->
     <div class="row gy-3 align-items-center mb-md-2 mb-xl-4">

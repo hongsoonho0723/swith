@@ -11,24 +11,27 @@
         values(#{board_writer},#{exercise},#{startdate},#{enddate},#{region},#{region2},#{recruitsNum},#{title},#{content},#{b_category},#{sportsfacility},#{supporttype})
         </insert>
     <select id="selectList" resultType="com.sportsmania.swith.dto.BoardDTO">
-        select board_no
-        , board_writer as board_writer
-        , exercise as exercise
-        , startdate as startdate
-        , enddate as enddate
-        , (DATE_SUB(startdate,interval 1 hour)) as deadline
-        , region as region
-        , region2 as region2
-        , recruitsNum as recruitsNum
-        , title as title
-        , content as content
-        , b_category as b_category
-        , finished as finished
-        , regdate as regdate
-        , clicks as clicks
-        , sportsfacility as sportsfacility
-        , supporttype as supporttype
-        from matchboard
+        select m.board_no
+        , m.board_writer as board_writer
+        , m.exercise as exercise
+        , m.startdate as startdate
+        , m.enddate as enddate
+        , (DATE_SUB(m.startdate,interval 1 hour)) as deadline
+        , m.region as region
+        , m.region2 as region2
+        , m.recruitsNum as recruitsNum
+        , m.title as title
+        , m.content as content
+        , m.b_category as b_category
+        , m.finished as finished
+        , m.regdate as regdate
+        , m.clicks as clicks
+        , m.sportsfacility as sportsfacility
+        , m.supporttype as supporttype
+        , (select case when w.board_no is null then false else true end) as is_wish
+        from matchboard m
+        left join wishlist w
+        on m.board_no = w.board_no
         <where>
             <if test="types != null and types.length > 0">
                 <foreach collection="types" item="type" open="(" close=")" separator="OR">
@@ -61,6 +64,7 @@
                 and b_category = #{b_category}
             </if>
         </where>
+        group by m.board_no
         order by board_no desc limit #{skip},#{size}
     </select>
     <select id="getCount" resultType="int">
