@@ -17,18 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @Log4j2
-@RequestMapping("/")
+@RequestMapping("/match")
 @RequiredArgsConstructor
 public class BoardController {
     @Autowired
     private final BoardService boardService;
 
 
-    @GetMapping("/match")
+    @GetMapping("")
     public String list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model){
 
         log.info(pageRequestDTO);
@@ -38,15 +39,17 @@ public class BoardController {
 //        String a = pageRequestDTO.getB_category();
         model.addAttribute("responseDTO",boardService.getList(pageRequestDTO));
 
+
         log.info(pageRequestDTO);
         return "match/blog-grid";
 
     }
-    @GetMapping("/match/posts")
+    @GetMapping("/posts")
     public String registerGET(){
         log.info("get register...");
         return "match/matching-create";
     }
+
 
 
 }

@@ -2,11 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>S-with</title>
+    <title>Around | Blog Grid no Sidebar</title>
     <!-- SEO Meta Tags-->
-
     <meta
-
+            name="description"
             content="Around - Multipurpose Bootstrap HTML Template"
     />
     <meta
@@ -46,7 +45,117 @@
             content="../assets/favicon/browserconfig.xml"
     />
     <meta name="theme-color" content="white" />
-
+    <!-- Theme mode-->
+    <script>
+        let mode = window.localStorage.getItem("mode"),
+            root = document.getElementsByTagName("html")[0];
+        if (mode !== undefined && mode === "dark") {
+            root.classList.add("dark-mode");
+        } else {
+            root.classList.remove("dark-mode");
+        }
+    </script>
+    <!-- Page loading styles-->
+    <style>
+        .page-loading {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: all 0.4s 0.2s ease-in-out;
+            transition: all 0.4s 0.2s ease-in-out;
+            background-color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 9999;
+        }
+        .dark-mode .page-loading {
+            background-color: #121519;
+        }
+        .page-loading.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .page-loading-inner {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: opacity 0.2s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0;
+        }
+        .page-loading.active > .page-loading-inner {
+            opacity: 1;
+        }
+        .page-loading-inner > span {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            color: #6f788b;
+        }
+        .dark-mode .page-loading-inner > span {
+            color: #fff;
+            opacity: 0.6;
+        }
+        .page-spinner {
+            display: inline-block;
+            width: 2.75rem;
+            height: 2.75rem;
+            margin-bottom: 0.75rem;
+            vertical-align: text-bottom;
+            background-color: #d7dde2;
+            border-radius: 50%;
+            opacity: 0;
+            -webkit-animation: spinner 0.75s linear infinite;
+            animation: spinner 0.75s linear infinite;
+        }
+        .dark-mode .page-spinner {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        @-webkit-keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+        @keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+    </style>
+    <!-- Page loading scripts-->
+    <script>
+        (function () {
+            window.onload = function () {
+                const preloader = document.querySelector(".page-loading");
+                preloader.classList.remove("active");
+                setTimeout(function () {
+                    preloader.remove();
+                }, 1500);
+            };
+        })();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Import Google Font-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,70 +165,101 @@
             id="google-font"
     />
     <!-- Vendor styles-->
-    <link
-            rel="stylesheet"
-            media="screen"
-            href="../assets/vendor/swiper/swiper-bundle.min.css"
-    />
-    <!-- 날짜 쓰기?-->
-    <!-- <link href="../src/js/components/countdown.js" /> -->
-    <script src="../assets/vendor/timezz/dist/timezz.js"></script>
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css" />
 </head>
+<!-- Body-->
 <body>
-<<!-- Menu with dropdown + Button -->
-
-<header class="navbar navbar-expand-lg fixed-top bg-light">
-    <div class="container">
-        <a href="index.html" class="navbar-brand">
-      <span class="text-primary flex-shrink-0 me-2">
-        <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-          <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"/>
-        </svg>
-      </span>
-            S-With
-        </a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <nav class="collapse navbar-collapse" id="navbarCollapse1">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item active">
-                    <a href="#" class="nav-link">매칭라운지</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">서포터팀</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">플레이윗미</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">스토리</a>
-                </li>
-
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">서포터 구하기</a></li>
-                        <li><a href="#" class="dropdown-item">활동지원 해드림</a></li>
-                        <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
-                        <li class="dropdown-divider"> </li>
-                        <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                        <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <a href="#" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
-                <i class="ai-user me-2 ms-n1"></i>
-                로그인
-            </a>
-        </nav>
+<!-- Page loading spinner-->
+<div class="page-loading active">
+    <div class="page-loading-inner">
+        <div class="page-spinner"></div>
+        <span>Loading...</span>
     </div>
-</header>
+</div>
+<!-- Page wrapper-->
+<main class="page-wrapper">
+    <!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page-->
+
+    <header class="navbar navbar-expand-lg fixed-top bg-light">
+        <div class="container">
+            <a href="/members/main" class="navbar-brand">
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
+                S-With
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="collapse navbar-collapse" id="navbarCollapse1">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item active">
+                        <a href="/match" class="nav-link">매칭라운지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/teams" class="nav-link">서포터팀</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">플레이윗미</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/stories" class="nav-link">스토리</a>
+                    </li>
+
+                </ul>
+
+                <div class="navbar-nav ml-auto">
+                    <div class="container d-flex justify-content-right">
+                        <th:block th:with="user=${#session.getAttribute('user')}">
+
+                            <div th:if="${user != null}" class="btn-group dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    구인/팀 & 스토리생성
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end my-1">
+                                    <a href="/match/posts" class="dropdown-item">매칭라운지 글 생성</a>
+                                    <a href="/match/posts" class="dropdown-item">서포터팀원 구하기</a>
+                                    <a href="/match/posts" class="dropdown-item">플레이메이트 구하기</a>
+                                    <div class="dropdown-divider"></div>
+                                    <div><hr/></div>
+                                    <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
+                                    <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                    <th:block th:with="user=${#session.getAttribute('user')}">
+                        <!--로그인하지 않았을때-->
+                        <div th:if="${user == null}">
+                            <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                                <i class="ai-user me-2 ms-n1"></i>
+                                로그인
+                            </a>
+                        </div>
+                        <!--로그인 했을 때-->
+                        <div th:if="${user != null}">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                                        <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                                        <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                                        <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                                        <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                                        <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </th:block>
+                </div>
+            </nav>
+        </div>
+    </header>
 
 <div class="header" style="background-color: #57B0E2; color:white; height: 250px; padding-top: 120px; padding-bottom: 60px;">
     <div class="container me-auto">
@@ -812,7 +952,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 
-    <input type="hidden" name="userId" th:value="${user.userId}">
+  <!--  <input type="hidden" name="userId" th:value="${user.userId}">-->
     <input type="hidden" name="board_no" th:value="${dto.board_no}" ></input>
     <input type="hidden" name="b_category" th:value="${dto.b_category}" ></input>
 </div>
@@ -827,8 +967,8 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 </style>
 
 <div class="container d-flex justify-content-center" style="padding-top: 50px;">
-    <a type="button" style="width:120px; height:50px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center" th:href="@{/match/view(board_no=${dto.board_no},userId=${user.userId})}">작성취소</a>
-
+<!--    <a type="button" style="width:120px; height:50px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center" th:href="@{/match/view(board_no=${dto.board_no},userId=${user.userId})}">작성취소</a>-->
+    <a type="button" style="width:120px; height:50px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center" th:href="@{/match/view(board_no=${dto.board_no})}">작성취소</a>
     <button type="submit" style="width:120px; height:50px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2 btn-text-center">수정완료</button>
 </div>
 

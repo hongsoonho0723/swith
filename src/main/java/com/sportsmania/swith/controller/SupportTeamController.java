@@ -222,7 +222,9 @@ public class SupportTeamController {
     @DeleteMapping("/teams/admin/{team_title}")
     public ResponseEntity removeTeam(@RequestBody SupportTeamDTO supportTeamDTO,
                                      Authentication authentication) {
+
         String team_title = supportTeamDTO.getTeam_title();
+        String team_writer = supportTeamDTO.getTeam_writer();
         List<TeamMemberDTO> teamList = teamMemberService.getAll(team_title);
         if (!teamList.isEmpty()) {
             IntStream.rangeClosed(0, teamList.size() - 1).forEach(i -> {
@@ -304,6 +306,20 @@ public class SupportTeamController {
 
         return new ResponseEntity<>();
     }*/
+
+    @GetMapping("teams/list")
+    public ResponseEntity<List> getUserTeams( Authentication authentication) {
+        List<StoryDTO> teamList = teamMemberService.getUserTeams(authentication.getName());
+        log.info(teamList);
+        return new ResponseEntity<>(teamList,HttpStatus.OK);
+    }
+
+    @GetMapping("/teams/{team_title}/stories")
+    public ResponseEntity<List> getTeamStories(@PathVariable("team_title") String team_title) {
+        List<StoryDTO> teamStoryList = teamMemberService.getTeamStories(team_title);
+        log.info(teamStoryList);
+        return new ResponseEntity<>(teamStoryList, HttpStatus.OK);
+    }
 
 
 }

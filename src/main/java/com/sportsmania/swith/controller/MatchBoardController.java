@@ -21,7 +21,31 @@ public class MatchBoardController {
 
 
 
+
     @GetMapping("/match/view")
+    public String read(Integer board_no,   Model model) {
+        if (board_no == null ) {
+            log.info("board_no:"+board_no);
+            log.info("null발생!!");
+            // 처리할 로직 추가
+        } else {
+            // board_no로 MatchBoardDTO 조회
+            MatchBoardDTO matchBoardDTO = matchBoardService.getOne(board_no);
+            log.info(matchBoardDTO);
+            model.addAttribute("dto", matchBoardDTO);
+
+            // userId로 UserDTO 조회
+
+        }
+        return "/match/matching-view";
+
+    }
+
+
+/*
+
+
+   @GetMapping("/match/view")
     public String read(Integer board_no,  String userId, Model model) {
         if (board_no == null || userId == null) {
             log.info("board_no:"+board_no);
@@ -45,12 +69,32 @@ public class MatchBoardController {
 
     }
 
-
-
-
+*/
 
     @GetMapping("/match/modify")
-    public String read1(Integer board_no, String userId, Model model) {
+    public String read1(Integer board_no, Model model) {
+        if (board_no == null ) {
+            log.info("board_no:"+board_no);
+            log.info("null발생!!");
+            // 처리할 로직 추가
+        } else {
+            // board_no로 MatchBoardDTO 조회
+            MatchBoardDTO matchBoardDTO = matchBoardService.getOne(board_no);
+            log.info(matchBoardDTO);
+            model.addAttribute("dto", matchBoardDTO);
+
+
+        }
+        return "/match/matching-modify";
+    }
+
+
+
+
+/*
+
+    @GetMapping("/match/modify")
+    public String read1(Integer board_no,String userId, Model model) {
         if (board_no == null || userId == null) {
             log.info("board_no:"+board_no);
             log.info("userId:"+userId);
@@ -70,9 +114,7 @@ public class MatchBoardController {
         }
         return "/match/matching-modify";
     }
-
-
-
+*/
 
 
 

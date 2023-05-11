@@ -208,15 +208,19 @@ function applicationTeam(){
 //팀 삭제
 function teamRemove(){
     const team_title = document.querySelector("#team_title").textContent;
+    const team_writer = document.querySelector("#team_writer").textContent;
     const supportTeamDTO ={
         "team_title": team_title,
+        "team_writer": team_writer
     }
+
     $.ajax({
         url: "/teams/admin/" + team_title,
         type: "DELETE",
         data: JSON.stringify(supportTeamDTO),
         contentType: "application/json",
         success: function () {
+            console.log("remove 작성자:",team_writer);
             console.log("팀삭제 성공");
             window.location.href="/teams";
             console.log("이동 성공")

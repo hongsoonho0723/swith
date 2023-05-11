@@ -188,6 +188,7 @@
     />
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css"/>
+    <link rel="stylesheet" href="../assets/css/swith.css">
 </head>
 <!-- Body-->
 <body>
@@ -437,77 +438,64 @@
                     <a type="button " class="btn btn-success mt-2" href="#">스토리 생성</a>
 
                     <!-- Author card widget style 2 -->
-                    <div class="border-top border-bottom py-2 mb-4 mt-3">
-                        <div class="d-flex align-items-start py-2">
-                            <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5"
-                               style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                            <div class="d-md-flex w-75 ps-4">
-                                <div style="max-width: 50rem;">
-                                    <a class="badge text-nav fs-xs border mt-2">유형</a>
-                                    <h3 class="h5 mb-0">Darlene Robertson</h3>
-                                    <p class="fs-xs mb-2"> 작성자</p>
-                                    <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque,
-                                        tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis
-                                        tristique convallis suspen enim blandit massa cursus augue dui mattis morbi
-                                        velit semper nunc at etiam lacinia.</p>
-                                </div>
-
-                                <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                                    <div class="d-flex">
-                                        <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                           title="show">
-                                            <i class="ai-show"> 20</i>
-                                        </a>
-                                        <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                           title="reply">
-                                            <i class="ai-message"> 20</i>
-                                        </a>
-                                        <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                           title="heart">
-                                            <i class="ai-heart"> 20</i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Author card widget style 2 -->
-                    <div class="border-top border-bottom py-2 mb-4 mt-2">
-                        <div class="d-flex align-items-start py-2">
-                            <a href="#" class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5"
-                               style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-                            <div class="d-md-flex w-75 ps-4">
-                                <div style="max-width: 50rem;">
-                                    <a class="badge text-nav fs-xs border mt-2">유형</a>
-                                    <h3 class="h5 mb-0">Darlene Robertson</h3>
-                                    <p class="fs-xs mb-2"> 작성자</p>
-                                    <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque,
-                                        tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis
-                                        tristique convallis suspen enim blandit massa cursus augue dui mattis morbi
-                                        velit semper nunc at etiam lacinia.</p>
-                                </div>
-
-                                <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-                                    <div class="d-flex">
-                                        <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                           title="show">
-                                            <i class="ai-show"> 20</i>
-                                        </a>
-                                        <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                           title="reply">
-                                            <i class="ai-message"> 20</i>
-                                        </a>
-                                        <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                           title="heart">
-                                            <i class="ai-heart"> 20</i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="team-stories"></div>
                 </div>
             </div>
+
+                    <script>
+                        const teamTitle = document.querySelector("#team_title").textContent;
+                        $(document).ready(function() {
+                            loadTeamStories(teamTitle);
+                        });
+                        console.log(teamTitle);
+                        function loadTeamStories(teamTitle) {
+                            $.ajax({
+                                type: 'GET',
+                                url: '/teams/' + teamTitle + '/stories',
+                                dataType: 'json',
+                                success: function(response) {
+                                    let stories = response;
+                                    let teamStoriesHtml = '';
+
+                                    stories.forEach(function(story) {
+                                        teamStoriesHtml += '<div class="border-top border-bottom py-2 mb-4">';
+                                        teamStoriesHtml += '<div class="d-flex align-items-start py-2">';
+                                        teamStoriesHtml += '<img class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5 primary-story-img" src="/img/' + story.image_main + '">';
+                                        teamStoriesHtml += '<div class="d-md-flex w-75 ps-4">';
+                                        teamStoriesHtml += '<div style="max-width: 48rem;">';
+                                        teamStoriesHtml += '<a class="badge text-nav fs-xs border my-2">' + story.s_category + '</a>';
+                                        teamStoriesHtml += '<a href="/stories/' + story.story_no + '" style="text-decoration:none;">';
+                                        teamStoriesHtml += '<h3 class="h5 mb-0">' + story.title + '</h3>';
+                                        teamStoriesHtml += '<p class="fs-xs mb-2" style="color: #0d0a0a">' + story.story_writer + '</p>';
+                                        teamStoriesHtml += '<p class="fs-sm mb-0" style="color: #0d0a0a">' + story.content.substring(0, 340) + '</p>';
+                                        teamStoriesHtml += '</a>';
+                                        teamStoriesHtml += '</div>';
+                                        teamStoriesHtml += '<div class="pt-2 pt-md-0 ps-md-1 ms-md-auto" style="min-width: 167px">';
+                                        teamStoriesHtml += '<div class="d-flex">';
+                                        teamStoriesHtml += '<a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">';
+                                        teamStoriesHtml += '<i class="ai-show">' + story.clicks + '</i>';
+                                        teamStoriesHtml += '</a>';
+                                        teamStoriesHtml += '<a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">';
+                                        teamStoriesHtml += '<i class="ai-message">' + story.replyCount + '</i>';
+                                        teamStoriesHtml += '</a>';
+                                        teamStoriesHtml += '<a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">';
+                                        teamStoriesHtml += '<i class="ai-heart">' + story.likeCount + '</i>';
+                                        teamStoriesHtml += '</a>';
+                                        teamStoriesHtml += '</div>';
+                                        teamStoriesHtml += '</div>';
+                                        teamStoriesHtml += '</div>';
+                                        teamStoriesHtml += '</div>';
+                                        teamStoriesHtml += '</div>';
+                                    });
+
+                                    $('#team-stories').html(teamStoriesHtml);
+                                },
+                                error: function(error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+                    </script>
 
             <div class="tab-pane fade" id="teamadmin" role="tabpanel">
                 <!-- 팀 관리-->
