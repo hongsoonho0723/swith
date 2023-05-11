@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -37,6 +38,7 @@ public class BoardController {
         }
 //        String a = pageRequestDTO.getB_category();
         model.addAttribute("responseDTO",boardService.getList(pageRequestDTO));
+
 
         log.info(pageRequestDTO);
         return "match/blog-grid";
