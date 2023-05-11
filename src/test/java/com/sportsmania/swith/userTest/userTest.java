@@ -2,10 +2,12 @@ package com.sportsmania.swith.userTest;
 
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
+import com.sportsmania.swith.service.BoardJjimService;
 import com.sportsmania.swith.service.EmailService;
 import com.sportsmania.swith.service.userServiceImpl;
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.mapper.UserMapper;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
+@Log4j2
 public class userTest {
 
     @Autowired
@@ -34,8 +37,17 @@ public class userTest {
 
     @Autowired
     private CacheManager cacheManager;
+    @Autowired
+    private BoardJjimService boardJjimService;
 
     private ModelMapper modelMapper = new ModelMapper();
+
+    @Test
+    public void wishTest(){
+
+        boolean isWish = boardJjimService.isWishByUser(3, "rbalswkd12");
+        System.out.println(isWish);
+    }
 
     @Test
     public void signup(){

@@ -279,7 +279,7 @@
                           </tr>
                           <tr>
                             <td class="border-0 text-muted py-1 px-0">닉네임</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').nickname}">닉네임</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').nickname}" >닉네임</td>
                           </tr>
                           <tr>
                             <td class="border-0 text-muted py-1 px-0">장애여부</td>
@@ -290,9 +290,9 @@
                       <p th:text="${#session.getAttribute('user').introduction}">안녕하세요 ~</p>
                     </div>
                     <div class="col-md-6 d-md-flex justify-content-end">
-                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 60%;">
+                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 250px;">
                         <h4 style="padding-left: 4%;">프로필 이미지</h4>
-                          <img style="height: 80%;width: 100%;border-radius: 10px" th:src="${#session.getAttribute('user').image_profile}">
+                          <img style="height: 80%;width: 100%;border-radius: 10px" th:src="${userdto.image_profile}">
                       </div>
                     </div>
                   </div>
@@ -334,12 +334,12 @@
                 </section>
                 <!-- 찜목록-->
                 <section class="col">
-                  <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2">
+                  <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);height: 300px">
+                    <div class="card-body"  style="overflow-y: auto;">
+                      <div class="align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2">
                         <h2 class="h2 mb-0">찜목록</h2>
                       </div>
-                      <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
+                      <div class="align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
                         <table style="width: 100%;">
                           <thead>
                           <tr style="border-bottom: 2px solid #E3E9EF;">
@@ -347,21 +347,13 @@
                             <th>카테고리</th>
                           </tr>
                           </thead>
-                          <tbody>
-                          <tr th:each="item : ${wishlist}">
-                            <td th:text="${item.title}"></td>
-                            <td th:text="${item.b_category}"></td>
-                          </tr>
-                          <tr>
-                            <td>첫번째 게시물 제목</td>
-                            <td>카테고리1</td>
-                          </tr>
-                          <tr>
-                            <td>두번째 게시물 제목</td>
-                            <td>카테고리2</td>
-                          </tr>
-                          <!-- 이하 생략 -->
-                          </tbody>
+                            <tbody>
+                            <tr th:each="item : ${wishlist}">
+                              <td><a th:text="${item.title}" th:href="@{/match/view(board_no=${item.board_no})}"></a></td>
+                              <td th:text="${item.b_category}"></td>
+                            </tr>
+                            <!-- 이하 생략 -->
+                            </tbody>
                         </table>
                       </div>
                     </div>
