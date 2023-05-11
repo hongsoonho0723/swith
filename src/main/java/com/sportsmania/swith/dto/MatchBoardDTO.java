@@ -43,49 +43,7 @@ public class MatchBoardDTO {
     private String sportsfacility;
     private String supporttype;
     private String facilityadd;
-
-/*
-
-
-    private int board_no;
-    private String board_writer;
-    private String exercise;
-    private String startdate;
-    private String enddate;
-    private String region;
-
-    private int recruitsNum;
-    private String title;
-    private String content;
-    private String b_category;
-    private boolean finished;
-
-
-    private String regdate;
-
-    private int clicks;
-    private String sportsfacility;
-    private String supporttype;
-
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private boolean is_wish;
+    private String introduction;
 
 }
