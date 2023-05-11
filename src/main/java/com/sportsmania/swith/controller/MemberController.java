@@ -1,6 +1,7 @@
 package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.dto.WishDTO;
 import com.sportsmania.swith.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -29,8 +32,19 @@ public class MemberController {
 
 
     @GetMapping("/mypage")
-    public void myPage(){
+    public void myPage(Model model,HttpSession httpSession){
+        UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
+        List<WishDTO> list = userService.wish(userDTO.getUserId());
 
+        List<WishDTO> dtoList = new ArrayList<>();
+        for (WishDTO item : list) {
+            WishDTO dto = new WishDTO();
+            dto.setTitle(item.getTitle());
+            dto.setB_category(item.getB_category());
+            dtoList.add(dto);
+        }
+        log.info(dtoList);
+        model.addAttribute("wishlist", dtoList);
     }
 
     @GetMapping("/my")
