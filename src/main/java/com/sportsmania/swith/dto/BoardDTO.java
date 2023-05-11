@@ -39,5 +39,6 @@ public class BoardDTO {
     private boolean finished;
     private String sportsfacility;
     private String supporttype;
+    private String facilityadd;
     private boolean is_wish;
 }

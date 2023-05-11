@@ -28,6 +28,7 @@
         , m.clicks as clicks
         , m.sportsfacility as sportsfacility
         , m.supporttype as supporttype
+        , m.facilityadd as facilityadd
         , (select case when w.board_no is null then false else true end) as is_wish
         from matchboard m
         left join wishlist w
@@ -60,9 +61,10 @@
                     finished = 1
                 </trim>
             </if>
-            <if test="b_category != null and b_category.length>0">
+            <if test="b_category != null and b_category.length>0 ">
                 and b_category = #{b_category}
             </if>
+            and b_category != '운동친구모집'
         </where>
         group by m.board_no
         order by board_no desc limit #{skip},#{size}
@@ -100,6 +102,7 @@
             <if test="b_category != null and b_category.length>0">
                 and b_category = #{b_category}
             </if>
+            and b_category != '운동친구모집'
         </where>
     </select>
 </mapper>
