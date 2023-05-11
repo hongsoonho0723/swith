@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <!--< lang="">-->
   <head>
     <meta charset="UTF-8">
@@ -8,6 +8,8 @@
     <meta name="description" content="Around - Multipurpose Bootstrap HTML Template">
     <meta name="keywords" content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative">
     <meta name="author" content="Createx Studio">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--bootstrap5-->
@@ -152,9 +154,12 @@
     <link rel="stylesheet" media="screen" href="
     ../assets/css/theme.min.css">
 
+    <link rel="stylesheet" media="screen" href="
+    ../assets/css/swith.css">
 
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="../assets/js/ajax.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
@@ -173,7 +178,7 @@
       <!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page-->
     <header class="navbar navbar-expand-lg fixed-top bg-light">
       <div class="container">
-        <a href="/members/main" class="navbar-brand">
+        <a href="#" class="navbar-brand">
           <span class="text-primary flex-shrink-0 me-2">
             <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
               <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
@@ -276,17 +281,15 @@
         </a>
       </div>-->
       <!-- Banner-->
-      <div class="ignore-dark-mode rounded-1 overflow-hidden mb-5" style="background-color: #57B0E2;">
+      <div class="ignore-dark-mode rounded-1 overflow-hidden mb-5" style="background-color: #f8f9fa;">
         <div class="row align-items-center g-0">
           <div class="col-md-6 offset-xl-1 text-center text-md-start">
             <div class="py-4 px-4 px-sm-5 pe-md-0 ps-xl-4">
-              <p class="fs-xs text-uppercase pt-3 pt-md-0 mb-3 mb-lg-4"></p>
-              <h2 class="h1 pb-2 pb-xl-3">S-with 새단장 완료</h2>
-              <p class='text-primary'>스윗!에서 사람들과 함께 체육활동을 즐겨보세요</p>
-          <div class="col-md-6 col-xl-5 d-flex justify-content-end"><img src="../assets/img/logo.png" alt="Banner" style="height:100px; width:100px;"></div>
-          <!--<!<div class="col-md-6 col-xl-5 d-flex justify-content-end"><img src="../assets/img/logo.png" width="491" alt="Banner" style="height:100px; width:100px;"></div>-->
+              <h2 class="h3 pb-2 pb-xl-2">운동 기반 커뮤니티, <span class="h2 text-primary">S-With!</span></h2>
+              <span>스윗에서 사람들과 함께 운동을 시작해보세요.</span>
             </div>
           </div>
+          <div class="col-md-6 col-xl-5 d-flex justify-content-end"><img class="my-5" src="../assets/img/swith/free-icon-united-1534959.png" width="250" height="250" alt="Banner" style="margin-right: 100px;"></div>
         </div>
       </div>
       </section>
@@ -447,8 +450,8 @@
       <section class="container py-5 mt-5 mb-md-3 mb-lg-4 mb-xxl-5">
       
         <!-- Page title-->
-        <h1 class="text-center">서포터팀</h1>
-        <p class="text-center pb-4 mb-2 mb-lg-3">#팀을 이루어 봉사를 해보아요!</p>
+        <h1 class="text-center">플레이윗미</h1>
+        <p class="text-center pb-4 mb-2 mb-lg-3">#함께 운동할 친구를 찾아요!</p>
         <!-- Services grid-->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 pb-sm-3 pb-md-4 pb-xl-5">
           <!-- Item-->
@@ -595,51 +598,10 @@
       <section class="container py-5 mt-5 mb-md-3 mb-lg-4 mb-xxl-5">
         <h1 class="text-center">인기스토리</h1>
         <p class="text-center pb-4 mb-2 mb-lg-3">#일상을 공유해보세요!</p>
-        <!-- Services grid-->
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 pb-sm-3 pb-md-4 pb-xl-5">
-          <!-- Item-->
-          <div class="col">
-          <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-          </div>
-          <!-- Item-->
-          <div class="col">
-          <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-          <!-- Item-->
-          <div class="col">
-          <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-          <!-- Item-->
-          <div class="col">
-          <div class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
+          <div class="d-flex mb-5" id="popular-stories">
+            <script>
+              popularstories();
+            </script>
           </div>
       </section>
       
