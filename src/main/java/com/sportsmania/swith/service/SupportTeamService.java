@@ -13,11 +13,12 @@ public interface SupportTeamService {
     List<SupportTeamDTO> getSearch(Boolean category, String keyword);
 
     SupportTeamDTO getOne(String team_title);
-
+    List<SupportTeamDTO> getDeadline();
+    List<SupportTeamDTO> getRegion(String userRegion);
     void remove(String team_title);
 
     void modify(SupportTeamDTO supportTeamDTO);
 
     void registerWithFile(SupportTeamDTO supportTeamDTO,MultipartFile file) throws IOException;
-    public List<SupportTeamDTO> getPage(int rownum1);
+    List<SupportTeamDTO> getPage(int rownum1);
 }

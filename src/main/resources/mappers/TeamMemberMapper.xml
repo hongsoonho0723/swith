@@ -5,7 +5,7 @@
 
 <mapper namespace="com.sportsmania.swith.mapper.TeamMemberMapper">
     <insert id="insert" parameterType="com.sportsmania.swith.domain.TeamMemberVO">
-        insert into supportteam_member values(#{team_title},#{team_memberId},#{team_fixed})
+        insert into supportteam_member(team_title,team_memberId,team_fixed) values(#{team_title},#{team_memberId},#{team_fixed})
     </insert>
     <update id="update" parameterType="com.sportsmania.swith.domain.TeamMemberVO">
         update supportteam_member set team_fixed = #{team_fixed} where team_title = #{team_title} and team_memberId =#{team_memberId}

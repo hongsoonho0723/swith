@@ -21,4 +21,7 @@ public interface SupportTeamMapper {
 
 
     void insertWithFile(SupportTeamVO supportTeamVO, MultipartFile file);
+
+    List<SupportTeamVO> selectDeadline();
+    List<SupportTeamVO> selectRegion(String userRegion);
 }
