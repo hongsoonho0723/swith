@@ -579,9 +579,9 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
               <span class="close" onclick="closeModal()">&times;</span>
               <h1>시설 정보 검색</h1>
               <label for="faciName">검색할 시설 이름을 입력하세요:</label>
-              <input type="text" id="faciName" name="faciName" />
+              <input type="text" id="faciName" name="faciName" onkeydown="handleKeyDown(event)" />
 
-              <input type="button" value="검색" onclick="search();">
+              <input type="button" value="검색" onclick="search();" />
               <div id="result"></div>
             </div>
           </div>
@@ -589,18 +589,13 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
           <!-- 스크립트 -->
           <script>
 
-            // 모달 내의 폼 엘리먼트 선택
-            const form = document.getElementById("faciName");
-
-            // 폼 제출 이벤트 핸들러
-            function handleFormSubmit(event) {
-              event.preventDefault(); // 폼 제출 방지
-              // 추가적인 로직 또는 처리
+            // 엔터 키 처리
+            function handleKeyDown(event) {
+              if (event.keyCode === 13) {
+                event.preventDefault(); // 엔터 키의 기본 동작(폼 제출) 막기
+                return search();
+              }
             }
-
-            // 폼에 이벤트 리스너 등록
-            form.addEventListener("submit", handleFormSubmit);
-
 
 
             // 모달 창 열기
@@ -683,7 +678,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
         <!-- HTML 코드 -->
         <input  name="sportsfacility" style="height: 40px; width: 300px; margin-right: 25px;" type="text" id="selectedFaciName" readonly>
-        <input  name="facilityadd" type="hidden" id="selectedFaciAddr">
+        <input  name="facilityadd" type="hidden" id="selectedFaciAddr" >
 
 
 

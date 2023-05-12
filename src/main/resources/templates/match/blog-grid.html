@@ -295,6 +295,7 @@
           <option value="">구인종류</option>
           <option value="서포터구인" th:selected="${pageRequestDTO.b_category == '서포터구인'}">서포터구인</option>
           <option value="체육활동지원" th:selected="${pageRequestDTO.b_category == '체육활동지원'}">체육활동지원</option>
+          <option value="운동친구모집" th:selected="${pageRequestDTO.b_category == '운동친구모집'}">운동친구모집</option>
         </select>
 <!--        <input type="checkbox" name="b_categories" value="서포터구인">서포터구인-->
 <!--        <input type="checkbox" name="b_categories" value="체육활동지원">체육활동지원-->
@@ -660,40 +661,22 @@
 <!--        <div  class=" card card-hover-primary bg-secondary border-0 h-100 text-decoration-none " >-->
         <div  class=" card bg-secondary border-0 h-100 text-decoration-none " >
           <div class="card-body pt-3 pb-0 pr-4">
-
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
             <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
-<!--            <span type="hidden" id="board_no" th:value="${dto.board_no}" ></span>-->
-<!--            <span type="hidden" id="board_writer" th:value="${dto.board_writer}"></span>-->
-<!--            <span  id="board_no" value="">[[${dto.board_no}]]</span>-->
-<!--            <span  id="board_writer" value="" >[[${dto.board_writer}]]</span>-->
-
-
-
             <span id="board_no" data-value="[[${dto.board_no}]]"></span>
             <span id="board_writer" data-value="[[${dto.board_writer}]]"></span>
-
             <div class="mt-auto ml-auto">
-<!--              <button class=" btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5 " type="button" th:attr="data-board-no=${dto.board_no}">-->
-<!--              <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no}" >-->
-
-<!--                <i th:id="${dto.board_writer}" class="ai-star">찜</i>-->
-              <!--<button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
-                <i class="ai-star">찜</i>
-              </button>-->
               <th:block th:with="user=${#session.getAttribute('user')}">
                 <div th:if="${user != null}">
                     <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
-                      <i th:class="${dto.is_wish ? 'ai-star-filled' : 'ai-star' }">찜</i>
+                      <i th:class="${dto.is_wish ? 'ai-star-filled' : 'ai-star' }"></i>
                     </button>
                 </div>
               </th:block>
             </div>
-
-
             <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
             <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
-            <a class="h4 card-title mt-0" th:href="|@{/match/view(board_no=${dto.board_no})}&${link}|" >[[${dto.title}]]</a>
+            <a class="h4 card-title mt-0" th:href="|@{/match/view(board_no=${dto.board_no})}|" >[[${dto.title}]]</a>
           </div>
           <div class="card-footer border-0 py-3 my-3 mb-sm-4">
             <div class="container d-flex justify-content-center">
@@ -702,7 +685,7 @@
                     </span>
               <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
                         <i class="ai-chat"> [[${dto.recruitsNum}]]</i>
-                      </span>
+              </span>
             </div>
           </div>
         </div>
