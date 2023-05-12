@@ -24,6 +24,8 @@ public interface StoryService {
 
     StoryPageResponseDTO<StoryDTO> getList(StoryPageRequestDTO storyPageRequestDTO);
 
+    StoryDTO getNextStory(Long story_no);
+
     StoryDTO getOne(Long story_no);
 
     List<StoryVO> getPopularStories();

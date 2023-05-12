@@ -18,7 +18,7 @@ public class StoryVO {
     private String title;
     private String content;
     private String image_main;
-    private LocalDateTime date;
+    private String date;
     private int clicks;
 
     private int likeCount;
@@ -31,6 +31,8 @@ public class StoryVO {
     private String team_title;
     private String team_memberId;
     private boolean team_fixed;
+    private String image_profile;
+    private String nickname;
 
 
 
