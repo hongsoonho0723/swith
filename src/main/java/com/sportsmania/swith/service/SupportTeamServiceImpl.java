@@ -80,6 +80,14 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
     }
 
     @Override
+    public List<SupportTeamDTO> getRegion(String userRegion) {
+        List<SupportTeamDTO> dtoList = supportTeamMapper.selectRegion(userRegion).stream()
+                .map(vo -> modelMapper.map(vo,SupportTeamDTO.class))
+                .collect(Collectors.toList());
+        return dtoList;
+    }
+
+    @Override
     public void remove(String team_title) {
         supportTeamMapper.delete(team_title);
     }

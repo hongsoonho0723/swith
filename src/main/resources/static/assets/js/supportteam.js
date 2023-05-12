@@ -93,11 +93,11 @@ function doAsyncWork(){
     success: function (memberList) {
     //데이터를 HTML태그에 붙이는 로직
     $.each(memberList, function (index, member) {
-    console.log(member);
+    console.log(member.team_memberNickname);
     const div = $("<div class='swiper-slide w-auto'>" +
     "<div class='card-hover text-center' style='max-width:306px'>" +
     "<img  class='d-block rounded-5 mb-4' src='../assets/img/landing/creative-agency/team/05.jpg'  alt='Image'/>" +
-    "<h3 class='h5 mb-1'>" + member.team_memberId + "</h3>" +
+    "<h3 class='h5 mb-1'>" + member.team_memberNickname + "</h3>" +
     "</div></div>");
     $("#memberItem").append(div);
 });
@@ -132,14 +132,14 @@ $(document).ready(function () {
         dataType: "json",
         success: function (userList) {
             $.each(userList, function (index, user) {
-                console.log(user);
+                console.log(user.team_memberNickname);
                 //finished에 따른 모집완료 여부
 
                 //데이터를 html에 붙이는 로직
                 const div2 = $("<div id='" +user.team_memberId +"' class='swiper-slide w-auto'>" +
                     "<div class='card-hover text-center' style='max-width:306px'>" +
                     "<img  class='d-block rounded-5 mb-4' src='../assets/img/landing/creative-agency/team/05.jpg'  alt='Image'/>" +
-                    "<h3 id='team_userId' class='h5 mb-1'>" + user.team_memberId + "</h3>" +
+                    "<h3 id='team_userId' class='h5 mb-1'>" + user.team_memberNickname + "</h3>" +
                     "<a type='button' class='btn btn-secondary mt-5' onclick=\"rejectMember('" + user.team_memberId + "')\">거절</a>" +
                     "<a type='button' class=\"btn btn-success mt-5\" onclick=\"acceptMember('" + user.team_memberId + "')\">수락</a>" +
                     "</div></div>");
@@ -189,14 +189,14 @@ function acceptMember(team_memberId){
         url: "/teams/admin/"+ team_title +"/"+ team_memberId,
         type: "PATCH",
         dataType: "json",
-        success: function (res){
+        success: function (dto){
             console.log("멤버요청 수락 성공");
             $("#"+ team_memberId).remove();
             //팀 멤버에 추가
             const div = $("<div class='swiper-slide w-auto'>" +
                 "<div class='card-hover text-center' style='max-width:306px'>" +
                 "<img  class='d-block rounded-5 mb-4' src='../assets/img/landing/creative-agency/team/05.jpg'  alt='Image'/>" +
-                "<h3 class='h5 mb-1'>" + team_memberId + "</h3>" +
+                "<h3 class='h5 mb-1'>" + dto.team_memberNickname + "</h3>" +
                 "</div></div>");
             $("#memberItem").append(div);
             let swiper = new Swiper('.swiper', {
@@ -209,6 +209,7 @@ function acceptMember(team_memberId){
                     nextEL: "#next-feature"
                 }
             })
+            console.log("멤버요청 성공!!!!!!!!!!");
         },
         error: function () {
             console.log("멤버요청 수락 실패");
@@ -335,24 +336,24 @@ $(document).ready(function(){
         "finished" : finished,
         "inquiry" : "dummy"
     };
-   $.ajax({
-      url: "/teams/total/" + team_title,
-       type: "PATCH",
-       data: JSON.stringify(supportTeamDTO),
-       contentType: "application/json",
-       success: function (data){
-           if (data.finished) {
-               recruitButton.innerText = "모집완료취소";
-           }else{
-               recruitButton.innerText = "모집완료";
+    $.ajax({
+        url: "/teams/total/" + team_title,
+        type: "PATCH",
+        data: JSON.stringify(supportTeamDTO),
+        contentType: "application/json",
+        success: function (data){
+            if (data.finished) {
+                recruitButton.innerText = "모집완료취소";
+            }else{
+                recruitButton.innerText = "모집완료";
 
-           }
-           console.log("모집완료여부버튼 업데이트 성공");
-       },
-       error: function () {
-           console.log("모집완료여부버튼 업데이트 실패");
-       },
-   });
+            }
+            console.log("모집완료여부버튼 업데이트 성공");
+        },
+        error: function () {
+            console.log("모집완료여부버튼 업데이트 실패");
+        },
+    });
 });
 
 function modifyForm(){
@@ -480,3 +481,54 @@ function registerFn() {
 */
 
 //메인에 마감임박 서포터팀들 출력하기
+function MainsupportTeams(){
+    $.ajax({
+        url:'teams/region',
+        type:'GET',
+        success: function(teamList){
+            let html='';
+            teamList.forEach(function (team){
+
+                html += '<article class="masonry-grid-item">' +
+                    '                <div class="card border-0 bg-secondary">' +
+                    '                    <img' +
+                    '                            class="card-img-top"' +
+                    '                            src="'+team.image_team+'"' +
+                    '                            style="height:200px"' +
+                    '                    />' +
+                    '                    <div class="card-body pb-4">' +
+                    '                        <div class="d-flex align-items-center mb-4 mt-n1">' +
+                    '                   <span class="fs-sm">'+team.deadline+'</span' +
+                    '                   ><span class="fs-xs mx-3"><a class="badge text-nav fs-xs border">'+team.sido+' '+ team.sigungu+'</a></span' +
+                    '                        ><a class="badge text-nav fs-xs border">모집중</a>' +
+                    '                        </div>' +
+                    '                        <h3 class="h4 card-title">' +
+                    '                            <a href="/teams/'+ team.team_title +'">'+ team.team_title + '</a>' +
+                    '                        </h3>' +
+                    '                        <p class="card-text">' +
+                    '                            +team.simple_content+' +
+                    '                        </p>' +
+                    '                    </div>' +
+                    '                    <div class="card-footer pt-3  d-flex align-items-center justify-content-between">' +
+                    '                        <a' +
+                    '                                class="d-flex align-items-center text-decoration-none pb-2"' +
+                    '                                href="#"' +
+                    '                        ><img' +
+                    '                                class="rounded-circle"' +
+                    '                                src="../assets/img/avatar/06.jpg"' +
+                    '                                width="48"' +
+                    '                                alt="Post author"' +
+                    '                        />\n' +
+                    '                            <h6 class="ps-3 mb-0">' + team.team_writer + '</h6></a' +
+                    '                        ><span><i class="ai-user">' + team.member_num + '</i></span>' +
+                    '                    </div>' +
+                    '                </div>' +
+                    '            </article>'
+            });
+            $("#teamLists").html(html);
+        },
+        error:function (){
+            console.log("메인으로 teams 못 불러옴");
+        }
+    })
+}

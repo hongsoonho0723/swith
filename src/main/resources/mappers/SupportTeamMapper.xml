@@ -11,7 +11,21 @@
         select * from supportteam where rownum > #{rownum} order by rownum limit 3
     </select>
     <select id="selectDeadline" resultType="com.sportsmania.swith.domain.SupportTeamVO">
-        select * from supportteam order by deadline limit 6
+        select * from supportteam where finished != 1 order by deadline limit 6
+    </select>
+
+    <select id="selectRegion" parameterType="String" resultType="com.sportsmania.swith.domain.SupportTeamVO">
+        SELECT st.*
+        FROM user AS u
+                 JOIN supportTeam AS st ON u.region = st.sido
+        WHERE st.finished = 0 AND u.region = #{userRegion}
+        ORDER BY
+            CASE
+                WHEN u.region = st.sido THEN 0
+                ELSE 1
+                END,
+            st.deadline
+            LIMIT 6;
     </select>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.SupportTeamVO">

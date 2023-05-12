@@ -14,6 +14,7 @@ public interface SupportTeamService {
 
     SupportTeamDTO getOne(String team_title);
     List<SupportTeamDTO> getDeadline();
+    List<SupportTeamDTO> getRegion(String userRegion);
     void remove(String team_title);
 
     void modify(SupportTeamDTO supportTeamDTO);
