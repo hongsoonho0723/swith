@@ -34,10 +34,11 @@ public class BoardServiceImpl implements BoardService{
         List<BoardDTO> dtoList = boardMapper.selectList(pageRequestDTO);
 
         int total = boardMapper.getCount(pageRequestDTO);
-
+//        int addUserNum = boardMapper.countAdditionalNum();
         PageResponseDTO<BoardDTO> pageResponseDTO = PageResponseDTO.<BoardDTO>withAll()
                 .dtoList(dtoList)
                 .total(total)
+//                .addUserNum(addUserNum)
                 .pageRequestDTO(pageRequestDTO)
                 .build();
 

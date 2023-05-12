@@ -18,16 +18,18 @@ public class PageRequestDTO {
     @Builder.Default
     @Min(value = 1)
     @Positive
+//    private int page =1;
     private int page =1;
 
     @Builder.Default
     @Min(value = 10)
     @Max(value = 100)
     @Positive
-    private int size = 10;
+//    private int size = 10;
+    private int size = 12;
     private String link;
 
-    public int getSkip(){ return (page-1)*10;}
+    public int getSkip(){ return (page-1)*12;}
 
     private String[] types; //검색종류 제목t,내용c,작성자w
     /*public String[] getTypes(){

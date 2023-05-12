@@ -30,9 +30,12 @@
         , m.supporttype as supporttype
         , m.facilityadd as facilityadd
         , (select case when w.board_no is null then false else true end) as is_wish
+        , u.nickname as nickname
         from matchboard m
         left join wishlist w
         on m.board_no = w.board_no
+        left join user u
+        on m.board_writer = u.userId
         <where>
             <if test="types != null and types.length > 0">
                 <foreach collection="types" item="type" open="(" close=")" separator="OR">
@@ -48,7 +51,7 @@
                 and supporttype = #{supporttype}
             </if>
             <if test="region != null and region.length>0">
-                and region = #{region}
+                and m.region = #{region}
             </if>
             <if test="region2 != null and region2.length>0">
                 and region2 = #{region2}
@@ -66,7 +69,7 @@
             </if>
         </where>
         group by m.board_no
-        order by board_no desc limit #{skip},#{size}
+        order by m.board_no desc limit #{skip},#{size}
     </select>
     <select id="getCount" resultType="int">
         select count(board_no) from matchboard
@@ -103,6 +106,8 @@
             </if>
         </where>
     </select>
+
+
     <select id="mainList" resultType="com.sportsmania.swith.dto.BoardDTO">
         select m.board_no
              , m.board_writer as board_writer
@@ -123,12 +128,22 @@
              , m.supporttype as supporttype
              , m.facilityadd as facilityadd
              , (select case when w.board_no is null then false else true end) as is_wish
+             , u.nickname as nickname
         from matchboard m
                  left join wishlist w
                            on m.board_no = w.board_no
         and m.finished = 0
-        group by m.board_no
+                 left join user u
+                           on m.board_writer = u.userId
+        group by board_no
         order by deadline desc limit 6
     </select>
-
+    <!--<select id="countAdditionalNum" resultType="int">
+        select count (*) from chatrooms
+        <where>
+            <if test="roomTitle !=null and roomTitle.length>0">
+                and roomTitle = #{roomTitle}
+            </if>
+        </where>
+    </select>-->
 </mapper>

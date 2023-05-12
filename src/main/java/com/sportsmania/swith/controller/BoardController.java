@@ -36,9 +36,12 @@ public class BoardController {
         if(bindingResult.hasErrors()){
             pageRequestDTO=PageRequestDTO.builder().build();
         }
-//        String a = pageRequestDTO.getB_category();
+//        #{roomtitle} = board_no+b_category+nickname
+//        String getB_cate = pageRequestDTO.getB_category();
+//        int getBoard_no = (int) boardService.getList(pageRequestDTO).getDtoList().get(0).getBoard_no();
+//        String getUserNickname =
         model.addAttribute("responseDTO",boardService.getList(pageRequestDTO));
-
+        log.info(boardService.getList(pageRequestDTO).getDtoList().get(0).getAdditionalNum());
 
         log.info(pageRequestDTO);
         return "match/list";
