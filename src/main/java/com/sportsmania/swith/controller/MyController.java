@@ -1,7 +1,9 @@
 package com.sportsmania.swith.controller;
 
 
+import com.sportsmania.swith.dto.BoardDTO;
 import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.service.BoardService;
 import com.sportsmania.swith.service.UserService;
 
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,12 +34,20 @@ public class MyController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private final BoardService boardService;
+
+    public MyController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
 
     @GetMapping("/main")
-    public String main(HttpSession session) {
+    public String main(HttpSession session, BoardDTO boardDTO, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+        model.addAttribute("boardDTO",boardService.mainList(boardDTO));
+
         if (username.equals("anonymousUser")) {
             return "members/main";
         } else {
