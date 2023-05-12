@@ -13,4 +13,5 @@ public interface BoardMapper {
     List<BoardDTO> mainList(BoardDTO boardDTO);
     List<BoardDTO> selectList(PageRequestDTO pageRequestDTO);
     int getCount(PageRequestDTO pageRequestDTO);
+//    int countAdditionalNum();
 }

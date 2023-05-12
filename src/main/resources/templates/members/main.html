@@ -292,8 +292,17 @@
             <!--        <div  class=" card card-hover-primary bg-secondary border-0 h-100 text-decoration-none " >-->
             <div  class=" card bg-secondary border-0 h-100 text-decoration-none " >
               <div class="card-body pt-3 pb-0 pr-4">
-                <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
-                <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
+                <p class="badge fs-xs border-info text-info border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
+                <th:block th:if="${dto.b_category == '운동친구모집'}">
+                  <p class="badge fs-xs border-danger text-danger border mt-2">[[${dto.b_category}]]</p>
+                </th:block>
+                <th:block th:if="${dto.b_category == '서포터구인'}">
+                  <p class="badge fs-xs border-dark text-dark border mt-2">[[${dto.b_category}]]</p>
+                </th:block>
+                <th:block th:if="${dto.b_category == '체육활동지원'}">
+                  <p class="badge fs-xs border-primary text-primary border mt-2">[[${dto.b_category}]]</p>
+                </th:block>
+                <p class="badge border-warning text-warning fs-xs border mt-2" >[[${dto.supporttype}]]</p>
                 <span id="board_no" data-value="[[${dto.board_no}]]"></span>
                 <span id="board_writer" data-value="[[${dto.board_writer}]]"></span>
                 <div class="mt-auto ml-auto">
@@ -312,7 +321,7 @@
               <div class="card-footer border-0 py-3 my-3 mb-sm-4">
                 <div class="container d-flex justify-content-center">
                     <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                    <i id="" class="ai-user">[[${dto.board_writer}]]</i>
+                    <i id="" class="ai-user">[[${dto.nickname}]]</i>
                     </span>
                   <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
                         <i class="ai-chat"> [[${dto.recruitsNum}]]</i>
