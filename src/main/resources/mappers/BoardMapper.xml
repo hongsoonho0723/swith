@@ -7,8 +7,8 @@
         select now()
     </select>
     <insert id="insert" parameterType="com.sportsmania.swith.dto.BoardDTO">
-        insert into matchboard(board_writer,exercise,startdate,enddate,region,region2,recruitsNum,title,content,b_category,sportsfacility,supporttype)
-        values(#{board_writer},#{exercise},#{startdate},#{enddate},#{region},#{region2},#{recruitsNum},#{title},#{content},#{b_category},#{sportsfacility},#{supporttype})
+        insert into matchboard(board_writer,exercise,startdate,enddate,region,region2,recruitsNum,title,content,b_category,sportsfacility,supporttype,facilityadd)
+        values(#{board_writer},#{exercise},#{startdate},#{enddate},#{region},#{region2},#{recruitsNum},#{title},#{content},#{b_category},#{sportsfacility},#{supporttype},#{facilityadd})
         </insert>
     <select id="selectList" resultType="com.sportsmania.swith.dto.BoardDTO">
         select m.board_no
@@ -64,7 +64,6 @@
             <if test="b_category != null and b_category.length>0 ">
                 and b_category = #{b_category}
             </if>
-            and b_category != '운동친구모집'
         </where>
         group by m.board_no
         order by board_no desc limit #{skip},#{size}
@@ -102,7 +101,34 @@
             <if test="b_category != null and b_category.length>0">
                 and b_category = #{b_category}
             </if>
-            and b_category != '운동친구모집'
         </where>
     </select>
+    <select id="mainList" resultType="com.sportsmania.swith.dto.BoardDTO">
+        select m.board_no
+             , m.board_writer as board_writer
+             , m.exercise as exercise
+             , m.startdate as startdate
+             , m.enddate as enddate
+             , (DATE_SUB(m.startdate,interval 1 hour)) as deadline
+             , m.region as region
+             , m.region2 as region2
+             , m.recruitsNum as recruitsNum
+             , m.title as title
+             , m.content as content
+             , m.b_category as b_category
+             , m.finished as finished
+             , m.regdate as regdate
+             , m.clicks as clicks
+             , m.sportsfacility as sportsfacility
+             , m.supporttype as supporttype
+             , m.facilityadd as facilityadd
+             , (select case when w.board_no is null then false else true end) as is_wish
+        from matchboard m
+                 left join wishlist w
+                           on m.board_no = w.board_no
+        and m.finished = 0
+        group by m.board_no
+        order by deadline desc limit 6
+    </select>
+
 </mapper>

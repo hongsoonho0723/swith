@@ -298,154 +298,47 @@
         
         <!-- Page title-->
         <h1 class="text-center">매칭라운지</h1>
-        <p class="text-center pb-4 mb-2 mb-lg-3">#마감임박 #운동을 도와줄 서포터를 찾습니다! </p>
+        <p class="text-center pb-4 mb-2 mb-lg-3">#마감임박 #운동친구 #도움 #봉사 </p>
         <!-- Services grid-->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 pb-sm-3 pb-md-4 pb-xl-5">
           <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
+          <div class="col" th:each="dto:${boardDTO}">
+            <!--        <div  class=" card card-hover-primary bg-secondary border-0 h-100 text-decoration-none " >-->
+            <div  class=" card bg-secondary border-0 h-100 text-decoration-none " >
               <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
+                <p class="badge text-nav fs-xs border mt-2" >[[${dto.region}]], [[${dto.region2}]]</p>
+                <p class="badge text-nav fs-xs border mt-2" >[[${dto.supporttype}]]</p>
+                <span id="board_no" data-value="[[${dto.board_no}]]"></span>
+                <span id="board_writer" data-value="[[${dto.board_writer}]]"></span>
+                <div class="mt-auto ml-auto">
+                  <th:block th:with="user=${#session.getAttribute('user')}">
+                    <div th:if="${user != null}">
+                      <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
+                        <i th:class="${dto.is_wish ? 'ai-star-filled' : 'ai-star' }"></i>
+                      </button>
+                    </div>
+                  </th:block>
+                </div>
+                <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
+                <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
+                <a class="h4 card-title mt-0" th:href="|@{/match/view(board_no=${dto.board_no})}|" >[[${dto.title}]]</a>
               </div>
               <div class="card-footer border-0 py-3 my-3 mb-sm-4">
                 <div class="container d-flex justify-content-center">
-                  <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                  <i class="ai-user">nickname</i>
-                  </span>
-                    <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                      <i class="ai-chat"> 4/5</i>
+                    <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
+                    <i id="" class="ai-user">[[${dto.board_writer}]]</i>
                     </span>
-                </div>
-              </div></a></div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="btn btn-lg btn-icon btn-outline-primary rounded-circle pe-none">
-                  <i class="ai-arrow-right"></i>
-            
-                    <span class="nav-link position-absolute top-1 end-0 mt-2 me-4 zindex-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                   
+                  <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
+                        <i class="ai-chat"> [[${dto.recruitsNum}]]</i>
+              </span>
                 </div>
               </div>
-            </a>
+            </div>
           </div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="btn btn-lg btn-icon btn-outline-primary rounded-circle pe-none">
-                  <i class="ai-arrow-right"></i>
-                    <span class="nav-link position-absolute top-1 end-0 mt-2 me-4 zindex-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                   
-                </div>
-              </div>
-            </a>
-          </div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="btn btn-lg btn-icon btn-outline-primary rounded-circle pe-none">
-                  <i class="ai-arrow-right"></i>
-                    <span class="nav-link position-absolute top-1 end-0 mt-2 me-4 zindex-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                   
-                </div>
-              </div>
-            </a>
-          </div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="btn btn-lg btn-icon btn-outline-primary rounded-circle pe-none">
-                  <i class="ai-arrow-right"></i>
-                    <span class="nav-link position-absolute top-1 end-0 mt-2 me-4 zindex-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                   
-                </div>
-              </div>
-            </a>
-          </div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="btn btn-lg btn-icon btn-outline-primary rounded-circle pe-none">
-                  <i class="ai-arrow-right"></i>
-                    <span class="nav-link position-absolute top-1 end-0 mt-2 me-4 zindex-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                   
-                </div>
-              </div>
-            </a>
-          </div>
+
+
         </div>
+
       </section>
       <section class="container py-5 mt-5 mb-md-3 mb-lg-4 mb-xxl-5">
       

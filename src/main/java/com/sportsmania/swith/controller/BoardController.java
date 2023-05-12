@@ -41,7 +41,7 @@ public class BoardController {
 
 
         log.info(pageRequestDTO);
-        return "match/blog-grid";
+        return "match/list";
 
     }
     @GetMapping("/posts")

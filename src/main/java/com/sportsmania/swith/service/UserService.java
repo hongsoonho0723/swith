@@ -2,6 +2,10 @@ package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.dto.WishDTO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 
 public interface UserService {
@@ -21,4 +25,8 @@ public interface UserService {
     void addAuth(UserDTO dto); //권한 추가
 
     UserVO userCheck(String name, String email); // 아이디 찾기
+
+    UserVO findPwd(@Param("name") String name, @Param("email") String email, @Param("userId")String userId); // 비밀번호 찾기
+
+    List<WishDTO> wish(String userId);
 }
