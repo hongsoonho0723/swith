@@ -103,7 +103,5 @@ public class userTest {
 
     @Test
     public void wish(){
-
-
     }
 }
