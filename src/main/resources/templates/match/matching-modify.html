@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Around | Blog Grid no Sidebar</title>
+    <title>모집 수정</title>
     <!-- SEO Meta Tags-->
     <meta
             name="description"
@@ -167,6 +167,18 @@
     <!-- Vendor styles-->
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css" />
+
+
+
+<!--에디터 스타일-->
+    <style>
+        .ck-editor__editable[role="textbox"] {
+            /* editing area */
+            min-height: 600px;
+        }
+    </style>
+
+
 </head>
 <!-- Body-->
 <body>
@@ -740,44 +752,8 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <!-- 버튼 클릭 시 모달 창 띄우기 -->
-
                 <input style="margin-right: 30px; width: 90px;" type="button" value="시설 검색" onclick="openModal();">
-
 
                 <!-- 모달 창 -->
                 <div id="myModal" class="modal">
@@ -785,9 +761,9 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
                         <span class="close" onclick="closeModal()">&times;</span>
                         <h1>시설 정보 검색</h1>
                         <label for="faciName">검색할 시설 이름을 입력하세요:</label>
-                        <input type="text" id="faciName" name="faciName" />
+                        <input type="text" id="faciName" name="faciName" onkeydown="handleKeyDown(event)" />
 
-                        <input type="button" value="검색" onclick="search();">
+                        <input type="button" value="검색" onclick="search();" />
                         <div id="result"></div>
                     </div>
                 </div>
@@ -806,7 +782,6 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
                         modal.style.display = "none";
                     }
 
-
                     // 시설명 선택 시 입력창에 값 입력
                     function selectFaciName(faciName, faciAddr) {
                         const selectedFaciName = document.getElementById("selectedFaciName");
@@ -816,17 +791,22 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
                         closeModal();
                     }
 
-
-
+                    // 엔터 키 처리
+                    function handleKeyDown(event) {
+                        if (event.keyCode === 13) {
+                            event.preventDefault(); // 엔터 키의 기본 동작(폼 제출) 막기
+                            return search();
+                        }
+                    }
 
                     function search() {
                         const faciName = document.getElementById("faciName").value;
                         const encodedFaciName = encodeURIComponent(faciName);
                         const apiUrl =
-                            "https://apis.data.go.kr/B551014/SRVC_OD_API_SFMS_FACI/TODZ_API_SFMS_FACI_I_NEW?serviceKey=Dh3tNHkDhofXqJ62w2Mu0ywkbgqdOvChWpoKJcGJ23enOQEBLvXfGvORKAqF5Xk7zWeeL5ih3JYZR5FnfJ91ZA%3D%3D&pageNo=1&numOfRows=1000&resultType=json&faci_nm=" +
+                            "https://apis.data.go.kr/B551014/SRVC_OD_API_SFMS_FACI/TODZ_API_SFMS_FACI_I_NEW?Dh3tNHkDhofXqJ62w2Mu0ywkbgqdOvChWpoKJcGJ23enOQEBLvXfGvORKAqF5Xk7zWeeL5ih3JYZR5FnfJ91ZA%3D%3D&pageNo=1&numOfRows=1000&resultType=json&faci_nm=" +
                             encodedFaciName;
 
-                        fetch(apiUrl)
+                        serviceKey=fetch(apiUrl)
                             .then((response) => response.json())
                             .then((data) => {
                                 const items = data.response.body.items.item;
@@ -838,22 +818,22 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
                                     const faci_road_addr = item.faci_road_addr;
 
                                     // 만약 faci_addr값이 없다면 faci_road_addr값으로 대체하여 출력한다
-
-
                                     if (faci_addr == null || faci_addr === "") {
                                         html += "<p><a href='#' onclick='selectFaciName(\"" + faci_nm + "\",\"" + faci_road_addr + "\")'>" + faci_nm + "</a> (" + faci_road_addr + ")</p>";
                                     } else {
                                         html += "<p><a href='#' onclick='selectFaciName(\"" + faci_nm + "\",\"" + faci_addr + "\")'>" + faci_nm + "</a> (" + faci_addr + ")</p>";
                                     }
-
-
                                 }
                                 document.getElementById("result").innerHTML = html;
+                                // closeModal(); // 주석 처리: 검색 결과 표시 후 모달 창 닫지 않음
                             })
                             .catch((error) => console.log(error));
                     }
                 </script>
-                <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 31px;"> 지원종류</li>
+
+
+
+               <li style="font-size: 1.5rem; color: #57B0E2; padding-right: 31px;"> 지원종류</li>
 
 
             </ul>
@@ -875,18 +855,6 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
             <!-- HTML 코드 -->
             <input th:value="${dto.sportsfacility}" name="sportsfacility" style="height: 40px; width: 300px; margin-right: 25px;" type="text" id="selectedFaciName" readonly>
             <input th:value="${dto.facilityadd}" name="facilityadd" type="hidden" id="selectedFaciAddr">
-
-<!--
-
-            <select name="exercise" id="sport-select">
-                &lt;!&ndash;    <option selected disabled hidden>운동 선택</option>&ndash;&gt;
-                <option selected th:text="${dto.exercise}"></option>
-
--->
-
-
-
-
 
 
             <select name="supporttype" style="height: 40px; width: 300px; margin-right: 25px; ">
@@ -912,16 +880,10 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
 
-
-
-
-
-
-
     <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
 
     <div class="ck ck-editor__main" role="presentation">
-            <textarea th:utext="${dto.content}" id="editor" name="content" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="true" style="height:800px">
+            <textarea th:utext="${dto.content}" id="editor" name="content" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="true">
             </textarea>
     </div>
 
@@ -937,20 +899,6 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
                 console.error( error );
             } );
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   <!--  <input type="hidden" name="userId" th:value="${user.userId}">-->
     <input type="hidden" name="board_no" th:value="${dto.board_no}" ></input>
