@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Around | Single Post v.2</title>
+
+    <!-- SEO Meta Tags-->
+    <meta name="description" content="Around - Multipurpose Bootstrap HTML Template">
+    <meta name="keywords" content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative">
+    <meta name="author" content="Createx Studio">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon and Touch Icons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
+    <link rel="mask-icon" color="#6366f1" href="../../assets/favicon/safari-pinned-tab.svg">
+    <meta name="msapplication-TileColor" content="#080032">
+    <meta name="msapplication-config" content="../../assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="white">
+
+    <!-- TOAST UI Editor CDN URL(CSS)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+    <script src="../../assets/js/ajax.js"></script>
+    <!-- 이미지처리를 위한 js 파일 -->
+    <script src="../../assets/js/imgfile.js"></script>
+    <!-- 정렬을 위한 css 파일 -->
+    <link rel="stylesheet" href="../../assets/css/swith.css">
+
+    <style>
+        .ck-editor__editable[role="textbox"] {
+            /* editing area */
+            min-height: 600px;
+        }
+    </style>
+
+    <!-- Page loading styles-->
+    <style>
+        .page-loading {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: all .4s .2s ease-in-out;
+            transition: all .4s .2s ease-in-out;
+            background-color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 9999;
+        }
+
+        .page-loading.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .page-loading-inner {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: opacity .2s ease-in-out;
+            transition: opacity .2s ease-in-out;
+            opacity: 0;
+        }
+        .page-loading.active > .page-loading-inner {
+            opacity: 1;
+        }
+        .page-loading-inner > span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            color: #6f788b;
+        }
+
+        .page-spinner {
+            display: inline-block;
+            width: 2.75rem;
+            height: 2.75rem;
+            margin-bottom: .75rem;
+            vertical-align: text-bottom;
+            background-color: #d7dde2;
+            border-radius: 50%;
+            opacity: 0;
+            -webkit-animation: spinner .75s linear infinite;
+            animation: spinner .75s linear infinite;
+        }
+
+        @-webkit-keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+        @keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+    </style>
+    <!-- Page loading scripts-->
+    <script>
+        (function () {
+            window.onload = function () {
+                const preloader = document.querySelector('.page-loading');
+                preloader.classList.remove('active');
+                setTimeout(function () {
+                    preloader.remove();
+                }, 1500);
+            };
+        })();
+
+    </script>
+    <!-- Import Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font">
+    <!-- Vendor styles-->
+    <link rel="stylesheet" media="screen" href="../../assets/vendor/swiper/swiper-bundle.min.css"/>
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="../../assets/css/theme.min.css"> <!-- 충돌 해결 -->
+</head>
+<!-- Body-->
+<body>
+<!-- Page loading spinner-->
+<div class="page-loading active">
+    <div class="page-loading-inner">
+        <div class="page-spinner"></div><span>Loading...</span>
+    </div>
+</div>
+<!-- Page wrapper-->
+<main class="page-wrapper">
+    <!-- Menu with dropdown + Button -->
+    <header class="navbar navbar-expand-lg fixed-top bg-light">
+        <div class="container">
+            <a href="/members/main" class="navbar-brand">
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
+                S-With
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="collapse navbar-collapse" id="navbarCollapse1">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item active">
+                        <a href="/macth" class="nav-link">모집라운지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/teams" class="nav-link">서포터팀</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">운동친구모집</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/stories" class="nav-link">스토리</a>
+                    </li>
+
+                </ul>
+
+                <div class="navbar-nav ml-auto">
+                    <div class="container d-flex justify-content-right">
+                        <div class="btn-group dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                구인/팀 & 스토리생성
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end my-1">
+                                <a href="#" class="dropdown-item">모집라운지 글 생성</a>
+                                <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                                <a href="#" class="dropdown-item">운동친구 구하기</a>
+                                <div class="dropdown-divider"></div>
+                                <div><hr/></div>
+                                <a href="#" class="dropdown-item">서포터팀 생성</a>
+                                <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
+                            </div>
+                        </div>
+                    </div>
+                    <th:block th:with="user=${#session.getAttribute('user')}">
+                        <!--로그인하지 않았을때-->
+                        <div th:if="${user == null}">
+                            <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                                <i class="ai-user me-2 ms-n1"></i>
+                                로그인
+                            </a>
+                        </div>
+                        <!--로그인 했을 때-->
+                        <div th:if="${user != null}">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                                        <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                                        <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                                        <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                                        <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                                        <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </th:block>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 배너 -->
+    <div class="mt-5 py-5 py-xl-5 s-with-story-top">
+        <div class="container me-auto">
+            <h1 class="text-color pb-0" style="color: white">스토리 수정</h1>
+            <a style="color: white">스윗!에서 다양한 이야기를 만들어보세요</a>
+
+        </div>
+    </div>
+    <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
+
+        <div class="col-12 pb-3">
+            <h3 class="fs-4 s-with-story">작성자 유형</h3>
+            <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" th:checked="${dto.user_type == '개인'}">
+            <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
+
+            <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀"  th:checked="${dto.user_type == '서포터팀'}" disabled>
+            <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
+
+        </div>
+
+        <script>
+            $.ajax({
+                url: '/teams/members',
+                type: 'GET',
+                dataType: 'json',
+                success: function(isMemberList) {
+                    console.log(isMemberList);
+                    if (isMemberList) {
+                        $('#user-type-team').prop('disabled', true);
+                        $('#user-type').prop('checked', true);
+                    } else {
+                        $('#user-type-team').prop('disabled', false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            });
+
+        </script>
+
+        <div class="col-12 py-3">
+            <h3 class="fs-4 s-with-story">스토리 유형</h3>
+            <input type="radio" name="s_category" id="story-check-1" class="form-check-input" value="근황"  th:checked="${dto.s_category == '근황'}">
+            <label for="story-check-1" class="form-check-label pe-5 fs-6">근황</label>
+
+            <input type="radio" name="s_category" id="story-check-4" class="form-check-input" value="홍보" th:checked="${dto.s_category == '홍보'}">
+            <label for="story-check-4" class="form-check-label pe-5 fs-6">홍보</label>
+
+            <input type="radio" name="s_category" id="story-check-2" class="form-check-input" value="활동후기" th:checked="${dto.s_category == '활동후기'}">
+            <label for="story-check-2" class="form-check-label pe-5 fs-6">활동후기</label>
+
+            <input type="radio" name="s_category" id="story-check-3" class="form-check-input" value="정보공유" th:checked="${dto.s_category == '정보공유'}">
+            <label for="story-check-3" class="form-check-label pe-5 fs-6">정보공유</label>
+        </div>
+
+        <div class="mb-3 pt-3">
+            <label for="text-input" class="form-label s-with-story"><h3 class="fs-4">제목</h3></label>
+            <input class="form-control" name="title" type="text" id="text-input" placeholder="최대 20자까지 입력 가능합니다." onfocus="this.placeholder=''" onblur="this.placeholder='최대 20자까지 입력 가능합니다.'" th:value="${dto.title}">
+        </div>
+
+        <!-- File input -->
+        <div class="mb-3 py-3">
+            <h3 class="fs-4 s-with-story">이미지</h3>
+            <div class="rounded-2 mb-3">
+                <img id="preview-image" style="width: 500px; height: 300px;  " src="../../assets/img/swith/swith-picture.png">
+            </div>
+            <input class="form-control" type="file" name="image" id="input-image" onchange="readImage(this);">
+        </div>
+
+        <div class="mb3 pt3">
+            <h3 class="fs-4 s-with-story">내용</h3>
+            <div id="editor" name="content"></div>
+
+            <script th:inline="javascript">
+                let editor;
+                ClassicEditor.create(document.querySelector('#editor'), {
+                    toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
+                }).then(newEditor => {
+                    editor = newEditor;
+                    const content = /*[[${dto.content}]]*/ '';
+                    editor.setData(content);
+                }).catch(error => {
+                    console.error(error);
+                });
+            </script>
+
+
+            <div class="d-flex justify-content-center pt-5">
+                <div class="pe-2">
+                        <button type="button" class="btn btn-secondary" onClick="revoke()">수정취소</button>
+                </div>
+                <div class="pl-1">
+                    <button type="button" class="btn btn-info" th:onclick="|modifyStory('${dto.story_no}')|">수정완료</button>
+                </div>
+            </div>
+    </section>
+</main>
+
+<script>
+
+</script>
+
+<!-- Footer-->
+
+<footer class="footer bg-light py-5 mt-3" style="position: relative ">
+    <div class="container">
+        <ul class="nav justify-content- py-1 pb-sm-1">
+            <li class="nav-item"><a class="nav-link py-1 pt-2 px-3 mx-1" href="#" style="font-size: 1.6rem; font-family: Arial; ">S-With</a></li>
+        </ul>
+        <ul class="nav">
+            <li class="nav-item" style="margin-right: auto; padding-left:10px ; color: gray;">contact wnduq@gmail.com</li>
+            <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">이용약관</a>
+            <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">개인정보처리방침</a>
+            <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">서비스소개</a>
+        </ul>
+        <ul class="nav">
+            <li class="nav justify-content" style="margin-right: auto; padding-left:10px; color: gray;">Copyright S-With. All rights reserved
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+</body>
+</html>

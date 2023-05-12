@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportsmania.swith.mapper.ReplyMapper">
+
+    <select id="getReplyList" resultType="com.sportsmania.swith.domain.ReplyVO">
+        select * from story_reply where story_no = #{story_no} order by reply_no desc
+    </select>
+
+    <select id="getReplyOne" resultType="com.sportsmania.swith.domain.ReplyVO">
+        select *from story_reply where reply_no = #{reply_no}
+    </select>
+
+    <insert id="insert" parameterType="com.sportsmania.swith.domain.ReplyVO">
+        insert into story_reply (story_no,reply_writer,content) values (#{story_no},#{reply_writer},#{content})
+    </insert>
+
+    <delete id="delete">
+        delete from story_reply where reply_no = #{reply_no}
+    </delete>
+
+    <update id="update">
+        update story_reply set content = #{content} where reply_no = #{reply_no}
+    </update>
+
+   <select id="storyReplyCount" resultType="int">
+       select count(reply_no) as replyCount from story_reply where story_no = #{story_no}
+   </select>
+
+</mapper>

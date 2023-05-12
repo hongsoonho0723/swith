@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportsmania.swith.mapper.UserMapper">
+    <insert id="join" parameterType="com.sportsmania.swith.dto.UserDTO">
+        insert into user(userId,name,pwd,nickname,birthday,phone,email,joinType,auth,gender)
+        values (#{userId},#{name},#{pwd},#{nickname},#{birthday},#{phone},#{email},#{joinType},#{auth},#{gender});
+    </insert>
+
+    <select id="findByIdPW" resultType="com.sportsmania.swith.dto.UserDTO" parameterType="String">
+        select * from user where userId = #{userId} AND Pwd = #{Pwd}
+    </select>
+    <select id="findByUserId" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
+        select * from user where userId = #{username}
+    </select>
+    <update id="modifyInfo" parameterType="com.sportsmania.swith.dto.UserDTO">
+        update user set introduction = #{introduction}, preference = #{preference}, image_profile =#{image_profile}
+        where userId = #{userId}
+    </update>
+
+    <select id="existsByEmail" resultType="boolean" parameterType="String">
+        select COUNT(*) from user where email = #{email}
+    </select>
+
+    <select id="existsBynickname" resultType="boolean" parameterType="String">
+        select COUNT(*) from user where nickname = #{nickname}
+    </select>
+
+    <select id="checkDuplicateId" resultType="boolean" parameterType="String">
+        select COUNT(*) from user where userId = #{userId}
+    </select>
+
+    <select id="userCheck" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
+        select * from user where name = #{name} AND email = #{email}
+    </select>
+
+    <select id="findPwd" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
+        select * from user where name = #{name} AND email = #{email} AND userId = #{userId}
+    </select>
+
+    <select id="wish" resultType="com.sportsmania.swith.dto.WishDTO">
+        SELECT m.b_category,m.title, w.board_no
+        FROM matchboard  m
+        INNER JOIN wishlist w
+        ON m.board_no = w.board_no where w.userId = #{userId};
+    </select>
+
+
+    <update id="addAuth" parameterType="com.sportsmania.swith.dto.UserDTO">
+        update user set auth = #{auth}
+        where userId = #{userId}
+    </update>
+
+</mapper>
+

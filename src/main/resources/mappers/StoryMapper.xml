@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportsmania.swith.mapper.StoryMapper">
+
+    <insert id="insert" parameterType="com.sportsmania.swith.domain.StoryVO">
+        insert into story (user_type,story_writer,s_category,title,content,image_main,team_no) values (#{user_type},#{story_writer},#{s_category},#{title},#{content},#{image_main}, #{team_no})
+    </insert>
+
+    <select id="selectOne" resultType="com.sportsmania.swith.domain.StoryVO">
+            select * from story where story_no = #{story_no}
+    </select>
+
+    <delete id="delete">
+        delete from story where story_no = #{story_no}
+    </delete>
+
+    <select id=" likeCount" resultType="com.sportsmania.swith.domain.StoryVO">
+        select count(check) from story where story_no = #{story_no}
+    </select>
+
+    <update id="update"  parameterType="com.sportsmania.swith.domain.StoryVO">
+        update story
+        set user_type = #{user_type},
+            title = #{title},
+            content = #{content},
+            s_category = #{s_category},
+            image_main = #{image_main}
+        where story_no = #{story_no}
+    </update>
+    <update id="increaseViewCount" parameterType="Long">
+        UPDATE story SET clicks = clicks + 1 WHERE story_no = #{storyNo}
+    </update>
+
+    <sql id="searchCondition">
+        <where>
+            <if test="user_type != null and user_type.length > 0">
+                user_type IN
+                <foreach collection="user_type" item="type" open="(" separator="," close=")">
+                    #{type}
+                </foreach>
+            </if>
+            <if test="s_category != null and s_category.length > 0">
+                AND s_category IN
+                <foreach collection="s_category" item="category" open="(" separator="," close=")">
+                    #{category}
+                </foreach>
+            </if>
+            <if test="keyword != null and keyword.trim().length() > 0">
+                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectList" resultMap="storyResultMap">
+        SELECT S.*, COUNT(DISTINCT L.userId) AS likeCount, COUNT(DISTINCT R.reply_no) AS replyCount
+        FROM story S
+        LEFT JOIN likes L ON S.story_no = L.story_no
+        LEFT JOIN story_reply R ON S.story_no = R.story_no
+        <include refid="searchCondition" />
+        GROUP BY S.story_no
+        order by story_no desc limit #{skip}, #{size}
+    </select>
+
+    <!-- 전체 개수를 우선 반환하도록 구성 -->
+    <select id="selectCount" resultType="int">
+        select count(story_no) from story
+        <include refid="searchCondition" />
+    </select>
+
+    <resultMap id="storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
+        <id column="story_no" property="story_no"/>
+        <result column="story_writer" property="story_writer"/>
+        <result column="user_type" property="user_type"/>
+        <result column="s_category" property="s_category"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="image_main" property="image_main"/>
+        <result column="date" property="date"/>
+        <result column="clicks" property="clicks"/>
+        <result column="likeCount" property="likeCount"/>
+        <result column="score" property="score"/>
+        <result column="replyCount" property="replyCount"/>
+    </resultMap>
+
+    <select id="getPopularStories" resultMap="storyResultMap">
+        SELECT s.*, COUNT(l.story_no) AS likeCount, (s.clicks * 0.5 + COUNT(l.story_no) * 1) as score
+        FROM story s
+                 LEFT JOIN likes l ON s.story_no = l.story_no
+        GROUP BY s.story_no
+        ORDER BY score DESC
+            LIMIT 4
+    </select>
+
+    <!--<select id="getStoryLikeAndReplyCount" resultType="com.example.dto.StoryDTO">
+        SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount
+        FROM story S
+                 LEFT JOIN likes L ON S.story_no = L.story_no
+                 LEFT JOIN story_reply R ON S.story_no = R.story_no
+        GROUP BY S.story_no
+    </select>-->
+
+    <resultMap id="t-storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
+        <id column="story_no" property="story_no"/>
+        <result column="story_writer" property="story_writer"/>
+        <result column="user_type" property="user_type"/>
+        <result column="s_category" property="s_category"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="image_main" property="image_main"/>
+        <result column="date" property="date"/>
+        <result column="clicks" property="clicks"/>
+        <result column="likeCount" property="likeCount"/>
+        <result column="score" property="score"/>
+        <result column="replyCount" property="replyCount"/>
+        <result column="team_title" property="team_title"/>
+        <result column="team_no" property="team_no"/>
+    </resultMap>
+
+
+    <select id="select_user_teams" resultMap="t-storyResultMap">
+        select team_no,team_title from supportteam_member where team_memberId = #{story_writer};
+    </select>
+    <select id="selectTeamStories" resultMap="t-storyResultMap">
+    SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount
+    FROM story S
+    LEFT JOIN likes L ON S.story_no = L.story_no
+    LEFT JOIN story_reply R ON S.story_no = R.story_no
+    LEFT JOIN supportteam_member M ON S.team_no = M.team_no
+    WHERE S.user_type = '서포터팀' AND M.team_title = #{team_title}
+    GROUP BY S.story_no;
+    </select>
+
+</mapper>

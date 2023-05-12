@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sportsmania.swith.mapper.BoardMapper">
+    <select id="getTime" resultType="string">
+        select now()
+    </select>
+    <insert id="insert" parameterType="com.sportsmania.swith.dto.BoardDTO">
+        insert into matchboard(board_writer,exercise,startdate,enddate,region,region2,recruitsNum,title,content,b_category,sportsfacility,supporttype,facilityadd)
+        values(#{board_writer},#{exercise},#{startdate},#{enddate},#{region},#{region2},#{recruitsNum},#{title},#{content},#{b_category},#{sportsfacility},#{supporttype},#{facilityadd})
+        </insert>
+    <select id="selectList" resultType="com.sportsmania.swith.dto.BoardDTO">
+        select m.board_no
+        , m.board_writer as board_writer
+        , m.exercise as exercise
+        , m.startdate as startdate
+        , m.enddate as enddate
+        , (DATE_SUB(m.startdate,interval 1 hour)) as deadline
+        , m.region as region
+        , m.region2 as region2
+        , m.recruitsNum as recruitsNum
+        , m.title as title
+        , m.content as content
+        , m.b_category as b_category
+        , m.finished as finished
+        , m.regdate as regdate
+        , m.clicks as clicks
+        , m.sportsfacility as sportsfacility
+        , m.supporttype as supporttype
+        , m.facilityadd as facilityadd
+        , (select case when w.board_no is null then false else true end) as is_wish
+        from matchboard m
+        left join wishlist w
+        on m.board_no = w.board_no
+        <where>
+            <if test="types != null and types.length > 0">
+                <foreach collection="types" item="type" open="(" close=")" separator="OR">
+                    <if test="type == 't'.toString()">
+                        title like concat('%',#{keyword},'%')
+                    </if>
+                    <if test="type == 'w'.toString()">
+                        board_writer like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+            <if test="supporttype != null and supporttype.length>0">
+                and supporttype = #{supporttype}
+            </if>
+            <if test="region != null and region.length>0">
+                and region = #{region}
+            </if>
+            <if test="region2 != null and region2.length>0">
+                and region2 = #{region2}
+            </if>
+            <if test="startdate != null and enddate != null and startdate != '' and enddate != ''">
+                and startdate between #{startdate} and #{enddate}
+            </if>
+            <if test="finished">
+                <trim prefix="and">
+                    finished = 1
+                </trim>
+            </if>
+            <if test="b_category != null and b_category.length>0 ">
+                and b_category = #{b_category}
+            </if>
+        </where>
+        group by m.board_no
+        order by board_no desc limit #{skip},#{size}
+    </select>
+    <select id="getCount" resultType="int">
+        select count(board_no) from matchboard
+        <where>
+            <if test="types != null and types.length > 0">
+                <foreach collection="types" item="type" open="(" close=")" separator="OR">
+                    <if test="type == 't'.toString()">
+                        title like concat('%',#{keyword},'%')
+                    </if>
+                    <if test="type == 'w'.toString()">
+                        board_writer like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+            <if test="supporttype != null and supporttype.length>0">
+                and supporttype = #{supporttype}
+            </if>
+            <if test="region != null and region.length>0">
+                and region = #{region}
+            </if>
+            <if test="region2 != null and region2.length>0">
+                and region2 = #{region2}
+            </if>
+            <if test="startdate != null and enddate != null and startdate != '' and enddate != ''">
+                and startdate between #{startdate} and #{enddate}
+            </if>
+            <if test="finished">
+                <trim prefix="and">
+                    finished = 1
+                </trim>
+            </if>
+            <if test="b_category != null and b_category.length>0">
+                and b_category = #{b_category}
+            </if>
+        </where>
+    </select>
+    <select id="mainList" resultType="com.sportsmania.swith.dto.BoardDTO">
+        select m.board_no
+             , m.board_writer as board_writer
+             , m.exercise as exercise
+             , m.startdate as startdate
+             , m.enddate as enddate
+             , (DATE_SUB(m.startdate,interval 1 hour)) as deadline
+             , m.region as region
+             , m.region2 as region2
+             , m.recruitsNum as recruitsNum
+             , m.title as title
+             , m.content as content
+             , m.b_category as b_category
+             , m.finished as finished
+             , m.regdate as regdate
+             , m.clicks as clicks
+             , m.sportsfacility as sportsfacility
+             , m.supporttype as supporttype
+             , m.facilityadd as facilityadd
+             , (select case when w.board_no is null then false else true end) as is_wish
+        from matchboard m
+                 left join wishlist w
+                           on m.board_no = w.board_no
+        and m.finished = 0
+        group by m.board_no
+        order by deadline desc limit 6
+    </select>
+
+</mapper>

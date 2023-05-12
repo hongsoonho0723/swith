@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="kr">
+<head>
+  <meta charset="utf-8">
+  <title>Around | Single Post v.2</title>
+  <!-- SEO Meta Tags-->
+  <meta name="description" content="Around - Multipurpose Bootstrap HTML Template">
+  <meta name="keywords" content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative">
+  <meta name="author" content="Createx Studio">
+  <!-- Viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon and Touch Icons-->
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../assets/favicon/site.webmanifest">
+  <link rel="mask-icon" color="#6366f1" href="../assets/favicon/safari-pinned-tab.svg">
+  <meta name="msapplication-TileColor" content="#080032">
+  <meta name="msapplication-config" content="../assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="white">
+
+  <!--ajax -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../assets/js/ajax.js"></script>
+
+
+  <!-- Page loading styles-->
+  <style>
+    .page-loading {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: all .4s .2s ease-in-out;
+      transition: all .4s .2s ease-in-out;
+      background-color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 9999;
+    }
+    .dark-mode .page-loading {
+      background-color: #121519;
+    }
+    .page-loading.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .page-loading-inner {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out;
+      opacity: 0;
+    }
+    .page-loading.active > .page-loading-inner {
+      opacity: 1;
+    }
+    .page-loading-inner > span {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: normal;
+      color: #6f788b;
+    }
+    .dark-mode .page-loading-inner > span {
+      color: #fff;
+      opacity: .6;
+    }
+    .page-spinner {
+      display: inline-block;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: .75rem;
+      vertical-align: text-bottom;
+      background-color: #d7dde2;
+      border-radius: 50%;
+      opacity: 0;
+      -webkit-animation: spinner .75s linear infinite;
+      animation: spinner .75s linear infinite;
+    }
+    .dark-mode .page-spinner {
+      background-color: rgba(255,255,255,.25);
+    }
+    @-webkit-keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+    @keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+
+  </style>
+  <!-- Page loading scripts-->
+  <script>
+    (function () {
+      window.onload = function () {
+        const preloader = document.querySelector('.page-loading');
+        preloader.classList.remove('active');
+        setTimeout(function () {
+          preloader.remove();
+        }, 1500);
+      };
+    })();
+
+  </script>
+  <!-- Import Google Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font">
+  <!-- Vendor styles-->
+  <link rel="stylesheet" media="screen" href="../assets/vendor/swiper/swiper-bundle.min.css"/>
+  <!-- Main Theme Styles + Bootstrap-->
+  <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css">
+</head>
+<!-- Body-->
+<body>
+<!-- Page loading spinner-->
+<div class="page-loading active">
+  <div class="page-loading-inner">
+    <div class="page-spinner"></div><span>Loading...</span>
+  </div>
+</div>
+<!-- Page wrapper-->
+<main class="page-wrapper">
+  <!-- Menu with dropdown + Button -->
+  <header class="navbar navbar-expand-lg fixed-top bg-light">
+    <div class="container">
+      <a href="/members/main" class="navbar-brand">
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
+        S-With
+      </a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <nav class="collapse navbar-collapse" id="navbarCollapse1">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item active">
+            <a href="/macth" class="nav-link">모집라운지</a>
+          </li>
+          <li class="nav-item">
+            <a href="/teams" class="nav-link">서포터팀</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">운동친구모집</a>
+          </li>
+          <li class="nav-item">
+            <a href="/stories" class="nav-link">스토리</a>
+          </li>
+
+        </ul>
+
+        <div class="navbar-nav ml-auto">
+          <div class="container d-flex justify-content-right">
+            <div class="btn-group dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                구인/팀 & 스토리생성
+              </button>
+              <div class="dropdown-menu dropdown-menu-end my-1">
+                <a href="#" class="dropdown-item">모집라운지 글 생성</a>
+                <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                <a href="#" class="dropdown-item">운동친구 구하기</a>
+                <div class="dropdown-divider"></div>
+                <div><hr/></div>
+                <a href="#" class="dropdown-item">서포터팀 생성</a>
+                <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
+              </div>
+            </div>
+          </div>
+          <th:block th:with="user=${#session.getAttribute('user')}">
+            <!--로그인하지 않았을때-->
+            <div th:if="${user == null}">
+              <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+                <i class="ai-user me-2 ms-n1"></i>
+                로그인
+              </a>
+            </div>
+            <!--로그인 했을 때-->
+            <div th:if="${user != null}">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
+                    <li><a href="#" class="dropdown-item">나의 팀</a></li>
+                    <li href="#"><a class="dropdown-item">찜 목록</a></li>
+                    <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </th:block>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page content-->
+  <!-- Page header-->
+  <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
+
+    <div class="row">
+      <!-- Post title + post meta-->
+      <div class="pb-2 pb-lg-0 mb-4 mb-lg-0 d-flex mt-5">
+        <h3> <span class="badge text-nav fs-lg border mt-2 me-sm-3">[[${dto.s_category}]]</span>[[${dto.title}]]</h3>
+        <div class="pt-4 pt-md-0 ps-md-4 ms-md-auto">
+          <button type="button" class="nav-link p-2 px-5 me-2 like-button" title="Heart" th:attr="data-story-no=${dto.story_no}"/>
+          <i class="ai-heart fs-4"></i>
+        </div>
+      </div>
+
+      <!-- Author widget-->
+      <div class="border-bottom pt-1 pb-0">
+        <div class="d-flex align-items-start py-2"><img class="d-block rounded-circle mb-3" src="../assets/img/avatar/04.jpg" width="56" alt="Author image">
+          <div class="ps-4 d-block">
+            <h4 class="h5 mb-0">[[${dto.story_writer}]]</h4>
+
+            <span class="text-muted fs-sm mb-0">[[${dto.date}]]</span>
+          </div>
+          <th:block th:with="user=${#session.getAttribute('user')}, writer=${dto.story_writer}">
+            <div class="pe-4 ms-md-auto" th:if="${user != null and user.userId == writer}">
+              <a type="button" class="pe-2 text-dark" th:href="|@{/stories/posts/{story_no}(story_no=${dto.story_no})}|" style="border: none; background-color:transparent;">수정</a>
+              <button type="button" class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
+            </div>
+          </th:block>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post content-->
+    <section class="container pt-2 mt-md-2 mt-lg-3 mt-xl-4">
+      <div class="row justify-content-center pt-xxl-2">
+        <!-- main image -->
+        <figure class="col-lg-9 col-xl-8"><img class="figure-img rounded-5 mb-3" th:src="|/img/${dto.image_main}|" alt="Image">
+        </figure>
+        <div class="border-bottom p-0"></div>
+        <div class="col-lg-9 col-xl-8 pt-2 mt-2">
+          <p class="fs-lg" th:utext="${dto.content}"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comments-->
+    <section class="container border-top pt-xl-4 pb-5 mb-md-2 mb-lg-4 mb-xl-5" id="comments">
+      <!-- Multiple button addons -->
+      <th:block th:with="user=${#session.getAttribute('user')}">
+        <div th:if="${user == null}">
+          <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
+            <input type="text" class="form-control" placeholder="로그인 후 작성해주세요." id="comment-content" readonly onclick="alert('로그인 후 이용해주세요.');">
+            <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
+              <i class="ai-edit"></i>
+            </button>
+          </div>
+        </div>
+          <div th:if="${user != null}">
+            <div class="input-group justify-content-center" style="width: 85%; margin: 0 auto">
+              <input type="text" class="form-control" placeholder="댓글을 작성해주세요." id="comment-content">
+              <button type="button" class="btn btn-outline-info btn-icon" id="replySubmit">
+                <i class="ai-edit"></i>
+              </button>
+            </div>
+          </div>
+      </th:block>
+      <script>
+        $(document).ready(function() {
+          $('#replySubmit').click(function () {
+
+            const replyContent = $("#comment-content").val(); // 댓글 내용
+            const storyNo= [[${dto.story_no}]];
+
+            const data = {
+              "content": replyContent,
+              "story_no": storyNo
+            };
+
+            $.ajax({
+              type: 'POST',
+              url: '/replies/',
+              data: data,
+              success: function (response) {
+                console.log("댓글이 등록되었습니다.");
+                // 댓글 목록 갱신 등의 처리
+                refreshReplies();
+              },
+              error: function (xhr, status, error) {
+                console.log("댓글 등록에 실패했습니다: ", error);
+              }
+            });
+          });
+        });
+      </script>
+
+      <script>
+        const story_no = [[${dto.story_no}]]; // 게시물 아이디
+        $.ajax({
+          url: '/stories/likes/' + story_no,
+          type: 'GET',
+          success: function (isLiked) {
+            if (isLiked) {
+              $('.like-button').html("<i class='ai-heart-filled fs-4'></i>");
+            } else {
+              $('.like-button').html("<i class='ai-heart fs-4'></i>");
+            }
+          },
+          error: function () {
+            $('.like-button').html("<i class='ai-heart fs-4'></i>");
+          }
+        });
+        $(".like-button").click(function () {
+          const $this = $(this);
+          const storyNo = $this.data('story-no');
+          const likesDTO = {
+            "story_no": storyNo
+          };
+          $.ajax({
+            url: '/stories/likes/',
+            type: 'POST',
+            data: likesDTO,
+            success: function (isLiked) { // 서버에서 좋아요 취소 결과를 전달받음
+              const i = $("<i class='ai-heart-filled fs-4'></i>");
+              if (isLiked) { // 좋아요 취소한 경우
+                $this.find("i").remove();
+                $this.append("<i class='ai-heart fs-4'></i>");
+              } else { // 좋아요 추가한 경우
+                $this.find("i").remove();
+                $this.append(i);
+              }
+            },
+            error: function () {
+              alert("로그인 후 이용해주세요.");
+            }
+          });
+        });
+      </script>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-10">
+          <div class="border-bottom">
+            <!-- Comments collapse-->
+            <div class="collapse" id="commentsCollapse">
+              <!-- Comment-->
+              <div id="replyDTOList">
+                <!-- 댓글 목록 출력 -->
+              </div>
+              <!-- 테스트 -->
+              <!--<div class="border-bottom pt-4 mt-3 mb-0">
+                <div class="d-flex align-items-center pb-1 mb-3">
+                  <img class="rounded-circle" src="../assets/img/avatar/07.jpg" width="48" alt="Comment author">
+                  <div class="ps-3">
+                    <h6 class="mb-0">replyDTO.reply_writer</h6>
+                    <span class="fs-sm text-muted">replyDTO.regdate</span>
+                  </div>
+                    <div class="pe-4 ms-auto">
+                      <button  class="pe-2 text-dark fs-sm" style="border: none; background-color:transparent;">수정</button>
+                      <button class="text-dark fs-sm" style="border: none; background-color:transparent;">삭제</button>
+                    </div>
+                </div>
+                <p class="pb-2 mb-0">replyDTO.content</p>
+              </div>-->
+
+            </div>
+            <script>
+              $(document).ready(function() {
+                refreshReplies();
+              });
+            </script>
+
+            <!-- Comments toggle-->
+            <div class="nav">
+              <button class="btn-more nav-link collapsed w-100 justify-content-center p-3" type="button" data-bs-toggle="collapse" data-bs-target="#commentsCollapse" aria-expanded="false" aria-controls="commentsCollapse" data-show-label="댓글 보기" data-hide-label="댓글 접기"><span class="fw-normal opacity-70 ms-1" id="replyCount"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Related articles (carousel) -->
+    <section class="container pt-2 pt-sm-3 pb-5 mb-md-3 mb-lg-4 mb-xl-5">
+      <div class="d-flex align-items-center pb-1 mb-2 mb-lg-2">
+        <h3 class="h3 mb-0 me-4">Next 스토리</h3>
+        <div class="d-flex ms-auto">
+          <button type="button" class="btn btn-outline-secondary" onClick="location.href='/stories/'">목록 보기</button>
+        </div>
+      </div>
+      <div class="border-top border-bottom py-2 mb-4">
+        <div class="d-flex align-items-start py-2">
+          <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
+          <div class="d-md-flex w-75 ps-4">
+            <div style="max-width: 50rem;">
+              <a class="badge text-nav fs-xs border mt-2" >유형</a>
+              <a href="#" style="text-decoration-line: none"><h3 class="h5 mb-0">Darlene Robertson</h3>
+                <p class="fs-xs mb-2"> 작성자</p>
+                <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+              </a> <!-- 글자 색 왜 변하는지 모르겠어요 -->
+            </div>
+
+            <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
+              <div class="d-flex">
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                  <i class="ai-show"> 20</i>
+                </a>
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                  <i class="ai-message"> 20</i>
+                </a>
+                <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                  <i class="ai-heart"> 20</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+    </section>
+</main>
+
+<!-- Footer-->
+
+<footer class="footer bg-light py-5 mt-3" style="position: relative ">
+  <div class="container">
+    <ul class="nav justify-content- py-1 pb-sm-1">
+      <li class="nav-item"><a class="nav-link py-1 pt-2 px-3 mx-1" href="#" style="font-size: 1.6rem; font-family: Arial; ">S-With</a></li>
+    </ul>
+    <ul class="nav">
+      <li class="nav-item" style="margin-right: auto; padding-left:10px ; color: gray;">contact wnduq@gmail.com</li>
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">이용약관</a>
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">개인정보처리방침</a>
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray;">서비스소개</a>
+    </ul>
+    <ul class="nav">
+      <li class="nav justify-content" style="margin-right: auto; padding-left:10px; color: gray;">Copyright S-With. All rights reserved
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+</body>
+</html>

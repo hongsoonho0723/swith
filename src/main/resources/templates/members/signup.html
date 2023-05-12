@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="utf-8">
+    <title>Around | Account - Sign In</title>
+    <!-- SEO Meta Tags-->
+    <meta name="description" content="Around - Multipurpose Bootstrap HTML Template">
+    <meta name="keywords" content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative">
+    <meta name="author" content="Createx Studio">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon and Touch Icons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <link rel="mask-icon" color="#6366f1" href="../assets/favicon/safari-pinned-tab.svg">
+    <meta name="msapplication-TileColor" content="#080032">
+    <meta name="msapplication-config" content="../assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="white">
+
+    <!-- Page loading styles-->
+    <style>
+        input[type=checkbox]:checked {
+            background-color: #003366;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            height: 10vh;
+            background-color: #57B0E2;
+
+        }
+
+        .s-with {
+            margin-left: 5%;
+            display: flex;
+            align-items: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            height: 100%;
+            }
+
+        .left, .right {
+            padding-top: 5%;
+            width: 50%;
+            height: 100%;
+            }
+
+        .middle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(20%);
+            width: 1px;
+            height: 100%;
+            background-color: #333;
+            }
+
+        .duplicate {
+            border: 2px solid red;
+        }
+
+        .page-loading {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: all .4s .2s ease-in-out;
+            transition: all .4s .2s ease-in-out;
+            background-color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 9999;
+        }
+        .page-loading.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .page-loading-inner {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: opacity .2s ease-in-out;
+            transition: opacity .2s ease-in-out;
+            opacity: 0;
+        }
+
+        .page-loading.active > .page-loading-inner {
+            opacity: 1;
+        }
+        .page-loading-inner > span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            color: #6f788b;
+        }
+
+        .padding{
+            padding-top: 2%;
+            padding-left: 20%;
+        }
+        .page-spinner {
+            display: inline-block;
+            width: 2.75rem;
+            height: 2.75rem;
+            margin-bottom: .75rem;
+            vertical-align: text-bottom;
+            background-color: #d7dde2;
+            border-radius: 50%;
+            opacity: 0;
+            -webkit-animation: spinner .75s linear infinite;
+            animation: spinner .75s linear infinite;
+        }
+
+        @-webkit-keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+        @keyframes spinner {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+
+    </style>
+
+    <script>
+        (function () {
+            window.onload = function () {
+                const preloader = document.querySelector('.page-loading');
+                preloader.classList.remove('active');
+                setTimeout(function () {
+                    preloader.remove();
+                }, 1500);
+            };
+        })();
+    </script>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Import Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font">
+    <!-- Vendor styles-->
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css">
+    <script src="../assets/js/user.js"></script>
+    <script src="../assets/js/theme.js"></script>
+
+
+
+</head>
+<body>
+    <!-- Page loading spinner-->
+  <div class="page-loading active">
+    <div class="page-loading-inner">
+      <div class="page-spinner"></div><span>Loading...</span>
+    </div>
+  </div>
+    <header>
+        <div class="s-with">S-With</div>
+    </header>
+    <main>
+        <div class="container">
+
+            <div class="left">
+                <div class="w-100 mt-auto" style="max-width: 526px;">
+                    <h1>회원가입</h1>
+                    <p class="pb-3 mb-3 mb-lg-4">아이디가 있습니까 ?&nbsp;&nbsp;<a href='/members/signin' style="color: #056297;">로그인!</a></p>
+                    <!-- 폼시작-->
+                    <form id="form1" >
+                      <div class="pb-2 mb-3 row row-cols-1 row-cols-sm-2 gy-3">
+                        <div class="position-relative" style="width: 50%;"><i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                          <input class="form-control form-control-lg ps-5" type="text" name="name" placeholder="이름" required>
+                        </div>
+                        <div class="position-relative" style="width: 50%;"><i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                            <input class="form-control form-control-lg ps-5" id="userId" type="text" name="userId" placeholder="아이디"  minlength="8" maxlength="16" required>
+                          </div>
+                      </div>
+                      <div class="mb-4">
+                        <div class="position-relative"><i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                          <div class="password-toggle">
+                            <input class="form-control form-control-lg ps-5" name="pwd" type="password" placeholder="비밀번호" required>
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                              <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <div class="position-relative"><i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                          <div class="password-toggle">
+                            <input class="form-control form-control-lg ps-5" name="pwd-confirm" type="password" placeholder="비밀번호확인" required>
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                              <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pb-2 mb-3 row row-cols-1 row-cols-sm-2 gy-3">
+                        <div class="position-relative" style="width: 40%;"><i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                          <input class="form-control form-control-lg ps-5" id="nickname" name="nickname" type="text" placeholder="닉네임" required>
+                        </div>
+                        <div class="position-relative" style="width: 40%;"><i class="ai-calendar fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                            <input class="form-control form-control-lg ps-5"  name="birthday" type="date" max="2023-01-01" placeholder="생년월일" required >
+                          </div>
+                          <div class="position-relative"  style="width: 20%;">
+                                <select class="form-select" name="gender">
+                                    <option>남자</option>
+                                    <option>여자</option>
+                                </select>
+                          </div>
+                      </div>
+                      <div class="pb-2 mb-3">
+                        <div class="position-relative" ><i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                          <input class="form-control form-control-lg ps-5" id="email" name="email" type="email" placeholder="이메일"  required>
+                            <div id="email-check-result"></div>
+                        </div>
+                      </div>
+                      <div class="pb-2 mb-3">
+                        <div class="position-relative" ><i class="ai-mobile fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                          <input class="form-control form-control-lg ps-5" name="phone" type="text" placeholder="휴대폰" required>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+
+            </div>
+
+            <div class="middle"></div>
+            
+            <div class="right" style="padding-left: 10%;padding-top: 15%;">
+                <form id="form2">
+                    <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
+                        <div class="position-relative" style="width: 50%;">
+                            <input type="radio" name="joinType" value="1" checked> 도움을 받고싶어요!
+                        </div>
+                        <div class="position-relative" style="width: 50%;">
+                            <input type="radio" name="joinType" value="2"> 서포터활동을 하고싶어요!
+                        </div>
+                      </div>
+                    <div id="input-form-container">
+                        <!-- Input form for Option 1 -->
+                                <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
+                                    <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                                        <input class="form-control form-control-lg ps-5" name="disabledType" type="text" placeholder="장애유형" required >
+                                    </div>
+                                    <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                                        <input class="form-control form-control-lg ps-5" name="grade" type="text" placeholder="등급분류" required>
+                                    </div>
+                                </div>
+                                <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
+                                    <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                                        <input class="form-control form-control-lg ps-5" type="text" name="region" placeholder="활동지역" required>
+                                    </div>
+                                    <div class="position-relative" style="width: 50%;"><i class="ai-tablet fs-lg position-absolute top-50 start-0 translate-middle-y ms-4"></i>
+                                        <input class="form-control form-control-lg ps-5" type="text"name="preference" placeholder="선호종목유형" required>
+                                    </div>
+                                </div>
+                    </div>
+                </form>
+
+                  <div class="position-relative">
+                    <form-check>
+                        <div class="pb-2 mb-2 row row-cols-1 row-cols-sm-2 gy-3">
+                            <div>
+                                <input class="form-check-input" type="checkbox" id="keep-signedin1">
+                                <a  data-toggle="modal" href="#modalId1">서비스 이용 약관</a>
+                            </div>
+                            <div>
+                                <input class="form-check-input" type="checkbox" id="keep-signedin2" >
+                                <a  data-toggle="modal" href="#modalId2">개인정보 처리약관</a>
+                            </div>
+    
+                            <div>
+                                <input class="form-check-input" type="checkbox" id="keep-signedin3">
+                                <a  data-toggle="modal" href="#modalId3">범죄이력 조회동의</a>
+                            </div>
+                        </div>
+                    </form-check>
+                  </div>
+                      <!-- 원래버튼자리-->
+                      <button class="btn btn-lg btn-primary w-100 mb-4" type="submit"  id="submitBtn" onclick="submitForms()" style = "background-color: #056297;border-color:#056297" >회 원 가 입</button>
+                  <!-- 서비스 이용약관 -->
+                  <div class="modal" id="modalId1" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title">서비스 이용약관</h4>
+                      </div>
+                          <div class="modal-body">
+                              <p>Modal body text goes here.</p>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                    <!-- 개인정보 처리약관-->
+                <div class="modal" id="modalId2" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">개인정보 처리약관</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Modal body text goes here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 범죄이력조회 -->
+                <div class="modal" id="modalId3" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">범죄이력조회</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Modal body text goes here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- -->
+            </div>
+          </div>
+        </div>
+    </main>
+    <footer
+  class="footer dark-mode bg-light py-5"
+  style="position: relative; bottom: 0"
+>
+  <div class="container">
+    <ul class="nav justify-content- py-1 pb-sm-1">
+      <li class="nav-item">
+        <a
+          class="nav-link py-1 px-3 mx-1"
+          href="#"
+          style="font-size: 1.6rem; font-family: Arial"
+          >S-With</a
+        >
+      </li>
+    </ul>
+    <ul class="nav">
+      <li
+        class="nav-item"
+        style="margin-right: auto; padding-left: 10px; color: gray"
+      >
+        contact wnduq@gmail.com
+      </li>
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
+        >이용약관</a
+      >
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
+        >개인정보처리방침</a
+      >
+      <a class="nav-link py-1 px-3 mx-1" href="#" style="color: gray"
+        >서비스소개</a
+      >
+    </ul>
+    <ul class="nav">
+      <li
+        class="nav justify-content"
+        style="margin-right: auto; padding-left: 10px; color: gray"
+      >
+        Copyright S-With. All rights reserved
+      </li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>
