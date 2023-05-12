@@ -36,6 +36,7 @@ public class MyController {
     @GetMapping("/main")
     public String main(HttpSession session) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         String username = authentication.getName();
         if (username.equals("anonymousUser")) {
             return "members/main";
