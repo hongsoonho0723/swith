@@ -12,6 +12,7 @@ public interface MatchBoardService {
 
     void modify(MatchBoardDTO matchBoardDTO);
 
+    void modify1(MatchBoardDTO matchBoardDTO);
     MatchBoardDTO getOne(int board_no);
     UserDTO getOne1(String userId);
 

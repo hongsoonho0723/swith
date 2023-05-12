@@ -129,6 +129,44 @@ $(document).ready(function() {
         });
     });
 
+    //비밀번호 찾기 / 변경
+    $('#find-pwd').click(function(e) {
+        e.preventDefault(); // 폼 제출 이벤트 방지
+        var name1 = $('#name2').val(); // name 입력란 값 가져오기
+        var email1 = $('#email2').val(); // email 입력란 값 가져오기
+        var userId1 = $('#userId2').val(); // id 입력란 값 가져오기
+        $.ajax({
+            type: 'POST', // 전송 방식
+            url: '/find_pwd', // 서버 URL
+            data: {name: name1, email: email1,userId: userId1}, // 전송할 데이터
+            success: function(response) {
+                if (response.username == null){
+                    alert("일치하는 회원정보가 없습니다");
+                }else{
+                    // 유저정보 인증에 성공한 경우
+                    // 알러트 창을 생성합니다.
+                    var code = prompt("입력한 이메일로 발송된 인증번호를 입력하세요.").toString();
+                    // 입력된 인증번호를 서버로 전송합니다.
+                    $.ajax({
+                        type: 'POST', // 전송 방식
+                        url: '/verify',
+                        data: { code:code,email:email1 },
+                        success: function(response) {
+                            if (response.ok) {
+                                // 인증 성공시 실행될 코드
+                            } else {
+                                alert('인증번호가 올바르지 않습니다.');
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                }
+            }
+        });
+    });
+
     // 이메일 유효성 검사
     $('#email').blur(function() {
         var email = $(this).val();
@@ -160,6 +198,7 @@ $(document).ready(function() {
         });
     });
 
+    // 아이디 찾기
     $('#submit-btn').click(function(e) {
         e.preventDefault(); // 폼 제출 이벤트 방지
         var name = $('#name').val(); // name 입력란 값 가져오기

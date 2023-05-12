@@ -5,6 +5,8 @@ import com.sportsmania.swith.auth.PrinclpalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -78,6 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         firewall.setAllowUrlEncodedDoubleSlash(true);
         firewall.setAllowSemicolon(true);
         return firewall;
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+        return new ConcurrentMapCacheManager("verificationCodes");
     }
 }
 

@@ -16,7 +16,7 @@
         select * from user where userId = #{username}
     </select>
     <update id="modifyInfo" parameterType="com.sportsmania.swith.dto.UserDTO">
-        update user set introduction = #{introduction}, preference = #{preference},nickname = #{nickname},email = #{email}, image_profile =#{image_profile}
+        update user set introduction = #{introduction}, preference = #{preference}, image_profile =#{image_profile}
         where userId = #{userId}
     </update>
 
@@ -35,6 +35,18 @@
     <select id="userCheck" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
         select * from user where name = #{name} AND email = #{email}
     </select>
+
+    <select id="findPwd" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
+        select * from user where name = #{name} AND email = #{email} AND userId = #{userId}
+    </select>
+
+    <select id="wish" resultType="com.sportsmania.swith.dto.WishDTO">
+        SELECT m.b_category,m.title, w.board_no
+        FROM matchboard  m
+        INNER JOIN wishlist w
+        ON m.board_no = w.board_no where w.userId = #{userId};
+    </select>
+
 
     <update id="addAuth" parameterType="com.sportsmania.swith.dto.UserDTO">
         update user set auth = #{auth}
