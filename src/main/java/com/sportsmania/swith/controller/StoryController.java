@@ -4,11 +4,12 @@ package com.sportsmania.swith.controller;
 import com.sportsmania.swith.domain.StoryVO;
 import com.sportsmania.swith.dto.ReplyDTO;
 import com.sportsmania.swith.dto.StoryDTO;
-import com.sportsmania.swith.dto.SupportTeamDTO;
+import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.page.StoryPageRequestDTO;
 import com.sportsmania.swith.service.ReplyService;
 import com.sportsmania.swith.service.StoryService;
 import com.sportsmania.swith.service.TeamMemberService;
+import com.sportsmania.swith.service.UserService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,14 @@ public class StoryController {
     @Autowired
     private final ReplyService replyService;
 
+    @Autowired
+    private final UserService userService;
 
-    public StoryController(StoryService storyService, ReplyService replyService, TeamMemberService teamMemberService) {
+
+    public StoryController(StoryService storyService, ReplyService replyService, TeamMemberService teamMemberService, UserService userService) {
         this.storyService = storyService;
         this.replyService = replyService;
+        this.userService = userService;
     }
 
 
@@ -67,6 +72,7 @@ public class StoryController {
 
     @GetMapping("/stories")
     public String list(StoryPageRequestDTO storyPageRequestDTO, BindingResult bindingResult, Model model) {
+
         log.info(storyPageRequestDTO);
         if (bindingResult.hasErrors()) {
             storyPageRequestDTO = storyPageRequestDTO.builder().build();
@@ -81,6 +87,11 @@ public class StoryController {
 
         StoryDTO storyDTO = storyService.getOne(story_no);
         log.info(storyDTO);
+
+        /*UserDTO userDTO = userService.findByUsername(storyDTO.getStory_writer());
+        storyDTO.setNickname(userDTO.getNickname());
+*/
+        log.info(storyDTO.getNickname());
 
         // 세션에 저장된 게시글 번호 리스트를 가져옵니다.
         List<Long> viewedStoryList = (List<Long>) session.getAttribute("viewedStoryList");
@@ -144,6 +155,15 @@ public class StoryController {
            List<StoryVO> stories = storyService.getPopularStories();
             return new ResponseEntity<>(stories,HttpStatus.OK);
         }
+
+        @GetMapping("/stories/next/{story_no}")
+        public ResponseEntity<StoryDTO> getNextStory(@PathVariable("story_no") Long story_no) {
+            StoryDTO nextStory = storyService.getNextStory(story_no);
+            log.info("다음 스토리" + nextStory);
+            return new ResponseEntity<>(nextStory, HttpStatus.CREATED);
+        }
+
+
 
     }
 

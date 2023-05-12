@@ -13,5 +13,6 @@ public class TeamMemberDTO {
     private String team_title;
     private String team_memberId;
     private boolean team_fixed;
+    private String team_memberNickname;
 }
 

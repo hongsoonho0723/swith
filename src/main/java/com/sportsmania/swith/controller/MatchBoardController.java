@@ -63,17 +63,7 @@ public class MatchBoardController {
 
 
 
-/*
 
-    @PostMapping("/match/matching-view")
-    public String modify(MatchBoardDTO matchBoardDTO){
-
-        matchBoardService.modify(matchBoardDTO);
-        log.info("모집완료"+matchBoardDTO);
-        return "redirect:/match/view?board_no=" + matchBoardDTO.getBoard_no();
-    }
-
-*/
 
     @PostMapping("/match/matching-view")
     public String modify1(MatchBoardDTO matchBoardDTO){

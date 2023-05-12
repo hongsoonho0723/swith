@@ -45,6 +45,7 @@ public class MyController {
     @GetMapping("/main")
     public String main(HttpSession session, BoardDTO boardDTO, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         String username = authentication.getName();
         model.addAttribute("boardDTO",boardService.mainList(boardDTO));
 

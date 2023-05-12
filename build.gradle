@@ -5,6 +5,15 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
+war {
+    enabled = false
+}
+
+bootWar {
+    archiveBaseName = 'swith'
+    archiveFileName = 'swith.war'
+}
+
 group = 'com.sportsmania'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'

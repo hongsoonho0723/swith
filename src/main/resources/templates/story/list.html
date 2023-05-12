@@ -14,6 +14,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/imgfile.js"></script>
+    <script src="../assets/js/ajax.js"></script>
     <style>
         .page-loading {
             position: fixed;
@@ -213,44 +214,8 @@
     <h2 class="mb-lg-2 mt-lg-5 mt-5" style="color:#003986;"><img src="../assets/img/swith/free-icon-popularity-1685418.png" width="4%"> 인기스토리</h2>
     <!-- Simple post preview card -->
     <div class="d-flex mb-5" id="popular-stories">
-        <!--<div class="card mx-3 p-0">
-            <img src="../assets/img/blog/grid/01.jpg" class="card-img-top" alt="Card image">
-            <div class="card-body px-lg-5 py-lg-4">
-                <a class="text-decoration-none text-dark" href="/story/read">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">내용......</p>
-                </a>
-            </div>
-        </div>-->
         <script>
-            $(function() {
-                $.ajax({
-                    url: '/stories/popular-stories',
-                    type: 'GET',
-                    success: function(stories){
-                        let html = '';
-                        stories.forEach(function (stories) {
-                            /*let content = stories.content;
-                            if (content.length > 50) {
-                                content = content.slice(0, 50) + '...';
-                            }*/
-                            let link = `/stories/${stories.story_no}`;
-                            let img = `/img/${stories.image_main}`;
-                            html += '<div class="card mx-3 p-0">' +
-                                '<img src="' + img + '" class="card-img-top popul-story-img">' +
-                                '<div class="card-body px-lg-5 py-lg-3">' +
-                                '<a class="text-decoration-none text-dark" href="' + link + '">' +
-                                '<h6 class="card-title">' + stories.title + '</h6>' +
-                                '<p class="card-text fs-sm">' + stories.story_writer+ '</p>' +
-                                '</a>' +
-                                '</div>' +
-                                '</div>';
-                        });
-                        $("#popular-stories").html(html);
-
-                    }
-                });
-            });
+            popularstories();
         </script>
     </div>
 
@@ -295,12 +260,11 @@
             <img class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5 primary-story-img" th:src="|/img/${dto.image_main}|">
             <div class="d-md-flex w-75 ps-4">
                 <div style="max-width: 48rem;">
-                    <a class="badge text-nav fs-xs border my-2" >[[${dto.s_category}]]</a>
-                    <!-- <a style="text-align: none;" th:href="|@{/stories/${dto.story_no}}|">-->
+                    <div class="d-flex  my-2"><span class="badge border-primary text-primary fs-xs border me-1" th:if="${dto.user_type eq '서포터팀'}">[[${dto.team_title}]]</span><span class="badge text-nav fs-xs border" >[[${dto.s_category}]]</span></div>
                     <a th:href="|@{/stories/{story_no}(story_no=${dto.story_no})}|" style="text-decoration:none;">
                         <h3 class="h5 mb-0">[[${dto.title}]]</h3>
-                        <p class="fs-xs mb-2" style="color: #0d0a0a">[[${dto.story_writer}]]</p>
-                        <p class="fs-sm mb-0" th:text="${#strings.substring(dto.content, 0, 340)}" th:if="${#strings.length(dto.content) > 350}" th:style="'color: #0d0a0a'"></p>
+                        <p class="fs-xs mb-2" style="color: #0d0a0a">[[${dto.nickname}]]</p>
+                        <p class="fs-sm mb-0" th:style="${'color: #0d0a0a'}" th:utext="${#strings.substring(dto.content, 0, 340) + '...'}" th:if="${#strings.length(dto.content) > 350}"></p>
                         <p class="fs-sm mb-0" th:utext="${dto.content}" th:if="${#strings.length(dto.content) <= 340}" th:style="'color: #0d0a0a'"></p>
                     </a>
                 </div>

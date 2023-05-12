@@ -83,7 +83,6 @@ function refreshReplies() {
                 success: function (replyDTOList) {
                     let html = "";
                     const replyCount = replyDTOList.length;
-                    console.log(replyDTO.regdate);
 
                     replyDTOList.forEach(function (replyDTO) {
                         const replyNo = replyDTO.reply_no;
@@ -91,12 +90,16 @@ function refreshReplies() {
                         const isEditable = loggedInUserId !== "" && loggedInUserId === replyWriter;
 
                         html += '<div class="border-bottom pt-4 mt-3 mb-0">' +
-                            '<div class="d-flex align-items-center pb-1 mb-3">' +
-                            '<img class="rounded-circle" src="../assets/img/avatar/07.jpg" width="48" alt="Comment author">' +
-                            '<div class="ps-3">' +
-                            '<h6 class="mb-0">' + replyWriter + '</h6>' +
-                            '<span class="fs-sm text-muted">' + replyDTO.regdate + '</span>' +
-                            '</div>';
+                            '<div class="d-flex align-items-center pb-1 mb-3">';
+                            if(replyDTO.image_profile != null) {
+                              html += '<img class="rounded-circle" src="' + replyDTO.image_profile + '" width="48" alt="Comment author">';
+                            } else {
+                                html += '<img class="rounded-circle" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="48" alt="Comment author">';
+                            }
+                        html += '<div class="ps-3">' +
+                                '<h6 class="mb-0">' + replyDTO.nickname + '</h6>' +
+                                '<span class="fs-sm text-muted">' + replyDTO.regdate + '</span>' +
+                                '</div>';
 
                         if (isEditable) {
                             html += '<div class="pe-4 ms-auto">' +
@@ -160,15 +163,18 @@ function deleteReplyBtn(reply_no) {
 $(document).on("click", "#submitEditReply", function () {
     const replyNo = $(this).data("reply-no");
     const replyContent = $("#edit-comment-content").val();
+    console.log(replyContent);
     $.ajax({
         type: "PUT",
         url: "/replies/" + replyNo,
-        data: {"content" : replyContent},
+        data: JSON.stringify({"content": replyContent}), // 데이터를 JSON 문자열로 변환하여 전송
+        contentType: 'application/json',
         success: function (replyDTO) {
             refreshReplies();
         },
         error: function () {
             alert("댓글 수정에 실패했습니다.");
+            console.log("데이터" + JSON.stringify({"content": replyContent}));
         }
     });
 });
@@ -192,7 +198,7 @@ function popularstories()
                     '<div class="card-body px-lg-5 py-lg-3">' +
                     '<a class="text-decoration-none text-dark" href="' + link + '">' +
                     '<h6 class="card-title">' + stories.title + '</h6>' +
-                    '<p class="card-text fs-sm">' + stories.story_writer + '</p>' +
+                    '<p class="card-text fs-sm">' + stories.nickname + '</p>' +
                     '</a>' +
                     '</div>' +
                     '</div>';

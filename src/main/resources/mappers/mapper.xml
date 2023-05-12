@@ -15,6 +15,11 @@
     <select id="findByUserId" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
         select * from user where userId = #{username}
     </select>
+
+    <select id="findByNickname" resultType="com.sportsmania.swith.domain.UserVO" parameterType="String">
+        select * from user where nickname = #{nickname}
+    </select>
+
     <update id="modifyInfo" parameterType="com.sportsmania.swith.dto.UserDTO">
         update user set introduction = #{introduction}, preference = #{preference}, image_profile =#{image_profile}
         where userId = #{userId}
@@ -47,6 +52,9 @@
         ON m.board_no = w.board_no where w.userId = #{userId};
     </select>
 
+    <select id="blackList" resultType="com.sportsmania.swith.dto.blackDTO">
+        SELECT * FROM blacklist where userId = #{userId}
+    </select>
 
     <update id="addAuth" parameterType="com.sportsmania.swith.dto.UserDTO">
         update user set auth = #{auth}

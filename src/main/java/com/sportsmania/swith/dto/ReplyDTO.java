@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -21,11 +22,15 @@ public class ReplyDTO {
     @NotNull
     private Long story_no;
 
-    @NotEmpty
+
     private String reply_writer;
 
     @NotEmpty
     private String content;
 
-    private LocalDateTime regdate;
+    private String regdate;
+
+    private String image_profile;
+
+    private String nickname;
 }

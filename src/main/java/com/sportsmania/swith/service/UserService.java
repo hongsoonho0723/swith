@@ -3,6 +3,7 @@ package com.sportsmania.swith.service;
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
+import com.sportsmania.swith.dto.blackDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface UserService {
     UserVO findPwd(@Param("name") String name, @Param("email") String email, @Param("userId")String userId); // 비밀번호 찾기
 
     List<WishDTO> wish(String userId);
+
+    List<blackDTO> blackList(String userId); // 블랙리스트
 }

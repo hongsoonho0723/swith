@@ -1,3 +1,6 @@
+
+node_modules/
+
 HELP.md
 .gradle
 build/
@@ -36,3 +39,4 @@ out/
 ### VS Code ###
 .vscode/
 
+>>>>>>> origin/juyeop
