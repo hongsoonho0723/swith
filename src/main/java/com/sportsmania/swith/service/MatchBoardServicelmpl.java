@@ -52,6 +52,12 @@ public class MatchBoardServicelmpl implements MatchBoardService {
         matchBoardMapper.update(matchBoardVO);
 
     }
+    @Override
+    public void modify1(MatchBoardDTO matchBoardDTO) {
+        MatchBoardVO matchBoardVO = modelMapper.map(matchBoardDTO, MatchBoardVO.class);
+        matchBoardMapper.update1(matchBoardVO);
+
+    }
 
     @Override
     public MatchBoardDTO getOne(int board_no) {

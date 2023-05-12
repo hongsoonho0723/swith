@@ -754,7 +754,7 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
       event.preventDefault(); //form태그를 이용하여 submit을 사용하려면 submit의 이벤트를 막아줘야 함
       let formData = new FormData(this);
       //let formData = new FormData($('#formdata')[0]);
-      // console.log(document.getElementById());
+    //  console.log(document.getElementById());
       let jsonFormData = JSON.stringify(Object.fromEntries(formData));
       $.ajax({
         type: "POST",

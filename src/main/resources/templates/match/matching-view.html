@@ -3,6 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <title>Around | Blog Grid no Sidebar</title>
+
+    <!-- Vendor styles-->
+    <link rel="stylesheet" media="screen" href="../assets/vendor/swiper/swiper-bundle.min.css"/>
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css">
+
     <!-- SEO Meta Tags-->
     <meta
             name="description"
@@ -167,6 +173,11 @@
     <!-- Vendor styles-->
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css" />
+
+
+
+
+
 </head>
 <!-- Body-->
 <body>
@@ -186,7 +197,7 @@
             <a href="/members/main" class="navbar-brand">
           <span class="text-primary flex-shrink-0 me-2">
             <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"/>
             </svg>
           </span>
                 S-With
@@ -308,14 +319,41 @@
                         <i class="ai-show"> 조회수 </i>
                         <span th:text="${dto.clicks}" style="font-size: 15px;"></span>
                     </a>
-                    <a
-                            class="nav-link p-2"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            title="heart"
-                    >
-                        <i class="ai-heart"> 찜</i>
-                        <!-- 어케할지 모르겟음 -->
+
+
+
+
+                    <!--
+
+
+                                            <div class="mt-auto ml-auto">
+
+                                                <th:block th:with="user=${#session.getAttribute('user')}">
+                                                    <div th:if="${user != null}">
+                                                        <button class="starbutton btn btn-outline-info btn-icon" type="button"  th:attr="data-board-no=${dto.board_no},data-board-writer=${dto.board_writer}" >
+                                                            <i th:class="${dto.is_wish ? 'ai-star-filled' : 'ai-star' }">찜</i>
+                                                        </button>
+                                                    </div>
+                                                </th:block>
+                                            </div>
+
+
+
+
+                    -->
+
+
+
+
+
+
+
+
+
+
+
+
+
                     </a>
                     <b class="ms-xl-3">모집인원</b>
                     <span th:text="${dto.recruitsNum}" ></span>
@@ -323,8 +361,6 @@
                     <span th:text="${dto.recruitsNum}" ></span>
                 </div>
             </div>
-
-
 
 
             <div class="col-lg-4 col-xl-3 offset-xl-9">
@@ -345,10 +381,14 @@
                             <li class="dropdown-divider"></li>
                             <li><a href="#" class="dropdown-item">차단</a></li>
                         </ul>
-                        <p class="fs-sm mb-4" style="padding-top: 10px" >자기소개란</p>
+                        <p class="fs-sm mb-4" style="padding-top: 10px" th:text="${dto.introduction}"></p>
+                        <p class="fs-sm mb-4" style="padding-top: 10px" ></p>
                     </div>
                 </div>
             </div>
+
+
+
 
 
 
@@ -374,7 +414,7 @@
 
 
 
-                    <a href="#"><h3 class="pt-xl-1 mb-4">채팅방 입장</h3></a>
+
                     <!-- Sharing-->
                     <!-- Relevant topics-->
                     <!-- Trending posts-->
@@ -498,46 +538,62 @@
 
         </div>
         <p></p>
+
+
+
+
+
+
+
         <div class="container d-flex justify-content-center">
-
             <!-- Info solid button -->
+            <a type="button" class="btn btn-info" th:href="@{/match/modify(board_no=${dto.board_no})}"
+               th:if="${dto.board_writer eq #authentication.name}">수정하기</a>
 
 
-            <a type="button" class="btn btn-info" th:href="@{/match/modify(board_no=${dto.board_no})}">수정하기</a>
 
-            <!-- Success solid button -->
-            <a type="button " style="margin-right: 10px" class="btn btn-success ms-2" href="#">모집완료</a>
+
+
+
+
+
+
+
+
+            <!-- 모달 창 -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>모집이 완료되었습니다.</p>
+                </div>
+            </div>
+
+            <form id="matchingForm" action="/match/matching-view" method="post">
+                <!-- Success solid button -->
+                <input type="hidden" name="board_no" th:value="${dto.board_no}" readonly></input>
+                <button id="finishButton" style="margin-right: 10px" class="btn btn-success ms-2" th:if="${dto.board_writer eq #authentication.name}">모집완료</button>
+            </form>
+
+
+
+
 
             <form action="/remove" method="post">
                 <input type="hidden" name="board_no" th:value="${dto.board_no}" readonly></input>
-
-                <button type="submit" style="width:110px;margin-right: 10px; background-color: #e1f0d8; border: none; " class="btn btn-info" >삭제</button>
+                <button type="submit" style="width:110px;margin-right: 10px; background-color: #e1f0d8; border: none;"
+                        class="btn btn-info" th:if="${dto.board_writer eq #authentication.name}">삭제</button>
             </form>
+
+
+
         </div>
+
+
+
+        </div>
+
+
     </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- Comments-->
     <!-- Related articles (carousel) -->
@@ -611,5 +667,65 @@
 <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
 <!-- Main theme script-->
 <script src="../assets/js/theme.min.js"></script>
+
+
+
+
+<!-- 모달 창 -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>모집이 완료되었습니다.</p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#finishButton').click(function() {
+            var finishValue = "[[${dto.finished}]]";
+            console.info("1:" + finishValue);
+            // 수정된 부분
+            if (finishValue !== "true") {
+                finishValue = "true";
+                showModal();
+                showCompletedMessage();
+            } else {
+                finishValue = "false";
+            }
+            console.info("2:" + finishValue);
+            $('#matchingForm').append('<input type="hidden" name="finished" value="' + finishValue + '">');
+            $('#matchingForm').submit();
+        });
+
+        // 모달 창 보여주는 함수
+        function showModal() {
+            var modal = document.getElementById("myModal");
+            var closeBtn = document.getElementsByClassName("close")[0];
+
+            modal.style.display = "block";
+
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            };
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        }
+
+        // 모집 완료 메시지 표시 함수
+        function showCompletedMessage() {
+            alert("모집이 완료되었습니다.");
+        }
+    });
+</script>
+
+
+
+
+
+
 </body>
 </html>
