@@ -33,4 +33,20 @@ public class ImgController {
         }
         return ResponseEntity.ok().headers(headers).body(resource);
     }
+
+    @GetMapping("/info/{image_main}")
+    public ResponseEntity<Resource> imgInfoGET(@PathVariable String image_main){
+        String uploadPath = "C:\\upload\\";
+
+        Resource resource = new FileSystemResource(uploadPath+ File.separator + image_main);
+        String resourceName = resource.getFilename();
+        HttpHeaders headers = new HttpHeaders();
+
+        try{
+            headers.add("Content-Type", Files.probeContentType( resource.getFile().toPath() ));
+        } catch(Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok().headers(headers).body(resource);
+    }
 }

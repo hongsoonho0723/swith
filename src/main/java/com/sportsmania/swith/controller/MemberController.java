@@ -1,5 +1,6 @@
 package com.sportsmania.swith.controller;
 
+import com.sportsmania.swith.domain.SupportTeamVO;
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
@@ -60,6 +61,40 @@ public class MemberController {
     @PostMapping("/my")
     public String modify1(HttpSession httpSession, @RequestParam("file") MultipartFile file, @ModelAttribute UserDTO userDTO, Model model) throws IOException {
 
+        /*String uploadPath = "C:\\upload\\";
+
+        String originalFileName = file.getOriginalFilename();
+
+        String filename = UUID.randomUUID() + originalFileName;
+
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(uploadPath + filename);
+        Files.write(path, bytes);
+
+       // supportTeamDTO.setImage_team(filename);
+
+       // SupportTeamVO supportTeamVO = modelMapper.map(supportTeamDTO, SupportTeamVO.class);
+
+      //  supportTeamMapper.insert(supportTeamVO);
+
+
+        log.info(userDTO);
+
+        log.info("==============");
+
+        UserDTO dto = (UserDTO) httpSession.getAttribute("user");
+
+        log.info(dto);
+
+        dto.setImage_profile(filename);
+        dto.setPreference(userDTO.getPreference());
+        dto.setIntroduction(userDTO.getIntroduction());
+        httpSession.setAttribute("user",dto);
+        userService.modify(dto);
+        return "/info/mypage";*/
+
+
+
        // String uploadPath = "C:\\upload\\"; //프로젝트 내부 저장
         String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\user_image\\";
 
@@ -88,6 +123,8 @@ public class MemberController {
         httpSession.setAttribute("user",dto);
         userService.modify(dto);
         return "/info/mypage";
+
+
     }
 
     @GetMapping("/history")

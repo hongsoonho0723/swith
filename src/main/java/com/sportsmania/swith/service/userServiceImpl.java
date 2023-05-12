@@ -34,9 +34,7 @@ public class userServiceImpl implements UserService {
     }
 
     @Override
-    public int modify(UserDTO dto) {
-        return userMapper.modifyInfo(dto);
-    }
+    public int modify(UserDTO dto) { return userMapper.modifyInfo(dto);}
 
     @Override
     public UserDTO findByUsername(String username) {
