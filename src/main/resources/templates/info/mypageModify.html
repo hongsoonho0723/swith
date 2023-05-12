@@ -304,7 +304,7 @@
                             </tr>
                             <tr>
                               <td class="border-0 text-muted py-1 px-0">닉네임</td>
-                              <td class="border-0 text-dark fw-medium py-1 ps-3"><input style="border-radius:10px;" type="text" name="nickname" placeholder="닉네임" required></td>
+                              <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').nickname}" name="nickname"></td>
                             </tr>
                             <tr>
                               <td class="border-0 text-muted py-1 px-0">장애여부</td>
@@ -312,7 +312,7 @@
                             </tr>
                             <tr>
                               <td class="border-0 text-muted py-1 px-0">이메일</td>
-                              <td class="border-0 text-dark fw-medium py-1 ps-3"><input style="border-radius:10px;" type="email" placeholder="이메일"name="email" required></td>
+                              <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').email}" name="email"></td>
                             </tr>
                             <tr>
                               <td class="border-0 text-muted py-1 px-0">관심종목</td>
@@ -331,7 +331,7 @@
                           <div id="image-container" ></div>
                         </div>
                         <div style="flex: 1;">
-                          <button onclick="document.getElementById('image-input').click()" id="upload-btn" type="button" class="btn btn-primary" style="position: absolute;left: 50%;bottom: 55%">
+                          <button onclick="document.getElementById('image-input').click()" id="upload-btn" type="button" class="btn btn-primary" style="position: absolute;left: 46%;bottom: 55%">
                             <i class="ai-user me-2"></i>
                             Upload
                           </button>
