@@ -43,4 +43,13 @@ public class BoardServiceImpl implements BoardService{
 
         return pageResponseDTO;
     }
+
+    @Override
+    public List<BoardDTO> mainList(BoardDTO boardDTO) {
+        List<BoardDTO> mainList = boardMapper.mainList(boardDTO).stream()
+                .map(vo -> modelMapper.map(vo,BoardDTO.class))
+                .collect(Collectors.toList());
+
+        return mainList;
+    }
 }

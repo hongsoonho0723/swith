@@ -30,4 +30,6 @@ public class MatchBoardVO {
     private String sportsfacility;
     private String supporttype;
     private String facilityadd;
+    private String introduction;
+    private String nickname;
 }

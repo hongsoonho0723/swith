@@ -4,10 +4,12 @@ import com.sportsmania.swith.domain.TeamMemberVO;
 import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.dto.TeamMemberDTO;
+import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.service.StoryService;
 import com.sportsmania.swith.service.SupportTeamService;
 import com.sportsmania.swith.service.TeamMemberService;
 
+import com.sportsmania.swith.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Required;
@@ -36,12 +38,44 @@ public class SupportTeamController {
     private final SupportTeamService supportTeamService;
     private final TeamMemberService teamMemberService;
     private final StoryService storyService;
+    private final UserService userService;
+
+    @GetMapping("/members/teams/region")
+    public ResponseEntity viewMainWithTeams(Authentication authentication){
+        /*try{
+            String userId = authentication.getName();
+            List<SupportTeamDTO> teamList = supportTeamService.getRegion(userId);
+            log.info("viewMainWithTeams:"+teamList);
+            return new ResponseEntity<>(teamList, HttpStatus.OK);
+        }catch(NullPointerException e){
+            List<SupportTeamDTO> teamList = supportTeamService.getDeadline();
+            log.info("viewMainWithTeams:"+teamList);
+            return new ResponseEntity<>(teamList, HttpStatus.OK);
+        }*/
+        List<SupportTeamDTO> teamList = supportTeamService.getDeadline();
+        log.info("viewMainWithTeams:"+teamList);
+        return new ResponseEntity<>(teamList, HttpStatus.OK);
+    }
 
     @GetMapping("/teams/posts")
     public ModelAndView viewResgister() {
         ModelAndView mv = new ModelAndView("/teams/sp-register");
 
         return mv;
+    }
+
+    @GetMapping("/teams/demo2")
+    public ModelAndView viewDemo2() {
+        List<SupportTeamDTO> dtoList = supportTeamService.getAll();
+        ModelAndView mv = new ModelAndView("/teams/sp-list2");
+        mv.addObject("dtoList",dtoList);
+        return mv;
+    }
+    @GetMapping("/teams/demo")
+    public ResponseEntity viewDemo() {
+        List<SupportTeamDTO> dtoList = supportTeamService.getAll();
+        log.info("list demo 진입완료");
+        return new ResponseEntity<>(dtoList,HttpStatus.OK);
     }
 
     /*@PostMapping("/teams/posts")
@@ -90,7 +124,6 @@ public class SupportTeamController {
                                      @ModelAttribute SupportTeamDTO supportTeamDTO,
                                      Authentication authentication){
         String team_writer = authentication.getName();
-        supportTeamDTO.setTeam_writer(team_writer);
         if (file.isEmpty()) {
             log.info("file empty");
             return new ResponseEntity<>("Please select a file!", HttpStatus.OK);
@@ -128,6 +161,12 @@ public class SupportTeamController {
     @GetMapping("/teams")
     public ModelAndView viewList() {
         List<SupportTeamDTO> dtoList = supportTeamService.getAll();
+
+        for (SupportTeamDTO dto: dtoList) {
+            UserDTO userDTO = userService.findByUsername(dto.getTeam_writer());
+            dto.setNickname(userDTO.getNickname());
+        }
+
         ModelAndView mv = new ModelAndView("/teams/sp-list");
         log.info("teams view Controller 작동완료");
         mv.addObject("dtoList", dtoList);
@@ -164,6 +203,9 @@ public class SupportTeamController {
     @GetMapping("/teams/{team_title}")
     public ModelAndView viewPost(@PathVariable("team_title") String team_title) {
         SupportTeamDTO supportTeamDTO = supportTeamService.getOne(team_title);
+        String team_writer = supportTeamDTO.getTeam_writer();
+        UserDTO userDTO = userService.findByUsername(team_writer);
+        supportTeamDTO.setNickname(userDTO.getNickname());
         log.info("list view" + supportTeamDTO);
         ModelAndView mv = new ModelAndView("/teams/sp-view");
         mv.addObject("dto", supportTeamDTO);
@@ -175,11 +217,24 @@ public class SupportTeamController {
                                            @PathVariable("team_fixed") int team_fixed) {
         if (team_fixed == 1) {
             List<TeamMemberDTO> memberList = teamMemberService.getMember(team_title);
+            for (TeamMemberDTO dto:
+                 memberList) {
+                UserDTO userDTO = userService.findByUsername(dto.getTeam_memberId());
+                dto.setTeam_memberNickname(userDTO.getNickname());
+                log.info(dto.getTeam_memberNickname());
+            }
+
             log.info(memberList);
             return new ResponseEntity<>(memberList, HttpStatus.OK);
         } else {
             log.info("team_fixed: " + team_fixed);
             List<TeamMemberDTO> userList = teamMemberService.getUser(team_title);
+            for (TeamMemberDTO dto:
+                    userList) {
+                UserDTO userDTO = userService.findByUsername(dto.getTeam_memberId());
+                dto.setTeam_memberNickname(userDTO.getNickname());
+                log.info(dto.getTeam_memberNickname());
+            }
             log.info(userList);
             return new ResponseEntity<>(userList, HttpStatus.OK);
         }
@@ -201,10 +256,12 @@ public class SupportTeamController {
     @PatchMapping("/teams/admin/{team_title}/{team_memberId}")
     public ResponseEntity acceptMember(@PathVariable("team_title") String team_title,
                                        @PathVariable("team_memberId") String team_memberId) {
+        UserDTO userDTO =userService.findByUsername(team_memberId);
         TeamMemberDTO teamMemberDTO = TeamMemberDTO.builder()
                 .team_title(team_title)
                 .team_memberId(team_memberId)
                 .team_fixed(true)
+                .team_memberNickname(userDTO.getNickname())
                 .build();
         teamMemberService.modify(teamMemberDTO);
         log.info("Controller : 멤버 요청 수락 service 실행");
@@ -212,7 +269,10 @@ public class SupportTeamController {
     }
 
     @PostMapping("/teams/info")
-    public ResponseEntity applicationTeam(@RequestBody TeamMemberDTO teamMemberDTO) {
+    public ResponseEntity applicationTeam(@RequestBody TeamMemberDTO teamMemberDTO,
+                                          Authentication authentication) {
+        String userId = authentication.getName();
+        teamMemberDTO.setTeam_memberId(userId);
         teamMemberDTO.setTeam_fixed(false);
         log.info("applicationTeam()의 dto: " + teamMemberDTO);
         teamMemberService.register(teamMemberDTO);

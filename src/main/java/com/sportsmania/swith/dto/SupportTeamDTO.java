@@ -22,5 +22,6 @@ public class SupportTeamDTO {
     private String inquiry;
     private boolean finished;
     private String deadline;
+    private String nickname;
 
 }

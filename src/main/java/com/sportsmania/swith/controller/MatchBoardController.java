@@ -33,7 +33,7 @@ public class MatchBoardController {
             MatchBoardDTO matchBoardDTO = matchBoardService.getOne(board_no);
             log.info(matchBoardDTO);
             model.addAttribute("dto", matchBoardDTO);
-
+            log.info(matchBoardDTO.getIntroduction());
             // userId로 UserDTO 조회
 
         }
@@ -42,34 +42,6 @@ public class MatchBoardController {
     }
 
 
-/*
-
-
-   @GetMapping("/match/view")
-    public String read(Integer board_no,  String userId, Model model) {
-        if (board_no == null || userId == null) {
-            log.info("board_no:"+board_no);
-            log.info("userId:"+userId);
-            log.info("null발생!!");
-            // 처리할 로직 추가
-        } else {
-            // board_no로 MatchBoardDTO 조회
-            MatchBoardDTO matchBoardDTO = matchBoardService.getOne(board_no);
-            log.info(matchBoardDTO);
-            model.addAttribute("dto", matchBoardDTO);
-
-            // userId로 UserDTO 조회
-            UserDTO userDTO = matchBoardService.getOne1(userId);
-            log.info(userDTO);
-            log.info(userId);
-            model.addAttribute("user", userDTO);
-
-        }
-        return "/match/matching-view";
-
-    }
-
-*/
 
     @GetMapping("/match/modify")
     public String read1(Integer board_no, Model model) {
@@ -91,33 +63,15 @@ public class MatchBoardController {
 
 
 
-/*
 
-    @GetMapping("/match/modify")
-    public String read1(Integer board_no,String userId, Model model) {
-        if (board_no == null || userId == null) {
-            log.info("board_no:"+board_no);
-            log.info("userId:"+userId);
-            log.info("null발생!!");
-            // 처리할 로직 추가
-        } else {
-            // board_no로 MatchBoardDTO 조회
-            MatchBoardDTO matchBoardDTO = matchBoardService.getOne(board_no);
-            log.info(matchBoardDTO);
-            model.addAttribute("dto", matchBoardDTO);
 
-            // userId로 UserDTO 조회
-            UserDTO userDTO = matchBoardService.getOne1(userId);
-            log.info(userDTO);
-            log.info(userId);
-            model.addAttribute("user", userDTO);
-        }
-        return "/match/matching-modify";
+    @PostMapping("/match/matching-view")
+    public String modify1(MatchBoardDTO matchBoardDTO){
+        log.info(matchBoardDTO);
+        matchBoardService.modify1(matchBoardDTO);
+        log.info("모집완료"+matchBoardDTO);
+        return "redirect:/match/view?board_no=" + matchBoardDTO.getBoard_no();
     }
-*/
-
-
-
 
 
     @PostMapping("/match/matching-modify")
@@ -126,7 +80,7 @@ public class MatchBoardController {
         log.info(matchBoardDTO);
         matchBoardService.modify(matchBoardDTO);
 
-        return "redirect:/match/view?board_no=" + matchBoardDTO.getBoard_no() + "&userId=" + userDTO.getUserId();
+        return "redirect:/match/view?board_no=" + matchBoardDTO.getBoard_no();
     }
 
 

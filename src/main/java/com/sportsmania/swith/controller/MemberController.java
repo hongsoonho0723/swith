@@ -1,6 +1,10 @@
 package com.sportsmania.swith.controller;
 
+import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.dto.WishDTO;
+import com.sportsmania.swith.dto.blackDTO;
+import com.sportsmania.swith.mapper.UserMapper;
 import com.sportsmania.swith.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -26,11 +32,39 @@ public class MemberController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/mypage")
-    public void myPage(){
+    public void myPage(Model model,HttpSession httpSession){
+        UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
+        List<WishDTO> list = userService.wish(userDTO.getUserId());
+        UserVO userVO = userMapper.findByUserId(userDTO.getUserId());
+        
+        List<blackDTO> black = userService.blackList(userDTO.getUserId()); // 블랙리스트
 
+        List<blackDTO> dtoList1 = new ArrayList<>();
+        for (blackDTO item : black) {
+            blackDTO dto = new blackDTO();
+            dto.setBlockId(item.getBlockId());
+            dto.setRegdate(item.getRegdate());
+            dtoList1.add(dto);
+        }
+
+        List<WishDTO> dtoList = new ArrayList<>();
+        for (WishDTO item : list) {
+            WishDTO dto = new WishDTO();
+            dto.setTitle(item.getTitle());
+            dto.setB_category(item.getB_category());
+            dto.setBoard_no(item.getBoard_no());
+            dtoList.add(dto);
+        }
+
+        log.info(dtoList);
+
+        model.addAttribute("blacklist",dtoList1);
+        model.addAttribute("wishlist", dtoList);
+        model.addAttribute("userdto",userVO);
     }
 
     @GetMapping("/my")
@@ -41,7 +75,7 @@ public class MemberController {
     @PostMapping("/my")
     public String modify1(HttpSession httpSession, @RequestParam("file") MultipartFile file, @ModelAttribute UserDTO userDTO, Model model) throws IOException {
 
-       // String uploadPath = "C:\\upload\\"; //프로젝트 외부 c드라이브에 upload폴더에 저장
+       // String uploadPath = "C:\\upload\\"; //프로젝트 내부 저장
         String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\user_image\\";
 
         String originalFileName = file.getOriginalFilename();
@@ -64,13 +98,11 @@ public class MemberController {
         log.info(dto);
 
         dto.setImage_profile(savePath);
-        dto.setEmail(userDTO.getEmail());
-        dto.setNickname(userDTO.getNickname());
         dto.setPreference(userDTO.getPreference());
         dto.setIntroduction(userDTO.getIntroduction());
-        model.addAttribute("dto",dto);
+        httpSession.setAttribute("user",dto);
         userService.modify(dto);
-        return "redirect:/info/mypage";
+        return "/info/mypage";
     }
 
     @GetMapping("/history")
@@ -78,6 +110,13 @@ public class MemberController {
         UserDTO dto = (UserDTO) httpSession.getAttribute("user");
         log.info("============");
         log.info(dto);
+    }
+
+    @GetMapping("/other/{nickname}")
+    public String other(@PathVariable("nickname") String nickname,Model model){
+            UserVO userVO = userMapper.findByNickname(nickname);
+            model.addAttribute("other",userVO);
+            return "/info/other";
     }
 
 }

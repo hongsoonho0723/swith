@@ -11,7 +11,7 @@ public interface MatchBoardMapper {
   /*  static List<MatchBoardVO> selectAll() ;*/
 
     void insert(MatchBoardVO matchBoardVO);
-
+    void update1(MatchBoardVO matchBoardVO);
     void update(MatchBoardVO matchBoardVO);
     MatchBoardVO selectOne(int board_no);
     UserVO selectOne1(String userId);

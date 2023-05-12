@@ -142,58 +142,69 @@
     <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css">
   </head>
   <body style="background-color: #F6F9FC;">
-    <header class="navbar navbar-expand-lg bg-light">
-        <div class="container">
-          <a href="#" class="navbar-brand">
-            <span class="text-primary flex-shrink-0 me-2">
-              <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
-              </svg>
-            </span>
-            S-With
-          </a>
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <nav class="collapse navbar-collapse" id="navbarCollapse1">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item active">
-                <a href="#" class="nav-link">매칭라운지</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">서포터팀</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">플레이윗미</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">스토리</a>
-              </li>
-      
-            </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">구인/팀 & 스토리 생성</a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" class="dropdown-item">매칭라운지 글 쓰기</a></li>
-                  <li><a href="#" class="dropdown-item">서포터팀원 구하기</a></li>
-                  <li><a href="#" class="dropdown-item">플레이메이트 구하기</a></li>
-                  <li class="dropdown-divider"> </li>
-                  <li href="#"><a class="dropdown-item">서포터 팀 생성</a></li>
-                  <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-                  <li href="#"><a class="dropdown-item">스토리 생성</a></li>
-      
-                </ul>
-              </li>
-            </ul>
+  <header class="navbar navbar-expand-lg fixed-top bg-light">
+    <div class="container">
+      <a href="#" class="navbar-brand">
+          <span class="text-primary flex-shrink-0 me-2">
+            <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+            </svg>
+          </span>
+        S-With
+      </a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <nav class="collapse navbar-collapse" id="navbarCollapse1">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item active">
+            <a href="/match" class="nav-link">매칭라운지</a>
+          </li>
+          <li class="nav-item">
+            <a href="/teams" class="nav-link">서포터팀</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">플레이윗미</a>
+          </li>
+          <li class="nav-item">
+            <a href="/stories" class="nav-link">스토리</a>
+          </li>
 
-            <div style="background-color: #00ab6c;" >
+        </ul>
+
+        <th:block th:with="user=${#session.getAttribute('user')}">
+          <!--로그인하지 않았을때-->
+          <div th:if="${user == null}">
+            <a href="/members/signin" class="btn btn-primary btn-sm fs-sm ms-3 mb-4 mb-lg-0">
+              <i class="ai-user me-2 ms-n1"></i>
+              로그인
+            </a>
+          </div>
+          <!--로그인 했을 때-->
+          <div th:if="${user != null}">
+            <div class="navbar-nav ml-auto">
+              <div class="container d-flex justify-content-right">
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    구인/팀 & 스토리생성
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end my-1">
+                    <a href="#" class="dropdown-item">매칭라운지 글 생성</a>
+                    <a href="#" class="dropdown-item">서포터팀원 구하기</a>
+                    <a href="#" class="dropdown-item">플레이메이트 구하기</a>
+                    <div class="dropdown-divider"></div>
+                    <div><hr/></div>
+                    <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
+                    <a href="#" class="dropdown-item">스토리 생성</a>
+                  </div>
+                </div>
+              </div>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
                   <ul class="dropdown-menu">
-                    <li><a href="/members/mypage" class="dropdown-item">마이페이지</a></li>
-                    <li><a href="/info/history" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
+                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
                     <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
                     <li><a href="#" class="dropdown-item">나의 팀</a></li>
                     <li href="#"><a class="dropdown-item">찜 목록</a></li>
@@ -202,9 +213,11 @@
                 </li>
               </ul>
             </div>
-          </nav>
-        </div>
-      </header>
+          </div>
+        </th:block>
+      </nav>
+    </div>
+  </header>
 
 
       <!-- Page content-->
@@ -229,7 +242,7 @@
                   </nav>
                   <div class="d-none d-lg-block" style="padding-top: 300px;"></div>
                   <div>
-                    <nav class="nav flex-column"><a class="nav-link fw-semibold py-2 px-0" href="/info/logout"><i class="ai-logout fs-5 opacity-60 me-2"></i>로그아웃</a></nav>
+                    <nav class="nav flex-column"><a class="nav-link fw-semibold py-2 px-0" href="/logout"><i class="ai-logout fs-5 opacity-60 me-2"></i>로그아웃</a></nav>
                   </div>
 
                   <div>
@@ -262,10 +275,6 @@
                         </div>
                       <table class="table mb-0">
                         <tr>
-                          <td class="border-0 text-muted py-1 px-0">전화번호</td>
-                          <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').phone}">010-****-****</td>
-                        </tr>
-                        <tr>
                           <td class="border-0 text-muted py-1 px-0">유형</td>
                           <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').joinType}">서포터or표시x</td>
                         </tr>
@@ -274,16 +283,12 @@
                           <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').gender}">성별</td>
                         </tr>
                         <tr>
-                          <td class="border-0 text-muted py-1 px-0">소통</td>
-                          <td class="border-0 text-dark fw-medium py-1 ps-3">휴대폰,이메일</td>
-                        </tr>
-                        <tr>
                             <td class="border-0 text-muted py-1 px-0">활동지역</td>
                             <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').region}">지역</td>
                           </tr>
                           <tr>
                             <td class="border-0 text-muted py-1 px-0">닉네임</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').nickname}">닉네임</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').nickname}" >닉네임</td>
                           </tr>
                           <tr>
                             <td class="border-0 text-muted py-1 px-0">장애여부</td>
@@ -294,9 +299,9 @@
                       <p th:text="${#session.getAttribute('user').introduction}">안녕하세요 ~</p>
                     </div>
                     <div class="col-md-6 d-md-flex justify-content-end">
-                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 60%;">
+                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 250px;">
                         <h4 style="padding-left: 4%;">프로필 이미지</h4>
-                          <img style="height: 80%;width: 100%;border-radius: 10px" th:src="${#session.getAttribute('user').image_profile}">
+                          <img style="height: 80%;width: 100%;border-radius: 10px" th:src="${userdto.image_profile}">
                       </div>
                     </div>
                   </div>
@@ -311,39 +316,52 @@
                       <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2" >
                         <h2 class="h2 mb-0">차단목록</h2><a class="btn btn-sm btn-secondary ms-auto" href="account-settings.html"><i class="ai-edit ms-n1 me-2"></i>전체보기</a>
                       </div>
-                      <div class="mb-3 row row-cols-1 row-cols-sm-2 gy-3" style="text-align: center;border-bottom: 2px solid #E3E9EF;">
-                        <div class="position-relative" style="width: 50%;">
-                          <h5>차단유저</h5>
-                        </div>
-                        <div class="position-relative" style="width: 50%;">
-                            <h5>차단일시</h5>
-                          </div>
+                      <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
+                        <table style="width: 100%;">
+                          <thead>
+                          <tr style="border-bottom: 2px solid #E3E9EF;">
+                            <th>차단유저</th>
+                            <th>차단일시</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tbody>
+                          <tr th:each="item : ${blacklist}">
+                            <td th:text="${item.blockId}"></td>
+                            <td th:text="${item.regdate}"></td>
+                          </tr>
+                          <!-- 이하 생략 -->
+                          </tbody>
+                          <!-- 이하 생략 -->
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="d-flex align-items-center pb-1 mb-2">
-                        <h3 class="h6 mb-0 me-3"></h3><span class="badge bg-faded-primary text-primary"></span>
-                      </div>
-                      <p class="mb-0"><br><br></p>
-                      <div class="d-flex align-items-center pt-4 pb-1 my-2">
-                        <h3 class="h6 mb-0 me-3"></h3><span class="badge bg-faded-primary text-primary"></span>
-                      </div>
-                      <p class="mb-0"><br><br></p>
                     </div>
                   </div>
                 </section>
                 <!-- 찜목록-->
                 <section class="col">
-                  <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2">
+                  <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);height: 300px">
+                    <div class="card-body"  style="overflow-y: auto;">
+                      <div class="align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2">
                         <h2 class="h2 mb-0">찜목록</h2>
                       </div>
-                      <div class="mb-3 row row-cols-1 row-cols-sm-2 gy-3" style="text-align: center;border-bottom: 2px solid #E3E9EF;">
-                        <div class="position-relative" style="width: 50%;">
-                          <h5>게시물 제목</h5>
-                        </div>
-                        <div class="position-relative" style="width: 50%;">
-                            <h5>카테고리</h5>
-                          </div>
+                      <div class="align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
+                        <table style="width: 100%;">
+                          <thead>
+                          <tr style="border-bottom: 2px solid #E3E9EF;">
+                            <th>게시물제목</th>
+                            <th>카테고리</th>
+                          </tr>
+                          </thead>
+                            <tbody>
+                            <tr th:each="item : ${wishlist}">
+                              <td><a th:text="${item.title}" th:href="@{/match/view(board_no=${item.board_no})}"></a></td>
+                              <td th:text="${item.b_category}"></td>
+                            </tr>
+                            <!-- 이하 생략 -->
+                            </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>

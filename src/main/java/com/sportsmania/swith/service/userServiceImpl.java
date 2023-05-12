@@ -2,12 +2,16 @@ package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.dto.WishDTO;
+import com.sportsmania.swith.dto.blackDTO;
 import com.sportsmania.swith.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -65,4 +69,20 @@ public class userServiceImpl implements UserService {
     public UserVO userCheck(String name, String email) {
         return userMapper.userCheck(name,email);
     }
+
+    @Override
+    public UserVO findPwd(String name, String email, String userId) {
+        return userMapper.findPwd(name,email,userId);
+    }
+
+    @Override
+    public List<WishDTO> wish(String userId) {
+        return userMapper.wish(userId);
+    }
+
+    @Override
+    public List<blackDTO> blackList(String userId) {
+        return userMapper.blackList(userId);
+    }
+
 }

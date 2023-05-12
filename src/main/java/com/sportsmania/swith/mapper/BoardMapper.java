@@ -10,7 +10,7 @@ import java.util.List;
 public interface BoardMapper {
     void insert(BoardDTO boardDTO); //9개 넣어야함, 그중 writer은 외래키라서 작성자가 테이블에 있어야 들어감
     String getTime();
-
+    List<BoardDTO> mainList(BoardDTO boardDTO);
     List<BoardDTO> selectList(PageRequestDTO pageRequestDTO);
     int getCount(PageRequestDTO pageRequestDTO);
 }
