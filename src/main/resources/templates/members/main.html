@@ -29,18 +29,7 @@
     <meta name="msapplication-config" content="
     ../assets/favicon/browserconfig.xml">
     <meta name="theme-color" content="white">
-    <!-- Theme mode-->
-    <script>
-      let mode = window.localStorage.getItem('mode'),
-          root = document.getElementsByTagName('')[0];
-      if (mode !== undefined && mode === 'dark') {
-        root.classList.add('dark-mode');
-      } else {
-        root.classList.remove('dark-mode');
-      }
-      
-      
-    </script>
+
     <!-- Page loading styles-->
     <style>
       .page-loading {
@@ -157,8 +146,10 @@
     <link rel="stylesheet" media="screen" href="
     ../assets/css/swith.css">
 
+
+    <<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/ajax.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -343,11 +334,62 @@
       <section class="container py-5 mt-5 mb-md-3 mb-lg-4 mb-xxl-5">
       
         <!-- Page title-->
-        <h1 class="text-center">플레이윗미</h1>
-        <p class="text-center pb-4 mb-2 mb-lg-3">#함께 운동할 친구를 찾아요!</p>
+        <h1 class="text-center">서포터팀</h1>
+        <p class="text-center pb-4 mb-2 mb-lg-3">#팀을 이루어 봉사해보아요!</p>
         <!-- Services grid-->
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 pb-sm-3 pb-md-4 pb-xl-5">
-          <!-- Item-->
+        <!--<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 pb-sm-3 pb-md-4 pb-xl-5">-->
+        <div id="teamLists" class="masonry-grid mb-2 mb-md-4 pb-lg-3" data-columns="3">
+          <script>
+              $.ajax({
+                url:'teams/region',
+                type:'GET',
+                success: function(teamList){
+                  let html='';
+                  teamList.forEach(function (team){
+
+                    html += '<article class="masonry-grid-item">' +
+                            '                <div class="card border-0 bg-secondary">' +
+                            '                    <img' +
+                            '                            class="card-img-top"' +
+                            '                            src="'+team.image_team+'"' +
+                            '                            style="height:200px"' +
+                            '                    />' +
+                            '                    <div class="card-body pb-4">' +
+                            '                        <div class="d-flex align-items-center mb-4 mt-n1">' +
+                            '                   <span class="fs-sm">'+team.deadline+'</span' +
+                            '                   ><span class="fs-xs mx-3"><a class="badge text-nav fs-xs border">'+team.sido+' '+ team.sigungu+'</a></span' +
+                            '                        ><a class="badge text-nav fs-xs border">모집중</a>' +
+                            '                        </div>' +
+                            '                        <h3 class="h4 card-title">' +
+                            '                            <a href="/teams/'+ team.team_title +'">'+ team.team_title + '</a>' +
+                            '                        </h3>' +
+                            '                        <p class="card-text">' +team.simple_content+
+                            '                        </p>' +
+                            '                    </div>' +
+                            '                    <div class="card-footer pt-3  d-flex align-items-center justify-content-between">' +
+                            '                        <a' +
+                            '                                class="d-flex align-items-center text-decoration-none pb-2"' +
+                            '                                href="#"' +
+                            '                        ><img' +
+                            '                                class="rounded-circle"' +
+                            '                                src="../assets/img/avatar/06.jpg"' +
+                            '                                width="48"' +
+                            '                                alt="Post author"' +
+                            '                        />\n' +
+                            '                            <h6 class="ps-3 mb-0">' + team.team_writer + '</h6></a' +
+                            '                        ><span><i class="ai-user">' + team.member_num + '</i></span>' +
+                            '                    </div>' +
+                            '                </div>' +
+                            '            </article>'
+                  });
+                  $("#teamLists").html(html);
+                },
+                error:function (){
+                  console.log("메인으로 teams 못 불러옴");
+                }
+            })
+          </script>
+          <!--&lt;!&ndash; Item&ndash;&gt;
           <div class="col">
             <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
               <div class="card-body pt-3 pb-0 pr-4">
@@ -369,122 +411,9 @@
                       <i class="ai-chat"> 4/5</i>
                     </span>
                 </div>
-              </div></a></div>
+              </div></a></div>-->
           <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="container d-flex justify-content-center">
-                  <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                  <i class="ai-user">nickname</i>
-                  </span>
-                    <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                </div>
-              </div></a></div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="container d-flex justify-content-center">
-                  <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                  <i class="ai-user">nickname</i>
-                  </span>
-                    <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                </div>
-              </div></a></div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="container d-flex justify-content-center">
-                  <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                  <i class="ai-user">nickname</i>
-                  </span>
-                    <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                </div>
-              </div></a></div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="container d-flex justify-content-center">
-                  <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                  <i class="ai-user">nickname</i>
-                  </span>
-                    <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                </div>
-              </div></a></div>
-          <!-- Item-->
-          <div class="col">
-            <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" href="#">
-              <div class="card-body pt-3 pb-0 pr-4">
-                  
-                  <p class="badge text-nav fs-xs border mt-2" >부산 금정구</p>
-                  <p class="badge text-nav fs-xs border mt-2" >이동지원</p>
-                  
-                  <button class="btn btn-sm btn-icon btn-outline-primary rounded-circle pe-none position-absolute top-1 end-0 mt-2 me-4 zindex-5" type="button"><i class="ai-heart"></i></button>
-                  
-                <p class="card-text">마감일 2023.10.22</h3>
-                <p class="h4 card-title mt-0">축구경기 진행 예정인데 부산시민운동장까지 이동지원해주실 분 구합니다.</p>
-              </div>
-              <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                <div class="container d-flex justify-content-center">
-                  <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
-                  <i class="ai-user">nickname</i>
-                  </span>
-                    <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                      <i class="ai-chat"> 4/5</i>
-                    </span>
-                </div>
-              </div></a></div>
+
         </div>
       </section>
       
