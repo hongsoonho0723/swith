@@ -6,11 +6,15 @@
 <mapper namespace="com.sportsmania.swith.mapper.ReplyMapper">
 
     <select id="getReplyList" resultType="com.sportsmania.swith.domain.ReplyVO">
-        select * from story_reply where story_no = #{story_no} order by reply_no desc
+        select R.*, U.image_profile, U.nickname
+        from story_reply R
+                 LEFT JOIN user U ON R.reply_writer = U.userId
+        where story_no = #{story_no}
+        order by reply_no desc
     </select>
 
     <select id="getReplyOne" resultType="com.sportsmania.swith.domain.ReplyVO">
-        select *from story_reply where reply_no = #{reply_no}
+        select * from story_reply where reply_no = #{reply_no}
     </select>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.ReplyVO">

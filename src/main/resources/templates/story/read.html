@@ -135,6 +135,7 @@
   <link rel="stylesheet" media="screen" href="../assets/vendor/swiper/swiper-bundle.min.css"/>
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="../assets/css/theme.min.css">
+  <link rel="stylesheet" href="../assets/css/swith.css">
 </head>
 <!-- Body-->
 <body>
@@ -231,7 +232,7 @@
     <div class="row">
       <!-- Post title + post meta-->
       <div class="pb-2 pb-lg-0 mb-4 mb-lg-0 d-flex mt-5">
-        <h3> <span class="badge text-nav fs-lg border mt-2 me-sm-3">[[${dto.s_category}]]</span>[[${dto.title}]]</h3>
+        <h3><span class="badge border-primary text-primary fs-lg border mt-2 me-sm-1" th:if="${dto.user_type eq '서포터팀'}">[[${dto.team_title}]]</span><span class="badge text-nav fs-lg border mt-2 me-sm-3">[[${dto.s_category}]]</span>[[${dto.title}]]</h3>
         <div class="pt-4 pt-md-0 ps-md-4 ms-md-auto">
           <button type="button" class="nav-link p-2 px-5 me-2 like-button" title="Heart" th:attr="data-story-no=${dto.story_no}"/>
           <i class="ai-heart fs-4"></i>
@@ -240,18 +241,38 @@
 
       <!-- Author widget-->
       <div class="border-bottom pt-1 pb-0">
-        <div class="d-flex align-items-start py-2"><img class="d-block rounded-circle mb-3" src="../assets/img/avatar/04.jpg" width="56" alt="Author image">
+        <div class="d-flex align-items-start py-2"><img th:if="${dto.image_profile} != null" class="d-block rounded-circle mb-3" th:src="${dto.image_profile}" width="56" alt="Author image">
+          <img th:if="${dto.image_profile} == null" class="d-block rounded-circle mb-3" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="56" alt="Author image">
           <div class="ps-4 d-block">
-            <h4 class="h5 mb-0">[[${dto.story_writer}]]</h4>
+            <div class="dropdown">
+              <h4 class="h5 mb-0 dropdown-toggle" th:text="${dto.nickname}" id="profileDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></h4>
+              <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                <li><a href="#" class="dropdown-item">프로필 보기</a></li>
+              </ul>
+            </div>
 
             <span class="text-muted fs-sm mb-0">[[${dto.date}]]</span>
           </div>
+              <div class="ms-md-auto">
+              <div class="d-flex mt-2">
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                  <i class="ai-show"> [[${dto.clicks}]]</i>
+                </a>
+                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                  <i class="ai-message"> [[${dto.replyCount}]]</i>
+                </a>
+                <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                  <i class="ai-heart"> [[${dto.likeCount}]]</i>
+                </a>
+              </div>
+
           <th:block th:with="user=${#session.getAttribute('user')}, writer=${dto.story_writer}">
-            <div class="pe-4 ms-md-auto" th:if="${user != null and user.userId == writer}">
+            <div class="py-1 text-center" th:if="${user != null and user.userId == writer}">
               <a type="button" class="pe-2 text-dark" th:href="|@{/stories/posts/{story_no}(story_no=${dto.story_no})}|" style="border: none; background-color:transparent;">수정</a>
               <button type="button" class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
             </div>
           </th:block>
+        </div>
         </div>
       </div>
     </div>
@@ -270,7 +291,7 @@
     </section>
 
     <!-- Comments-->
-    <section class="container border-top pt-xl-4 pb-5 mb-md-2 mb-lg-4 mb-xl-5" id="comments">
+    <section class="container border-top pt-xl-4 pb-2 mb-md-2 mb-lg-2 mb-xl-1" id="comments">
       <!-- Multiple button addons -->
       <th:block th:with="user=${#session.getAttribute('user')}">
         <div th:if="${user == null}">
@@ -371,22 +392,6 @@
               <div id="replyDTOList">
                 <!-- 댓글 목록 출력 -->
               </div>
-              <!-- 테스트 -->
-              <!--<div class="border-bottom pt-4 mt-3 mb-0">
-                <div class="d-flex align-items-center pb-1 mb-3">
-                  <img class="rounded-circle" src="../assets/img/avatar/07.jpg" width="48" alt="Comment author">
-                  <div class="ps-3">
-                    <h6 class="mb-0">replyDTO.reply_writer</h6>
-                    <span class="fs-sm text-muted">replyDTO.regdate</span>
-                  </div>
-                    <div class="pe-4 ms-auto">
-                      <button  class="pe-2 text-dark fs-sm" style="border: none; background-color:transparent;">수정</button>
-                      <button class="text-dark fs-sm" style="border: none; background-color:transparent;">삭제</button>
-                    </div>
-                </div>
-                <p class="pb-2 mb-0">replyDTO.content</p>
-              </div>-->
-
             </div>
             <script>
               $(document).ready(function() {
@@ -401,47 +406,95 @@
           </div>
         </div>
       </div>
-    </section>
-    <!-- Related articles (carousel) -->
-    <section class="container pt-2 pt-sm-3 pb-5 mb-md-3 mb-lg-4 mb-xl-5">
-      <div class="d-flex align-items-center pb-1 mb-2 mb-lg-2">
-        <h3 class="h3 mb-0 me-4">Next 스토리</h3>
+      <div class="d-flex align-items-center pb-1 mb-2 mb-lg-2 mt-4">
         <div class="d-flex ms-auto">
           <button type="button" class="btn btn-outline-secondary" onClick="location.href='/stories/'">목록 보기</button>
         </div>
       </div>
+    </section>
+    <!-- Related articles (carousel) -->
+    <section class="container pt-2 pt-sm-3 pb-5 mb-md-3 mb-lg-4 mb-xl-5" id="nextStory">
+      <div class="d-flex align-items-center pb-1 mb-2 mb-lg-2">
+        <h3 class="h3 mb-0 me-4">Next 스토리</h3>
+      </div>
       <div class="border-top border-bottom py-2 mb-4">
-        <div class="d-flex align-items-start py-2">
-          <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" style="background-image: url(../assets/img/blog/list/03.jpg); min-height: 150px; width: 250px"></a>
-          <div class="d-md-flex w-75 ps-4">
-            <div style="max-width: 50rem;">
-              <a class="badge text-nav fs-xs border mt-2" >유형</a>
-              <a href="#" style="text-decoration-line: none"><h3 class="h5 mb-0">Darlene Robertson</h3>
-                <p class="fs-xs mb-2"> 작성자</p>
-                <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo, et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
-              </a> <!-- 글자 색 왜 변하는지 모르겠어요 -->
-            </div>
+          <div class="d-flex align-items-start py-2">
+            <img class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5 primary-story-img" id="image_main">
+            <div class="d-md-flex w-75 ps-4">
+              <div style="max-width: 48rem;">
+                <div class="d-flex  my-2"><span class="badge border-primary text-primary fs-xs border me-1" id="team_title"></span><span class="badge text-nav fs-xs border"  id="s_catecory"></span></div>
+                <div id="link" style="text-decoration:none;">
+                  <h3 class="h5 mb-0" id="title"></h3>
+                  <p class="fs-xs mb-2" id="nickname" style="color: #0d0a0a"></p>
+                  <p class="fs-sm mb-0" id="content" th:style="'color: #0d0a0a'"></p>
+                </div>
+              </div>
 
-            <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto">
-              <div class="d-flex">
-                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
-                  <i class="ai-show"> 20</i>
-                </a>
-                <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
-                  <i class="ai-message"> 20</i>
-                </a>
-                <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
-                  <i class="ai-heart"> 20</i>
-                </a>
+              <div class="pt-2 pt-md-0 ps-md-1 ms-md-auto" style="min-width: 167px">
+                <div class="d-flex">
+                  <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="show">
+                    <i class="ai-show" id="clicks"></i>
+                  </a>
+                  <a class="nav-link p-2 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="reply">
+                    <i class="ai-message" id="replytotal"></i>
+                  </a>
+                  <a class="nav-link p-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="heart">
+                    <i class="ai-heart" id="likeCount"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-      </div>
     </section>
 </main>
+
+  <script>
+    $(document).ready(function() {
+      const story_no = [[${dto.story_no}]];
+
+      $.ajax({
+        type: 'GET',
+        url: '/stories/next/' + story_no,
+        success: function(data) {
+          console.log(data);
+            let content = data.content;
+            const maxLength = 340;
+            if (content.length > maxLength) {
+              content = content.substring(0, maxLength) + '...';
+            }
+            // Update the HTML with the returned data
+            $('#image_main').attr('src', '/img/' + data.image_main);
+            $('#s_category').text(data.s_category);
+            $('#title').text(data.title);
+            $('#nickname').text(data.nickname);
+            $('#content').html(content);
+            $('#clicks').text(' ' + data.clicks);
+            $('#replytotal').text(' ' + data.replyCount);
+            $('#likeCount').text(' ' + data.likeCount);
+
+
+            if (data.user_type === '서포터팀') {
+              $('#team_title').text(data.team_title);
+            } else {
+              $('#team_title').hide();
+            }
+
+            // Add click event listener to the link
+            $('#link').on('click', function() {
+              // Redirect to the detailed view page
+              window.location.href = '/stories/' + data.story_no;
+            });
+        },
+        error: function(xhr, status, error) {
+          console.log('Error:', error);
+          $('#nextStory').hide();
+
+        }
+      });
+    });
+  </script>
 
 <!-- Footer-->
 

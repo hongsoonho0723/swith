@@ -20,19 +20,10 @@
     <meta name="msapplication-config" content="../../assets/favicon/browserconfig.xml">
     <meta name="theme-color" content="white">
 
-    <!-- TOAST UI Editor CDN URL(CSS)-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-
     <script src="../../assets/js/ajax.js"></script>
-    <!-- 이미지처리를 위한 js 파일 -->
     <script src="../../assets/js/imgfile.js"></script>
-    <!-- 정렬을 위한 css 파일 -->
-    <link rel="stylesheet" href="../../assets/css/swith.css">
 
     <style>
         .ck-editor__editable[role="textbox"] {
@@ -143,7 +134,8 @@
     <!-- Vendor styles-->
     <link rel="stylesheet" media="screen" href="../../assets/vendor/swiper/swiper-bundle.min.css"/>
     <!-- Main Theme Styles + Bootstrap-->
-    <link rel="stylesheet" media="screen" href="../../assets/css/theme.min.css"> <!-- 충돌 해결 -->
+    <link rel="stylesheet" media="screen" href="../../assets/css/theme.min.css">
+    <link rel="stylesheet" href="../../assets/css/swith.css">
 </head>
 <!-- Body-->
 <body>
@@ -244,34 +236,51 @@
     <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
 
         <div class="col-12 pb-3">
-            <h3 class="fs-4 s-with-story">작성자 유형</h3>
-            <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" th:checked="${dto.user_type == '개인'}">
-            <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
+            <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
+            <div class="d-flex">
+                <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" onchange="toggleTeamList()" th:checked="${dto.user_type == '개인'}">
+                <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
 
-            <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀"  th:checked="${dto.user_type == '서포터팀'}" disabled>
-            <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
+                <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀" onchange="toggleTeamList()" th:checked="${dto.user_type == '서포터팀'}">
+                <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
 
+                <div id="team" class="m-lg-2" style="width: 200px"></div>
+            </div>
         </div>
 
         <script>
-            $.ajax({
-                url: '/teams/members',
-                type: 'GET',
-                dataType: 'json',
-                success: function(isMemberList) {
-                    console.log(isMemberList);
-                    if (isMemberList) {
-                        $('#user-type-team').prop('disabled', true);
-                        $('#user-type').prop('checked', true);
-                    } else {
-                        $('#user-type-team').prop('disabled', false);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
+            function toggleTeamList() {
+                var userType = $('input[name="user_type"]:checked').val();
 
+                if (userType === '개인') {
+                    $('#team').empty(); // 팀 목록을 비움
+                } else {
+                    $.ajax({
+                        url: '/teams/list',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (teamList) {
+                            console.log(teamList);
+                            if (teamList && teamList.length > 0) {
+                                $('#user-type-team').prop('disabled', false);
+                                var optionsHtml = '<select name="team_title" class="form-select">';
+                                optionsHtml += '<option value="">팀 목록</option>';
+                                teamList.forEach(function (team) {
+                                    optionsHtml += '<option value="' + team.team_no + '">' + team.team_title + '</option>';
+                                });
+                                optionsHtml += '</select>';
+                                $('#team').html(optionsHtml); // 팀 목록을 채움
+                            } else {
+                                $('#user-type-team').prop('disabled', true);
+                                $('#team').empty(); // 팀 목록을 비움
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            }
         </script>
 
         <div class="col-12 py-3">

@@ -4,13 +4,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sportsmania.swith.mapper.StoryMapper">
+    <resultMap id="storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
+        <id column="story_no" property="story_no"/>
+        <result column="story_writer" property="story_writer"/>
+        <result column="user_type" property="user_type"/>
+        <result column="s_category" property="s_category"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="image_main" property="image_main"/>
+        <result column="date" property="date"/>
+        <result column="clicks" property="clicks"/>
+        <result column="likeCount" property="likeCount"/>
+        <result column="score" property="score"/>
+        <result column="replyCount" property="replyCount"/>
+        <result column="team_title" property="team_title"/>
+        <result column="team_no" property="team_no"/>
+        <result column="team_title" property="team_title"/>
+    </resultMap>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.StoryVO">
         insert into story (user_type,story_writer,s_category,title,content,image_main,team_no) values (#{user_type},#{story_writer},#{s_category},#{title},#{content},#{image_main}, #{team_no})
     </insert>
 
-    <select id="selectOne" resultType="com.sportsmania.swith.domain.StoryVO">
-            select * from story where story_no = #{story_no}
+    <select id="selectOne" resultMap="storyResultMap">
+        SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount, M.team_title, U.image_profile, U.nickname
+        FROM story S
+                 LEFT JOIN likes L ON S.story_no = L.story_no
+                 LEFT JOIN story_reply R ON S.story_no = R.story_no
+                 LEFT JOIN supportteam_member M ON S.team_no = m.team_no
+                 LEFT JOIN user U ON s.story_writer = U.userId
+        where s.story_no= #{story_no}
+        GROUP BY S.story_no
     </select>
 
     <delete id="delete">
@@ -55,10 +79,12 @@
     </sql>
 
     <select id="selectList" resultMap="storyResultMap">
-        SELECT S.*, COUNT(DISTINCT L.userId) AS likeCount, COUNT(DISTINCT R.reply_no) AS replyCount
+        SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount, M.team_title, U.nickname
         FROM story S
         LEFT JOIN likes L ON S.story_no = L.story_no
         LEFT JOIN story_reply R ON S.story_no = R.story_no
+        LEFT JOIN supportteam_member M ON S.team_no = m.team_no
+        LEFT JOIN user U ON  S.story_writer = U.userId
         <include refid="searchCondition" />
         GROUP BY S.story_no
         order by story_no desc limit #{skip}, #{size}
@@ -70,65 +96,38 @@
         <include refid="searchCondition" />
     </select>
 
-    <resultMap id="storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
-        <id column="story_no" property="story_no"/>
-        <result column="story_writer" property="story_writer"/>
-        <result column="user_type" property="user_type"/>
-        <result column="s_category" property="s_category"/>
-        <result column="title" property="title"/>
-        <result column="content" property="content"/>
-        <result column="image_main" property="image_main"/>
-        <result column="date" property="date"/>
-        <result column="clicks" property="clicks"/>
-        <result column="likeCount" property="likeCount"/>
-        <result column="score" property="score"/>
-        <result column="replyCount" property="replyCount"/>
-    </resultMap>
+    <select id="selectNextStory" resultMap="storyResultMap">
+        SELECT S.*, COUNT(DISTINCT L.userId) AS likeCount, COUNT(DISTINCT R.reply_no) AS replyCount, U.nickname
+        FROM story S
+                 LEFT JOIN likes L ON S.story_no = L.story_no
+                 LEFT JOIN story_reply R ON S.story_no = R.story_no
+                 LEFT JOIN user U ON S.story_writer = U.userId
+        WHERE S.story_no > #{story_no}
+        GROUP BY S.story_no
+        ORDER BY S.story_no ASC
+            LIMIT 1
+    </select>
 
     <select id="getPopularStories" resultMap="storyResultMap">
-        SELECT s.*, COUNT(l.story_no) AS likeCount, (s.clicks * 0.5 + COUNT(l.story_no) * 1) as score
+        SELECT s.*, COUNT(l.story_no) AS likeCount, (s.clicks * 0.5 + COUNT(l.story_no) * 1) as score, U.nickname
         FROM story s
                  LEFT JOIN likes l ON s.story_no = l.story_no
+                 LEFT JOIN user U ON S.story_writer = U.userId
         GROUP BY s.story_no
         ORDER BY score DESC
             LIMIT 4
     </select>
 
-    <!--<select id="getStoryLikeAndReplyCount" resultType="com.example.dto.StoryDTO">
-        SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount
-        FROM story S
-                 LEFT JOIN likes L ON S.story_no = L.story_no
-                 LEFT JOIN story_reply R ON S.story_no = R.story_no
-        GROUP BY S.story_no
-    </select>-->
-
-    <resultMap id="t-storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
-        <id column="story_no" property="story_no"/>
-        <result column="story_writer" property="story_writer"/>
-        <result column="user_type" property="user_type"/>
-        <result column="s_category" property="s_category"/>
-        <result column="title" property="title"/>
-        <result column="content" property="content"/>
-        <result column="image_main" property="image_main"/>
-        <result column="date" property="date"/>
-        <result column="clicks" property="clicks"/>
-        <result column="likeCount" property="likeCount"/>
-        <result column="score" property="score"/>
-        <result column="replyCount" property="replyCount"/>
-        <result column="team_title" property="team_title"/>
-        <result column="team_no" property="team_no"/>
-    </resultMap>
-
-
-    <select id="select_user_teams" resultMap="t-storyResultMap">
-        select team_no,team_title from supportteam_member where team_memberId = #{story_writer};
+    <select id="select_user_teams" resultMap="storyResultMap">
+        select team_no,team_title from supportteam_member where team_memberId = #{story_writer} and team_fixed=1;
     </select>
-    <select id="selectTeamStories" resultMap="t-storyResultMap">
-    SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount
+    <select id="selectTeamStories" resultMap="storyResultMap">
+    SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount, U.nickname
     FROM story S
     LEFT JOIN likes L ON S.story_no = L.story_no
     LEFT JOIN story_reply R ON S.story_no = R.story_no
     LEFT JOIN supportteam_member M ON S.team_no = M.team_no
+    LEFT JOIN user U ON S.story_writer = U.userId
     WHERE S.user_type = '서포터팀' AND M.team_title = #{team_title}
     GROUP BY S.story_no;
     </select>

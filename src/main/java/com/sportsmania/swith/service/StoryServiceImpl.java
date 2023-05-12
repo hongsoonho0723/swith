@@ -110,6 +110,14 @@ public class StoryServiceImpl implements StoryService {
         return storyPageResponseDTO;
     }
 
+    @Override
+    public StoryDTO getNextStory(Long story_no) {
+        StoryVO storyVO = storyMapper.selectNextStory(story_no);
+        StoryDTO storyDTO = modelMapper.map(storyVO, StoryDTO.class);
+
+        return storyDTO;
+    }
+
 
     @Override
     public StoryDTO getOne(Long story_no) {
