@@ -45,5 +45,5 @@ public class MatchBoardDTO {
     private String facilityadd;
     private boolean is_wish;
     private String introduction;
-
+    private String nickname;
 }

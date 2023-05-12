@@ -39,7 +39,7 @@
     </update>
 
     <select id="selectOne" resultType="com.sportsmania.swith.domain.MatchBoardVO">
-        SELECT mb.*, u.introduction
+        SELECT mb.*, u.introduction,u.nickname
         FROM matchboard mb
                  JOIN user u ON mb.board_writer= u.userId
         WHERE mb.board_no = #{board_no}
