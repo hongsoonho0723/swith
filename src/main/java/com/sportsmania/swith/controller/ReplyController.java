@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,6 +42,8 @@ public class ReplyController {
 
         List<ReplyDTO> replyDTOList = replyService.getList(story_no);
 
+        log.info("댓글 조회 요청 성공: " + replyDTOList);
+
         return new ResponseEntity(replyDTOList , HttpStatus.OK);
     }
 
@@ -61,6 +64,8 @@ public class ReplyController {
     @PreAuthorize("principal.username == #replyDTO.reply_writer")
     @PutMapping("/{reply_no}")
     public ResponseEntity<ReplyDTO> modifyReply(@PathVariable("reply_no") Long reply_no, @RequestBody ReplyDTO replyDTO) {
+       log.info(reply_no);
+       log.info(replyDTO.getContent());
         ReplyDTO originalReplyDTO = replyService.getReplyOne(reply_no); // 댓글 번호로 기존 댓글 정보 가져오기
         originalReplyDTO.setContent(replyDTO.getContent()); // 수정된 내용으로 댓글 내용 설정
         replyService.modify(originalReplyDTO); // DB에 수정된 댓글 정보 업데이트
@@ -69,6 +74,17 @@ public class ReplyController {
 
         return new ResponseEntity<>(originalReplyDTO, HttpStatus.OK); // 수정된 댓글 정보 반환
     }
+    @RestController
+    public class UserController {
+
+        @GetMapping("/api/getLoggedInUserId")
+        public ResponseEntity<String> getLoggedInUserId() {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String loggedInUserId = authentication.getName(); // Get the username or user ID
+
+            return new ResponseEntity<>(loggedInUserId, HttpStatus.OK);
+        }
+        }
 
 
 }

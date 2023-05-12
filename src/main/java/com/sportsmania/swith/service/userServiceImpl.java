@@ -3,6 +3,7 @@ package com.sportsmania.swith.service;
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
+import com.sportsmania.swith.dto.blackDTO;
 import com.sportsmania.swith.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -75,6 +76,11 @@ public class userServiceImpl implements UserService {
     @Override
     public List<WishDTO> wish(String userId) {
         return userMapper.wish(userId);
+    }
+
+    @Override
+    public List<blackDTO> blackList(String userId) {
+        return userMapper.blackList(userId);
     }
 
 }

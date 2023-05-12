@@ -19,6 +19,10 @@ public class ReplyVO {
 
     private String content;
 
-    private LocalDateTime regdate;
+    private String regdate;
+
+    private String image_profile;
+
+    private String nickname;
 
 }

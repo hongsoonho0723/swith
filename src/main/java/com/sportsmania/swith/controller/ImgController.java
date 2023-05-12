@@ -34,12 +34,12 @@ public class ImgController {
         return ResponseEntity.ok().headers(headers).body(resource);
     }
 
-    @GetMapping("/info/{image_main}")
-    public ResponseEntity<Resource> imgInfoGET(@PathVariable String image_main){
-        String uploadPath = "C:\\upload\\";
 
-        Resource resource = new FileSystemResource(uploadPath+ File.separator + image_main);
-        String resourceName = resource.getFilename();
+    @GetMapping("/my/image/{image_profile}")
+    public ResponseEntity<Resource> myImgGET(@PathVariable String image_profile){
+        String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\user_image\\";
+
+        Resource resource = new FileSystemResource(File.separator + image_profile);
         HttpHeaders headers = new HttpHeaders();
 
         try{

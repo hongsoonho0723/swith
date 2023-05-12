@@ -38,7 +38,7 @@ public class StoryDTO {
 
     private String image_main;
 
-    private LocalDateTime date;
+    private String date;
 
     private int clicks;
 
@@ -52,6 +52,9 @@ public class StoryDTO {
     private String team_title;
     private String team_memberId;
     private boolean team_fixed;
+    private String image_profile;
+
+    private String nickname;
 
 
 

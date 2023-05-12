@@ -4,6 +4,7 @@ import com.sportsmania.swith.domain.SupportTeamVO;
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
+import com.sportsmania.swith.dto.blackDTO;
 import com.sportsmania.swith.mapper.UserMapper;
 import com.sportsmania.swith.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -40,6 +41,17 @@ public class MemberController {
         UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
         List<WishDTO> list = userService.wish(userDTO.getUserId());
         UserVO userVO = userMapper.findByUserId(userDTO.getUserId());
+        
+        List<blackDTO> black = userService.blackList(userDTO.getUserId()); // 블랙리스트
+
+        List<blackDTO> dtoList1 = new ArrayList<>();
+        for (blackDTO item : black) {
+            blackDTO dto = new blackDTO();
+            dto.setBlockId(item.getBlockId());
+            dto.setRegdate(item.getRegdate());
+            dtoList1.add(dto);
+        }
+
         List<WishDTO> dtoList = new ArrayList<>();
         for (WishDTO item : list) {
             WishDTO dto = new WishDTO();
@@ -48,7 +60,10 @@ public class MemberController {
             dto.setBoard_no(item.getBoard_no());
             dtoList.add(dto);
         }
+
         log.info(dtoList);
+
+        model.addAttribute("blacklist",dtoList1);
         model.addAttribute("wishlist", dtoList);
         model.addAttribute("userdto",userVO);
     }
@@ -132,6 +147,13 @@ public class MemberController {
         UserDTO dto = (UserDTO) httpSession.getAttribute("user");
         log.info("============");
         log.info(dto);
+    }
+
+    @GetMapping("/other/{nickname}")
+    public String other(@PathVariable("nickname") String nickname,Model model){
+            UserVO userVO = userMapper.findByNickname(nickname);
+            model.addAttribute("other",userVO);
+            return "/info/other";
     }
 
 }

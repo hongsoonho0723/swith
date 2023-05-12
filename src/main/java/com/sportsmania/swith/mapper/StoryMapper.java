@@ -35,6 +35,8 @@ public interface StoryMapper {
 
     int selectCount(StoryPageRequestDTO storyPageRequestDTO);
 
+    StoryVO selectNextStory(Long sotry_no);
+
     //이미지 처리
     @Insert("INSERT INTO story_file values(#{filename}, #{story_no}")
     void insertFile(StoryFileVO storyFileVO);

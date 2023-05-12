@@ -1,0 +1,9 @@
+
+.my-message{
+    background-color: #abcdef; /* 원하는 색상으로 변경하세요 */
+  border-radius: 5px;
+  padding: 5px;
+  display: inline-block;
+  margin-bottom: 2px;
+} 
+
