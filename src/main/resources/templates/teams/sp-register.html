@@ -187,23 +187,23 @@
 
     <select id="city" name="sido" onchange="updateDistricts(); updateDistricts1();">
         <option selected disabled hidden value="">도시 선택</option>
-        <option value="seoul">서울</option>
-        <option value="gyeonggi">경기</option>
-        <option value="incheon">인천</option>
-        <option value="busan">부산</option>
-        <option value="daegu">대구</option>
-        <option value="gwangju">광주</option>
-        <option value="daejeon">대전</option>
-        <option value="ulsan">울산</option>
-        <option value="sejong">세종</option>
-        <option value="gangwon">강원</option>
-        <option value="gyeongnam">경남</option>
-        <option value="gyeongbuk">경북</option>
-        <option value="jeonnam">전남</option>
-        <option value="jeonbuk">전북</option>
-        <option value="chungnam">충남</option>
-        <option value="chungbuk">충북</option>
-        <option value="jeju">제주</option>
+        <option value="서울">서울</option>
+        <option value="경기">경기</option>
+        <option value="인천">인천</option>
+        <option value="부산">부산</option>
+        <option value="대구">대구</option>
+        <option value="광주">광주</option>
+        <option value="대전">대전</option>
+        <option value="울산">울산</option>
+        <option value="세종">세종</option>
+        <option value="강원">강원</option>
+        <option value="경남">경남</option>
+        <option value="경북">경북</option>
+        <option value="전남">전남</option>
+        <option value="전북">전북</option>
+        <option value="충남">충남</option>
+        <option value="충북">충북</option>
+        <option value="제주">제주</option>
     </select>
 
 
@@ -213,7 +213,7 @@
 
         <script>
             const districtsByCity = {
-                seoul: [
+                서울: [
                     "강남구",
                     "강동구",
                     "강북구",
@@ -240,7 +240,7 @@
                     "중구",
                     "중랑구",
                 ],
-                gyeonggi: [
+                경기: [
                     "가평군",
                     "고양시",
                     "과천시",
@@ -274,7 +274,7 @@
                     "화성시",
                 ],
 
-                incheon: [
+                인천: [
                     "강화군",
                     "계양구",
                     "남동구",
@@ -286,7 +286,7 @@
                     "옹진군",
                     "중구",
                 ],
-                busan: [
+                부산: [
                     "강서구",
                     "금정구",
                     "기장군",
@@ -305,7 +305,7 @@
                     "해운대구",
                 ],
 
-                daegu: [
+                대구: [
                     "남구",
                     "달서구",
                     "달성군",
@@ -315,11 +315,11 @@
                     "수성구",
                     "중구",
                 ],
-                gwangju: ["광산구", "남구", "동구", "북구", "서구"],
-                daejeon: ["대덕구", "동구", "서구", "유성구", "중구"],
-                ulsan: ["남구", "동구", "북구", "울주군", "중구"],
-                sejong: ["금산", "부강", "청원"],
-                gangwon: [
+                광주: ["광산구", "남구", "동구", "북구", "서구"],
+                대전: ["대덕구", "동구", "서구", "유성구", "중구"],
+                울산: ["남구", "동구", "북구", "울주군", "중구"],
+                세종: ["금산", "부강", "청원"],
+                강원: [
                     "강릉시",
                     "고성군",
                     "동해시",
@@ -339,7 +339,7 @@
                     "화천군",
                     "횡성군",
                 ],
-                gyeongnam: [
+                경남: [
                     "거제시",
                     "거창군",
                     "고성군",
@@ -359,7 +359,7 @@
                     "함양군",
                     "합천군",
                 ],
-                gyeongbuk: [
+                경북: [
                     "경산시",
                     "경주시",
                     "고령군",
@@ -384,7 +384,7 @@
                     "칠곡군",
                     "포항시",
                 ],
-                jeonnam: [
+                전남: [
                     "강진군",
                     "고흥군",
                     "곡성군",
@@ -408,7 +408,7 @@
                     "해남군",
                     "화순군",
                 ],
-                jeonbuk: [
+                전북: [
                     "고창군",
                     "군산시",
                     "김제시",
@@ -424,7 +424,7 @@
                     "정읍시",
                     "진안군",
                 ],
-                chungnam: [
+                충남: [
                     "계룡시",
                     "공주시",
                     "금산군",
@@ -441,7 +441,7 @@
                     "태안군",
                     "홍성군",
                 ],
-                chungbuk: [
+                충북: [
                     "괴산군",
                     "단양군",
                     "보은군",
@@ -454,7 +454,7 @@
                     "청주시",
                     "충주시",
                 ],
-                jeju: ["제주시", "서귀포시"],
+                제주: ["제주시", "서귀포시"],
             };
 
             function updateDistricts() {
