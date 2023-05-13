@@ -395,9 +395,8 @@
                                  href="#"
                          ><img
                                  class="rounded-circle"
-                                 src="../assets/img/swith/free-icon-user-profile-3364044.png"
+                                 <!--src="../assets/img/swith/free-icon-user-profile-3364044.png"-->
                                  width="48"
-                                 alt="Post author"
                          />
                              <h6 class="ps-3 mb-0">${dto.nickname}</h6></a
                          ><span><i class="ai-user">${dto.member_num}</i></span>
@@ -416,9 +415,9 @@
                     <img
                             class="card-img-top"
                             th:src="|/img/${dto.image_team}|"
-                            style="height:200px"
+                            style=" height:200px;"
                     />
-                    <div class="card-body pb-4">
+                    <div class="card-body pb-4" style="height:200px;">
                         <div th:switch="${dto.finished}" class="d-flex align-items-center mb-4 mt-n1">
                    <span class="fs-sm "th:text="${dto.deadline}"></span
                    ><span class="fs-xs mx-3"><a class="badge text-nav fs-xs border" href="#">[[${dto.sido}]] [[${dto.sigungu}]]</a></span
