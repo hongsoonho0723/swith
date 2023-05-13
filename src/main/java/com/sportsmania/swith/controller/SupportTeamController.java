@@ -196,6 +196,12 @@ public class SupportTeamController {
         log.info("finished: " + finished + ",keyword: " + keyword);
 
         List<SupportTeamDTO> dtoList = supportTeamService.getSearch(finished, keyword);
+        for (SupportTeamDTO dto :
+                dtoList) {
+            UserDTO userDTO = userService.findByUsername(dto.getTeam_writer());
+            dto.setNickname(userDTO.getNickname());
+        }
+        log.info("검색dtoList:"+dtoList);
         return new ResponseEntity<>(dtoList,HttpStatus.OK);
     }
 
@@ -292,7 +298,10 @@ public class SupportTeamController {
                                      Authentication authentication) {
 
         String team_title = supportTeamDTO.getTeam_title();
-        String team_writer = supportTeamDTO.getTeam_writer();
+        String nickname = supportTeamDTO.getTeam_writer();
+        log.info("nickname:"+nickname);
+        UserDTO userDTO = userService.findByUserNickname(nickname);
+        supportTeamDTO.setTeam_writer(userDTO.getUserId());
         List<TeamMemberDTO> teamList = teamMemberService.getAll(team_title);
         if (!teamList.isEmpty()) {
             IntStream.rangeClosed(0, teamList.size() - 1).forEach(i -> {
