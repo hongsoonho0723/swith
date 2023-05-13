@@ -209,3 +209,32 @@ function popularstories()
     });
 }
 
+function toggleTeamList() {
+
+    $.ajax({
+        url: '/teams/list',
+        type: 'GET',
+        dataType: 'json',
+        success: function (teamList) {
+            console.log(teamList);
+            if (teamList && teamList.length > 0) {
+                $('#user-type-team').prop('disabled', false);
+                if ($('#user-type-team').is(':checked')) {
+                    var optionsHtml = '<select name="team_title" class="form-select">';
+                    optionsHtml += '<option value="">팀 목록</option>';
+                    teamList.forEach(function (team) {
+                        optionsHtml += '<option value="' + team.team_no + '">' + team.team_title + '</option>';
+                    });
+                    optionsHtml += '</select>';
+                    $('#team').html(optionsHtml); // 팀 목록을 채움
+                }
+            } else {
+                $('#user-type-team').prop('disabled', true);
+                $('#team').empty(); // 팀 목록을 비움
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+        }
+    });
+}
