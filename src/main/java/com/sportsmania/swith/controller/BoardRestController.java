@@ -5,6 +5,7 @@ import com.sportsmania.swith.dto.BoardJjimDTO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.service.BoardJjimService;
 import com.sportsmania.swith.service.BoardService;
+import com.sportsmania.swith.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ public class BoardRestController {
     @Autowired
     private final BoardService boardService;
     private final BoardJjimService boardJjimService;
+    private UserService userService;
 
 
     public BoardRestController(BoardService boardService, BoardJjimService boardJjimService) {  this.boardService = boardService;
@@ -76,6 +78,8 @@ public class BoardRestController {
         boardDTO.setStartdate(d);
         boardDTO.setEnddate(d2);
         String writer = authentication.getName();
+//        UserDTO userDTO = userService.findByUsername(writer);
+//        String nickname = userDTO.getNickname();
         boardDTO.setBoard_writer(writer);
         log.info(boardDTO);
         if(bindingResult.hasErrors()) {

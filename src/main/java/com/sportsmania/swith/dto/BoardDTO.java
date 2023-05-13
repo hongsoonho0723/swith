@@ -41,4 +41,6 @@ public class BoardDTO {
     private String supporttype;
     private String facilityadd;
     private boolean is_wish;
+    private String nickname;
+    private int additionalNum;
 }

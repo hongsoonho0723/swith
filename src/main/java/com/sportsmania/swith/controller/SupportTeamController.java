@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -122,7 +123,7 @@ public class SupportTeamController {
     @PostMapping("/teams/posts")
     public ResponseEntity uploadFIle(@RequestParam("image") MultipartFile file,
                                      @ModelAttribute SupportTeamDTO supportTeamDTO,
-                                     Authentication authentication){
+                                     Authentication authentication) throws IOException {
         String team_writer = authentication.getName();
         supportTeamDTO.setTeam_writer(team_writer);
         if (file.isEmpty()) {
@@ -132,7 +133,7 @@ public class SupportTeamController {
 
         try {
             log.info("드디어 받아온" + supportTeamDTO);
-          supportTeamService.registerWithFile(supportTeamDTO, file);
+            supportTeamService.registerWithFile(supportTeamDTO, file);
 
 
         } catch (Exception e) {
@@ -140,6 +141,12 @@ public class SupportTeamController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+
+        //return new ResponseEntity<>("Successfully uploaded - " + supportTeamDTO, HttpStatus.OK);
+
+                 //supportTeamService.registerWithFile(supportTeamDTO, file);
+
 
         return new ResponseEntity<>("Successfully uploaded - " + supportTeamDTO, HttpStatus.OK);
     }
