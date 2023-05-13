@@ -604,6 +604,8 @@ alert('작성완료되었습니다.');
 window.location.href="/teams";
 },
 error: function (e) {
+    alert('중복된 팀명입니다.');
+
 console.log("ERROR : ", e);
 }
 });
