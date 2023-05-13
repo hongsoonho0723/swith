@@ -373,14 +373,14 @@
                  <div class="card border-0 bg-secondary">
                      <img
                              class="card-img-top"
-                             src="|/img/${dto.image_team}|"
+                             src="/img/`+dto.image_team+`"
                              style="height:200px"
                      />
                      <div class="card-body pb-4">
                          <div  class="d-flex align-items-center mb-4 mt-n1">
                    <span class="fs-sm">${dto.deadline}</span
                    ><span class="fs-xs mx-3"><a class="badge text-nav fs-xs border" href="#">${dto.sido} ${dto.sigungu}</a></span
-                         ><a class="badge text-nav fs-xs border">${finishedBadge}</a>
+                         ><a class="badge text-nav fs-xs border" style="color:#FF0000 !important;">${finishedBadge}</a>
                          </div>
                          <h3 class="h4 card-title">
                              <a href="/teams/${dto.team_title}">${dto.team_title}</a>
@@ -392,10 +392,10 @@
                      <div class="card-footer pt-3  d-flex align-items-center justify-content-between">
                          <a
                                  class="d-flex align-items-center text-decoration-none pb-2"
-                                 href="#"
+
                          ><img
                                  class="rounded-circle"
-                                 <!--src="../assets/img/swith/free-icon-user-profile-3364044.png"-->
+                                 src="../assets/img/swith/free-icon-user-profile-3364044.png"
                                  width="48"
                          />
                              <h6 class="ps-3 mb-0">${dto.nickname}</h6></a
@@ -421,7 +421,8 @@
                         <div th:switch="${dto.finished}" class="d-flex align-items-center mb-4 mt-n1">
                    <span class="fs-sm "th:text="${dto.deadline}"></span
                    ><span class="fs-xs mx-3"><a class="badge text-nav fs-xs border" href="#">[[${dto.sido}]] [[${dto.sigungu}]]</a></span
-                        ><a class="badge text-nav fs-xs border" href="#" th:case="false">모집중</a><a class="badge text-nav fs-xs border" th:case="true">모집완료</a>
+                        ><a class="badge text-nav fs-xs border" th:case="false">모집중</a>
+                            <a class="badge text-nav fs-xs border" style="color:#FF0000 !important;"  th:case="true">모집완료</a>
                         </div>
                         <h3 class="h4 card-title">
                             <a th:href="@{/teams/{team_title}(team_title=${dto.team_title})}">[[${dto.team_title}]]</a>
@@ -436,7 +437,7 @@
                                 href="#"
                         ><img
                                 class="rounded-circle"
-                                src="../assets/img/avatar/06.jpg"
+                                src="../assets/img/swith/free-icon-user-profile-3364044.png"
                                 width="48"
                                 alt="Post author"
                         />
