@@ -124,6 +124,7 @@ public class SupportTeamController {
                                      @ModelAttribute SupportTeamDTO supportTeamDTO,
                                      Authentication authentication){
         String team_writer = authentication.getName();
+        supportTeamDTO.setTeam_writer(team_writer);
         if (file.isEmpty()) {
             log.info("file empty");
             return new ResponseEntity<>("Please select a file!", HttpStatus.OK);
@@ -367,17 +368,17 @@ public class SupportTeamController {
         return new ResponseEntity<>();
     }*/
 
-    @GetMapping("teams/list")
-    public ResponseEntity<List> getUserTeams( Authentication authentication) {
+    @GetMapping("/teams/list")
+    public ResponseEntity<List> getUserTeams(Authentication authentication) {
         List<StoryDTO> teamList = teamMemberService.getUserTeams(authentication.getName());
-        log.info(teamList);
+        log.info("요청완료: " + teamList);
         return new ResponseEntity<>(teamList,HttpStatus.OK);
     }
 
     @GetMapping("/teams/{team_title}/stories")
     public ResponseEntity<List> getTeamStories(@PathVariable("team_title") String team_title) {
         List<StoryDTO> teamStoryList = teamMemberService.getTeamStories(team_title);
-        log.info(teamStoryList);
+        log.info("요청완료: " + teamStoryList);
         return new ResponseEntity<>(teamStoryList, HttpStatus.OK);
     }
 

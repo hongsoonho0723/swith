@@ -241,6 +241,18 @@
           </div>
         </div>
       <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            toggleTeamList();
+          });
+
+          $(document).ready(function () {
+                    $('#user-type-team').click(function() {
+                      toggleTeamList();
+                    });
+                  }
+          )
+        </script>
           <!-- 전송 -->
         <div class="col-12 pb-3">
           <h3 class="fs-4 s-with-story">작성자 유형</h3>
@@ -248,47 +260,12 @@
           <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" onchange="toggleTeamList()">
           <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
 
-          <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀" onchange="toggleTeamList()" disabled>
+          <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀">
           <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
 
           <div id="team" class="m-lg-2" style="width: 200px"></div>
           </div>
         </div>
-
-        <script>
-          function toggleTeamList() {
-            var userType = $('input[name="user_type"]:checked').val();
-
-            if (userType === '개인') {
-              $('#team').empty(); // 팀 목록을 비움
-            } else {
-              $.ajax({
-                url: '/teams/list',
-                type: 'GET',
-                dataType: 'json',
-                success: function (teamList) {
-                  console.log(teamList);
-                  if (teamList && teamList.length > 0) {
-                    $('#user-type-team').prop('disabled', false);
-                    var optionsHtml = '<select name="team_title" class="form-select">';
-                    optionsHtml += '<option value="">팀 목록</option>';
-                    teamList.forEach(function (team) {
-                      optionsHtml += '<option value="' + team.team_no + '">' + team.team_title + '</option>';
-                    });
-                    optionsHtml += '</select>';
-                    $('#team').html(optionsHtml); // 팀 목록을 채움
-                  } else {
-                    $('#user-type-team').prop('disabled', true);
-                    $('#team').empty(); // 팀 목록을 비움
-                  }
-                },
-                error: function (xhr, status, error) {
-                  console.log(xhr.responseText);
-                }
-              });
-            }
-          }
-        </script>
 
         <div class="col-12 py-3">
             <h3 class="fs-4 s-with-story">스토리 유형</h3>
@@ -306,8 +283,8 @@
           </div>
 
           <div class="mb-3 pt-3">
-           <label for="text-input " class="form-label"><h3 class="fs-4 s-with-story">제목</h3></label>
-            <input class="form-control" type="text"  maxlength="20" minlength="5" name="title" id="text-input" placeholder="최대 20자까지 입력 가능합니다." onfocus="this.placeholder=''" onblur="this.placeholder='최대 10자까지 입력 가능합니다.'">
+           <label for="text-input" class="form-label"><h3 class="fs-4 s-with-story">제목</h3></label>
+            <input class="form-control" type="text"  maxlength="30" minlength="5" name="title" id="text-input" placeholder="최대 20자까지 입력 가능합니다." onfocus="this.placeholder=''" onblur="this.placeholder='최대 20자까지 입력 가능합니다.'">
           </div>
 
           <!-- File input -->
@@ -350,16 +327,20 @@
             </div>
           </div>
       <script>
+        function removeHtmltags(str) {
+          return str.replace(/<\/?[^>]+(>|$)/g, "");
+        }
 
           function insertStory() {
 
             let formData = new FormData();
 
-            let html = editor.getData();
+            let content = removeHtmltags(editor.getData());
+
             formData.append('s_category', $('input[name="s_category"]:checked').val());
             formData.append('title', $('input[name="title"]').val());
             formData.append('user_type', $('input[name="user_type"]:checked').val());
-            formData.append('content', html);
+            formData.append('content', content);
             formData.append('image', $('input[name="image"]')[0].files[0]);
 
             var userType = $('input[name="user_type"]:checked').val();
@@ -367,12 +348,6 @@
               var selectedTeamNo = $('select[name="team_title"]').val();
               formData.append('team_no', selectedTeamNo);
             }
-
-            if (data.content.length < 100) {
-              alert("100글자 이상 입력해주세요.");
-              return false;
-            }
-
 
             $.ajax({
               type: 'POST',
@@ -385,17 +360,7 @@
                 window.location.href = '/stories';
               },
               error: function(formData, error) {
-                if(formData.user_type == null){
-                alert("작성자 유형을 선택해 주세요.");
-                } else if(formData.s_category == null) {
-                  alert("스토리 유형을 선택해 주세요.");
-                } else if(formData.title == null) {
-                  alert("제목을 입력해주세요.");
-                } else if(formData.image == null) {
-                  alert("사진을 업로드 해주세요.");
-                } else if(formData.content == null) {
-                  alert("내용을 작성해 주세요.");
-                }
+
                 console.log(error);
               }
             });
