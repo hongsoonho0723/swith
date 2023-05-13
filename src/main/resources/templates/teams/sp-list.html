@@ -251,14 +251,12 @@
             <nav class="collapse navbar-collapse" id="navbarCollapse1">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item active">
-                        <a href="/match" class="nav-link">매칭라운지</a>
+                        <a href="/match" class="nav-link">모집라운지</a>
                     </li>
                     <li class="nav-item">
                         <a href="/teams" class="nav-link">서포터팀</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">플레이윗미</a>
-                    </li>
+
                     <li class="nav-item">
                         <a href="/stories" class="nav-link">스토리</a>
                     </li>
@@ -272,9 +270,9 @@
                                 구인/팀 & 스토리생성
                             </button>
                             <div class="dropdown-menu dropdown-menu-end my-1">
-                                <a href="#" class="dropdown-item">매칭라운지 글 생성</a>
-                                <a href="" class="dropdown-item">서포터팀원 구하기</a>
-                                <a href="#" class="dropdown-item">플레이메이트 구하기</a>
+                                <a href="/match/posts" class="dropdown-item">매칭라운지 글 생성</a>
+                                <a href="/match/posts" class="dropdown-item">체육활동지원 모집하기</a>
+                                <a href="/match/posts" class="dropdown-item">운동친구 모집하기</a>
                                 <div class="dropdown-divider"></div>
                                 <div><hr/></div>
                                 <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
@@ -297,11 +295,8 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').nickname}"></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
-                                        <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                                        <li><a href="/info/history" class="dropdown-item">내 활동내역</a></li>
                                         <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
-                                        <li><a href="#" class="dropdown-item">나의 팀</a></li>
-                                        <li href="#"><a class="dropdown-item">찜 목록</a></li>
-                                        <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -400,7 +395,7 @@
                                  href="#"
                          ><img
                                  class="rounded-circle"
-                                 src="../assets/img/avatar/06.jpg"
+                                 src="../assets/img/swith/free-icon-user-profile-3364044.png"
                                  width="48"
                                  alt="Post author"
                          />
