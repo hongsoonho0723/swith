@@ -119,7 +119,7 @@ public class SupportTeamController {
     }*/
 
     //private static String UPLOAD_DIR = "/assets/image_team/";  // 업로드할 디렉토리를 지정합니다.
-   /* String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\image_team";*/
+    /* String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\image_team";*/
     @PostMapping("/teams/posts")
     public ResponseEntity uploadFIle(@RequestParam("image") MultipartFile file,
                                      @ModelAttribute SupportTeamDTO supportTeamDTO,
@@ -145,7 +145,7 @@ public class SupportTeamController {
 
         //return new ResponseEntity<>("Successfully uploaded - " + supportTeamDTO, HttpStatus.OK);
 
-                 //supportTeamService.registerWithFile(supportTeamDTO, file);
+        //supportTeamService.registerWithFile(supportTeamDTO, file);
 
 
         return new ResponseEntity<>("Successfully uploaded - " + supportTeamDTO, HttpStatus.OK);
@@ -183,10 +183,10 @@ public class SupportTeamController {
 
     @GetMapping("/teams/search/{category}/{keyword}")
     public ResponseEntity viewSearchList(@PathVariable("category") String category,
-                                       @PathVariable("keyword") String keyword){
+                                         @PathVariable("keyword") String keyword){
         log.info("검색컨트롤ㄹ러들어옴");
         log.info("category: " + category);
-            Boolean finished = null;
+        Boolean finished = null;
 
         if(category.equals("1")){
             finished = true;
@@ -226,7 +226,7 @@ public class SupportTeamController {
         if (team_fixed == 1) {
             List<TeamMemberDTO> memberList = teamMemberService.getMember(team_title);
             for (TeamMemberDTO dto:
-                 memberList) {
+                    memberList) {
                 UserDTO userDTO = userService.findByUsername(dto.getTeam_memberId());
                 dto.setTeam_memberNickname(userDTO.getNickname());
                 log.info(dto.getTeam_memberNickname());
@@ -303,7 +303,7 @@ public class SupportTeamController {
         log.info("removeTeam()의 dto: " + supportTeamDTO);
 
         if(authentication.getName().equals(supportTeamDTO.getTeam_writer())){
-        supportTeamService.remove(team_title);
+            supportTeamService.remove(team_title);
         }else{
             log.info("작성자와 로그인한 유저가 달라서 팀삭제 실패");
         }

@@ -48,10 +48,10 @@ public class PageResponseDTO<E> {
         this.dtoList=dtoList;
 
 //        this.end = (int)(Math.ceil(this.page/10.0))*10;
-        this.end = (int)(Math.ceil(this.page/10.0))*10;
+        this.end = (int)(Math.ceil(this.page/5.0))*5;
 
 //        this.start = this.end - 9;
-        this.start = this.end - 9;
+        this.start = this.end - 4;
         int last = (int)(Math.ceil((total/(double)size)));
 
         this.end = end > last ? last : end;
