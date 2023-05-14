@@ -357,12 +357,13 @@ $(document).ready(function(){
     });
 });
 
+/*
 function modifyForm(){
     const team_title = document.querySelector("#team_title").getAttribute('placeholder');
     console.log(team_title);
     const supportTeamDTO={
     "team_title": team_title,
-    /*"team_writer": "testUser1",*/
+    /!*"team_writer": "testUser1",*!/
     "content": $("#summernote").val(),
     "sido": $("#city").val(),
     "sigungu": $("#district").val(),
@@ -386,6 +387,7 @@ function modifyForm(){
 }
 });
 }
+*/
 
 
     /*let formData = {};
