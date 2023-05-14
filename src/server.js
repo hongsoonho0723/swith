@@ -158,7 +158,7 @@ wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}�
     })*/
 
     socket.on("new_message", async (msg, room, timestamp, done) => {
-        const formattedTimestamp = new Date(timestamp).toISOString().slice(0, 19).replace('T', ' ');
+        const formattedTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' '); //시간수정 new Date(timestamp줘야함)
         await db.saveMessage(room, socket.nickname, msg, formattedTimestamp);
         
         
