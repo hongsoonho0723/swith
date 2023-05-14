@@ -60,7 +60,7 @@ public class SupportTeamController {
 
     @GetMapping("/teams/posts")
     public ModelAndView viewResgister() {
-        ModelAndView mv = new ModelAndView("/teams/sp-register");
+        ModelAndView mv = new ModelAndView("teams/sp-register");
 
         return mv;
     }
@@ -68,7 +68,7 @@ public class SupportTeamController {
     @GetMapping("/teams/demo2")
     public ModelAndView viewDemo2() {
         List<SupportTeamDTO> dtoList = supportTeamService.getAll();
-        ModelAndView mv = new ModelAndView("/teams/sp-list2");
+        ModelAndView mv = new ModelAndView("teams/sp-list2");
         mv.addObject("dtoList",dtoList);
         return mv;
     }
@@ -175,7 +175,7 @@ public class SupportTeamController {
             dto.setNickname(userDTO.getNickname());
         }
 
-        ModelAndView mv = new ModelAndView("/teams/sp-list");
+        ModelAndView mv = new ModelAndView("teams/sp-list");
         log.info("teams view Controller 작동완료");
         mv.addObject("dtoList", dtoList);
         return mv;
@@ -196,6 +196,12 @@ public class SupportTeamController {
         log.info("finished: " + finished + ",keyword: " + keyword);
 
         List<SupportTeamDTO> dtoList = supportTeamService.getSearch(finished, keyword);
+        for (SupportTeamDTO dto :
+                dtoList) {
+            UserDTO userDTO = userService.findByUsername(dto.getTeam_writer());
+            dto.setNickname(userDTO.getNickname());
+        }
+        log.info("검색dtoList:"+dtoList);
         return new ResponseEntity<>(dtoList,HttpStatus.OK);
     }
 
@@ -215,7 +221,7 @@ public class SupportTeamController {
         UserDTO userDTO = userService.findByUsername(team_writer);
         supportTeamDTO.setNickname(userDTO.getNickname());
         log.info("list view" + supportTeamDTO);
-        ModelAndView mv = new ModelAndView("/teams/sp-view");
+        ModelAndView mv = new ModelAndView("teams/sp-view");
         mv.addObject("dto", supportTeamDTO);
         return mv;
     }
@@ -292,7 +298,10 @@ public class SupportTeamController {
                                      Authentication authentication) {
 
         String team_title = supportTeamDTO.getTeam_title();
-        String team_writer = supportTeamDTO.getTeam_writer();
+        String nickname = supportTeamDTO.getTeam_writer();
+        log.info("nickname:"+nickname);
+        UserDTO userDTO = userService.findByUserNickname(nickname);
+        supportTeamDTO.setTeam_writer(userDTO.getUserId());
         List<TeamMemberDTO> teamList = teamMemberService.getAll(team_title);
         if (!teamList.isEmpty()) {
             IntStream.rangeClosed(0, teamList.size() - 1).forEach(i -> {
@@ -337,7 +346,7 @@ public class SupportTeamController {
     public ModelAndView viewModify(@PathVariable("team_title") String team_title) {
         SupportTeamDTO supportTeamDTO = supportTeamService.getOne(team_title);
         log.info("modify view" + supportTeamDTO);
-        ModelAndView mv = new ModelAndView("/teams/sp-modify");
+        ModelAndView mv = new ModelAndView("teams/sp-modify");
         mv.addObject("dto", supportTeamDTO);
         return mv;
     }

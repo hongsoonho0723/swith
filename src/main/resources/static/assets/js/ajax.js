@@ -92,9 +92,9 @@ function refreshReplies() {
                         html += '<div class="border-bottom pt-4 mt-3 mb-0">' +
                             '<div class="d-flex align-items-center pb-1 mb-3">';
                             if(replyDTO.image_profile != null) {
-                              html += '<img class="rounded-circle" src="' + replyDTO.image_profile + '" width="48" alt="Comment author">';
+                              html += '<img class="rounded-circle" src="/img/' + replyDTO.image_profile +'" width="50" height="55" alt="Comment author">';
                             } else {
-                                html += '<img class="rounded-circle" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="48" alt="Comment author">';
+                                html += '<img class="rounded-circle" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="50" alt="Comment author">';
                             }
                         html += '<div class="ps-3">' +
                                 '<h6 class="mb-0">' + replyDTO.nickname + '</h6>' +

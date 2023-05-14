@@ -2,10 +2,12 @@ package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.domain.SupportTeamVO;
 import com.sportsmania.swith.domain.UserVO;
+import com.sportsmania.swith.dto.ChatroomsDTO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
 import com.sportsmania.swith.dto.blackDTO;
 import com.sportsmania.swith.mapper.UserMapper;
+import com.sportsmania.swith.service.ChatService;
 import com.sportsmania.swith.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +37,15 @@ public class MemberController {
     private UserService userService;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private ChatService chatService;
 
     @GetMapping("/mypage")
     public void myPage(Model model,HttpSession httpSession){
         UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
         List<WishDTO> list = userService.wish(userDTO.getUserId());
         UserVO userVO = userMapper.findByUserId(userDTO.getUserId());
-        
+        List<ChatroomsDTO> chatroomsList = chatService.getChatrooms(userDTO.getNickname());
         List<blackDTO> black = userService.blackList(userDTO.getUserId()); // 블랙리스트
 
         List<blackDTO> dtoList1 = new ArrayList<>();
@@ -66,6 +70,7 @@ public class MemberController {
         model.addAttribute("blacklist",dtoList1);
         model.addAttribute("wishlist", dtoList);
         model.addAttribute("userdto",userVO);
+        model.addAttribute("chatroomsList",chatroomsList);
     }
 
     @GetMapping("/my")
@@ -76,21 +81,17 @@ public class MemberController {
     @PostMapping("/my")
     public String modify1(HttpSession httpSession, @RequestParam("file") MultipartFile file, @ModelAttribute UserDTO userDTO, Model model) throws IOException {
 
-        /*String uploadPath = "C:\\upload\\";
+        String uploadPath = "C:\\upload\\";
 
         String originalFileName = file.getOriginalFilename();
 
         String filename = UUID.randomUUID() + originalFileName;
 
+        log.info(filename);
+
         byte[] bytes = file.getBytes();
         Path path = Paths.get(uploadPath + filename);
         Files.write(path, bytes);
-
-       // supportTeamDTO.setImage_team(filename);
-
-       // SupportTeamVO supportTeamVO = modelMapper.map(supportTeamDTO, SupportTeamVO.class);
-
-      //  supportTeamMapper.insert(supportTeamVO);
 
 
         log.info(userDTO);
@@ -106,12 +107,12 @@ public class MemberController {
         dto.setIntroduction(userDTO.getIntroduction());
         httpSession.setAttribute("user",dto);
         userService.modify(dto);
-        return "/info/mypage";*/
+        return "/info/mypage";
 
 
 
        // String uploadPath = "C:\\upload\\"; //프로젝트 내부 저장
-        String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\user_image\\";
+       /* String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\user_image\\";
 
         String originalFileName = file.getOriginalFilename();
 
@@ -137,7 +138,7 @@ public class MemberController {
         dto.setIntroduction(userDTO.getIntroduction());
         httpSession.setAttribute("user",dto);
         userService.modify(dto);
-        return "/info/mypage";
+        return "/info/mypage";*/
 
 
     }

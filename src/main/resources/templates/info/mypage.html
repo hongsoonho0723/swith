@@ -232,7 +232,7 @@
                 <div class="offcanvas-body">
                   <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
                     <div class="d-md-flex" style="border-radius: 50%;overflow: hidden;width: 100px;height: 100px ">
-                      <img  style="object-fit: contain;height: 100%;width: 100%;" th:src="${#session.getAttribute('user').image_profile}">
+                      <img class="rounded-circle mb-1" height="100" width="100" th:src="|/img/${#session.getAttribute('user').image_profile}|" alt="Author image">
                     </div>
                     <h3 class="h5 mb-1" th:text="${#session.getAttribute('user').name}">이름</h3>
                     <p class="fs-sm text-muted mb-0" th:text="${#session.getAttribute('user').email}">example@gmail.com</p>
@@ -299,9 +299,10 @@
                       <p th:text="${#session.getAttribute('user').introduction}">안녕하세요 ~</p>
                     </div>
                     <div class="col-md-6 d-md-flex justify-content-end">
-                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 250px;">
+                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 200px;">
                         <h4 style="padding-left: 4%;">프로필 이미지</h4>
-                          <img style="height: 80%;width: 100%;border-radius: 10px" th:src="${userdto.image_profile}">
+                        <img th:if="${#session.getAttribute('user').image_profile} != null" class="d-block m-auto" th:src="|/img/${#session.getAttribute('user').image_profile}|" width="120" height="120" alt="Author image">
+                        <img th:if="${#session.getAttribute('user').image_profile} == null" class="d-block rounded-circle m-auto" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="120" height="120" alt="Author image">
                       </div>
                     </div>
                   </div>
@@ -309,26 +310,26 @@
               </section>
 
               <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
-                <!-- 차단목록-->
+                <!-- 채팅방목록-->
                 <section class="col">
                   <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
                     <div class="card-body">
                       <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2" >
-                        <h2 class="h2 mb-0">차단목록</h2><a class="btn btn-sm btn-secondary ms-auto" href="account-settings.html"><i class="ai-edit ms-n1 me-2"></i>전체보기</a>
+                        <h2 class="h2 mb-0">채팅방목록</h2><a class="btn btn-sm btn-secondary ms-auto" href="account-settings.html"><i class="ai-edit ms-n1 me-2"></i>전체보기</a>
                       </div>
                       <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
                         <table style="width: 100%;">
                           <thead>
                           <tr style="border-bottom: 2px solid #E3E9EF;">
-                            <th>차단유저</th>
-                            <th>차단일시</th>
+                            <th>채팅방</th>
+                            <!--<th></th>-->
                           </tr>
                           </thead>
                           <tbody>
                           <tbody>
-                          <tr th:each="item : ${blacklist}">
-                            <td th:text="${item.blockId}"></td>
-                            <td th:text="${item.regdate}"></td>
+                          <tr th:each="item : ${chatroomsList}">
+                            <td><a onclick="goChat(this)" th:text="${item.roomTitle}"></a></td>
+                            <!--<td th:text="${item.regdate}"></td>-->
                           </tr>
                           <!-- 이하 생략 -->
                           </tbody>
@@ -410,11 +411,9 @@
               </section>
         </div>
       </div>
+      </div>
       <!-- 아래화면-->
-      <footer
-            class="bg-light py-5"
-            style="position: relative; bottom: 0; width:100%;"
-            >
+      <footer class="bg-light py-5" style="position: relative; bottom: 0; width:100%; color: #FAFAFA;">
   <div class="container">
     <ul class="nav justify-content- py-1 pb-sm-1">
       <li class="nav-item">
@@ -454,4 +453,13 @@
   </div>
 </footer>
   </body>
+  <script th:inline="javascript">
+    function goChat(ele){
+      const userDTO = [[${#session.getAttribute('user')}]];
+      const nickname = userDTO.nickname;
+      const chatRoomTitle = ele.textContent;
+      console.log("team_title: ", chatRoomTitle);
+      window.location.href="http://localhost:3000?title="+encodeURIComponent(chatRoomTitle)+"&nickname="+encodeURIComponent(nickname);
+    }
+  </script>
   </html>

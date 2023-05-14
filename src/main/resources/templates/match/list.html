@@ -62,6 +62,7 @@
 
     <!-- Page loading styles-->
     <style>
+
         .page-loading {
             position: fixed;
             top: 0;
@@ -264,7 +265,7 @@
         <form action="/match" method="get">
             <div class="row align-items-center gy-2 mb-4 pb-1 pb-sm-2 pb-lg-3">
                 <div class="col-lg-5">
-                    <a href="/match"><h1 class="mb-lg-0">모집라운지</h1></a>
+                    <a style="text-decoration: none" href="/match"><h1 class="mb-lg-0">모집라운지</h1></a>
                 </div>
 
 
@@ -678,7 +679,7 @@
                         </div>
                         <p class="card-text">활동날짜 : [[${dto.startdate}]]</p>
                         <p class="card-text">마감날짜 : [[${dto.deadline}]]</p>
-                        <a class="h4 card-title mt-0" th:href="|@{/match/view(board_no=${dto.board_no})}|" >[[${dto.title}]]</a>
+                        <a style="text-decoration: none" class="h4 card-title mt-0" th:href="|@{/match/view(board_no=${dto.board_no})}|" >[[${dto.title}]]</a>
                     </div>
                     <div class="card-footer border-0 py-3 my-3 mb-sm-4">
                         <div class="container d-flex justify-content-center">

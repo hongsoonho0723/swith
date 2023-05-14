@@ -266,6 +266,7 @@ function applicationTeam(){
 function teamRemove(){
     const team_title = document.querySelector("#team_title").textContent;
     const team_writer = document.querySelector("#team_writer").textContent;
+    console.log("팀작성자(닉네임):",team_writer);
     const supportTeamDTO ={
         "team_title": team_title,
         "team_writer": team_writer
@@ -356,12 +357,13 @@ $(document).ready(function(){
     });
 });
 
+/*
 function modifyForm(){
     const team_title = document.querySelector("#team_title").getAttribute('placeholder');
     console.log(team_title);
     const supportTeamDTO={
     "team_title": team_title,
-    /*"team_writer": "testUser1",*/
+    /!*"team_writer": "testUser1",*!/
     "content": $("#summernote").val(),
     "sido": $("#city").val(),
     "sigungu": $("#district").val(),
@@ -385,6 +387,7 @@ function modifyForm(){
 }
 });
 }
+*/
 
 
     /*let formData = {};

@@ -17,6 +17,8 @@ public interface UserService {
 
     UserDTO findByUsername(String username);
 
+    UserDTO findByUserNickname(String nickname);
+
     boolean existsByEmail(String email);
 
     boolean existsBynickname(String nickname); // 닉네임 중복체크
