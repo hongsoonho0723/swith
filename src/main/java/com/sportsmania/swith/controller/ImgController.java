@@ -40,7 +40,7 @@ public class ImgController {
 
     @GetMapping("/img/{image_main}")
     public ResponseEntity<Resource> imgGET(@PathVariable String image_main) throws MalformedURLException {
-        String uploadPath = "/upload/";
+        String uploadPath = "/root/app/C:/upload/";
 
         Resource resource = new UrlResource(uploadPath + image_main);
         String resourceName = resource.getFilename();
