@@ -32,8 +32,8 @@
                  LEFT JOIN likes L ON S.story_no = L.story_no
                  LEFT JOIN story_reply R ON S.story_no = R.story_no
                  LEFT JOIN supportteam_member M ON S.team_no = m.team_no
-                 LEFT JOIN user U ON s.story_writer = U.userId
-        where s.story_no= #{story_no}
+                 LEFT JOIN user U ON S.story_writer = U.userId
+        where S.story_no= #{story_no}
         GROUP BY S.story_no
     </select>
 
@@ -83,7 +83,7 @@
         FROM story S
         LEFT JOIN likes L ON S.story_no = L.story_no
         LEFT JOIN story_reply R ON S.story_no = R.story_no
-        LEFT JOIN supportteam_member M ON S.team_no = m.team_no
+        LEFT JOIN supportteam_member M ON S.team_no = M.team_no
         LEFT JOIN user U ON  S.story_writer = U.userId
         <include refid="searchCondition" />
         GROUP BY S.story_no
