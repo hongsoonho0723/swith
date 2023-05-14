@@ -23,5 +23,6 @@ public class SupportTeamDTO {
     private boolean finished;
     private String deadline;
     private String nickname;
+    private int chatMember;
 
 }

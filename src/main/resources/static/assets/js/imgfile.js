@@ -10,7 +10,7 @@
     }
 }*/
 
-function readImage(input) {
+/*function readImage(input) {
 
     // 인풋 태그에 파일이 있는 경우
     if(input.files && input.files[0]) {
@@ -29,13 +29,29 @@ function readImage(input) {
         // reader가 이미지 읽도록 하기
         reader.readAsDataURL(input.files[0])
     }
+}*/
+
+function readImage(input) {
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+
+        // 이미지 파일인지 확인
+        if (!file.type.startsWith("image/")) {
+            // 이미지 파일이 아닌 경우 메시지 창 표시
+            alert("이미지 파일만 업로드할 수 있습니다.");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = e => {
+            const previewImage = document.getElementById("preview-image");
+            previewImage.src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
+    }
 }
 
 
-// input file에 change 이벤트 부여
-/*
-const inputImage = document.getElementById("input-image")
-inputImage.addEventListener("change", e => {
-    readImage(e.target)
-})*/
 

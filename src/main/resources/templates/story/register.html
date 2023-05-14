@@ -154,8 +154,6 @@
     </div>
     <!-- Page wrapper-->
     <main class="page-wrapper">
-      <!-- Menu with dropdown + Button -->
-      <!-- Menu with dropdown + Button -->
       <header class="navbar navbar-expand-lg fixed-top bg-light">
         <div class="container">
           <a href="/members/main" class="navbar-brand">
@@ -172,14 +170,12 @@
           <nav class="collapse navbar-collapse" id="navbarCollapse1">
             <ul class="navbar-nav me-auto">
               <li class="nav-item active">
-                <a href="/macth" class="nav-link">모집라운지</a>
+                <a href="/match" class="nav-link">모집라운지</a>
               </li>
               <li class="nav-item">
                 <a href="/teams" class="nav-link">서포터팀</a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">운동친구모집</a>
-              </li>
+
               <li class="nav-item">
                 <a href="/stories" class="nav-link">스토리</a>
               </li>
@@ -193,12 +189,12 @@
                     구인/팀 & 스토리생성
                   </button>
                   <div class="dropdown-menu dropdown-menu-end my-1">
-                    <a href="#" class="dropdown-item">모집라운지 글 생성</a>
-                    <a href="#" class="dropdown-item">서포터팀원 구하기</a>
-                    <a href="#" class="dropdown-item">운동친구 구하기</a>
+                    <a href="/match/posts" class="dropdown-item">매칭라운지 글 생성</a>
+                    <a href="/match/posts" class="dropdown-item">체육활동지원 모집하기</a>
+                    <a href="/match/posts" class="dropdown-item">운동친구 모집하기</a>
                     <div class="dropdown-divider"></div>
                     <div><hr/></div>
-                    <a href="#" class="dropdown-item">서포터팀 생성</a>
+                    <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
                     <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
                   </div>
                 </div>
@@ -215,14 +211,11 @@
                 <div th:if="${user != null}">
                   <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').nickname}"></a>
                       <ul class="dropdown-menu">
                         <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
-                        <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                        <li><a href="/info/history" class="dropdown-item">내 활동내역</a></li>
                         <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
-                        <li><a href="#" class="dropdown-item">나의 팀</a></li>
-                        <li href="#"><a class="dropdown-item">찜 목록</a></li>
-                        <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -289,8 +282,8 @@
 
           <!-- File input -->
           <div class="mb-3 py-3">
-            <h3 class="fs-4 s-with-story">이미지</h3>
-            <div class="rounded-2 mb-3">
+            <h3 class="fs-4 s-with-story">이미지 <i class="fs-xs">*이미지 업로드는 필수 사항입니다.</i></h3>
+            <div class="rounded-2 mb-3 d-flex">
               <img id="preview-image" style="width: 500px; height: 300px;  " src="../assets/img/swith/swith-picture.png">
             </div>
             <input class="form-control" type="file" name="image" id="input-image" onchange="readImage(this);">
@@ -319,7 +312,7 @@
           <div class="d-flex justify-content-center pt-5">
             <div class="pe-2">
               <a href="list">
-            <button type="button" class="btn btn-secondary">작성취소</button>
+            <button type="button" class="btn btn-secondary" onclick="storyList()">작성취소</button>
               </a>
             </div>
             <div class="pl-1">

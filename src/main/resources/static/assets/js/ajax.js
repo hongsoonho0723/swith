@@ -160,24 +160,57 @@ function deleteReplyBtn(reply_no) {
     });
 }
 
+/*
 $(document).on("click", "#submitEditReply", function () {
     const replyNo = $(this).data("reply-no");
     const replyContent = $("#edit-comment-content").val();
-    console.log(replyContent);
+    const replyDTO = {content : replyContent,
+                        reply_no : replyNo};
+    console.log(replyDTO);
     $.ajax({
         type: "PUT",
         url: "/replies/" + replyNo,
-        data: JSON.stringify({"content": replyContent}), // 데이터를 JSON 문자열로 변환하여 전송
-        contentType: 'application/json',
-        success: function (replyDTO) {
+        data: JSON.stringify(replyDTO),
+        contentType: "application/json",
+        success: function (data) {
             refreshReplies();
         },
         error: function () {
             alert("댓글 수정에 실패했습니다.");
-            console.log("데이터" + JSON.stringify({"content": replyContent}));
         }
     });
 });
+*/
+
+$(document).on("click", "#submitEditReply", function () {
+    const replyNo = $(this).data("reply-no");
+    const replyContent = $("#edit-comment-content").val();
+
+    if (replyContent !== null && replyContent !== "") {
+        const data = {
+            "content" : replyContent,
+            "reply_no" : replyNo
+        };
+
+
+        $.ajax({
+            type: "PUT",
+            url: "/replies/" + replyNo,
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (data) {
+                refreshReplies();
+            },
+            error: function (error) {
+                alert("댓글 수정에 실패했습니다." + error);
+                console.log(error, data);
+            }
+        });
+    } else {
+        alert("댓글 내용을 입력해주세요.");
+    }
+});
+
 
 function popularstories()
 {
@@ -237,4 +270,8 @@ function toggleTeamList() {
             console.log(xhr.responseText);
         }
     });
+}
+
+function storyList(){
+    window.location.href = '/stories/';
 }

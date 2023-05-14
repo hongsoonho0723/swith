@@ -147,14 +147,12 @@
 </div>
 <!-- Page wrapper-->
 <main class="page-wrapper">
-    <!-- Menu with dropdown + Button -->
-    <!-- Menu with dropdown + Button -->
     <header class="navbar navbar-expand-lg fixed-top bg-light">
         <div class="container">
             <a href="/members/main" class="navbar-brand">
           <span class="text-primary flex-shrink-0 me-2">
             <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"/>
             </svg>
           </span>
                 S-With
@@ -165,14 +163,12 @@
             <nav class="collapse navbar-collapse" id="navbarCollapse1">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item active">
-                        <a href="/macth" class="nav-link">모집라운지</a>
+                        <a href="/match" class="nav-link">모집라운지</a>
                     </li>
                     <li class="nav-item">
                         <a href="/teams" class="nav-link">서포터팀</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">운동친구모집</a>
-                    </li>
+
                     <li class="nav-item">
                         <a href="/stories" class="nav-link">스토리</a>
                     </li>
@@ -186,12 +182,12 @@
                                 구인/팀 & 스토리생성
                             </button>
                             <div class="dropdown-menu dropdown-menu-end my-1">
-                                <a href="#" class="dropdown-item">모집라운지 글 생성</a>
-                                <a href="#" class="dropdown-item">서포터팀원 구하기</a>
-                                <a href="#" class="dropdown-item">운동친구 구하기</a>
+                                <a href="/match/posts" class="dropdown-item">매칭라운지 글 생성</a>
+                                <a href="/match/posts" class="dropdown-item">체육활동지원 모집하기</a>
+                                <a href="/match/posts" class="dropdown-item">운동친구 모집하기</a>
                                 <div class="dropdown-divider"></div>
                                 <div><hr/></div>
-                                <a href="#" class="dropdown-item">서포터팀 생성</a>
+                                <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
                                 <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
                             </div>
                         </div>
@@ -208,14 +204,11 @@
                         <div th:if="${user != null}">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').nickname}"></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
-                                        <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                                        <li><a href="/info/history" class="dropdown-item">내 활동내역</a></li>
                                         <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
-                                        <li><a href="#" class="dropdown-item">나의 팀</a></li>
-                                        <li href="#"><a class="dropdown-item">찜 목록</a></li>
-                                        <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -238,50 +231,16 @@
         <div class="col-12 pb-3">
             <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
             <div class="d-flex">
-                <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" onchange="toggleTeamList()" th:checked="${dto.user_type == '개인'}">
+                <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" th:checked="${dto.user_type == '개인'}" disabled>
                 <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
 
-                <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀" onchange="toggleTeamList()" th:checked="${dto.user_type == '서포터팀'}">
+                <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀" th:checked="${dto.user_type == '서포터팀'}" disabled>
                 <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
-
-                <div id="team" class="m-lg-2" style="width: 200px"></div>
+                <select th:if="${dto.user_type == '서포터팀'}" name="team_title" class="form-select" disabled>
+                    <option value="${dto.team_no}">[[${dto.team_title]]</option>
+                </select>
             </div>
         </div>
-
-        <script>
-            function toggleTeamList() {
-                var userType = $('input[name="user_type"]:checked').val();
-
-                if (userType === '개인') {
-                    $('#team').empty(); // 팀 목록을 비움
-                } else {
-                    $.ajax({
-                        url: '/teams/list',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (teamList) {
-                            console.log(teamList);
-                            if (teamList && teamList.length > 0) {
-                                $('#user-type-team').prop('disabled', false);
-                                var optionsHtml = '<select name="team_title" class="form-select">';
-                                optionsHtml += '<option value="">팀 목록</option>';
-                                teamList.forEach(function (team) {
-                                    optionsHtml += '<option value="' + team.team_no + '">' + team.team_title + '</option>';
-                                });
-                                optionsHtml += '</select>';
-                                $('#team').html(optionsHtml); // 팀 목록을 채움
-                            } else {
-                                $('#user-type-team').prop('disabled', true);
-                                $('#team').empty(); // 팀 목록을 비움
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                }
-            }
-        </script>
 
         <div class="col-12 py-3">
             <h3 class="fs-4 s-with-story">스토리 유형</h3>
@@ -315,6 +274,7 @@
         <div class="mb3 pt3">
             <h3 class="fs-4 s-with-story">내용</h3>
             <div id="editor" name="content"></div>
+        </div>
 
             <script th:inline="javascript">
                 let editor;
@@ -340,10 +300,6 @@
             </div>
     </section>
 </main>
-
-<script>
-
-</script>
 
 <!-- Footer-->
 

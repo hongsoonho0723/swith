@@ -399,7 +399,7 @@
                                  width="48"
                          />
                              <h6 class="ps-3 mb-0">${dto.nickname}</h6></a
-                         ><span><i class="ai-user">${dto.member_num}</i></span>
+                         ><span><i class="ai-user">${dto.chatMember}/${dto.member_num}</i></span>
                      </div>
                  </div>
              </article>`;
@@ -442,7 +442,7 @@
                                 alt="Post author"
                         />
                             <h6 class="ps-3 mb-0">[[${dto.nickname}]]</h6></a
-                        ><span><i class="ai-user">[[${dto.member_num}]]</i></span>
+                        ><span><i class="ai-user">[[${dto.chatMember}]]/[[${dto.member_num}]]</i></span>
                     </div>
                 </div>
             </article>
