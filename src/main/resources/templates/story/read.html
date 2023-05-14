@@ -235,7 +235,7 @@
       <!-- Author widget-->
       <div class="border-bottom pt-1 pb-0">
         <div class="d-flex align-items-start py-2">
-          <img width="55" height="56" th:if="${dto.image_profile} != null" class="d-block rounded-circle mb-3" th:src="|/img/${dto.image_profile}|" alt="Author image">
+          <img width="55" height="56" th:if="${dto.image_profile} != null" class="d-block rounded-circle mb-3" th:src="@{|http://118.67.142.45:8082/img/${dto.image_profile}|}" alt="Author image">
           <img th:if="${dto.image_profile} == null" class="d-block rounded-circle mb-3" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="56" alt="Author image">
           <div class="ps-4 d-block">
             <div class="dropdown">
