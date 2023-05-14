@@ -75,7 +75,7 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public void modify(StoryDTO storyDTO, MultipartFile file) throws IOException {
-        String uploadPath = "C:\\upload\\";
+        String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\uploads\\";
 
         String originalFileName = file.getOriginalFilename();
 
