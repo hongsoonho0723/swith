@@ -14,7 +14,7 @@ let chatroomName ="";
 let nickname="";
 
 app.use(cors({
-    origin: 'http://localhost:8082'
+    origin: 'http://118.67.142.45:8082'
 }));
 
 app.set("view engine", "pug");
@@ -174,7 +174,7 @@ wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}�
 
 });
 
-const handleListen = () => console.log(`Listening on http://localhost:3000`);
+const handleListen = () => console.log(`Listening on http://118.67.142.45:3000`);
 
 httpServer.listen(3000, handleListen);
 

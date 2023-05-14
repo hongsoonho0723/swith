@@ -26,17 +26,19 @@ public class ChatController {
 
     private final SupportTeamService supportTeamService;
     private final UserService userService;
-    @GetMapping("/chatrooms")
+    /*@GetMapping("/chatrooms")
     public ResponseEntity<Void> goChatroom(@RequestParam("chatRoomTitle") String chatRoomTitle,
                                            @RequestParam("nickname") String nickname,
                                            HttpServletResponse response) {
         log.info("chatRoomTitle:"+chatRoomTitle + ", nickname:"+nickname);
-        String redirectUrl = "http://localhost:3000?chatRoomTitle=" + chatRoomTitle + "&nickname=" + nickname;
+        String redirectUrl = "http://118.67.142.45:3000?chatRoomTitle=" + chatRoomTitle + "&nickname=" + nickname;
         response.setHeader("Location",redirectUrl);
         return new ResponseEntity<>(HttpStatus.FOUND);
-    }
+    }*/
 
-    @CrossOrigin(origins = "http://localhost:3000")
+
+
+    @CrossOrigin(origins = "http://118.67.142.45:3000")
     @GetMapping("/teams/userInfo")
     public UserDTO getUser(Authentication authentication){
          String userId = authentication.getName();

@@ -55,7 +55,7 @@ public class StoryController {
     @GetMapping("/stories/posts")
     public String getRegister() {
 
-        return "/story/register";
+        return "story/register";
     }
 
     @GetMapping(value = "/stories/posts/{story_no}")
@@ -79,7 +79,7 @@ public class StoryController {
         }
         model.addAttribute("responseDTO", storyService.getList(storyPageRequestDTO));
 
-        return "/story/list";
+        return "story/list";
     }
 
     @GetMapping(value = "/stories/{story_no}")
@@ -109,7 +109,7 @@ public class StoryController {
         model.addAttribute("dto", storyDTO);
 
 
-        return "/story/read";
+        return "story/read";
     }
 
 

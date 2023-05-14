@@ -2,10 +2,12 @@ package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.domain.SupportTeamVO;
 import com.sportsmania.swith.domain.UserVO;
+import com.sportsmania.swith.dto.ChatroomsDTO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
 import com.sportsmania.swith.dto.blackDTO;
 import com.sportsmania.swith.mapper.UserMapper;
+import com.sportsmania.swith.service.ChatService;
 import com.sportsmania.swith.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,22 +37,16 @@ public class MemberController {
     private UserService userService;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private ChatService chatService;
 
     @GetMapping("/mypage")
     public void myPage(Model model,HttpSession httpSession){
         UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
         List<WishDTO> list = userService.wish(userDTO.getUserId());
         UserVO userVO = userMapper.findByUserId(userDTO.getUserId());
-        
-        List<blackDTO> black = userService.blackList(userDTO.getUserId()); // 블랙리스트
+        List<ChatroomsDTO> chatroomsList = chatService.getChatrooms(userDTO.getNickname());
 
-        List<blackDTO> dtoList1 = new ArrayList<>();
-        for (blackDTO item : black) {
-            blackDTO dto = new blackDTO();
-            dto.setBlockId(item.getBlockId());
-            dto.setRegdate(item.getRegdate());
-            dtoList1.add(dto);
-        }
 
         List<WishDTO> dtoList = new ArrayList<>();
         for (WishDTO item : list) {
@@ -63,9 +59,10 @@ public class MemberController {
 
         log.info(dtoList);
 
-        model.addAttribute("blacklist",dtoList1);
+
         model.addAttribute("wishlist", dtoList);
         model.addAttribute("userdto",userVO);
+        model.addAttribute("chatroomsList",chatroomsList);
     }
 
     @GetMapping("/my")
@@ -102,7 +99,7 @@ public class MemberController {
         dto.setIntroduction(userDTO.getIntroduction());
         httpSession.setAttribute("user",dto);
         userService.modify(dto);
-        return "/info/mypage";
+        return "info/mypage";
 
 
 
@@ -149,7 +146,7 @@ public class MemberController {
     public String other(@PathVariable("nickname") String nickname,Model model){
             UserVO userVO = userMapper.findByNickname(nickname);
             model.addAttribute("other",userVO);
-            return "/info/other";
+            return "info/other";
     }
 
 }
