@@ -22,8 +22,8 @@ public class ImgController {
     public ResponseEntity<Resource> imgGET(@PathVariable String image_main){
         /*String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\uploads\\";*/
 
-        String uploadPath = "C:\\upload\\";
-
+     /*   String uploadPath = "C:\\upload\\";*/
+        String uploadPath = "/upload/";
         Resource resource = new FileSystemResource(uploadPath+ File.separator + image_main);
         String resourceName = resource.getFilename();
         HttpHeaders headers = new HttpHeaders();
