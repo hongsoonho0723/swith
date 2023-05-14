@@ -37,7 +37,7 @@ public class MatchBoardController {
             // userId로 UserDTO 조회
 
         }
-        return "/match/matching-view";
+        return "match/matching-view";
 
     }
 
@@ -57,7 +57,7 @@ public class MatchBoardController {
 
 
         }
-        return "/match/matching-modify";
+        return "match/matching-modify";
     }
 
 
