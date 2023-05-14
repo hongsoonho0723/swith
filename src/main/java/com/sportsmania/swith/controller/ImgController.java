@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 
 @RestController
@@ -18,12 +20,12 @@ import java.nio.file.Files;
 public class ImgController {
 
 
-    @GetMapping("/img/{image_main}")
+    /*@GetMapping("/img/{image_main}")
     public ResponseEntity<Resource> imgGET(@PathVariable String image_main){
-        /*String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\uploads\\";*/
+        *//*String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\uploads\\";*//*
 
-        String uploadPath = "C:\\upload\\";
-
+     *//*   String uploadPath = "C:\\upload\\";*//*
+        String uploadPath = "/upload/";
         Resource resource = new FileSystemResource(uploadPath+ File.separator + image_main);
         String resourceName = resource.getFilename();
         HttpHeaders headers = new HttpHeaders();
@@ -34,21 +36,24 @@ public class ImgController {
             return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.ok().headers(headers).body(resource);
-    }
+    }*/
 
+    @GetMapping("/img/{image_main}")
+    public ResponseEntity<Resource> imgGET(@PathVariable String image_main) throws MalformedURLException {
+        String uploadPath = "/upload/";
 
-    @GetMapping("/my/image/{image_profile}")
-    public ResponseEntity<Resource> myImgGET(@PathVariable String image_profile){
-        String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\user_image\\";
-
-        Resource resource = new FileSystemResource(File.separator + image_profile);
+        Resource resource = new UrlResource(uploadPath + image_main);
+        String resourceName = resource.getFilename();
         HttpHeaders headers = new HttpHeaders();
 
-        try{
-            headers.add("Content-Type", Files.probeContentType( resource.getFile().toPath() ));
-        } catch(Exception e){
+        try {
+            headers.add("Content-Type", Files.probeContentType(resource.getFile().toPath()));
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.ok().headers(headers).body(resource);
     }
+
+
+
 }

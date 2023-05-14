@@ -142,6 +142,10 @@ leaveRoomButton.addEventListener("click",handleLeaveRoom);
 socket.on("welcome",(user, newCount)=>{
     const h3 = room.querySelector("h3");
     const roomName1 = document.querySelector('#chatroom').textContent;
+    const leaveButton = document.getElementById('leaveRoom');
+    if(leaveButton){
+        leaveButton.removeAttribute('hidden');
+    }
     h3.innerText = `${roomName1} (현재 입장수: ${newCount})`;
     addMessage(`${user} 님이 입장하셨습니다.`);  //원래는 addMessage()
 });
