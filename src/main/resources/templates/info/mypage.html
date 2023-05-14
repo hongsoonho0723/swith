@@ -334,7 +334,7 @@
                           <tbody>
                           <tbody>
                           <tr th:each="item : ${chatroomsList}">
-                            <td><a data-toggle="modal" data-target="#chatModal" onclick="goChat(this)" th:text="${item.roomTitle}"></a></td>
+                            <td><a data-bs-toggle="modal" data-bs-target="#chatModal" onclick="goChat(this)" th:text="${item.roomTitle}"></a></td>
                             <!--<td th:text="${item.regdate}"></td>-->
                           </tr>
                           <!-- 이하 생략 -->
@@ -481,7 +481,10 @@
       const nickname = userDTO.nickname;
       const chatRoomTitle = ele.textContent.trim();
       console.log("team_title: ", chatRoomTitle);
-      window.location.href="http://118.67.142.45:3000?title="+encodeURIComponent(chatRoomTitle)+"&nickname="+encodeURIComponent(nickname);
+      const chatFrame = document.getElementById("chatFrame");
+      chatFrame.src = "http://118.67.142.45:3000?title=" + encodeURIComponent(chatRoomTitle) + "&nickname=" + encodeURIComponent(nickname);
+
+      $("#chatModal").modal("show");
     }
   </script>
   </html>
