@@ -10,7 +10,7 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-//채팅메세지를 db에 저장하는 함수
+/*//채팅메세지를 db에 저장하는 함수
 async function saveMessage(roomName, user_id, message, timestamp){
 
     // 해당 채팅방의 메시지 수 확인
@@ -26,6 +26,24 @@ async function saveMessage(roomName, user_id, message, timestamp){
     const query = 'INSERT INTO message (room_title, sender, message, timestamp) VALUES (?, ?, ?,?)';
     await pool.query(query, [roomName, user_id,message,timestamp]);
     
+}*/
+
+//채팅메세지를 db에 저장하는 함수
+async function saveMessage(roomName, user_id, message){
+
+    // 해당 채팅방의 메시지 수 확인
+    const countQuery = 'SELECT COUNT(*) as messageCount FROM message WHERE room_title = ?';
+    const [countRows] = await pool.query(countQuery, [roomName]);
+    const messageCount = countRows[0].messageCount;
+
+    // 메시지 수가 제한을 초과하면 가장 오래된 메시지 삭제
+    if (messageCount >= MESSAGE_LIMIT) {
+        const deleteQuery = 'DELETE FROM message WHERE room_title = ? ORDER BY timestamp ASC LIMIT 1';
+        await pool.query(deleteQuery, [roomName]);
+    }
+    const query = 'INSERT INTO message (room_title, sender, message) VALUES (?, ?, ?)';
+    await pool.query(query, [roomName, user_id,message]);
+
 }
 
 //채팅 기록을 검색하는 함수
