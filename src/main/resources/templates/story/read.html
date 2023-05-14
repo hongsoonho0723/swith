@@ -147,8 +147,6 @@
 </div>
 <!-- Page wrapper-->
 <main class="page-wrapper">
-  <!-- Menu with dropdown + Button -->
-  <!-- Menu with dropdown + Button -->
   <header class="navbar navbar-expand-lg fixed-top bg-light">
     <div class="container">
       <a href="/members/main" class="navbar-brand">
@@ -165,14 +163,12 @@
       <nav class="collapse navbar-collapse" id="navbarCollapse1">
         <ul class="navbar-nav me-auto">
           <li class="nav-item active">
-            <a href="/macth" class="nav-link">모집라운지</a>
+            <a href="/match" class="nav-link">모집라운지</a>
           </li>
           <li class="nav-item">
             <a href="/teams" class="nav-link">서포터팀</a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">운동친구모집</a>
-          </li>
+
           <li class="nav-item">
             <a href="/stories" class="nav-link">스토리</a>
           </li>
@@ -186,12 +182,12 @@
                 구인/팀 & 스토리생성
               </button>
               <div class="dropdown-menu dropdown-menu-end my-1">
-                <a href="#" class="dropdown-item">모집라운지 글 생성</a>
-                <a href="#" class="dropdown-item">서포터팀원 구하기</a>
-                <a href="#" class="dropdown-item">운동친구 구하기</a>
+                <a href="/match/posts" class="dropdown-item">매칭라운지 글 생성</a>
+                <a href="/match/posts" class="dropdown-item">체육활동지원 모집하기</a>
+                <a href="/match/posts" class="dropdown-item">운동친구 모집하기</a>
                 <div class="dropdown-divider"></div>
                 <div><hr/></div>
-                <a href="#" class="dropdown-item">서포터팀 생성</a>
+                <a href="/teams/posts" class="dropdown-item">서포터팀 생성</a>
                 <a href="/stories/posts" class="dropdown-item">스토리 생성</a>
               </div>
             </div>
@@ -208,14 +204,11 @@
             <div th:if="${user != null}">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').name}"></a>
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" th:text="${#session.getAttribute('user').nickname}"></a>
                   <ul class="dropdown-menu">
                     <li><a href="/info/mypage" class="dropdown-item">마이페이지</a></li>
-                    <li><a href="#" class="dropdown-item">내 활동내역</a></li>
+                    <li><a href="/info/history" class="dropdown-item">내 활동내역</a></li>
                     <li><a href="/logout" class="dropdown-item" style="color: red">log out</a></li>
-                    <li><a href="#" class="dropdown-item">나의 팀</a></li>
-                    <li href="#"><a class="dropdown-item">찜 목록</a></li>
-                    <li href="#"><a class="dropdown-item">당신을 위한 추천!</a></li>
                   </ul>
                 </li>
               </ul>
@@ -248,7 +241,7 @@
             <div class="dropdown">
               <h4 class="h5 mb-0 dropdown-toggle" th:text="${dto.nickname}" id="profileDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></h4>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                <li><a href="#" class="dropdown-item">프로필 보기</a></li>
+                <li><a href="/info/mypage" class="dropdown-item">프로필 보기</a></li>
               </ul>
             </div>
 
@@ -269,7 +262,7 @@
 
           <th:block th:with="user=${#session.getAttribute('user')}, writer=${dto.story_writer}">
             <div class="py-1 text-center" th:if="${user != null and user.userId == writer}">
-              <a type="button" class="pe-2 text-dark" th:href="|@{/stories/posts/{story_no}(story_no=${dto.story_no})}|" style="underline:non; background-color:transparent;">수정</a>
+              <a type="button" class="pe-2 text-dark" th:href="|@{/stories/posts/{story_no}(story_no=${dto.story_no})}|" style="text-decoration: none; background-color:transparent;">수정</a>
               <button type="button" class="text-dark fs-6" th:onclick="|deleteBtn('${dto.story_no}')|" style="border: none; background-color:transparent;">삭제</button>
             </div>
           </th:block>

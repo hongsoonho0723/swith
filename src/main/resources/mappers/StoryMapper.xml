@@ -109,11 +109,11 @@
     </select>
 
     <select id="getPopularStories" resultMap="storyResultMap">
-        SELECT s.*, COUNT(l.story_no) AS likeCount, (s.clicks * 0.5 + COUNT(l.story_no) * 1) as score, U.nickname
-        FROM story s
-                 LEFT JOIN likes l ON s.story_no = l.story_no
+        SELECT S.*, COUNT(L.story_no) AS likeCount, (S.clicks * 0.5 + COUNT(L.story_no) * 1) as score, U.nickname
+        FROM story S
+                 LEFT JOIN likes L ON S.story_no = L.story_no
                  LEFT JOIN user U ON S.story_writer = U.userId
-        GROUP BY s.story_no
+        GROUP BY S.story_no
         ORDER BY score DESC
             LIMIT 4
     </select>
