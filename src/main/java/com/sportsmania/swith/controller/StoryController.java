@@ -61,7 +61,7 @@ public class StoryController {
     @GetMapping(value = "/stories/posts/{story_no}")
     public String getModify(@PathVariable("story_no") Long story_no,  Model model) {
         StoryDTO storyDTO = storyService.getOne(story_no);
-        log.info(storyDTO);
+        log.info("수정페이지 조회" + storyDTO);
 
         model.addAttribute("dto",storyDTO);
 
