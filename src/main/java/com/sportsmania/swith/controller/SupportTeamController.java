@@ -60,7 +60,7 @@ public class SupportTeamController {
 
     @GetMapping("/teams/posts")
     public ModelAndView viewResgister() {
-        ModelAndView mv = new ModelAndView("/teams/sp-register");
+        ModelAndView mv = new ModelAndView("teams/sp-register");
 
         return mv;
     }
@@ -68,7 +68,7 @@ public class SupportTeamController {
     @GetMapping("/teams/demo2")
     public ModelAndView viewDemo2() {
         List<SupportTeamDTO> dtoList = supportTeamService.getAll();
-        ModelAndView mv = new ModelAndView("/teams/sp-list2");
+        ModelAndView mv = new ModelAndView("teams/sp-list2");
         mv.addObject("dtoList",dtoList);
         return mv;
     }
@@ -175,7 +175,7 @@ public class SupportTeamController {
             dto.setNickname(userDTO.getNickname());
         }
 
-        ModelAndView mv = new ModelAndView("/teams/sp-list");
+        ModelAndView mv = new ModelAndView("teams/sp-list");
         log.info("teams view Controller 작동완료");
         mv.addObject("dtoList", dtoList);
         return mv;
@@ -221,7 +221,7 @@ public class SupportTeamController {
         UserDTO userDTO = userService.findByUsername(team_writer);
         supportTeamDTO.setNickname(userDTO.getNickname());
         log.info("list view" + supportTeamDTO);
-        ModelAndView mv = new ModelAndView("/teams/sp-view");
+        ModelAndView mv = new ModelAndView("teams/sp-view");
         mv.addObject("dto", supportTeamDTO);
         return mv;
     }
@@ -346,7 +346,7 @@ public class SupportTeamController {
     public ModelAndView viewModify(@PathVariable("team_title") String team_title) {
         SupportTeamDTO supportTeamDTO = supportTeamService.getOne(team_title);
         log.info("modify view" + supportTeamDTO);
-        ModelAndView mv = new ModelAndView("/teams/sp-modify");
+        ModelAndView mv = new ModelAndView("teams/sp-modify");
         mv.addObject("dto", supportTeamDTO);
         return mv;
     }
