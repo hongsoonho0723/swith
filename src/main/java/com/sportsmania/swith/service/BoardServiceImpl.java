@@ -41,8 +41,9 @@ public class BoardServiceImpl implements BoardService{
             dto.setRecruitsNum(recruitsNumadd);
             int num =boardMapper.countAdditionalNum(roomtitle);
             dto.setAdditionalNum(num);
-            log.info("지원인원수"+dto.getAdditionalNum());
-            log.info("모집인원수+1 : "+dto.getRecruitsNum());
+//            log.info("지원인원수"+dto.getAdditionalNum());
+//            log.info("모집인원수+1 : "+dto.getRecruitsNum());
+//            log.info(dto.getExercise());
             if(dto.getAdditionalNum()==dto.getRecruitsNum()){
                 dto.setFinished(true);
             } else if (dto.getAdditionalNum()!=dto.getRecruitsNum()){
@@ -77,8 +78,8 @@ public class BoardServiceImpl implements BoardService{
             dto.setRecruitsNum(recruitsNumadd);
             int num =boardMapper.countAdditionalNum(roomtitle);
             dto.setAdditionalNum(num);
-            log.info("지원인원수"+dto.getAdditionalNum());
-            log.info("모집인원수+1 : "+dto.getRecruitsNum());
+//            log.info("지원인원수"+dto.getAdditionalNum());
+//            log.info("모집인원수+1 : "+dto.getRecruitsNum());
         }
         mainList = list;
 
