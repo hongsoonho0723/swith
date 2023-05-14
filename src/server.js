@@ -14,7 +14,7 @@ let chatroomName ="";
 let nickname="";
 
 app.use(cors({
-    origin: 'http://localhost:8082'
+    origin: 'http://118.67.142.45:8082'
 }));
 
 app.set("view engine", "pug");
