@@ -25,4 +25,11 @@ public class ChatServiceImpl implements ChatService {
         log.info("chatrooms :"+ dtoList);
         return dtoList;
     }
+
+    @Override
+    public int getMembers(String roomTitle) {
+        int member_num = chatMapper.selectMembers(roomTitle);
+        log.info(member_num);
+        return member_num;
+    }
 }

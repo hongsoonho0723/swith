@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ChatService {
     List<ChatroomsDTO> getChatrooms(String nickname);
+    int getMembers(String roomTitle);
 }
