@@ -40,3 +40,8 @@
 .s-with-story-top {
     background-color: #57B0E2; color:white; max-height: 500px;
 }
+
+.s-d-img {
+    width: 350px;
+    height: 250px;
+}

@@ -61,18 +61,19 @@ public class ReplyController {
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("principal.username == #replyDTO.reply_writer")
     @PutMapping("/{reply_no}")
-    public ResponseEntity<ReplyDTO> modifyReply(@PathVariable("reply_no") Long reply_no, @RequestBody ReplyDTO replyDTO) {
-       log.info(reply_no);
-       log.info(replyDTO.getContent());
-        ReplyDTO originalReplyDTO = replyService.getReplyOne(reply_no); // 댓글 번호로 기존 댓글 정보 가져오기
+    public ResponseEntity<ReplyDTO> modifyReply(@RequestBody ReplyDTO replyDTO) {
+        log.info("컨트롤러 요청 성공");
+        log.info(replyDTO.getStory_no());
+        log.info(replyDTO.getContent());
+        /*ReplyDTO originalReplyDTO = replyService.getReplyOne(replyDTO.getReply_no()); // 댓글 번호로 기존 댓글 정보 가져오기
         originalReplyDTO.setContent(replyDTO.getContent()); // 수정된 내용으로 댓글 내용 설정
         replyService.modify(originalReplyDTO); // DB에 수정된 댓글 정보 업데이트
 
-        log.info("댓글 수정:" + originalReplyDTO);
+        log.info("댓글 수정:" + originalReplyDTO);*/
+        replyService.modify(replyDTO);
 
-        return new ResponseEntity<>(originalReplyDTO, HttpStatus.OK); // 수정된 댓글 정보 반환
+        return new ResponseEntity<>(HttpStatus.OK); // 수정된 댓글 정보 반환
     }
     @RestController
     public class UserController {
