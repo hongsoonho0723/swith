@@ -32,4 +32,5 @@ public class MatchBoardVO {
     private String facilityadd;
     private String introduction;
     private String nickname;
+    private String image_profile;
 }
