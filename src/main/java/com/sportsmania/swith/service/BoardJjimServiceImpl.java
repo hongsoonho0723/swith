@@ -54,4 +54,9 @@ public class BoardJjimServiceImpl implements BoardJjimService{
     public boolean isWishByUser(int board_no, String userid) {
         return boardJjimMapper.isWishByUser(board_no,userid);
     }
+
+    @Override
+    public void deleteAllByBoard_no(int board_no) {
+        boardJjimMapper.deleteAllByBoard_no(board_no);
+    }
 }
