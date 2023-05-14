@@ -57,6 +57,17 @@
     </script>
     <!-- Page loading styles-->
     <style>
+        .modal {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .modal-dialog {
+            max-width: 400px; /* Adjust as needed */
+            max-height: 500px; /* Adjust as needed */
+            margin: 1rem; /* Add margin for better appearance */
+        }
         .page-loading {
             position: fixed;
             top: 0;
@@ -559,7 +570,7 @@
     <div th:if="${user != null}" class="container d-flex justify-content-center">
         <!-- Success solid button -->
         <a type="button" id="applicationButton" class="btn btn-success mt-5" onclick="applicationTeam()">신청하기</a>
-        <a type="button" id="applicationButton" class="btn btn-success mt-5" onclick="goNode()">채팅방입장</a>
+        <a type="button" id="applicationButton" class="btn btn-success mt-5" data-toggle="modal" data-target="#chatModal" onclick="goNode()">채팅방입장</a>
     </div>
     </th:block>
 
@@ -590,12 +601,21 @@
     </script>-->
   <script th:inline="javascript">
         function goNode(){
-         const userDTO = [[${#session.getAttribute('user')}]];
+         /*const userDTO = [[${#session.getAttribute('user')}]];
             const nickname = userDTO.nickname;
             const chatRoomTitle = [[${dto.team_title}]];
             console.log("team_title: ", chatRoomTitle);
             window.location.href="http://118.67.142.45:3000?title="+encodeURIComponent(chatRoomTitle)+"&nickname="+encodeURIComponent(nickname);
+*/
 
+            const userDTO = [[${#session.getAttribute('user')}]];
+            const nickname = userDTO.nickname;
+            const chatRoomTitle = [[${dto.team_title}]];
+
+            const chatFrame = document.getElementById("chatFrame");
+            chatFrame.src = "http://118.67.142.45:3000?title=" + encodeURIComponent(chatRoomTitle) + "&nickname=" + encodeURIComponent(nickname);
+
+            $("#chatModal").modal("show");
         }
     </script>
     <!--<script>
@@ -622,7 +642,7 @@
         function goNode(){
             const team_title = "testTeam2";
             $.ajax({
-                url: "/chatrooms",
+                url: "/chatrooms",chatrooms
                 method: "GET",
                 success: function(){
                     window.location.href='http://localhost:3000?chatroom=' + team_title;
@@ -736,7 +756,22 @@
     })
 </script>
 
-
+<!-- Chat Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatModalLabel">채팅방 입장</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="chatFrame" src="" width="100%" height="500px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
