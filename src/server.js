@@ -172,6 +172,20 @@ wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}�
 
     socket.on("nickname",(nickname) => (socket["nickname"] = nickname));
 
+    socket.on("leave_room", (roomName,callback) =>{
+        //연결을 끊고 채팅방을 떠는 코드
+        socket.leave(roomName);
+
+        const userId = socket.userNickname;
+
+        db.removeUserChatroom(userId, roomName).then(()=>{
+            console.log(`${userId}가 ${roomName}을 떠나심.`);
+        }).catch(error => {
+            console.error('방 삭제 에러: ',error);
+        });
+        callback();
+    })
+
 });
 
 const handleListen = () => console.log(`Listening on http://118.67.142.45:3000`);
@@ -214,9 +228,7 @@ wss.on("connection", (socket) => {
 
 
 //서버에 대화내용 저장
-
 const chatHistory = {};
-
 function addMessageToHistory(roomName, message) {
     if (!chatHistory[roomName]) {
         chatHistory[roomName] = [];

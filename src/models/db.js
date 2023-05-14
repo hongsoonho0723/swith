@@ -48,9 +48,16 @@ async function getUserChatrooms(userId) {
     return rows.map(row => row.roomTitle);
   }
 
+  //유저가 채팅방을 나갈 때 chatrooms 테이블에서 해당 항목을 삭제하는 함수
+async function removeUserChatroom(userId, roomName){
+    const query= 'DELETE FROM chatrooms WHERE userId = ? AND roomTitle = ?';
+    await pool.query(query, [userId, roomName]);
+}
+
 module.exports = {
     saveMessage,
     getChatHistory,
     saveUserChatroom,
-    getUserChatrooms
+    getUserChatrooms,
+    removeUserChatroom
 };
