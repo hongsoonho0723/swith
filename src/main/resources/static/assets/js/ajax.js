@@ -188,16 +188,15 @@ $(document).on("click", "#submitEditReply", function () {
 
     if (replyContent !== null && replyContent !== "") {
         const data = {
-            "content" : replyContent,
-            "reply_no" : replyNo
+            content : replyContent,
+            reply_no : replyNo
         };
 
 
         $.ajax({
             type: "PUT",
             url: "/replies/" + replyNo,
-            data: JSON.stringify(data),
-            contentType: 'application/json',
+            data: data,
             success: function (data) {
                 refreshReplies();
             },
