@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface ChatMapper {
     List<ChatroomsVO> selectChatrooms(String nickname);
+    int selectMembers(String roomTitle);
 }
