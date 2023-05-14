@@ -46,15 +46,7 @@ public class MemberController {
         List<WishDTO> list = userService.wish(userDTO.getUserId());
         UserVO userVO = userMapper.findByUserId(userDTO.getUserId());
         List<ChatroomsDTO> chatroomsList = chatService.getChatrooms(userDTO.getNickname());
-        List<blackDTO> black = userService.blackList(userDTO.getUserId()); // 블랙리스트
 
-        List<blackDTO> dtoList1 = new ArrayList<>();
-        for (blackDTO item : black) {
-            blackDTO dto = new blackDTO();
-            dto.setBlockId(item.getBlockId());
-            dto.setRegdate(item.getRegdate());
-            dtoList1.add(dto);
-        }
 
         List<WishDTO> dtoList = new ArrayList<>();
         for (WishDTO item : list) {
@@ -67,7 +59,7 @@ public class MemberController {
 
         log.info(dtoList);
 
-        model.addAttribute("blacklist",dtoList1);
+
         model.addAttribute("wishlist", dtoList);
         model.addAttribute("userdto",userVO);
         model.addAttribute("chatroomsList",chatroomsList);
@@ -107,7 +99,7 @@ public class MemberController {
         dto.setIntroduction(userDTO.getIntroduction());
         httpSession.setAttribute("user",dto);
         userService.modify(dto);
-        return "/info/mypage";
+        return "info/mypage";
 
 
 
@@ -154,7 +146,7 @@ public class MemberController {
     public String other(@PathVariable("nickname") String nickname,Model model){
             UserVO userVO = userMapper.findByNickname(nickname);
             model.addAttribute("other",userVO);
-            return "/info/other";
+            return "info/other";
     }
 
 }
