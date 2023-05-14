@@ -682,12 +682,12 @@
                         <a style="text-decoration: none" class="h4 card-title mt-0" th:href="|@{/match/view(board_no=${dto.board_no})}|" >[[${dto.title}]]</a>
                     </div>
                     <div class="card-footer border-0 py-3 my-3 mb-sm-4">
-                        <div class="container d-flex justify-content-center">
+                        <div class="container d-flex mx-auto justify-content-center">
                     <span class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="user">
                     <i id="" class="ai-user">[[${dto.nickname}]]</i>
                     </span>
                             <span class="nav-link ms-lg-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="chat">
-                        <i class="ai-chat"> [[${dto.recruitsNum}]]</i>
+                        <i class="ai-chat">[[${dto.additionalNum}]] / [[${dto.recruitsNum}]]</i>
                             </span>
                         </div>
                     </div>
