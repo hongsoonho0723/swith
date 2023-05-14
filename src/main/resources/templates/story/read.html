@@ -241,7 +241,8 @@
 
       <!-- Author widget-->
       <div class="border-bottom pt-1 pb-0">
-        <div class="d-flex align-items-start py-2"><img th:if="${dto.image_profile} != null" class="d-block rounded-circle mb-3" th:src="${dto.image_profile}" width="56" alt="Author image">
+        <div class="d-flex align-items-start py-2">
+          <img width="55" height="56" th:if="${dto.image_profile} != null" class="d-block rounded-circle mb-3" th:src="|/img/${dto.image_profile}|" alt="Author image">
           <img th:if="${dto.image_profile} == null" class="d-block rounded-circle mb-3" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="56" alt="Author image">
           <div class="ps-4 d-block">
             <div class="dropdown">
@@ -281,7 +282,7 @@
     <section class="container pt-2 mt-md-2 mt-lg-3 mt-xl-4">
       <div class="row justify-content-center pt-xxl-2">
         <!-- main image -->
-        <figure class="col-lg-9 col-xl-8"><img class="figure-img rounded-5 mb-3" th:src="|/img/${dto.image_main}|" alt="Image">
+        <figure class="col-lg-9 col-xl-8"><img class="figure-img rounded-5 mb-3 mx-auto" th:src="|/img/${dto.image_main}|" alt="Image">
         </figure>
         <div class="border-bottom p-0"></div>
         <div class="col-lg-9 col-xl-8 pt-2 mt-2">

@@ -232,7 +232,7 @@
                 <div class="offcanvas-body">
                   <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
                     <div class="d-md-flex" style="border-radius: 50%;overflow: hidden;width: 100px;height: 100px ">
-                      <img  style="object-fit: contain;height: 100%;width: 100%;" th:src="${#session.getAttribute('user').image_profile}">
+                      <img class="rounded-circle mb-1" height="100" width="100" th:src="|/img/${#session.getAttribute('user').image_profile}|" alt="Author image">
                     </div>
                     <h3 class="h5 mb-1" th:text="${#session.getAttribute('user').name}">이름</h3>
                     <p class="fs-sm text-muted mb-0" th:text="${#session.getAttribute('user').email}">example@gmail.com</p>
@@ -299,9 +299,10 @@
                       <p th:text="${#session.getAttribute('user').introduction}">안녕하세요 ~</p>
                     </div>
                     <div class="col-md-6 d-md-flex justify-content-end">
-                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 250px;">
+                      <div class="w-100 border rounded-3 p-4" style="max-width: 212px; justify-content: center;height: 200px;">
                         <h4 style="padding-left: 4%;">프로필 이미지</h4>
-                          <img style="height: 80%;width: 100%;border-radius: 10px" th:src="${userdto.image_profile}">
+                        <img th:if="${#session.getAttribute('user').image_profile} != null" class="d-block m-auto" th:src="|/img/${#session.getAttribute('user').image_profile}|" width="120" height="120" alt="Author image">
+                        <img th:if="${#session.getAttribute('user').image_profile} == null" class="d-block rounded-circle m-auto" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="120" height="120" alt="Author image">
                       </div>
                     </div>
                   </div>
@@ -410,11 +411,9 @@
               </section>
         </div>
       </div>
+      </div>
       <!-- 아래화면-->
-      <footer
-            class="bg-light py-5"
-            style="position: relative; bottom: 0; width:100%;"
-            >
+      <footer class="bg-light py-5" style="position: relative; bottom: 0; width:100%; color: #FAFAFA;">
   <div class="container">
     <ul class="nav justify-content- py-1 pb-sm-1">
       <li class="nav-item">
