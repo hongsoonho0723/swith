@@ -139,7 +139,9 @@ $(document).ready(function () {
                 const div2 = $("<div id='" +user.team_memberId +"' class='swiper-slide w-auto'>" +
                     "<div class='card-hover text-center' style='max-width:306px'>" +
                     "<img  class='d-block rounded-5 mb-4' src='../assets/img/landing/creative-agency/team/05.jpg'  alt='Image'/>" +
-                    "<h3 id='team_userId' class='h5 mb-1'>" + user.team_memberNickname + "</h3>" +
+                    "<div class='dropdown'>"+
+                    "<h3 id='team_userId' class='h5 mb-1 dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>" + user.team_memberNickname + "</h3>" +
+                    "<ul class='dropdown-menu' aria-labelledby='team_userId'><li><a class='dropdown-item' href='/info/other/" + user.team_memberNickname + "'>프로필보기</a></li></ul></div>"+
                     "<a type='button' class='btn btn-secondary mt-5' onclick=\"rejectMember('" + user.team_memberId + "')\">거절</a>" +
                     "<a type='button' class=\"btn btn-success mt-5\" onclick=\"acceptMember('" + user.team_memberId + "')\">수락</a>" +
                     "</div></div>");
