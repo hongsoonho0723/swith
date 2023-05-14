@@ -2,6 +2,7 @@ package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.dto.MatchBoardDTO;
 import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.service.BoardJjimService;
 import com.sportsmania.swith.service.MatchBoardService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ public class MatchBoardController {
 
     @Autowired
     MatchBoardService matchBoardService;
-
+    @Autowired
+    BoardJjimService boardJjimService;
 
 
 
@@ -89,6 +91,8 @@ public class MatchBoardController {
     public String remove(int board_no, RedirectAttributes redirectAttributes){
         log.info("-------------remove--------------");
         log.info("board_no="+board_no);
+
+        boardJjimService.deleteAllByBoard_no(board_no);
         matchBoardService.remove(board_no);
         return "redirect:/match";
     }

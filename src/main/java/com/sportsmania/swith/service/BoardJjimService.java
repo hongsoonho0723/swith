@@ -14,5 +14,6 @@ public interface BoardJjimService {
 
     // 특정 게시물에 대한 찜 여부 체크
     boolean isWishByUser(int board_no, String userid);
-
+    //게시물 삭제시 전체 삭제
+    public void deleteAllByBoard_no(int board_no);
 }
