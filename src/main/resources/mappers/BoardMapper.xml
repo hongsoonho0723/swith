@@ -138,12 +138,13 @@
         group by board_no
         order by deadline desc limit 6
     </select>
-    <!--<select id="countAdditionalNum" resultType="int">
-        select count (*) from chatrooms
+    <select id="countAdditionalNum" resultType="int">
+        select count(*) from chatrooms
         <where>
             <if test="roomTitle !=null and roomTitle.length>0">
-                and roomTitle = #{roomTitle}
+                roomTitle = #{roomTitle}
             </if>
         </where>
-    </select>-->
+    </select>
+
 </mapper>

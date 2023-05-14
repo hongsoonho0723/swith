@@ -38,10 +38,22 @@ public class BoardController {
         }
 //        #{roomtitle} = board_no+b_category+nickname
 //        String getB_cate = pageRequestDTO.getB_category();
-//        int getBoard_no = (int) boardService.getList(pageRequestDTO).getDtoList().get(0).getBoard_no();
+        /*List<BoardDTO> list = boardService.getList(pageRequestDTO).getDtoList();
+
+        for (BoardDTO dto:list) {
+            String roomtitle = dto.getBoard_no()+dto.getB_category()+dto.getNickname();
+            int recruitsNumadd = dto.getRecruitsNum()+1;
+            dto.setRecruitsNum(recruitsNumadd);
+            dto.setAdditionalNum(boardService.getaddtionNum(roomtitle));
+            log.info("지원인원수"+dto.getAdditionalNum());
+            log.info("모집인원수+1 : "+dto.getRecruitsNum());
+        }*/
+        boardService.getList(pageRequestDTO);
+        log.info(boardService.getList(pageRequestDTO).getDtoList());
+//        log.info(list);
 //        String getUserNickname =
         model.addAttribute("responseDTO",boardService.getList(pageRequestDTO));
-        log.info(boardService.getList(pageRequestDTO).getDtoList().get(0).getAdditionalNum());
+//        log.info(boardService.getList(pageRequestDTO).getDtoList().get(0).getAdditionalNum());
 
         log.info(pageRequestDTO);
         return "match/list";

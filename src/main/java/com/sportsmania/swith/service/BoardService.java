@@ -12,4 +12,5 @@ public interface BoardService {
     void register(BoardDTO boardDTO);
     PageResponseDTO<BoardDTO> getList(PageRequestDTO pageRequestDTO);
     List<BoardDTO> mainList(BoardDTO boardDTO);
+    int getaddtionNum(String roomtitle);
 }
