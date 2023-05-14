@@ -53,7 +53,9 @@
         delete from matchboard where board_no = #{board_no}
     </delete>
 
-
+    <update id="increaseViewCount" parameterType="int">
+        UPDATE matchboard SET clicks = clicks + 1 WHERE board_no = #{storyNo}
+    </update>
 
 
 </mapper>

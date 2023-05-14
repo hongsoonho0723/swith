@@ -17,7 +17,7 @@ public interface MatchBoardService {
     UserDTO getOne1(String userId);
 
     void remove(int board_no);
-
+    void increaseViewCount(int board_no);
 
 
 }

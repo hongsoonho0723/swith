@@ -81,5 +81,10 @@ public class MatchBoardServicelmpl implements MatchBoardService {
         matchBoardMapper.delete(board_no);
     }
 
+    @Override
+    public void increaseViewCount(int board_no) {
+        matchBoardMapper.increaseViewCount(board_no);
+    }
+
 
 }
