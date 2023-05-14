@@ -46,4 +46,5 @@ public class MatchBoardDTO {
     private boolean is_wish;
     private String introduction;
     private String nickname;
+    private String image_profile;
 }

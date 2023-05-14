@@ -400,12 +400,30 @@
             <div class="col-lg-4 col-xl-3 offset-xl-9">
                 <div class="card border-0 bg-secondary" style="margin-top: -80px;">
                     <div class="card-body text-center">
-                        <img
-                                class="d-block rounded-circle mx-auto mb-3"
-                                src="../assets/img/avatar/03.jpg"
-                                width="80"
-                                alt="Author image"
-                        />
+
+
+
+
+                        <img width="120" height="120" th:if="${dto.image_profile} != null" class="d-block rounded-circle mx-auto mb-3" th:src="|/img/${dto.image_profile}|" alt="Author image">
+                        <img th:if="${dto.image_profile} == null"  class="d-block rounded-circle mx-auto mb-3" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="120" height="120" alt="Author image">
+
+                        <!--
+                                                <img
+                                                        class="d-block rounded-circle mx-auto mb-3"
+                                                        th:src="|/img/${#session.getAttribute('user').image_profile}|"
+                                                        width="80"
+                                                        alt="Author image"
+                                                />
+                        &lt;!&ndash;-->
+                   <!--         <img class="rounded-circle mb-1" height="100" width="100"
+                                 th:src="|/img/${#session.getAttribute('user').image_profile}|" alt="Author image">&ndash;&gt;
+
+
+
+-->
+
+
+
                         <a href="#" th:text="${dto.nickname}" data-bs-toggle="dropdown"
                            data-bs-auto-close="outside"
                            aria-expanded="false"></a>
@@ -555,12 +573,6 @@
                     }
                 });
             </script>
-
-
-
-
-
-
 
 
 

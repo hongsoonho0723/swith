@@ -229,16 +229,21 @@
     <section class="container mt-lg-5 mb-md-2 mb-lg-3 mb-xl-4">
 
         <div class="col-12 pb-3">
-            <h3 class="fs-4" style="color: #003986;">작성자 유형</h3>
+            <h3 class="fs-4 mb-0" style="color: #003986;">작성자 유형</h3>
             <div class="d-flex">
+                <div class="d-flex justify-content-center align-items-center">
                 <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" th:checked="${dto.user_type == '개인'}" disabled>
                 <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
 
                 <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀" th:checked="${dto.user_type == '서포터팀'}" disabled>
                 <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
+                </div>
+
+                <div id="team" class="m-lg-2" style="width: 200px">
                 <select th:if="${dto.user_type == '서포터팀'}" name="team_title" class="form-select" disabled>
-                    <option value="${dto.team_no}">[[${dto.team_title]]</option>
+                    <option value="${dto.team_no}">[[${dto.team_title}]]</option>
                 </select>
+                </div>
             </div>
         </div>
 

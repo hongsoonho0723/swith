@@ -248,13 +248,15 @@
         </script>
           <!-- 전송 -->
         <div class="col-12 pb-3">
-          <h3 class="fs-4 s-with-story">작성자 유형</h3>
+          <h3 class="fs-4 s-with-story mb-1">작성자 유형</h3>
+          <div class="d-flex align-items-center">
           <div class="d-flex">
           <input type="radio" name="user_type" id="user-type" class="form-check-input" value="개인" onchange="toggleTeamList()">
           <label for="user-type" class="form-check-label pe-5 fs-6">개인</label>
 
           <input type="radio" name="user_type" id="user-type-team" class="form-check-input btn-info" value="서포터팀">
           <label for="user-type-team" class="form-check-label fs-6">서포터팀</label>
+          </div>
 
           <div id="team" class="m-lg-2" style="width: 200px"></div>
           </div>

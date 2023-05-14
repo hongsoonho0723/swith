@@ -126,6 +126,16 @@ function loadChatrooms() {
   });
 }
 
+//leave_room이벤트를 발생시키는 함수
+function handleLeaveRoom(){
+    const roomName = document.querySelector('.room-title').textContent;
+    socket.emit("leave_room",roomName,()=>{
+        window.location.href="/";
+    })
+}
+
+const leaveRoomButton = document.getElementById("leaveRoom");
+leaveRoomButton.addEventListener("click",handleLeaveRoom);
 
 
 
@@ -133,7 +143,7 @@ socket.on("welcome",(user, newCount)=>{
     const h3 = room.querySelector("h3");
     const roomName1 = document.querySelector('#chatroom').textContent;
     h3.innerText = `${roomName1} (현재 입장수: ${newCount})`;
-    addMessage(`${username} 님이 입장하셨습니다.`);  //원래는 addMessage()
+    addMessage(`${user} 님이 입장하셨습니다.`);  //원래는 addMessage()
 });
 
 //채팅기록을 출력하는 이벤트 처리
@@ -162,12 +172,8 @@ socket.on("load_chat_history", (messages) => {
 
 //메세지 추가 코드 부분
 socket.on("message", (msg, sender, timestamp) => {
-    //const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit',  hour: '2-digit', minute: '2-digit'}).format(timestamp);
-    
     addMessage(`${sender}: ${msg} (${timestamp})`);
     scrollToBottom(); //새 메시지가 추가될 때마다 호출
-
-   
 })
 
 socket.on("bye",(left, newCount)=>{
@@ -207,11 +213,11 @@ socket.on("room_count",(count) =>{
 //스크롤이 자동으로 맨 아래로 이동하도록 하는 코드
 function scrollToBottom(){
     const messagesContainer = document.getElementById('messages-container');
-    messagesContainer.scrollTop = messagesContainer.scrollerHeight;
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 const userChatrooms = {
-    
+
 }
 
 
