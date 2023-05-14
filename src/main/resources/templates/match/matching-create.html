@@ -32,14 +32,14 @@
 
 </head>
 <body>
-<<!-- Menu with dropdown + Button -->
+<!-- Menu with dropdown + Button -->
 
 <header class="navbar navbar-expand-lg fixed-top bg-light">
   <div class="container">
     <a href="/members/main" class="navbar-brand">
           <span class="text-primary flex-shrink-0 me-2">
             <svg version="1.1" width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z">
+              <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"></path>
             </svg>
           </span>
       S-With
@@ -619,9 +619,8 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
               const faciName = document.getElementById("faciName").value;
               const encodedFaciName = encodeURIComponent(faciName);
               const apiUrl =
-                      "https://apis.data.go.kr/B551014/SRVC_OD_API_SFMS_FACI/TODZ_API_SFMS_FACI_I_NEW?serviceKey=Dh3tNHkDhofXqJ62w2Mu0ywkbgqdOvChWpoKJcGJ23enOQEBLvXfGvORKAqF5Xk7zWeeL5ih3JYZR5FnfJ91ZA%3D%3D&pageNo=1&numOfRows=1000&resultType=json&faci_nm=" +
+                      "https://apis.data.go.kr/B551014/SRVC_OD_API_SFMS_FACI/TODZ_API_SFMS_FACI_I_NEW?serviceKey=Dh3tNHkDhofXqJ62w2Mu0ywkbgqdOvChWpoKJcGJ23enOQEBLvXfGvORKAqF5Xk7zWeeL5ih3JYZR5FnfJ91ZA%3D%3D&pageNo=1&numOfRows=100&resultType=json&faci_nm=" +
                       encodedFaciName;
-
               fetch(apiUrl)
                       .then((response) => response.json())
                       .then((data) => {
@@ -727,8 +726,8 @@ display: inline-block; ">함께 운동할 사람들을 모집합니다!</h1>
 
 
   <div class="container d-flex justify-content-center" style="padding-top: 50px;">
-
-    <a href="/match" type="button" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2" value="작성취소"/>
+<!-- a태그에 value가 왜 있긔? -->
+    <a href="/match" style="width:100px; height:40px; background-color: gray; border: none; padding-top: 12px;" class="btn btn-success ms-2">작성취소</a>
     <button style="width:100px; height:40px; background-color: indigo; border: none; padding-top: 12px;" class="btn btn-success ms-2" value="작성완료">작성완료</button>
   </div>
 
