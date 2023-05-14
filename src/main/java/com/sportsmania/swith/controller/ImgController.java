@@ -38,11 +38,11 @@ public class ImgController {
         return ResponseEntity.ok().headers(headers).body(resource);
     }*/
 
-    @GetMapping("/img/{image_main}")
+    /*@GetMapping("/img/{image_main}")
     public ResponseEntity<Resource> imgGET(@PathVariable String image_main) throws MalformedURLException {
-        String uploadPath = "/upload/";
-
-        Resource resource = new UrlResource(uploadPath + image_main);
+       // String uploadPath = "/root/app/C:/upload/";
+        
+        Resource resource = new UrlResource(image_main);
         String resourceName = resource.getFilename();
         HttpHeaders headers = new HttpHeaders();
 
@@ -52,6 +52,26 @@ public class ImgController {
             return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.ok().headers(headers).body(resource);
+    }*/
+
+    @GetMapping("/img/{image_main}")
+    public ResponseEntity<Resource> imgGET(@PathVariable String image_main) throws MalformedURLException {
+        String uploadPath = "C:\\upload\\";
+
+        File file = new File(uploadPath + image_main);
+        if (file.exists()) {
+            Resource resource = new UrlResource(file.toURI());
+            HttpHeaders headers = new HttpHeaders();
+
+            try {
+                headers.add("Content-Type", Files.probeContentType(file.toPath()));
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().build();
+            }
+            return ResponseEntity.ok().headers(headers).body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
