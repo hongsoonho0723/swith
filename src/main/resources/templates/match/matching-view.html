@@ -200,7 +200,13 @@
             const chatRoomboardno = [[${dto.board_no}]];
             const chatRoomcategory = [[${dto.b_category}]];
             const chatRoomtitle = chatRoomboardno+"_"+chatRoomcategory+"_"+chatRoomnickname;
-            window.location.href="http://118.67.142.45:3000?title="+encodeURIComponent(chatRoomtitle)+"&nickname="+encodeURIComponent(nickname);
+            const roomTitle = [[${dto.title}]]
+
+            const chatFrame = document.getElementById("chatFrame");
+            chatFrame.src = "http://118.67.142.45:3000?title=" + encodeURIComponent(chatRoomboardno) + "&nickname=" + encodeURIComponent(nickname);
+
+            $("#chatModal").modal("show");
+            //window.location.href="http://118.67.142.45:3000?title="+encodeURIComponent(roomTitle)+"&nickname="+encodeURIComponent(nickname);
 
         }
 
@@ -475,7 +481,7 @@
                 <th:block th:with="user=${#session.getAttribute('user')}">
                     <div class="position-sticky top-0 mt-2 mt-md-3 mt-lg-0" style="padding-top: 1rem; padding-bottom:1rem">
                         <div th:if="${user != null && dto.finished != true}">
-                            <a type="button" id="applicationButton" class="btn btn-success mt-4"data-toggle="modal" data-target="#chatModal" onclick="goNode()" style="margin-left: 6rem; margin-top: -1.5rem;">채팅방입장</a>
+                            <a type="button" id="applicationButton" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#chatModal" onclick="goNode()" style="margin-left: 6rem; margin-top: -1.5rem;">채팅방입장</a>
                         </div>
                     </div>
                 </th:block>
@@ -787,7 +793,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="chatModalLabel">채팅방 입장</h5>
+                <h5 class="modal-title" id="chatModalLabel">채팅방입장</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
