@@ -99,7 +99,7 @@ public class MemberController {
         dto.setIntroduction(userDTO.getIntroduction());
         httpSession.setAttribute("user",dto);
         userService.modify(dto);
-        return "/info/mypage";
+        return "info/mypage";
 
 
 
@@ -146,7 +146,7 @@ public class MemberController {
     public String other(@PathVariable("nickname") String nickname,Model model){
             UserVO userVO = userMapper.findByNickname(nickname);
             model.addAttribute("other",userVO);
-            return "/info/other";
+            return "info/other";
     }
 
 }
