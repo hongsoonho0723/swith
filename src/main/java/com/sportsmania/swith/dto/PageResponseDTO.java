@@ -43,7 +43,7 @@ public class PageResponseDTO<E> {
         this.supporttype = pageRequestDTO.getSupporttype();
         this.finished = pageRequestDTO.isFinished();
         this.b_category = pageRequestDTO.getB_category();
-//        this.additionalNum = addUserNum;
+        this.additionalNum = addUserNum;
         this.total=total;
         this.dtoList=dtoList;
 

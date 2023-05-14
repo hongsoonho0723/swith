@@ -8,4 +8,12 @@
     <select id="selectChatrooms" resultType="com.sportsmania.swith.domain.ChatroomsVO">
         select * from chatrooms where userId = #{nickname}
     </select>
+    <select id="selectMembers" resultType="int">
+        select count(*) from chatrooms
+        <where>
+        <if test="roomTitle !=null and roomTitle.length>0">
+            and roomTitle = #{roomTitle}
+        </if>
+    </where>
+    </select>
 </mapper>

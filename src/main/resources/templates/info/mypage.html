@@ -453,7 +453,7 @@
     function goChat(ele){
       const userDTO = [[${#session.getAttribute('user')}]];
       const nickname = userDTO.nickname;
-      const chatRoomTitle = ele.textContent;
+      const chatRoomTitle = ele.textContent.trim();
       console.log("team_title: ", chatRoomTitle);
       window.location.href="http://118.67.142.45:3000?title="+encodeURIComponent(chatRoomTitle)+"&nickname="+encodeURIComponent(nickname);
     }

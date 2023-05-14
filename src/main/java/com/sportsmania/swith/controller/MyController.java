@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -45,8 +46,9 @@ public class MyController {
     @GetMapping("/main")
     public String main(HttpSession session, BoardDTO boardDTO, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         String username = authentication.getName();
+
+
         model.addAttribute("boardDTO",boardService.mainList(boardDTO));
 
         if (username.equals("anonymousUser")) {

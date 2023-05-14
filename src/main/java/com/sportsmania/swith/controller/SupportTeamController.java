@@ -5,11 +5,8 @@ import com.sportsmania.swith.dto.StoryDTO;
 import com.sportsmania.swith.dto.SupportTeamDTO;
 import com.sportsmania.swith.dto.TeamMemberDTO;
 import com.sportsmania.swith.dto.UserDTO;
-import com.sportsmania.swith.service.StoryService;
-import com.sportsmania.swith.service.SupportTeamService;
-import com.sportsmania.swith.service.TeamMemberService;
+import com.sportsmania.swith.service.*;
 
-import com.sportsmania.swith.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Required;
@@ -40,6 +37,7 @@ public class SupportTeamController {
     private final TeamMemberService teamMemberService;
     private final StoryService storyService;
     private final UserService userService;
+    private final ChatService chatService;
 
     @GetMapping("/members/teams/region")
     public ResponseEntity viewMainWithTeams(Authentication authentication){
@@ -54,6 +52,10 @@ public class SupportTeamController {
             return new ResponseEntity<>(teamList, HttpStatus.OK);
         }*/
         List<SupportTeamDTO> teamList = supportTeamService.getDeadline();
+        for (SupportTeamDTO dto:
+             teamList) {
+            dto.setChatMember(chatService.getMembers(dto.getTeam_title()));
+        }
         log.info("viewMainWithTeams:"+teamList);
         return new ResponseEntity<>(teamList, HttpStatus.OK);
     }
@@ -173,6 +175,8 @@ public class SupportTeamController {
         for (SupportTeamDTO dto: dtoList) {
             UserDTO userDTO = userService.findByUsername(dto.getTeam_writer());
             dto.setNickname(userDTO.getNickname());
+            dto.setChatMember(chatService.getMembers(dto.getTeam_title()));
+            log.info("입장멤버수:"+dto.getChatMember()+", 팀제목:"+dto.getTeam_title());
         }
 
         ModelAndView mv = new ModelAndView("teams/sp-list");
@@ -200,6 +204,7 @@ public class SupportTeamController {
                 dtoList) {
             UserDTO userDTO = userService.findByUsername(dto.getTeam_writer());
             dto.setNickname(userDTO.getNickname());
+            dto.setChatMember(chatService.getMembers(dto.getTeam_title()));
         }
         log.info("검색dtoList:"+dtoList);
         return new ResponseEntity<>(dtoList,HttpStatus.OK);

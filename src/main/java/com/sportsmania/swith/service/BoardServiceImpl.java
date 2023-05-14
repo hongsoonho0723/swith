@@ -33,6 +33,24 @@ public class BoardServiceImpl implements BoardService{
 
         List<BoardDTO> dtoList = boardMapper.selectList(pageRequestDTO);
 
+        List<BoardDTO> list = dtoList;
+
+        for (BoardDTO dto:list) {
+            String roomtitle = dto.getBoard_no()+dto.getB_category()+dto.getNickname();
+            int recruitsNumadd = dto.getRecruitsNum()+1;
+            dto.setRecruitsNum(recruitsNumadd);
+            int num =boardMapper.countAdditionalNum(roomtitle);
+            dto.setAdditionalNum(num);
+            log.info("지원인원수"+dto.getAdditionalNum());
+            log.info("모집인원수+1 : "+dto.getRecruitsNum());
+            if(dto.getAdditionalNum()==dto.getRecruitsNum()){
+                dto.setFinished(true);
+            } else if (dto.getAdditionalNum()!=dto.getRecruitsNum()){
+                dto.setFinished(false);
+            }
+        }
+        dtoList = list;
+
         int total = boardMapper.getCount(pageRequestDTO);
 //        int addUserNum = boardMapper.countAdditionalNum();
         PageResponseDTO<BoardDTO> pageResponseDTO = PageResponseDTO.<BoardDTO>withAll()
@@ -51,6 +69,25 @@ public class BoardServiceImpl implements BoardService{
                 .map(vo -> modelMapper.map(vo,BoardDTO.class))
                 .collect(Collectors.toList());
 
+        List<BoardDTO> list = mainList;
+
+        for (BoardDTO dto:list) {
+            String roomtitle = dto.getBoard_no()+dto.getB_category()+dto.getNickname();
+            int recruitsNumadd = dto.getRecruitsNum()+1;
+            dto.setRecruitsNum(recruitsNumadd);
+            int num =boardMapper.countAdditionalNum(roomtitle);
+            dto.setAdditionalNum(num);
+            log.info("지원인원수"+dto.getAdditionalNum());
+            log.info("모집인원수+1 : "+dto.getRecruitsNum());
+        }
+        mainList = list;
+
         return mainList;
+    }
+
+    @Override
+    public int getaddtionNum(String roomtitle) {
+        int num = boardMapper.countAdditionalNum(roomtitle);
+        return num;
     }
 }
