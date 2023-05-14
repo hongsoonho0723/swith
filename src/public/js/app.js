@@ -119,7 +119,7 @@ function loadChatrooms() {
       li.addEventListener("click", () => {
         // 채팅방을 클릭했을 때 이동하는 코드를 작성합니다.
         // 예를 들어, 채팅방 페이지로 이동할 수 있습니다.
-        window.location.href = `http://localhost:3000?title=${encodeURIComponent(chatroom)}&nickname=${encodeURIComponent(nickname)}`;
+        window.location.href = `http://118.67.142.45:3000?title=${encodeURIComponent(chatroom)}&nickname=${encodeURIComponent(nickname)}`;
       });
       chatroomList.appendChild(li);
     });
