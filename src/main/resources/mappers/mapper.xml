@@ -21,7 +21,7 @@
     </select>
 
     <update id="modifyInfo" parameterType="com.sportsmania.swith.dto.UserDTO">
-        update user set introduction = #{introduction}, preference = #{preference}, image_profile =#{image_profile}
+        update user set introduction = #{introduction}, preference = #{preference}, image_profile =#{image_profile},region = #{region}
         where userId = #{userId}
     </update>
 
