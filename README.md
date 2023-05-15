@@ -80,11 +80,13 @@ DATABASE설계
 @RequestBody사용시 발생하는데 @RequestParam 으로 직접매핑 시켜주거나 
 
 @ModelAttribute로 바인딩 하면 해결됨
+
+
 # **Data truncation: Incorrect string**
 
-## **Data truncation: Incorrect string value:'\xED\x85\x8C\xEC\x8A\xA4...' for column ~~ at row 1**
+**Data truncation: Incorrect string value:'\xED\x85\x8C\xEC\x8A\xA4...' for column ~~ at row 1**
 
-## 쿼리문에 한글이 들어가지 않아 발생함
+쿼리문에 한글이 들어가지 않아 발생함
 
 이유는 모르겠으나 ,, 로컬에선 잘되던게 공인 ip사용 데이터베이스를만들어서 그런것같음
 
