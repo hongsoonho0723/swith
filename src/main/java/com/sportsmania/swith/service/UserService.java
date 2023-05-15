@@ -37,4 +37,6 @@ public interface UserService {
     List<blackDTO> blackList(String userId); // 블랙리스트
 
     List<BoardDTO> activeList(String nickname); // 활동내역
+
+    void deleteUser(String userId); // 회원탈퇴
 }

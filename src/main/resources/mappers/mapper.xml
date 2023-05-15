@@ -65,5 +65,9 @@
     select * from chatrooms C left join matchboard M ON C.roomTitle = M.title where C.userId=#{nickname} AND M.finished=1 order by M.enddate;
 </select>
 
+    <delete id="deleteUser" parameterType="String">
+        delete from user WHERE userId = #{userId};
+    </delete>
+
 </mapper>
 

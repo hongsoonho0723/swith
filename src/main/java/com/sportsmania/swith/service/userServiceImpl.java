@@ -95,4 +95,9 @@ public class userServiceImpl implements UserService {
         return userMapper.activeList(nickname);
     }
 
+    @Override
+    public void deleteUser(String userId) {
+        userMapper.deleteUser(userId);
+    }
+
 }

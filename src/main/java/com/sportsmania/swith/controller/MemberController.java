@@ -155,4 +155,11 @@ public class MemberController {
             return "info/other";
     }
 
+    @DeleteMapping("/delete")
+    public String delete(HttpSession httpSession){
+        UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
+        userService.deleteUser(userDTO.getUserId());
+        return "redirect:/members/main";
+    }
+
 }
