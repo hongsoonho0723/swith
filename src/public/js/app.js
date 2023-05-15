@@ -17,7 +17,15 @@ function handleMessageSubmit(event) {
    // const currentTime = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date());
    const timestamp = new Date();
     socket.emit("new_message", value,roomName,timestamp,() => {
-        const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);
+       /* const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);*/
+        const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'Asia/Seoul'
+        }).format(new Date(timestamp));
         addMessage(`You: ${value} (${formattedTimestamp})`);
     });
     input.value = "";
@@ -155,7 +163,15 @@ socket.on("load_chat_history", (messages) => {
     const ul = document.querySelector("#messages-container");
     //const ul = room.querySelector("ul");
     messages.forEach((msg) =>{
-        const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit',  hour: '2-digit', minute: '2-digit'}).format(new Date(msg.timestamp));
+       /* const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit',  hour: '2-digit', minute: '2-digit'}).format(new Date(msg.timestamp));*/
+        const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'Asia/Seoul'
+        }).format(new Date(msg.timestamp));
         const li = document.createElement("li");
         //현재 사용자의 닉네임과 메시지의 보낸이가 같을 경우, 보낸이를 'you'로 변경
         const sender = msg.sender === nickname ? "You" : msg.sender;
@@ -187,8 +203,16 @@ socket.on("bye",(left, newCount)=>{
 });
 
 socket.on("new_message", (msg, timestamp) => {
-   //const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);
-    addMessage(`${socket.nickname}: ${msg} (${timestamp})`);
+  /* const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);*/
+    const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Seoul'
+    }).format(new Date(msg.timestamp));
+    addMessage(`${socket.nickname}: ${msg} (${formattedTimestamp})`);
 })
 
 socket.on("room_change", (rooms) =>{

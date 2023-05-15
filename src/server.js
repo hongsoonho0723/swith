@@ -86,7 +86,7 @@ function countRoom(roomName){
 }
 
 wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}은 서버와 클라이언트의 소켓이 연결되었을 때 실행됩니다.
-    socket["nickname"] = "Anon";
+    //socket["nickname"] = "Anon";
         socket.onAny((event) => {
             console.log(wsServer.sockets.adapter);
             console.log(`Socket Evnet:${event}`);
@@ -158,9 +158,17 @@ wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}�
     })*/
 
     socket.on("new_message", async (msg, room, timestamp, done) => {
-        const formattedTimestamp = new Date(timestamp).toISOString().slice(0, 19).replace('T', ' '); //시간수정 new Date(timestamp줘야함)
+       /* const formattedTimestamp = new Date(timestamp).toISOString().slice(0, 19).replace('T', ' '); //시간수정 new Date(timestamp줘야함)*/
+        const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'Asia/Seoul'
+        }).format(new Date(timestamp));
         //await db.saveMessage(room, socket.nickname, msg, formattedTimestamp);
-        await db.saveMessage(room, socket.nickname, msg);
+        await db.saveMessage(room, socket.nickname, msg, formattedTimestamp);
 
         
         socket.to(room).emit("message", msg ,socket.nickname, timestamp);

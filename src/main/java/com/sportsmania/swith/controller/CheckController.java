@@ -91,6 +91,7 @@ public class CheckController {
         if (code.equals(key)){
             response.put("duplicate", true);
         }
+
         log.info(code);
         return response;
     }

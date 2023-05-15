@@ -1,6 +1,7 @@
 package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.domain.UserVO;
+import com.sportsmania.swith.dto.BoardDTO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
 import com.sportsmania.swith.dto.blackDTO;
@@ -87,6 +88,16 @@ public class userServiceImpl implements UserService {
     @Override
     public List<blackDTO> blackList(String userId) {
         return userMapper.blackList(userId);
+    }
+
+    @Override
+    public List<BoardDTO> activeList(String nickname) {
+        return userMapper.activeList(nickname);
+    }
+
+    @Override
+    public void deleteUser(String userId) {
+        userMapper.deleteUser(userId);
     }
 
 }

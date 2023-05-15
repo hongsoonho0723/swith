@@ -253,12 +253,30 @@
                   </div>
 
                   <div>
-                    <nav class="nav flex-column"><a class="nav-link fw-semibold py-2 px-0" href="#" style="color: red;"><i class="ai-user-x fs-5 opacity-60 me-2"></i>회원탈퇴</a></nav>
+                    <nav class="nav flex-column"><a class="nav-link fw-semibold py-2 px-0" data-toggle="modal" data-bs-target="#modalId2" style="color: red;"><i class="ai-user-x fs-5 opacity-60 me-2"></i>회원탈퇴</a></nav>
                   </div>
                 </div>
               </div>
             </div>
           </aside>
+          <!--회원탈퇴 모달-->
+          <div class="modal" id="modalId2" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">회원탈퇴</h4>
+                </div>
+                <div class="modal-body">
+                  <p>정말 탈퇴하시겠습니까 ?</p>
+                </div>
+                <div class="modal-footer flex-column flex-sm-row">
+                  <form method="post" action="/">
+                    <button type="button" class="btn btn-danger" name="delete" value="delete">회원탈퇴</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- Page content-->
           <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
             <h1 class="h2 mb-4">마이페이지</h1>
@@ -319,12 +337,12 @@
               <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
                 <!-- 채팅방목록-->
                 <section class="col">
-                  <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2" >
-                        <h2 class="h2 mb-0">채팅방목록</h2><a class="btn btn-sm btn-secondary ms-auto" href="account-settings.html"><i class="ai-edit ms-n1 me-2"></i>전체보기</a>
+                  <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4" style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);height: 300px">
+                    <div class="card-body"  style="overflow-y: auto;">
+                      <div class="align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2">
+                        <h2 class="h2 mb-0">채팅방목록</h2>
                       </div>
-                      <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
+                      <div class="align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
                         <table style="width: 100%;">
                           <thead>
                           <tr style="border-bottom: 2px solid #E3E9EF;">
@@ -333,13 +351,11 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tbody>
                           <tr th:each="item : ${chatroomsList}">
                             <td><a data-bs-toggle="modal" data-bs-target="#chatModal" onclick="goChat(this)" th:text="${item.roomTitle}"></a></td>
                             <!--<td th:text="${item.regdate}"></td>-->
                           </tr>
                           <!-- 이하 생략 -->
-                          </tbody>
                           <!-- 이하 생략 -->
                           </tbody>
                         </table>
@@ -393,22 +409,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>첫번째 게시물 제목</td>
-                            <td>카테고리1</td>
-                            <td>작성자1</td>
-                            <td>완료</td>
-                            <td>10</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>두번째 게시물 제목</td>
-                            <td>카테고리2</td>
-                            <td>작성자2</td>
-                            <td>미완료</td>
-                            <td>5</td>
-                          </tr>
+                        <tr th:each="item : ${activeList}">
+                          <th th:text="${item.board_no}">게시물번호</th>
+                          <th><a th:text="${item.title}" th:href="@{/match/view(board_no=${item.board_no})}"></a></th>
+                          <th th:text="${item.b_category}">카테고리</th>
+                          <th th:text="${item.board_writer}">작성자</th>
+                          <th th:text="${item.check}">완료여부</th>
+                          <th th:text="${item.clicks}">조회수</th>
+                        </tr>
                           <!-- 이하 생략 -->
                         </tbody>
                       </table>

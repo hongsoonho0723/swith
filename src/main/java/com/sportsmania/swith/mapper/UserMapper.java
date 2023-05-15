@@ -1,5 +1,6 @@
 package com.sportsmania.swith.mapper;
 
+import com.sportsmania.swith.dto.BoardDTO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.WishDTO;
@@ -36,5 +37,9 @@ public interface UserMapper {
     List<WishDTO> wish(String userId); // 찜
 
     List<blackDTO> blackList(String userId); // 블랙리스트
+
+    List<BoardDTO> activeList(String nickname); // 활동내역
+
+    void deleteUser(String userId); // 회원탈퇴
 
 }

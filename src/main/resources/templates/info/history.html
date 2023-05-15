@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Around | Account - Overview</title>
@@ -247,15 +247,15 @@
                         </div>
                         <nav class="nav flex-column pb-5 pb-lg-5 mb-3">
                             <h4 class="fs-xs fw-medium text-muted text-uppercase pb-1 mb-2">계정</h4><a
-                                class="nav-link fw-semibold py-2 px-0 " href="mypage.html"><i
+                                class="nav-link fw-semibold py-2 px-0 " href="/info/mypage"><i
                                 class="ai-user-check fs-5 opacity-60 me-2"></i>마이페이지</a><a
-                                class="nav-link fw-semibold py-2 px-0 active" href="account-settings.html"><i
+                                class="nav-link fw-semibold py-2 px-0 active" href="/info/history"><i
                                 class="ai-wallet fs-5 opacity-60 me-2"></i>나의활동</a>
                         </nav>
                         <div class="d-none d-lg-block" style="padding-top: 300px;"></div>
                         <div>
                             <nav class="nav flex-column"><a class="nav-link fw-semibold py-2 px-0"
-                                                            href="account-signin.html"><i
+                                                            href="/logout"><i
                                     class="ai-logout fs-5 opacity-60 me-2"></i>로그아웃</a></nav>
                         </div>
 
@@ -289,21 +289,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>첫번째 게시물 제목</td>
-                                <td>카테고리1</td>
-                                <td>작성자1</td>
-                                <td>완료</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>두번째 게시물 제목</td>
-                                <td>카테고리2</td>
-                                <td>작성자2</td>
-                                <td>미완료</td>
-                                <td>5</td>
+                            <tr th:each="item : ${activeList}">
+                                <th th:text="${item.board_no}">게시물번호</th>
+                                <th><a th:text="${item.title}" th:href="@{/match/view(board_no=${item.board_no})}"></a></th>
+                                <th th:text="${item.b_category}">카테고리</th>
+                                <th th:text="${item.board_writer}">작성자</th>
+                                <th th:text="${item.check}">완료여부</th>
+                                <th th:text="${item.clicks}">조회수</th>
                             </tr>
                             <!-- 이하 생략 -->
                             </tbody>
