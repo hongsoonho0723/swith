@@ -22,6 +22,14 @@ S-with
 
 <h2>프로젝트 주제</h2>
 
+![image](https://github.com/hongsoonho0723/swith/assets/116165465/084c5986-588d-403a-8b35-35d0506bfec6)
+
+![image](https://github.com/hongsoonho0723/swith/assets/116165465/f8ef8829-79e6-4fdf-8a83-31d59d2ed046)
+
+
+
 <h2>기획 & 설계</h2>
 
+
 <h2>기능 소개</h2>
+
