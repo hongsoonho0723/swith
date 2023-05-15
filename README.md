@@ -8,5 +8,5 @@ S-with
 3. 프로젝트 주제
 4. 기획 & 설계
 5. 기능소개
-
+<h2>팀소개</h2>
 ![image](https://github.com/hongsoonho0723/swith/assets/116165465/ea4379a0-5527-4ff6-97d7-ba7bef0cccb7)
