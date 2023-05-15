@@ -127,6 +127,7 @@
     })();
 
   </script>
+
   <!-- Import Google Font-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -235,7 +236,9 @@
       <!-- Author widget-->
       <div class="border-bottom pt-1 pb-0">
         <div class="d-flex align-items-start py-2">
-          <img width="55" height="56" th:if="${dto.image_profile} != null" class="d-block rounded-circle mb-3" th:src="|/img/${dto.image_profile}|" alt="Author image">
+          <div th:if="${dto.image_profile} != null" class="image-container">
+          <img class="d-block rounded-circle mb-3" th:src="|/img/${dto.image_profile}|" alt="Author image">
+        </div>
           <img th:if="${dto.image_profile} == null" class="d-block rounded-circle mb-3" src="../assets/img/swith/free-icon-user-profile-3364044.png" width="56" alt="Author image">
           <div class="ps-4 d-block">
             <div class="dropdown">
