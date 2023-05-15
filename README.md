@@ -6,7 +6,7 @@ S-with
 1. 팀소개
 2. 개발환경/기간
 3. 프로젝트 주제
-4. 기획 & 설계
+4. 설계
 5. 기능소개
 <h2>팀소개</h2>
 
@@ -27,8 +27,20 @@ S-with
 ![image](https://github.com/hongsoonho0723/swith/assets/116165465/f8ef8829-79e6-4fdf-8a83-31d59d2ed046)
 
 
+<h2>설계</h2>
+restapi설계
 
-<h2>기획 & 설계</h2>
+https://www.notion.so/REST-API-92dde656f2094637ab9b616af2c33562
+
+화면 설계
+
+![image](https://github.com/hongsoonho0723/swith/assets/116165465/c1dcfd3a-f5af-4d30-963c-554507b07417)
+
+![image](https://github.com/hongsoonho0723/swith/assets/116165465/27d61ac8-07bd-419b-b19e-f8f7d9eda83d)
+
+DATABASE설계
+
+![image](https://github.com/hongsoonho0723/swith/assets/116165465/a8c3765e-cb89-4ae7-abef-2637091c81fb)
 
 
 <h2>기능 소개</h2>
