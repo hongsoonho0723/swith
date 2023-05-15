@@ -16,7 +16,7 @@ public interface MatchBoardMapper {
     MatchBoardVO selectOne(int board_no);
     UserVO selectOne1(String userId);
     void delete(int board_no);
-
+    void increaseViewCount(int board_no);
 
 
 
