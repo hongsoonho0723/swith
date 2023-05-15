@@ -143,8 +143,17 @@ public class MemberController {
     }
 
     @GetMapping("/history")
-    public void history(HttpSession httpSession){
+    public void history(HttpSession httpSession,Model model){
         UserDTO dto = (UserDTO) httpSession.getAttribute("user");
+        List<BoardDTO> activeList = userService.activeList(dto.getNickname());
+        for (BoardDTO item: activeList) {
+            if (item.isFinished()){
+                item.setCheck("모집완료");
+            }else{
+                item.setCheck("모집중");
+            }
+        }
+        model.addAttribute("activeList",activeList);
         log.info("============");
         log.info(dto);
     }
