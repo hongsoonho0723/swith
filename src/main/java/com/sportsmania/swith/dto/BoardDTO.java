@@ -44,4 +44,5 @@ public class BoardDTO {
     private String nickname;
     private int additionalNum;
     private String userid;
+    private String check;
 }
