@@ -9,3 +9,4 @@ S-with
 4. 기획 & 설계
 5. 기능소개
 
+![image](https://github.com/hongsoonho0723/swith/assets/116165465/82568531-9bdb-403d-88b0-e44e513df362)
