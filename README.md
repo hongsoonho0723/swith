@@ -8,6 +8,9 @@ S-with
 3. 프로젝트 주제
 4. 설계
 5. 기능소개
+6. 트러블슈팅
+
+
 <h2>팀소개</h2>
 
 ![image](https://github.com/hongsoonho0723/swith/assets/116165465/ea4379a0-5527-4ff6-97d7-ba7bef0cccb7)
@@ -45,3 +48,27 @@ DATABASE설계
 
 <h2>기능 소개</h2>
 
+<h2>트러블 슈팅</h2>
+
+# ****[[Spring] Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported](https://abbo.tistory.com/330)****
+
+스프링에서는 지원하지않는다함 되는사람도있긴한데 ,, 일단 나는안됨 
+
+@RequestBody사용시 발생하는데 @RequestParam 으로 직접매핑 시켜주거나 
+
+@ModelAttribute로 바인딩 하면 해결됨
+# **Data truncation: Incorrect string**
+
+## **Data truncation: Incorrect string value:'\xED\x85\x8C\xEC\x8A\xA4...' for column ~~ at row 1**
+
+## 쿼리문에 한글이 들어가지 않아 발생함
+
+이유는 모르겠으나 ,, 로컬에선 잘되던게 공인 ip사용 데이터베이스를만들어서 그런것같음
+
+데이터 베이스 기본설정문제 
+
+ALTER TABLE 테이블 convert to charset UTF8; 테이블생성후 작성하거나
+
+CREATE TABLE 테이블 (
+...
+) DEFAULT CHARACTER SET UTF8; 생성할때 설정
