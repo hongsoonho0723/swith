@@ -30,21 +30,25 @@ public class BoardJjimController {
         return new ResponseEntity<>(isWish, HttpStatus.OK);
     }*/
 
-   /* @PostMapping("/")
-    public ResponseEntity<Boolean> addLike(@RequestBody LikesDTO likesDTO, Authentication authentication){
-            String userId = authentication.getName();
-            likesDTO.setUserId(userId);
-            log.info(likesDTO);
-            boolean isLiked = likesService.isLikedByUser(likesDTO.getStory_no(), likesDTO.getUserId());
-            log.info(isLiked);
-            if(isLiked == true)likesService.removeLike(likesDTO);
-            else likesService.addLike(likesDTO);
-            return new ResponseEntity<>(isLiked,HttpStatus.CREATED);
-    }*/
+    @GetMapping("/wish/{board_no}")
+    public ResponseEntity<Boolean> addLike(@PathVariable("board_no")int board_no, @RequestBody BoardJjimDTO boardJjimDTO, Authentication authentication){
+            String userId = (authentication != null) ? authentication.getName() : null;
+            boardJjimDTO.setUserid(userId);
+            log.info("wish/board_no get..");
+            log.info(boardJjimDTO);
+        boolean isWish = false; // 기본값 설정
+
+        if (userId != null) {
+            isWish = boardJjimService.isWishByUser(board_no,userId);
+        }
+
+        return new ResponseEntity<>(isWish, HttpStatus.OK);
+    }
 
     @PostMapping("/wish")
     public ResponseEntity<Boolean> addJjim(@io.swagger.v3.oas.annotations.parameters.RequestBody BoardJjimDTO boardJjimDTO, Authentication authentication) {
         String userId = authentication.getName();
+        log.info(boardJjimDTO.getUserid());
         boardJjimDTO.setUserid(userId);
         log.info(boardJjimDTO);
         boolean isWish = boardJjimService.isWishByUser(boardJjimDTO.getBoard_no(), boardJjimDTO.getUserid());

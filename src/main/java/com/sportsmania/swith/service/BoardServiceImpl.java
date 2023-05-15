@@ -44,11 +44,11 @@ public class BoardServiceImpl implements BoardService{
 //            log.info("지원인원수"+dto.getAdditionalNum());
 //            log.info("모집인원수+1 : "+dto.getRecruitsNum());
 //            log.info(dto.getExercise());
-            if(dto.getAdditionalNum()==dto.getRecruitsNum()){
+            /*if(dto.getAdditionalNum()==dto.getRecruitsNum()){
                 dto.setFinished(true);
             } else if (dto.getAdditionalNum()!=dto.getRecruitsNum()){
                 dto.setFinished(false);
-            }
+            }*/
         }
         dtoList = list;
 
