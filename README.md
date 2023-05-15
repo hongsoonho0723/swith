@@ -10,3 +10,13 @@ S-with
 5. 기능소개
 <h2>팀소개</h2>
 ![image](https://github.com/hongsoonho0723/swith/assets/116165465/ea4379a0-5527-4ff6-97d7-ba7bef0cccb7)
+
+<h2>개발환경/기간</h2>
+
+
+
+<h2>프로젝트 주제</h2>
+
+<h2>기획 & 설계</h2>
+
+<h2>기능 소개</h2>
