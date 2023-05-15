@@ -45,4 +45,5 @@ public class BoardDTO {
     private int additionalNum;
     private String userid;
     private String check;
+    private int clicks;
 }
