@@ -1,6 +1,8 @@
 # swith
 S-with
 장애인들을 위한 운동기반 커뮤니티
+팀 노션
+https://www.notion.so/SPORTS-MANIA-76af72e9433f446785e6678cc0017a0d
 
 목차
 1. 팀소개
