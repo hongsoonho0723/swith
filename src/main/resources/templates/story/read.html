@@ -275,7 +275,7 @@
     <section class="container pt-2 mt-md-2 mt-lg-3 mt-xl-4">
       <div class="row justify-content-center pt-xxl-2">
         <!-- main image -->
-        <figure class="col-lg-9 col-xl-8"><img class="figure-img rounded-5 mb-3 mx-auto" th:src="|/img/${dto.image_main}|" alt="Image">
+        <figure class="col-lg-9 col-xl-8"><img class="d-flex justify-content-center figure-img rounded-5 mb-3 mx-auto" th:src="|/img/${dto.image_main}|" alt="Image">
         </figure>
         <div class="border-bottom p-0"></div>
         <div class="col-lg-9 col-xl-8 pt-2 mt-2">
@@ -452,7 +452,6 @@
         type: 'GET',
         url: '/stories/next/' + story_no,
         success: function(data) {
-          console.log(data);
             let content = data.content;
             const maxLength = 340;
             if (content.length > maxLength) {
