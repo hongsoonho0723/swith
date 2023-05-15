@@ -20,40 +20,6 @@ import java.nio.file.Files;
 public class ImgController {
 
 
-    /*@GetMapping("/img/{image_main}")
-    public ResponseEntity<Resource> imgGET(@PathVariable String image_main){
-        *//*String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\uploads\\";*//*
-
-     *//*   String uploadPath = "C:\\upload\\";*//*
-        String uploadPath = "/upload/";
-        Resource resource = new FileSystemResource(uploadPath+ File.separator + image_main);
-        String resourceName = resource.getFilename();
-        HttpHeaders headers = new HttpHeaders();
-
-        try{
-            headers.add("Content-Type", Files.probeContentType( resource.getFile().toPath() ));
-        } catch(Exception e){
-            return ResponseEntity.internalServerError().build();
-        }
-        return ResponseEntity.ok().headers(headers).body(resource);
-    }*/
-
-    /*@GetMapping("/img/{image_main}")
-    public ResponseEntity<Resource> imgGET(@PathVariable String image_main) throws MalformedURLException {
-       // String uploadPath = "/root/app/C:/upload/";
-        
-        Resource resource = new UrlResource(image_main);
-        String resourceName = resource.getFilename();
-        HttpHeaders headers = new HttpHeaders();
-
-        try {
-            headers.add("Content-Type", Files.probeContentType(resource.getFile().toPath()));
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-        return ResponseEntity.ok().headers(headers).body(resource);
-    }*/
-
     @GetMapping("/img/{image_main}")
     public ResponseEntity<Resource> imgGET(@PathVariable String image_main) throws MalformedURLException {
         String uploadPath = "C:\\upload\\";
