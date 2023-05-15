@@ -18,7 +18,7 @@ S-with
 
 ![image](https://github.com/hongsoonho0723/swith/assets/116165465/fe076948-e26b-4729-973d-83c75aac3aeb)
 
-
+초록색부분이 원래 계획했던 부분, 빨간색부분이 실제 기간
 
 <h2>프로젝트 주제</h2>
 
