@@ -243,7 +243,7 @@
                         <div class="w-100 border rounded-3 p-4"
                              style="max-width: 212px; display: flex;justify-content: center; flex-direction: column; height: 250px;">
                             <h5 style="flex: 1;text-align: center;">프로필 이미지</h5>
-                            <img th:if="${other.image_profile} != null" style="flex: 7" th:src="${other.image_profile}">
+                            <img th:if="${other.image_profile} != null" style="flex: 7" th:src="|/img/${other.image_profile}|">
                             <img th:if="${other.image_profile} == null" style="flex: 7" src="../../assets/img/swith/free-icon-user-profile-3364044.png">
 
                             <i class="ai-airbnb" style="text-align: center;padding-bottom: 10px;font-weight: bold;"
