@@ -31,6 +31,7 @@
         , m.facilityadd as facilityadd
         , (select case when w.board_no is null then false else true end) as is_wish
         , u.nickname as nickname
+        , u.userid as userid
         from matchboard m
         left join wishlist w
         on m.board_no = w.board_no
@@ -129,6 +130,7 @@
              , m.facilityadd as facilityadd
              , (select case when w.board_no is null then false else true end) as is_wish
              , u.nickname as nickname
+             , u.userid as userid
         from matchboard m
                  left join wishlist w
                            on m.board_no = w.board_no
@@ -139,6 +141,44 @@
         group by board_no
         order by deadline asc limit 6
     </select>
+    <!--<select id="mainList" resultType="com.sportsmania.swith.dto.BoardDTO">
+        select m.board_no
+             , m.board_writer as board_writer
+             , m.exercise as exercise
+             , m.startdate as startdate
+             , m.enddate as enddate
+             , (DATE_SUB(m.startdate,interval 1 hour)) as deadline
+             , m.region as region
+             , m.region2 as region2
+             , m.recruitsNum as recruitsNum
+             , m.title as title
+             , m.content as content
+             , m.b_category as b_category
+             , m.finished as finished
+             , m.regdate as regdate
+             , m.clicks as clicks
+             , m.sportsfacility as sportsfacility
+             , m.supporttype as supporttype
+             , m.facilityadd as facilityadd
+             , (SELECT CASE WHEN EXISTS (
+                SELECT w.board_no
+                FROM matchboard m
+                         INNER JOIN wishlist w
+                                    ON m.board_no = w.board_no
+                WHERE w.userId = #{userId}
+            ) THEN TRUE ELSE FALSE END) AS is_wish
+             , u.nickname as nickname
+             , u.userid as userid
+        from matchboard m
+                 left join wishlist w
+                           on m.board_no = w.board_no
+                               and m.finished = 0
+                 left join user u
+                           on m.board_writer = u.userId
+        where (DATE_SUB(m.startdate, interval 1 hour)) >NOW()
+        group by board_no
+        order by deadline asc limit 6
+    </select>-->
     <select id="countAdditionalNum" resultType="int">
         select count(*) from chatrooms
         <where>

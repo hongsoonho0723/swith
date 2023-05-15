@@ -43,4 +43,5 @@ public class BoardDTO {
     private boolean is_wish;
     private String nickname;
     private int additionalNum;
+    private String userid;
 }
