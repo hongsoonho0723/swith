@@ -73,7 +73,7 @@ DATABASE설계
 
 <h2>트러블 슈팅</h2>
 
-# ****[[Spring] Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported](https://abbo.tistory.com/330)****
+<h4>****[[Spring] Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported]</h4>(https://abbo.tistory.com/330)****
 
 스프링에서는 지원하지않는다함 되는사람도있긴한데 ,, 일단 나는안됨 
 
@@ -82,7 +82,7 @@ DATABASE설계
 @ModelAttribute로 바인딩 하면 해결됨
 
 
-# **Data truncation: Incorrect string**
+<h4> **Data truncation: Incorrect string**</h4>
 
 **Data truncation: Incorrect string value:'\xED\x85\x8C\xEC\x8A\xA4...' for column ~~ at row 1**
 
