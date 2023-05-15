@@ -16,7 +16,7 @@ S-with
 
 ![image](https://github.com/hongsoonho0723/swith/assets/116165465/5d47dc3b-684a-4698-aee6-e672b3952a2b)
 
-![image](https://github.com/hongsoonho0723/swith/assets/116165465/8c09f072-9e86-4d5f-935e-09f2b6e76068)
+![image](https://github.com/hongsoonho0723/swith/assets/116165465/fe076948-e26b-4729-973d-83c75aac3aeb)
 
 
 
