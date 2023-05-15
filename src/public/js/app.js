@@ -203,8 +203,16 @@ socket.on("bye",(left, newCount)=>{
 });
 
 socket.on("new_message", (msg, timestamp) => {
-   //const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);
-    addMessage(`${socket.nickname}: ${msg} (${timestamp})`);
+  /* const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);*/
+    const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Seoul'
+    }).format(new Date(msg.timestamp));
+    addMessage(`${socket.nickname}: ${msg} (${formattedTimestamp})`);
 })
 
 socket.on("room_change", (rooms) =>{
