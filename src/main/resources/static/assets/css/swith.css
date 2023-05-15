@@ -45,3 +45,23 @@
     width: 350px;
     height: 250px;
 }
+
+.image-container {
+    width: 55px; /* 원하는 이미지 컨테이너의 너비 설정 */
+}
+
+.image-container img {
+    width: 100%;
+    aspect-ratio: 1/1; /* 1:1 비율 설정 */
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 차도록 설정 */
+}
+
+.image-container-re {
+    width: 55px; /* 원하는 이미지 컨테이너의 너비 설정 */
+}
+
+.image-container-re img {
+    width: 100%;
+    aspect-ratio: 1/1; /* 1:1 비율 설정 */
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 차도록 설정 */
+}

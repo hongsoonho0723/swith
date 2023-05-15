@@ -10,7 +10,6 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,9 +27,9 @@ public class StoryServiceImpl implements StoryService {
 
     private final ModelMapper modelMapper;
 
+
     @Override
     public void registerWithFile(StoryDTO storyDTO, MultipartFile file) throws IOException {
-        //String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\storyfile\\";
 
         String uploadPath = "C:\\upload\\";
 

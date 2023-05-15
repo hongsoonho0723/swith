@@ -23,24 +23,24 @@ public class LikesController {
         this.likesService = likesService;
     }
 
-    @GetMapping("/{story_no}")
-    public ResponseEntity<Boolean> isLiked(@PathVariable("story_no") Long story_no,Authentication authentication ){
+    /*@GetMapping("/{story_no}")
+    public ResponseEntity<Boolean> isLiked(@PathVariable("story_no") Long story_no,Authentication authentication){
         String userId = authentication.getName();
         boolean isLiked = likesService.isLikedByUser(story_no, userId);
         return new ResponseEntity<>(isLiked, HttpStatus.OK);
     }
+*/
+    @GetMapping("/{story_no}")
+    public ResponseEntity<Boolean> isLiked(@PathVariable("story_no") Long story_no, Authentication authentication) {
+        String userId = (authentication != null) ? authentication.getName() : null;
+        boolean isLiked = false; // 기본값 설정
 
-   /* @PostMapping("/")
-    public ResponseEntity<Boolean> addLike(@RequestBody LikesDTO likesDTO, Authentication authentication){
-            String userId = authentication.getName();
-            likesDTO.setUserId(userId);
-            log.info(likesDTO);
-            boolean isLiked = likesService.isLikedByUser(likesDTO.getStory_no(), likesDTO.getUserId());
-            log.info(isLiked);
-            if(isLiked == true)likesService.removeLike(likesDTO);
-            else likesService.addLike(likesDTO);
-            return new ResponseEntity<>(isLiked,HttpStatus.CREATED);
-    }*/
+        if (userId != null) {
+            isLiked = likesService.isLikedByUser(story_no, userId);
+        }
+
+        return new ResponseEntity<>(isLiked, HttpStatus.OK);
+    }
 
     @PostMapping("/")
     public ResponseEntity<Boolean> addLike(@RequestBody LikesDTO likesDTO, Authentication authentication) {
@@ -56,10 +56,5 @@ public class LikesController {
         return new ResponseEntity<>(isLiked, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity removeLike(@RequestBody LikesDTO likesDTO){
-        likesService.removeLike(likesDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
 }

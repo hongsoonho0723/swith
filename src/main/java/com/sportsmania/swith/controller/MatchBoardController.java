@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -25,7 +28,7 @@ public class MatchBoardController {
 
 
     @GetMapping("/match/view")
-    public String read(Integer board_no,   Model model) {
+    public String read(Integer board_no, Model model, HttpSession session) {
         if (board_no == null ) {
             log.info("board_no:"+board_no);
             log.info("null발생!!");
@@ -34,6 +37,18 @@ public class MatchBoardController {
             // board_no로 MatchBoardDTO 조회
             MatchBoardDTO matchBoardDTO = matchBoardService.getOne(board_no);
             log.info(matchBoardDTO);
+            // 세션에 저장된 게시글 번호 리스트를 가져옵니다.
+            List<Integer> viewedStoryList = (List<Integer>) session.getAttribute("viewedStoryList");
+            if (viewedStoryList == null) {
+                viewedStoryList = new ArrayList<>();
+            }
+
+            // 현재 게시글 번호가 세션에 저장된 리스트에 없으면 조회수를 증가합니다.
+            if (!viewedStoryList.contains(board_no)) {
+                matchBoardService.increaseViewCount(board_no);
+                viewedStoryList.add(board_no);
+                session.setAttribute("viewedStoryList", viewedStoryList);
+            }
             model.addAttribute("dto", matchBoardDTO);
             log.info(matchBoardDTO.getIntroduction());
             // userId로 UserDTO 조회

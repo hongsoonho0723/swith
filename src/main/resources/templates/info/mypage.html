@@ -238,7 +238,8 @@
                 <div class="offcanvas-body">
                   <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
                     <div class="d-md-flex" style="border-radius: 50%;overflow: hidden;width: 100px;height: 100px ">
-                      <img class="rounded-circle mb-1" height="100" width="100" th:src="|/img/${#session.getAttribute('user').image_profile}|" alt="Author image">
+                      <img th:if="${#session.getAttribute('user').image_profile} != null" class="rounded-circle mb-1" height="100" width="100" th:src="|/img/${#session.getAttribute('user').image_profile}|" alt="Author image">
+                      <img th:if="${#session.getAttribute('user').image_profile} == null" class="rounded-circle mb-1" height="100" width="100"  src="../assets/img/swith/free-icon-user-profile-3364044.png" alt="Author image">
                     </div>
                     <h3 class="h5 mb-1" th:text="${#session.getAttribute('user').name}">이름</h3>
                     <p class="fs-sm text-muted mb-0" th:text="${#session.getAttribute('user').email}">example@gmail.com</p>
@@ -334,7 +335,7 @@
                           <tbody>
                           <tbody>
                           <tr th:each="item : ${chatroomsList}">
-                            <td><a data-toggle="modal" data-target="#chatModal" onclick="goChat(this)" th:text="${item.roomTitle}"></a></td>
+                            <td><a data-bs-toggle="modal" data-bs-target="#chatModal" onclick="goChat(this)" th:text="${item.roomTitle}"></a></td>
                             <!--<td th:text="${item.regdate}"></td>-->
                           </tr>
                           <!-- 이하 생략 -->
@@ -473,7 +474,10 @@
       const nickname = userDTO.nickname;
       const chatRoomTitle = ele.textContent.trim();
       console.log("team_title: ", chatRoomTitle);
-      window.location.href="http://118.67.142.45:3000?title="+encodeURIComponent(chatRoomTitle)+"&nickname="+encodeURIComponent(nickname);
+      const chatFrame = document.getElementById("chatFrame");
+      chatFrame.src = "http://118.67.142.45:3000?title=" + encodeURIComponent(chatRoomTitle) + "&nickname=" + encodeURIComponent(nickname);
+
+      $("#chatModal").modal("show");
     }
   </script>
   </html>
