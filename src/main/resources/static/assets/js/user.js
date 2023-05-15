@@ -154,6 +154,7 @@ $(document).ready(function() {
                         success: function(response) {
                             if (response.duplicate) {
                                 // 인증 성공시 실행될 코드
+                                $('#find_pw').modal('show');
                             } else {
                                 alert('인증번호가 올바르지 않습니다.');
                             }
