@@ -393,22 +393,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>첫번째 게시물 제목</td>
-                            <td>카테고리1</td>
-                            <td>작성자1</td>
-                            <td>완료</td>
-                            <td>10</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>두번째 게시물 제목</td>
-                            <td>카테고리2</td>
-                            <td>작성자2</td>
-                            <td>미완료</td>
-                            <td>5</td>
-                          </tr>
+                        <tr th:each="item : ${activeList}">
+                          <th th:text="${item.board_no}">게시물번호</th>
+                          <th><a th:text="${item.title}" th:href="@{/match/view(board_no=${item.board_no})}"></a></th>
+                          <th th:text="${item.b_category}">카테고리</th>
+                          <th th:text="${item.board_writer}">작성자</th>
+                          <th th:text="${item.check}">완료여부</th>
+                          <th th:text="${item.clicks}">조회수</th>
+                        </tr>
                           <!-- 이하 생략 -->
                         </tbody>
                       </table>

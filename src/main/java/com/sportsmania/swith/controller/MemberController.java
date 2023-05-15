@@ -2,10 +2,7 @@ package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.domain.SupportTeamVO;
 import com.sportsmania.swith.domain.UserVO;
-import com.sportsmania.swith.dto.ChatroomsDTO;
-import com.sportsmania.swith.dto.UserDTO;
-import com.sportsmania.swith.dto.WishDTO;
-import com.sportsmania.swith.dto.blackDTO;
+import com.sportsmania.swith.dto.*;
 import com.sportsmania.swith.mapper.UserMapper;
 import com.sportsmania.swith.service.ChatService;
 import com.sportsmania.swith.service.UserService;
@@ -46,7 +43,16 @@ public class MemberController {
         List<WishDTO> list = userService.wish(userDTO.getUserId());
         UserVO userVO = userMapper.findByUserId(userDTO.getUserId());
         List<ChatroomsDTO> chatroomsList = chatService.getChatrooms(userDTO.getNickname());
+        List<BoardDTO> activeList = userService.activeList(userDTO.getNickname());
 
+        List<BoardDTO> dtoList1 = new ArrayList<>();
+        for (BoardDTO item: activeList) {
+            if (item.isFinished()){
+                item.setCheck("모집완료");
+            }else{
+                item.setCheck("모집중");
+            }
+        }
 
         List<WishDTO> dtoList = new ArrayList<>();
         for (WishDTO item : list) {
@@ -56,10 +62,10 @@ public class MemberController {
             dto.setBoard_no(item.getBoard_no());
             dtoList.add(dto);
         }
-
+        log.info(activeList);
         log.info(dtoList);
 
-
+        model.addAttribute("activeList",activeList);
         model.addAttribute("wishlist", dtoList);
         model.addAttribute("userdto",userVO);
         model.addAttribute("chatroomsList",chatroomsList);

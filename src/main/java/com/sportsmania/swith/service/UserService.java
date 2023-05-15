@@ -1,6 +1,7 @@
 package com.sportsmania.swith.service;
 
 import com.sportsmania.swith.domain.UserVO;
+import com.sportsmania.swith.dto.BoardDTO;
 import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.dto.WishDTO;
 import com.sportsmania.swith.dto.blackDTO;
@@ -34,4 +35,6 @@ public interface UserService {
     List<WishDTO> wish(String userId);
 
     List<blackDTO> blackList(String userId); // 블랙리스트
+
+    List<BoardDTO> activeList(String nickname); // 활동내역
 }

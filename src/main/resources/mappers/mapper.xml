@@ -61,5 +61,9 @@
         where userId = #{userId}
     </update>
 
+<select id="activeList" parameterType="String" resultType="com.sportsmania.swith.dto.BoardDTO">
+    select * from chatrooms C left join matchboard M ON C.roomTitle = M.title where C.userId=#{nickname} AND M.finished=1 order by M.enddate;
+</select>
+
 </mapper>
 
