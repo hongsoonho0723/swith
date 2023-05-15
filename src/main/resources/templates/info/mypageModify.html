@@ -306,10 +306,12 @@
                           </tr>
                           <tr>
                               <td class="border-0 text-muted py-1 px-0">활동지역</td>
-                              <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').region}">지역</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3"><input style="border-radius:10px;" type="text" id="region" name="region" value="" th:value="${#session.getAttribute('user').region}"required/></td>
+                             <!-- <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').region}">지역</td>-->
                             </tr>
                             <tr>
                               <td class="border-0 text-muted py-1 px-0">닉네임</td>
+
                               <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${#session.getAttribute('user').nickname}" name="nickname"></td>
                             </tr>
                             <tr>
@@ -322,11 +324,13 @@
                             </tr>
                             <tr>
                               <td class="border-0 text-muted py-1 px-0">관심종목</td>
-                              <td class="border-0 text-dark fw-medium py-1 ps-3" ><input style="border-radius:10px;" type="text"  placeholder="관심종목"name="preference" required></td>
+
+                              <td class="border-0 text-dark fw-medium py-1 ps-3" ><input style="border-radius:10px;" type="text" id="preference" name="preference" value="" th:value="${#session.getAttribute('user').preference}" required/></td>
                             </tr>
                         </table>
                         <p style="padding-top: 10px; font-weight: bold;">소개글</p>
-                        <input type="text" id="textbox" name="introduction" style="border-radius: 10px;height: 150px;" maxlength="100" placeholder="100자 이내">
+                        <input type="text" id="textbox" name="introduction" style="border-radius: 10px;height: 150px;" value="" th:value="${#session.getAttribute('user').introduction}" maxlength="100" placeholder="100자 이내">
+                        
 
                       
                     </div>

@@ -101,6 +101,7 @@ public class MemberController {
         log.info(dto);
 
         dto.setImage_profile(filename);
+        dto.setRegion(userDTO.getRegion());
         dto.setPreference(userDTO.getPreference());
         dto.setIntroduction(userDTO.getIntroduction());
         httpSession.setAttribute("user",dto);
