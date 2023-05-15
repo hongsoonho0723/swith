@@ -17,15 +17,10 @@ function handleMessageSubmit(event) {
    // const currentTime = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date());
    const timestamp = new Date();
     socket.emit("new_message", value,roomName,timestamp,() => {
-       /* const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);*/
-        const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'Asia/Seoul'
-        }).format(new Date(timestamp));
+        console.log("app.js에서의 timestamp: ",timestamp);
+       const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);
+        console.log("app.js에서의 timestamp: ",formattedTimestamp);
+
         addMessage(`You: ${value} (${formattedTimestamp})`);
     });
     input.value = "";
@@ -36,8 +31,14 @@ function addMessage(message) {
     const li = document.createElement("li");
     li.innerText = message;
     //console.log(message);
-    if(message.includes("You :")){
+    if(message.includes("You:")){
         li.classList.add("my-message");
+    }else if(message.includes("입장하셨습니다.")){
+        li.classList.add("info-message");
+    }else if(message.includes("떠나셨습니다.")){
+        li.classList.add("info-message");
+    }else{
+        li.classList.add("other-message");
     }
     // 현재 스크롤 위치와 스크롤 높이를 확인하여 스크롤이 맨 하단에 있는지 확인
   const isScrolledToBottom = ul.scrollHeight - ul.clientHeight <= ul.scrollTop + 1;
@@ -68,6 +69,8 @@ function handleNicknameSubmit(event){
 function showRoom(){
     welcome.hidden = true;
     room.hidden =false;
+    document.querySelector("#chatroom").hidden = true;
+    document.querySelector("#usernameHead").hidden = true;
     const h3 = room.querySelector("h3");
     //h3.innerText = `${roomName}`;  //입장했을때 방제목 바뀜
     const msgForm = room.querySelector("#msg");
@@ -127,7 +130,7 @@ function loadChatrooms() {
       li.addEventListener("click", () => {
         // 채팅방을 클릭했을 때 이동하는 코드를 작성합니다.
         // 예를 들어, 채팅방 페이지로 이동할 수 있습니다.
-        window.location.href = `http://118.67.142.45:3000?title=${encodeURIComponent(chatroom)}&nickname=${encodeURIComponent(nickname)}`;
+        window.location.href = `http://118.67.142.45:3000?title=${encodeURIComponent(chatroom)}&nickname=${encodeURIComponent(nickname)}`; //
       });
       chatroomList.appendChild(li);
     });
@@ -163,18 +166,15 @@ socket.on("load_chat_history", (messages) => {
     const ul = document.querySelector("#messages-container");
     //const ul = room.querySelector("ul");
     messages.forEach((msg) =>{
-       /* const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit',  hour: '2-digit', minute: '2-digit'}).format(new Date(msg.timestamp));*/
-        const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'Asia/Seoul'
-        }).format(new Date(msg.timestamp));
+        const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit',  hour: '2-digit', minute: '2-digit'}).format(new Date(msg.timestamp));
         const li = document.createElement("li");
         //현재 사용자의 닉네임과 메시지의 보낸이가 같을 경우, 보낸이를 'you'로 변경
         const sender = msg.sender === nickname ? "You" : msg.sender;
+        if(sender.includes("You")){
+            li.classList.add("my-message");
+        }else{
+            li.classList.add("other-message");
+        }
         //li.innerText = `${msg.user} (${new Date(msg.timestamp).toLocaleString()}) : ${msg.message}`;
         li.innerText = `${sender} : ${msg.message} (${formattedTimestamp})`
         ul.appendChild(li);
@@ -192,7 +192,8 @@ socket.on("load_chat_history", (messages) => {
 
 //메세지 추가 코드 부분
 socket.on("message", (msg, sender, timestamp) => {
-    addMessage(`${sender}: ${msg} (${timestamp})`);
+    const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit',  hour: '2-digit', minute: '2-digit'}).format(new Date());
+    addMessage(`${sender}: ${msg} (${formattedTimestamp})`);
     scrollToBottom(); //새 메시지가 추가될 때마다 호출
 })
 
@@ -203,15 +204,7 @@ socket.on("bye",(left, newCount)=>{
 });
 
 socket.on("new_message", (msg, timestamp) => {
-  /* const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);*/
-    const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'Asia/Seoul'
-    }).format(new Date(msg.timestamp));
+   const formattedTimestamp = new Intl.DateTimeFormat('en-US',{month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);
     addMessage(`${socket.nickname}: ${msg} (${formattedTimestamp})`);
 })
 

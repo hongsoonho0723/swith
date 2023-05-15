@@ -5,6 +5,10 @@ const pool = mysql.createPool({
     user: 'admin',
     password: 'admin1234',
     database: 'webdb',
+    /*host: 'localhost',
+    user: 'root',
+    password: '1234',
+    database: 'webdb',*/
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -23,8 +27,8 @@ async function saveMessage(roomName, user_id, message, timestamp){
         const deleteQuery = 'DELETE FROM message WHERE room_title = ? ORDER BY timestamp ASC LIMIT 1';
         await pool.query(deleteQuery, [roomName]);
     }
-    const query = 'INSERT INTO message (room_title, sender, message, timestamp) VALUES (?, ?, ?,?)';
-    await pool.query(query, [roomName, user_id,message,timestamp]);
+    const query = 'INSERT INTO message (room_title, sender, message) VALUES (?, ?, ?)';
+    await pool.query(query, [roomName, user_id,message]);
     
 }
 
@@ -56,10 +60,19 @@ async function removeUserChatroom(userId, roomName){
     await pool.query(query, [userId, roomName]);
 }
 
+//새로운 메시지가 도착했는지 확인하는 함수
+async function isNewMessage(roomName, timestamp){
+    const query = 'select * from message where roomTitle = ? ORDER BY timestamp DESC LIMIT 1';
+    await pool.query(query,[roomName]);
+    // 가장 최근의 메시지의 타임스탬프가 새 메시지의 타임스탬프보다 이전이라면, 새 메시지가 도착했다고 판단
+    return rows[0].timestamp < timestamp;
+}
+
 module.exports = {
     saveMessage,
     getChatHistory,
     saveUserChatroom,
     getUserChatrooms,
-    removeUserChatroom
+    removeUserChatroom,
+    isNewMessage
 };
