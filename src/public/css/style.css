@@ -1,9 +1,33 @@
 
 .my-message{
-    background-color: #abcdef; /* 원하는 색상으로 변경하세요 */
-  border-radius: 5px;
-  padding: 5px;
-  display: inline-block;
-  margin-bottom: 2px;
-} 
+    display: flex;
+    justify-content: flex-end;
+    background-color: aliceblue; /* 원하는 색상으로 변경하세요 */
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
+.other-message{
+    background-color: whitesmoke; /* 원하는 색상으로 변경하세요 */
+    border-radius: 5px;
+    padding: 5px;
+    display: inline-block;
+    margin-bottom: 2px;
+}
+
+.info-message{
+    background-color: snow; /* 원하는 색상으로 변경하세요 */
+    border-radius: 5px;
+    padding: 5px;
+    display: flex; /* flex로 변경 */
+    justify-content: center; /* 가로 방향으로 중앙 정렬 */
+    align-items: center; /* 세로 방향으로 중앙 정렬 */
+    margin-bottom: 2px;
+    width: auto;
+    font-size: 14px; /* 글자 크기를 변경하세요. 원하는 크기로 조절 가능합니다. */
+    /* box-sizing을 border-box로 설정하면 padding과 border가 너비에 포함됩니다. */
+    box-sizing: border-box;
+
+}
 

@@ -22,6 +22,7 @@ app.set("views",__dirname + "/views");
 app.use("/public", express.static(__dirname+ "/public"));
 app.use(express.json()); //JSON 형식의 본문 파싱
 app.use(express.urlencoded({extended: false}));
+app.use('/css', express.static(__dirname + '/public/css'));
 /*
 app.post("/",function(req,res){
     chatroomName = req.body.chatroom;
@@ -86,7 +87,7 @@ function countRoom(roomName){
 }
 
 wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}은 서버와 클라이언트의 소켓이 연결되었을 때 실행됩니다.
-    //socket["nickname"] = "Anon";
+    socket["nickname"] = nickname;
         socket.onAny((event) => {
             console.log(wsServer.sockets.adapter);
             console.log(`Socket Evnet:${event}`);
@@ -158,25 +159,17 @@ wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}�
     })*/
 
     socket.on("new_message", async (msg, room, timestamp, done) => {
-       /* const formattedTimestamp = new Date(timestamp).toISOString().slice(0, 19).replace('T', ' '); //시간수정 new Date(timestamp줘야함)*/
-        const formattedTimestamp = new Intl.DateTimeFormat('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'Asia/Seoul'
-        }).format(new Date(timestamp));
-        //await db.saveMessage(room, socket.nickname, msg, formattedTimestamp);
+        console.log("서버에서 시간 출력:", timestamp);
+       const formattedTimestamp = new Date(timestamp).toISOString().slice(0, 19).replace('T', ' '); //시간수정 new Date(timestamp줘야함)
+        console.log("서버에서 시간 출력(formatt:", formattedTimestamp);
+
+
         await db.saveMessage(room, socket.nickname, msg, formattedTimestamp);
 
         
         socket.to(room).emit("message", msg ,socket.nickname, timestamp);
        done();
-        /*const message = `${socket.nickname}: ${msg}`;
-        addMessageToHistory(room, message);
-        socket.to(room).emit("new_message", message); */
-        //done();
+
     });
 
     socket.on("nickname",(nickname) => (socket["nickname"] = nickname));
@@ -197,7 +190,7 @@ wsServer.on("connection", (socket) =>{  //웹소켓 연결 시 / (socket) =>{}�
 
 });
 
-const handleListen = () => console.log(`Listening on http://118.67.142.45:3000`);
+const handleListen = () => console.log(`Listening on http://118.67.142.45:3000`); //
 
 httpServer.listen(3000, handleListen);
 
