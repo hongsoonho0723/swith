@@ -4,7 +4,9 @@ import com.sportsmania.swith.domain.MatchBoardVO;
 import com.sportsmania.swith.domain.UserVO;
 import com.sportsmania.swith.dto.MatchBoardDTO;
 import com.sportsmania.swith.dto.UserDTO;
+import com.sportsmania.swith.mapper.ChatMapper;
 import com.sportsmania.swith.mapper.MatchBoardMapper;
+import com.sportsmania.swith.mapper.MessageMapper;
 import com.sportsmania.swith.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +24,8 @@ public class MatchBoardServicelmpl implements MatchBoardService {
 
     private final ModelMapper modelMapper;
     private final MatchBoardMapper matchBoardMapper;
-
+    private final MessageMapper messageMapper;
+    private final ChatMapper chatMapper;
 
  /*   @Override
     public List<MatchBoardDTO> getAll() {
@@ -78,6 +81,9 @@ public class MatchBoardServicelmpl implements MatchBoardService {
 
     @Override
     public void remove(int board_no) {
+        MatchBoardVO boardVO = matchBoardMapper.selectOne(board_no);
+        messageMapper.deleteMessage(boardVO.getTitle());
+        chatMapper.deleteChatroom(boardVO.getTitle());
         matchBoardMapper.delete(board_no);
     }
 
