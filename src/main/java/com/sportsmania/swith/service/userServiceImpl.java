@@ -100,4 +100,9 @@ public class userServiceImpl implements UserService {
         userMapper.deleteUser(userId);
     }
 
+    @Override
+    public void modifyPwd(UserDTO dto) {
+        userMapper.modifyPwd(dto);
+    }
+
 }
