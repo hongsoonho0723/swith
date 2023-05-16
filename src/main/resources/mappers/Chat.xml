@@ -18,6 +18,6 @@
     </select>
 
     <delete id="deleteChatroom">
-        delete from chatrooms where roomTitle = {#team_title}
+        delete from chatrooms where roomTitle = #{team_title}
     </delete>
 </mapper>
