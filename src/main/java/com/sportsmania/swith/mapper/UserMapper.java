@@ -42,4 +42,6 @@ public interface UserMapper {
 
     void deleteUser(String userId); // 회원탈퇴
 
+    void modifyPwd(UserDTO dto);
+
 }

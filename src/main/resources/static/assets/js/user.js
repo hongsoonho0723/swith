@@ -154,7 +154,22 @@ $(document).ready(function() {
                         success: function(response) {
                             if (response.duplicate) {
                                 // 인증 성공시 실행될 코드
-                                $('#find_pw').modal('show');
+                                var pwd = prompt("새로운 비밀번호를 입력하세요(8자리 이상)").toString();
+                                $.ajax({
+                                    type: 'POST', // 전송 방식
+                                    url: '/modify_pwd',
+                                    data: {pwd: pwd, userId:userId1},
+                                    success: function (response) {
+                                        if (response.check) {
+                                            // 인증 성공시 실행될 코드
+                                            alert("비밀번호가 변경되었습니다.");
+                                            window.location.href = '/members/signin';
+
+                                        } else {
+                                            alert('비밀번호 변경에 실패했습니다.');
+                                        }
+                                    }
+                                })
                             } else {
                                 alert('인증번호가 올바르지 않습니다.');
                             }
