@@ -10,4 +10,5 @@ import java.util.List;
 public interface ChatMapper {
     List<ChatroomsVO> selectChatrooms(String nickname);
     int selectMembers(String roomTitle);
+    void deleteChatroom(String team_title);
 }

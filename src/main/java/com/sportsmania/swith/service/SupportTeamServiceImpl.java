@@ -3,6 +3,7 @@ package com.sportsmania.swith.service;
 import com.sportsmania.swith.domain.StoryVO;
 import com.sportsmania.swith.domain.SupportTeamVO;
 import com.sportsmania.swith.dto.SupportTeamDTO;
+import com.sportsmania.swith.mapper.ChatMapper;
 import com.sportsmania.swith.mapper.MessageMapper;
 import com.sportsmania.swith.mapper.SupportTeamMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
     private final ModelMapper modelMapper;
     private final SupportTeamMapper supportTeamMapper;
     private final MessageMapper messageMapper;
-
+    private  final ChatMapper chatMapper;
     @Override
     public void register(SupportTeamDTO supportTeamDTO) {
         log.info("regi-supportTeamDto: " + supportTeamDTO);
@@ -92,6 +93,7 @@ public class SupportTeamServiceImpl implements SupportTeamService  {
     @Override
     public void remove(String team_title) {
         messageMapper.deleteMessage(team_title);
+        chatMapper.deleteChatroom(team_title);
         supportTeamMapper.delete(team_title);
     }
 

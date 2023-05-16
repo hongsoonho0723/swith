@@ -16,4 +16,8 @@
         </if>
     </where>
     </select>
+
+    <delete id="deleteChatroom">
+        delete from chatrooms where roomTitle = {#team_title}
+    </delete>
 </mapper>
