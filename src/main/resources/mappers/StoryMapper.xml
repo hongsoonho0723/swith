@@ -4,30 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sportsmania.swith.mapper.StoryMapper">
-    <resultMap id="storyResultMap" type="com.sportsmania.swith.domain.StoryVO">
-        <id column="story_no" property="story_no"/>
-        <result column="story_writer" property="story_writer"/>
-        <result column="user_type" property="user_type"/>
-        <result column="s_category" property="s_category"/>
-        <result column="title" property="title"/>
-        <result column="content" property="content"/>
-        <result column="image_main" property="image_main"/>
-        <result column="date" property="date"/>
-        <result column="clicks" property="clicks"/>
-        <result column="likeCount" property="likeCount"/>
-        <result column="score" property="score"/>
-        <result column="replyCount" property="replyCount"/>
-        <result column="team_title" property="team_title"/>
-        <result column="team_no" property="team_no"/>
-        <result column="team_title" property="team_title"/>
-    </resultMap>
 
     <insert id="insert" parameterType="com.sportsmania.swith.domain.StoryVO">
         insert into story (user_type,story_writer,s_category,title,content,image_main,team_no) values (#{user_type},#{story_writer},#{s_category},#{title},#{content},#{image_main}, #{team_no})
     </insert>
 
-    <select id="selectOne" resultMap="storyResultMap">
-        SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount, M.team_title, U.image_profile, U.nickname
+    <select id="selectOne" resultType="com.sportsmania.swith.domain.StoryVO">
+        SELECT S.*, COUNT(distinct L.id) AS likeCount, COUNT(distinct R.reply_no) AS replyCount, M.team_title, U.image_profile, U.nickname
         FROM story S
                  LEFT JOIN likes L ON S.story_no = L.story_no
                  LEFT JOIN story_reply R ON S.story_no = R.story_no
@@ -78,8 +61,8 @@
         </where>
     </sql>
 
-    <select id="selectList" resultMap="storyResultMap">
-        SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount, M.team_title, U.nickname
+    <select id="selectList" resultType="com.sportsmania.swith.domain.StoryVO">
+        SELECT S.*, COUNT(distinct L.id) AS likeCount, COUNT(distinct R.reply_no) AS replyCount, M.team_title, U.nickname
         FROM story S
         LEFT JOIN likes L ON S.story_no = L.story_no
         LEFT JOIN story_reply R ON S.story_no = R.story_no
@@ -96,8 +79,8 @@
         <include refid="searchCondition" />
     </select>
 
-    <select id="selectNextStory" resultMap="storyResultMap">
-        SELECT S.*, COUNT(DISTINCT L.userId) AS likeCount, COUNT(DISTINCT R.reply_no) AS replyCount, U.nickname
+    <select id="selectNextStory" resultType="com.sportsmania.swith.domain.StoryVO">
+        SELECT S.*, COUNT(distinct L.id) AS likeCount, COUNT(distinct R.reply_no) AS replyCount, U.nickname
         FROM story S
                  LEFT JOIN likes L ON S.story_no = L.story_no
                  LEFT JOIN story_reply R ON S.story_no = R.story_no
@@ -108,8 +91,8 @@
             LIMIT 1
     </select>
 
-    <select id="getPopularStories" resultMap="storyResultMap">
-        SELECT S.*, COUNT(L.story_no) AS likeCount, (S.clicks * 0.5 + COUNT(L.story_no) * 1) as score, U.nickname
+    <select id="getPopularStories" resultType="com.sportsmania.swith.domain.StoryVO">
+        SELECT S.*, (S.clicks * 0.5 + COUNT(distinct L.id) * 1) as score, U.nickname
         FROM story S
                  LEFT JOIN likes L ON S.story_no = L.story_no
                  LEFT JOIN user U ON S.story_writer = U.userId
@@ -118,10 +101,10 @@
             LIMIT 4
     </select>
 
-    <select id="select_user_teams" resultMap="storyResultMap">
+    <select id="select_user_teams" resultType="com.sportsmania.swith.domain.StoryVO">
         select team_no,team_title from supportteam_member where team_memberId = #{story_writer} and team_fixed=1;
     </select>
-    <select id="selectTeamStories" resultMap="storyResultMap">
+    <select id="selectTeamStories" resultType="com.sportsmania.swith.domain.StoryVO">
     SELECT S.*, COUNT(L.story_no) AS likeCount, COUNT(R.story_no) AS replyCount, U.nickname
     FROM story S
     LEFT JOIN likes L ON S.story_no = L.story_no
