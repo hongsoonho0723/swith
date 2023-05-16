@@ -69,5 +69,9 @@
         delete from user WHERE userId = #{userId};
     </delete>
 
+
+    <update id="modifyPwd" parameterType="com.sportsmania.swith.dto.UserDTO">
+        UPDATE user SET pwd = #{pwd} where userId = #{userId}
+    </update>
 </mapper>
 

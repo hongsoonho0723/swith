@@ -39,4 +39,6 @@ public interface UserService {
     List<BoardDTO> activeList(String nickname); // 활동내역
 
     void deleteUser(String userId); // 회원탈퇴
+
+    void modifyPwd(UserDTO dto);
 }

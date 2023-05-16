@@ -1,12 +1,14 @@
 package com.sportsmania.swith.controller;
 
 import com.sportsmania.swith.domain.UserVO;
+import com.sportsmania.swith.dto.UserDTO;
 import com.sportsmania.swith.service.EmailService;
 import com.sportsmania.swith.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -25,6 +27,9 @@ public class CheckController {
 
     @Autowired
     private CacheManager cacheManager;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/check-email")
     public Map<String, Boolean> checkEmailDuplicate(@RequestParam("email") String email) {
@@ -93,6 +98,18 @@ public class CheckController {
         }
 
         log.info(code);
+        return response;
+    }
+
+    @PostMapping("/modify_pwd")
+    public Map<String, Boolean> modi_pwd(@RequestParam("pwd") String pwd,@RequestParam("userId")String userId){
+        Map<String, Boolean> response = new HashMap<>();
+        UserDTO dto= new UserDTO();
+        dto.setPwd(bCryptPasswordEncoder.encode(pwd));
+        dto.setUserId(userId);
+        userService.modifyPwd(dto);
+        response.put("check",true);
+
         return response;
     }
 }
