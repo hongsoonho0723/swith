@@ -38,12 +38,12 @@ public class ChatController {
 
 
 
-    @CrossOrigin(origins = "http://118.67.142.45:3000")
+    /*@CrossOrigin(origins = "http://118.67.142.45:3000")
     @GetMapping("/teams/userInfo")
     public UserDTO getUser(Authentication authentication){
          String userId = authentication.getName();
         UserDTO userDTO = userService.findByUsername(userId);
         log.info("userId cors");
         return userDTO;
-    }
+    }*/
 }

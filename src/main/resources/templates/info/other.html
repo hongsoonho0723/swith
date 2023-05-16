@@ -243,7 +243,8 @@
                         <div class="w-100 border rounded-3 p-4"
                              style="max-width: 212px; display: flex;justify-content: center; flex-direction: column; height: 250px;">
                             <h5 style="flex: 1;text-align: center;">프로필 이미지</h5>
-                            <img style="flex: 7" th:src="${other.image_profile}">
+                            <img th:if="${other.image_profile} != null" style="flex: 7" th:src="|/img/${other.image_profile}|">
+                            <img th:if="${other.image_profile} == null" style="flex: 7" src="../../assets/img/swith/free-icon-user-profile-3364044.png">
 
                             <i class="ai-airbnb" style="text-align: center;padding-bottom: 10px;font-weight: bold;"
                                th:text="${other.nickname}">닉네임</i>
@@ -265,35 +266,30 @@
                     <table class="table mb-0" style="border-spacing: 10px;border-collapse: separate;">
                         <tr>
                             <td class="border-0 text-muted py-1 px-0">닉네임</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.nickname}">아무개</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.nickname}"></td>
                         </tr>
                         <tr>
                             <td class="border-0 text-muted py-1 px-0">활동지역</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.region}">서울</td>
-                        </tr>
-                        <tr>
-                            <td class="border-0 text-muted py-1 px-0">소통</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3">이메일</td>
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.region}"></td>
                         </tr>
                         <tr>
                             <td class="border-0 text-muted py-1 px-0">이메일</td>
                             <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.email}">
-                                example@gmail.com
                             </td>
                         </tr>
                         <tr>
                             <td class="border-0 text-muted py-1 px-0">관심종목</td>
-                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.preference}">탁구 배드민턴
-                                축구
+                            <td class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.preference}">
                             </td>
+                        </tr>
+                        <tr>
+                            <td class="border-0 text-muted py-1 px-0">소개글</td>
+                            <td th:if="${other.introduction} != null"class="border-0 text-dark fw-medium py-1 ps-3" th:text="${other.introduction}">아직 소개글이 없습니다.</td>
+                            <td th:if="${other.introduction} == null" class="border-0 text-dark fw-medium py-1 ps-3">아직 소개글이 없습니다.</td>
                         </tr>
 
                     </table>
-                    <p style="padding-top: 10px; font-weight: bold;">소개글</p>
-                    <p th:text="${other.introduction}"></p>
-                    <p style="padding-top: 10px; font-weight: bold;">소속팀</p>
-                    <input type="text" id="textbox" name="name" style="border-radius: 10px;height: 150px;width: 400px;"
-                           maxlength="100" placeholder="소속팀 소개 이미지 및 링크">
+
                 </div>
             </section>
         </div>
