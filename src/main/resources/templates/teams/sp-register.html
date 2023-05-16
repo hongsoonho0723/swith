@@ -33,7 +33,7 @@
     <!-- Load the CKEditor library --> <!-- CKEditor5 사용하기 위한 CDN -->
     <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
     <!-- 이미지처리를 위한 js 파일 -->
-    <script src="../assets/js/upload.js"></script>
+    <script src="../assets/js/imgfile.js"></script>
     <style>
         .ck-editor__editable[role="textbox"] {
             /* editing area */
@@ -518,10 +518,8 @@
         <!-- File input -->
     <form id="formdata">
         <div class="mb-3 py-3">
-
             <div class="rounded-2 mb-3">
-                <img id="preview-image" style="width: 500px; height: 300px;  "
-                     src="../assets/img/swith/swith-picture.png">
+                <img id="preview-image" style="width: 500px; height: 300px;  " src="../assets/img/swith/swith-picture.png">
             </div>
             <input type="file" id="input-image" name="input-image" onchange="readImage(this);">
             <!--<input class="form-control" type="file" id="input-image" onchange="readImage(this);">-->
